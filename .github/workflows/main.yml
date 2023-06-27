@@ -19,6 +19,6 @@ jobs:
           proxy_password: ${{ secrets.PROXY_PASSWORD }}
           node-version: 16.x
           npm-version: 8.19.4
-          run: cd /var/www/procon34_CYBER_WARS_frontend/
-          run: git pull origin main
-          run: npm install
+        run: cd /var/www/procon34_CYBER_WARS_frontend/
+        run: git pull origin main
+        run: npm install
