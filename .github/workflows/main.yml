@@ -19,5 +19,5 @@ jobs:
           script: |
             cd /var/www/procon34_CYBER_WARS_frontend/
             git pull origin main
-            source ~/.bashrc
+            source ~/.zshrc
             npm install
