@@ -18,8 +18,6 @@ jobs:
           proxy_host: ${{ secrets.PROXY_HOST }}
           proxy_username: ${{ secrets.USERNAME }}
           proxy_password: ${{ secrets.PROXY_PASSWORD }}
-          node-version: 16.x
-          npm-version: 8.19.4
           script: |
             cd /var/www/procon34_CYBER_WARS_frontend/
             git pull origin main
