@@ -11,6 +11,7 @@
     "start": "json-server --watch db.json --port 3001"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.2.0",
     "@uiw/react-codemirror": "^4.21.9",
     "axios": "^1.4.0",
     "framer-motion": "^10.15.1",
