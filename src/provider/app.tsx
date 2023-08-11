@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom"
 import { RecoilRoot } from "recoil";
+import { Suspense } from 'react';
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -7,8 +8,10 @@ type AppProviderProps = {
 
 export const AppProvider= ({children}: AppProviderProps) => {
   return(
-    <RecoilRoot>
-      <BrowserRouter>{children}</BrowserRouter>      
-    </RecoilRoot>
+    <Suspense fallback={<div>loading</div>}>
+      <RecoilRoot>
+        <BrowserRouter>{children}</BrowserRouter>      
+      </RecoilRoot>      
+    </Suspense>
   );
 };
