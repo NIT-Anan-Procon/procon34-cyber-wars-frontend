@@ -2,8 +2,8 @@
 export const SIGNUP_USER_URL  = '/users';
 export const USER_NAME_URL    = '/users/name';
 export const USER_PASSWORD_URL= '/users/password';
-export const SIGHIN_USER_URL  = '/users/credentials';
-export const SIGHOUT_USER_URL = '/users/credentials';
+export const SIGNIN_USER_URL  = '/users/credentials';
+export const SIGNOUT_USER_URL = '/users/credentials';
 
 //ルーム関連のエンドポイント
 export const CREATE_ROOM_URL  = '/rooms';
