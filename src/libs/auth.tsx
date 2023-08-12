@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
 
-import { authState } from '@/atoms';
+import { isAuthState } from '@/atoms';
 import { AuthUser } from '@/features/auth';
 import { 
   SIGNUP_USER_URL, 
@@ -16,15 +16,19 @@ interface UseAuth {
 }
 
 export const useAuth= (): UseAuth => {
-  const setIsAuthenticated= useSetRecoilState<boolean>(authState);
+  const setIsAuthenticated= useSetRecoilState<boolean>(isAuthState);
   
   async function authServerCall(
     urlEndpoint: string,
     data: AuthUser,
   ): Promise<boolean> {
     try {
-      const response= await axios.post(urlEndpoint, data);
-      return response.data;
+      const response= await axios.post(urlEndpoint, data, {
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+      });
+      return true;
     }
     catch (error) {
       console.log('error');
