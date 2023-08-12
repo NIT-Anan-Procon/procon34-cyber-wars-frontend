@@ -2,9 +2,25 @@ import { forwardRef } from 'react';
 import styled         from 'styled-components';
 
 import { Loading } from '.';
+import { colors } from '@/styles';
 
 const ButtonStyle= styled.button`
-  width: 100%;
+  margin-top   : 1.75rem;
+  width        : 100%;
+  height       : 4.75rem;
+  font-size    : 1.75rem;
+  font-weight  : 700;
+  color        : black;
+  border-radius: 0.8rem;
+  border       : 0;
+  outline      : 0;
+  background: ${colors.secondary};
+
+  &:hover {
+    color     : ${colors.bgLighter}; 
+    background: ${colors.primary};
+    transition: 0.5s;
+  }
 `;
 
 type IconProps =

@@ -1,27 +1,48 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { FieldWrapper, FieldWrapperPassThroughProps } from "./FieldWrapper";
-import { InputSize } from '@/';
 
-type InputFieldProps= FieldWrapperPassThroughProps & {
-  type?: 'text' | 'password';
-  size?: InputSize
-  registration: Partial<UseFormRegisterReturn>;
-}
+import { FieldWrapper, FieldWrapperPassThroughProps } from './FieldWrapper';
+import { InputSize, InputSizeProps } from '@/styles/dimensions';
+import { colors } from '@/styles';
 
-const InputFeildStyle= styled.input`
-  
+type InputFieldProps = FieldWrapperPassThroughProps & {
+	id   : string;
+	type?: 'text' | 'password';
+	size : InputSizeProps;
+	registration?: Partial<UseFormRegisterReturn>;
+};
+
+const InputFieldStyle = styled.input<InputFieldProps>`
+  width        : 100%;
+	line-height  : 2.75rem;
+	font-size    : 1.75rem;
+  border-radius: 0.8rem;
+  border       : 2px solid rgba(55, 65, 81, 1);
+  outline      : 0;
+  background   : #1E1E1E;
+  padding      : 0.75rem 1.5rem;
+  color        : rgba(243, 244, 246, 1);
+
+	&:focus {
+		border-color: ${colors.primary};
+		transition: 0.5s;
+	}
 `;
 
-export const InputField= (props: InputFieldProps) => {
-  const { type, label, registration, error } = props;
+export const InputField = (props: InputFieldProps) => {
+	const { id, type, label, size, error, registration } = props;
 
-  return (
-    <FieldWrapper label={label} error={error} >
-      <InputFeildStyle
-        type={type}
-        {...registration}
-      />
-    </FieldWrapper>
-  );
+	return (
+		<FieldWrapper
+			label= { label }
+			error= { error }
+		>
+			<InputFieldStyle
+				id  = { id }
+				type= { type }
+				size= { size }
+				{ ...registration }
+			/>
+		</FieldWrapper>
+	);
 };

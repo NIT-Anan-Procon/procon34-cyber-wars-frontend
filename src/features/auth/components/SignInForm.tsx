@@ -1,35 +1,47 @@
 import styled          from "styled-components";
-import { Link }        from "react-router-dom";
 import { useForm }     from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useAuth }               from "@/libs/auth";
 import { FormTitle, InputField } from "@/components/Form";
-import { Button }                from "@/components/Elements";
+import { Button, Link }          from "@/components/Elements";
 import { AuthUser, FormSchema }  from "..";
-
+import { colors }                from "@/styles";
 
 type SignInFormProps = {
 	onSuccess: () => void;
 };
 
 const FormStyle= styled.form`
-  width         : clamp(40rem, 40vw, 60rem);
-  height        : 80%;
+  width         : clamp(40rem, 40vw, 100%);
+  height        : calc(85% - 2rem);
+  padding       : 4rem;
+  position      : relative;
   display       : flex;
   flex-direction: column;
   align-items   : center;
   row-gap       : 5rem;
-  background    : white;
+  background    : #2D2D2D;
+  border-radius : 2.75rem;
+  box-shadow    : 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
 `;
 
 const ContentAreaWrapper= styled.div`
   width         : 100%;
-  padding       : 0% 5% 0% 5%;
+  margin-top    : 3rem;
   display       : flex;
   flex-direction: column;
   align-items   : center;
-  row-gap       : 5rem;
+  row-gap       : 2.75rem;
+`;
+
+const NavDiscription= styled.p`
+  position    : absolute;
+  bottom      : 20%;
+  line-height : 2rem;
+  font-size   : 1.5rem;
+  color       : ${colors.secondary};
+  word-spacing: 0.35rem;
 `;
 
 export const SignInForm = ({onSuccess}: SignInFormProps) => {
@@ -72,10 +84,10 @@ export const SignInForm = ({onSuccess}: SignInFormProps) => {
         />
         <Button type="submit">Sign In</Button>        
       </ContentAreaWrapper>
-      <p>
+      <NavDiscription >
         Don't have account? 
         <Link to='../sign-up'>Sign up</Link>
-      </p>
+      </NavDiscription>
     </FormStyle>
   );
 };
