@@ -7,7 +7,7 @@ export const SignUp= () => {
   const navigate= useNavigate();
 
   return (
-    <AuthPageLayout>
+    <AuthPageLayout title='Sign up for your account'>
       <SignUpForm onSuccess={() => navigate('/cyberwars')} />
     </AuthPageLayout>
   );
