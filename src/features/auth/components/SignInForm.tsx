@@ -57,7 +57,6 @@ export const SignInForm = ({onSuccess}: SignInFormProps) => {
   });
 
   const onSubmit = async(data: AuthUser) => {
-    console.log("Submitted Data", data);
 		await isSignIn(data);
 		onSuccess();
   };
@@ -91,62 +90,3 @@ export const SignInForm = ({onSuccess}: SignInFormProps) => {
     </FormStyle>
   );
 };
-// import styled from 'styled-components';
-
-// import {AuthUser, FormSchema} from '..';
-// import {useAuth} from '@/libs/auth';
-// import {Form, InputField} from '@/components/Form';
-// import { Button } from '@/components/Elements';
-// import { Link } from 'react-router-dom';
-
-// type SignInFormProps = {
-// 	onSuccess: () => void;
-// };
-// export const SignInForm = ({onSuccess}: SignInFormProps) => {
-// 	const { isSignIn } = useAuth();
-
-// 	const submitData= async(values: AuthUser): Promise<void> => {
-// 		console.log(values);
-// 		await isSignIn(values);
-// 		onSuccess();
-// 	}
-
-// 	return (
-// 		<div>
-// 			<Form<AuthUser,  typeof FormSchema>		
-// 				onSubmit={submitData}
-// 				schema={FormSchema}
-// 			>
-// 				{({register, formState}) => (
-// 					<>
-// 						<InputField
-// 							id= 'userName'
-// 							type='text'
-// 							label='ユーザ名'
-// 							size='medium'
-// 							error={formState.errors['userName']}
-// 							registration={register('userName')}
-// 						/>
-// 						<InputField
-// 							id= 'password'
-// 							type='password'
-// 							label='パスワード'
-// 							size='medium'
-// 							error={formState.errors['password']}
-// 							registration={register('password')}
-// 						/>
-// 						<div>
-//               <button type='submit'>signin</button>
-//             </div>
-// 					</>
-// 				)}
-// 			</Form>
-//       <div>
-//         <Link to='../sign-up' >
-//           Sign up
-//         </Link>
-//       </div>
-// 		</div>
-// 	);
-// };
-
