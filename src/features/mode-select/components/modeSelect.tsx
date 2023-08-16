@@ -1,54 +1,27 @@
 import { RadioButton } from "@/components/Elements/RadioButton";
-import { useValueChange } from "@/hooks/useValueChange";
-import { InputField } from '@/components/Form/InputField';
+import { useAtomValueChange } from '@/hooks/useAtomValueChange';
+import { SelectedModeValueState } from "@/atoms";
+import { MODES } from "..";
 
 export const ModeSelect= () => {
-  const [ modeSelected, updateModeSelected ]= useValueChange('train');
-  const [ roomSelected, updateRoomSelected ]= useValueChange('create_room');
+  const [ modeSelected, updateModeSelected ]= useAtomValueChange(SelectedModeValueState);
 
   return (
     <>
       <RadioButton 
+        id='train'
         label='訓練モード' 
-        value='train'
+        value={MODES.TRAIN_MODE}
         selected={modeSelected}
         onChange={updateModeSelected}
       />
       <RadioButton
+        id='match'
         label='対戦モード'
-        value='match'
+        value={MODES.MATCH_MODE}
         selected={modeSelected}
         onChange={updateModeSelected}
       />
-      {
-        modeSelected === 'match' 
-        ?
-          <>
-            <RadioButton 
-              label=' ルーム作成' 
-              value='create_room'
-              selected={roomSelected}
-              onChange={updateRoomSelected}
-            />
-            <RadioButton
-              label='ルーム参加'
-              value='join_room'
-              selected={roomSelected}
-              onChange={updateRoomSelected}
-            />           
-          </>
-        : undefined
-      }
-      {
-        roomSelected === 'join_room' 
-        ?
-          <InputField 	
-            id='room_id'
-            type='text'
-            size='medium'
-        />
-        : undefined
-      }
     </>
   );
 }
