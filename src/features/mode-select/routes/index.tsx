@@ -1,7 +1,8 @@
 import { Landing, NotFound } from "@/features/views";
 import { Route, Routes } from "react-router-dom";
-import { ModeSelection } from "./ModeSelection";
+
 import { MATCH_MODE_PATH, TRAIN_MODE_PATH } from "../types";
+import { ModeSelection } from './ModeSelection';
 
 export const ModeSelectionRoutes= () => {
   return (
