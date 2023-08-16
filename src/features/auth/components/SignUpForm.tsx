@@ -2,7 +2,7 @@ import styled          from "styled-components";
 import { useForm }     from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useAuth }               from "@/libs/auth";
+import { useAuth }               from "@/hooks/useAuth";
 import { FormTitle, InputField } from "@/components/Form";
 import { Button, Link }          from "@/components/Elements";
 import { AuthUser, FormSchema }  from "..";
