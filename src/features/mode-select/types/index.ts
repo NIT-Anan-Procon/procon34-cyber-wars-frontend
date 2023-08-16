@@ -7,5 +7,5 @@ export const ROOM_MODES= {
   JOIN_ROOM  : 'join_room'
 };
 
-export const TRAIN_MODE_PATH= '/train/*';
-export const MATCH_MODE_PATH= '/match/*';
+export const TRAIN_MODE_PATH= '/train';
+export const MATCH_MODE_PATH= '/match';
