@@ -28,7 +28,7 @@ const NavDiscription= styled.p`
   word-spacing: 0.35rem;
 `;
 
-export const SignInForm = ({onSuccess}: SignInFormProps) => {
+export const SignUpForm = ({onSuccess}: SignInFormProps) => {
 	const { isSignUp }= useAuth();
 
   return (
