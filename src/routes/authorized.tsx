@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { lazyImport } from '@/utils/lazyImport';
 import { NotFound } from '@/features/views';
 
-const { ModeSelection } = lazyImport(() => import('@/features/views'), 'ModeSelection');
+const { ModeSelectionRoutes } = lazyImport(() => import('@/features/mode-select'), 'ModeSelectionRoutes');
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ export const authorizedRoutes = [
     path: '/cyberwars',
     element: <App />,
     children: [
-      { path: '',                element: <ModeSelection /> },
+      { path: '/*', element: <ModeSelectionRoutes /> },
       // { path: '/training-mode/*',   element: <TrainingMode /> },
       // { path: '/stand-by',        element: <StandBy /> },
       // { path: '/attack-phase',    element: <AttackPhase /> },
