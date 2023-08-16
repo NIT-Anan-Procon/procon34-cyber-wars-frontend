@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 import { FieldWrapper, FieldWrapperPassThroughProps } from './FieldWrapper';
-import { InputSize, InputSizeProps } from '@/styles/dimensions';
+import { InputSizeProps } from '@/styles/dimensions';
 import { colors } from '@/styles';
 
 type InputFieldProps = FieldWrapperPassThroughProps & {
