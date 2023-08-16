@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 
 import { Head } from "@/components/Head";
-import { Layout, ModeSelect, RoomSelect, SelectionGroup } from "../components";
+import { SelectionLayout, ModeSelect, RoomModeSelect, SelectionGroup } from "../components";
 import { Button } from "@/components/Elements";
 import { SelectedModeValueState } from "@/atoms";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ import { MATCH_MODE_PATH, MODES, TRAIN_MODE_PATH } from "../types";
 
 const LogoHeader= styled.div`
   width : 100%;
+  height: 15rem;
   background: grey;
 `;
 
@@ -29,23 +30,22 @@ export const ModeSelection= () => {
   return (
     <>
       <Head title='モード選択' />
-      <Layout>
+      <SelectionLayout>
         <LogoHeader>Logo</LogoHeader>
-        <>userName</>
-        <SelectionGroup>
-          <ModeSelect></ModeSelect>
+        <SelectionGroup title={'モード選択'} >
+          <ModeSelect />
         </SelectionGroup>
         { selectedMode === MODES.MATCH_MODE
           ?
-            <SelectionGroup>
-              <RoomSelect></RoomSelect>
+            <SelectionGroup title={'ルーム選択'}>
+              <RoomModeSelect />
             </SelectionGroup>        
           : undefined  
         }
         <Button onClick={handleModeNavigate}>
           Start
         </Button>
-      </Layout>
+      </SelectionLayout>
     </>
   );
 };

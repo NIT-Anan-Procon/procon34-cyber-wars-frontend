@@ -7,6 +7,7 @@ const GroupLayout= styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 const ModeContentWrapper= styled.div`
@@ -23,6 +24,7 @@ const ModeTitle= styled.h1`
 `;
 
 const InputsLayout= styled.div`
+  position: relative;
   width  : 100%;
   height : 100%;
   display: flex;
