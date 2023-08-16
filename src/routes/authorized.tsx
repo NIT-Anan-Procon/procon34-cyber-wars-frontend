@@ -19,7 +19,7 @@ export const authorizedRoutes = [
     path: '/cyberwars',
     element: <App />,
     children: [
-      { path: '/*', element: <ModeSelectionRoutes /> },
+      { path: '', element: <ModeSelectionRoutes /> },
       // { path: '/training-mode/*',   element: <TrainingMode /> },
       // { path: '/stand-by',        element: <StandBy /> },
       // { path: '/attack-phase',    element: <AttackPhase /> },
