@@ -1,4 +1,2 @@
-export const AUTHENTICATED_ROUTE= {
-  APP_ROUTE: 'cyberwars',
-  AUTH_ROUTE: 'auth/sign-in',
-}
+export const APP_ROUTE= 'cyberwars';
+export const AUTH_ROUTE= 'auth/sign-in';
