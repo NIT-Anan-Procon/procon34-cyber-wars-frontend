@@ -3,7 +3,7 @@ import styled   from "styled-components";
 import { SelectionCard } from "../components";
 import { Button, Header } from "@/components/Elements";
 import { SelectedModeValueState } from "@/atoms";
-import { CARD_DESCRIPTION, MODES } from "..";
+import { CARD_DESCRIPTION, MATCH_MODE_PATH, MODES, TRAIN_MODE_PATH } from "..";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 
@@ -63,9 +63,9 @@ export const ModeSelection= () => {
 
   const handleNavMode= () => {
     if(activeTab == MODES.TRAIN_MODE) {
-      navigate('../train')
+      navigate(TRAIN_MODE_PATH)
     } else {
-      navigate('../match')
+      navigate(MATCH_MODE_PATH)
     }
   }
 
