@@ -73,9 +73,9 @@ export const Landing = () => {
   /*No match locationのエラーが出るが、原因はリロードしてしまうとRecoilの状態が初期化されてしまうため*/
   const handleStart= () => {
     if(isAuthenticated) {
-      navigate('/cyberwars');
+      navigate('cyberwars');
     } else {
-      navigate('/auth/sign-in');
+      navigate('auth/sign-in');
     }
   }
 
