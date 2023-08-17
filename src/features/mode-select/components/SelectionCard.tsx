@@ -17,8 +17,8 @@ const ModeContentWrapper= styled.div`
 
 const ModeTitle= styled.h1`
   width: 100%;
-  line-height: 3rem;
-  font-size: 1.5rem;
+  line-height: 4rem;
+  font-size: 2rem;
   color: ${colors.secondary};
   border-bottom: 3px solid ${colors.secondary};
 `;
@@ -36,11 +36,12 @@ const InputsLayout= styled.div`
 
 type SelectionGroupProps= {
   title: string;
+  description: string;
   children: React.ReactNode;
 }
 
 
-export const SelectionGroup= ({title, children}: SelectionGroupProps) => {
+export const SelectionCard= ({title, description, children}: SelectionGroupProps) => {
   return (
     <GroupLayout>
       <ModeContentWrapper>
