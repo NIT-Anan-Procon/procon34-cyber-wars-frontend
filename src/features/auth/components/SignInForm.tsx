@@ -1,10 +1,12 @@
 import styled          from "styled-components";
 
-import { useAuth }               from "@/hooks/useAuth";
 import { Form, FormTitle, InputField } from "@/components/Form";
 import { Button, Link }          from "@/components/Elements";
 import { AuthUser, FormSchema }  from "..";
 import { colors }                from "@/styles";
+import { useSetRecoilState } from "recoil";
+import { UserStatusFamily } from "@/atoms/userStates";
+import { useSignIn } from "../api/signIn";
 
 type SignInFormProps = {
 	onSuccess: () => void;
@@ -29,13 +31,15 @@ const NavDiscription= styled.p`
 `;
 
 export const SignInForm = ({onSuccess}: SignInFormProps) => {
-	const { isSignIn }= useAuth();
+	const { isSignIn }= useSignIn();
+  // const setUserStatus= useSetRecoilState();
 
   return (
     <>
     <Form<AuthUser, typeof FormSchema>
       onSubmit={async(data:AuthUser) => {
-        await isSignIn(data);
+        isSignIn(data);
+        // setUserStatus();
         onSuccess();
       }} 
       schema={FormSchema}

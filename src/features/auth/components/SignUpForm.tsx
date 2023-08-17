@@ -1,10 +1,10 @@
 import styled          from "styled-components";
 
-import { useAuth }               from "@/hooks/useAuth";
 import { Form, FormTitle, InputField } from "@/components/Form";
 import { Button, Link }          from "@/components/Elements";
 import { AuthUser, FormSchema }  from "..";
 import { colors }                from "@/styles";
+import { useSignUp } from "../api/signUp";
 
 type SignInFormProps = {
 	onSuccess: () => void;
@@ -29,7 +29,7 @@ const NavDiscription= styled.p`
 `;
 
 export const SignUpForm = ({onSuccess}: SignInFormProps) => {
-	const { isSignUp }= useAuth();
+	const { isSignUp }= useSignUp();
 
   return (
     <>
