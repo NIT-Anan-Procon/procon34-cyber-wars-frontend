@@ -38,7 +38,7 @@ export const SignInForm = ({onSuccess}: SignInFormProps) => {
     <>
     <Form<AuthUser, typeof FormSchema>
       onSubmit={async(data:AuthUser) => {
-        isSignIn(data);
+        await isSignIn(data);
         // setUserStatus();
         onSuccess();
       }} 
