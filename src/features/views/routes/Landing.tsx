@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { isAuthState } from "@/atoms";
 import { Head } from "@/components/Head";
 import { colors } from "@/styles";
-import { AUTHENTICATED_ROUTE } from "../types/authenticatedRoute";
+import { APP_ROUTE, AUTH_ROUTE } from "../types/authenticatedRoute";
 
 const LandingContainer= styled.div`
   width: 100%;
@@ -73,9 +73,9 @@ export const Landing = () => {
 
   const handleStart= () => {
     if(isAuthenticated) {
-      navigate(AUTHENTICATED_ROUTE.APP_ROUTE);
+      navigate(APP_ROUTE);
     } else {
-      navigate(AUTHENTICATED_ROUTE.AUTH_ROUTE);
+      navigate(AUTH_ROUTE);
     }
   }
 
