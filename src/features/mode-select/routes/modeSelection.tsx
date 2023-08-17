@@ -1,9 +1,10 @@
 import { Head } from "@/components/Head";
-import styled from "styled-components";
-import { ModeSelect } from "../components";
-import { Button } from "@/components/Elements";
-import { useAtomValueChange } from "@/hooks/useAtomValueChange";
+import styled   from "styled-components";
+import { SelectionCard } from "../components";
+import { Button, Header } from "@/components/Elements";
 import { SelectedModeValueState } from "@/atoms";
+import { CARD_DESCRIPTION, MODES } from "..";
+import { useRecoilState } from "recoil";
 
 const SelectionGrid= styled.div`
   height : 100%;
@@ -11,21 +12,39 @@ const SelectionGrid= styled.div`
   padding: 3rem 20%;
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 10rem 1fr 1fr;
+  grid-template-rows   : 10rem 1fr 1fr;
+  column-gap: 5rem;
+  row-gap   : 5rem;
 `;
 
-const TitleHeader= styled.div`
-  grid-row: 1;
-  grid-column: 1 / span 2;
+const HeaderContainer= styled.div`
+  grid-row       : 1;
+  grid-column    : 1 / span 2;
+  width          : 100%;
+  height         : 100%;
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+`;
+
+const SelectionContainer= styled.div`
   width: 100%;
-  background:grey;
+  display: flex;
+  justify-content: center;
 `;
 
-const SelectionGridCard= styled.section`
+const TrainSelectionCard= styled(SelectionCard)`
+  grid-column: 1;
+  grid-row   : 1;
+  background: ${({ active }) => (active ? '#020202' : 'white')};
+  border-color: ${({ active }) => (active ? '#999' : '#ccc')};
+`;
+
+const MatchSelectionCard= styled(SelectionCard)`
   grid-column: 1;
   grid-row   : 2;
-  height: 30rem;
-  background:grey;
+  background: ${({ active }) => (active ? '#020202' : 'white')};
+  border-color: ${({ active }) => (active ? '#999' : '#ccc')};
 `;
 
 const ButtonGridStyle= styled(Button)`
@@ -34,22 +53,42 @@ const ButtonGridStyle= styled(Button)`
 `;
 
 export const ModeSelection= () => {
-  const [ modeSelected, updateModeSelected ]= useAtomValueChange(SelectedModeValueState);
+  const [activeTab, setActiveTab] = useRecoilState(SelectedModeValueState);
 
+  const handleSelectMode = (e: React.MouseEvent<HTMLDivElement>) => {
+    setActiveTab(e.currentTarget.id);
+  };
 
   return (
     <>
       <Head title='モード選択画面' />
       <SelectionGrid>
-        <Header>
-          モード選択
-        </Header>
-        <SelectionGridCard>
-          <ModeSelect />
-        </SelectionGridCard>
-        <SelectionGridCard>
+        <HeaderContainer>
+          <Header title='モード選択'/>
+        </HeaderContainer>
+
+        <SelectionContainer>
+          <TrainSelectionCard 
+            id= {MODES.TRAIN_MODE}
+            title='訓練モード'
+            imgPath=''
+            description={ CARD_DESCRIPTION.TRAIN_DESCRIPTION}
+            active= {activeTab === MODES.TRAIN_MODE}
+            onClick={handleSelectMode}
+          />
+        </SelectionContainer>  
+
+        <SelectionContainer>
+          <MatchSelectionCard 
+            id={MODES.MATCH_MODE}
+            title='対戦モード' 
+            imgPath=''
+            description={ CARD_DESCRIPTION.MATCH_DESCRIPTION }
+            active= {activeTab === MODES.MATCH_MODE}
+            onClick={handleSelectMode}
+          />            
+        </SelectionContainer>   
           
-        </SelectionGridCard>
         <ButtonGridStyle>START</ButtonGridStyle>
       </SelectionGrid>    
     </>
