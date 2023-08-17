@@ -1,4 +1,6 @@
+import { Button } from '@/components/Elements';
 import { colors } from '@/styles';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledCard= styled.div`
@@ -12,7 +14,6 @@ const StyledCard= styled.div`
   box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(6px);
   border-radius: 17px;
-  cursor: pointer;
   transition: all 0.5s;
 `;
 
@@ -20,7 +21,7 @@ const CardContainer= styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 15% 1fr 30%;
+  grid-template-rows: 10% 1fr 20% 15%;
 `;
 
 const CardTitle= styled.h1`
@@ -51,24 +52,24 @@ type SelectionCardProps= {
   id: string;
   title: string;
   imgPath?: string | undefined;
-  description: string;  
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
-  active?: boolean;
+  description: string; 
+  buttonTitle: string; 
+  navRoute: string;
 }
 
 export const SelectionCard= (
   { 
-    id,
     title, 
     imgPath, 
     description,
-    onClick, 
-    active,
-    ...props 
+    buttonTitle,
+    navRoute,
   }: SelectionCardProps
 ) => {
+  const navigate= useNavigate();
+
   return (
-    <StyledCard id={id} onClick={onClick} {...props} >
+    <StyledCard >
       <CardContainer>
         <CardTitle>{title}</CardTitle>
         <ImageContainer>
@@ -76,6 +77,7 @@ export const SelectionCard= (
           <img src={imgPath} />
         </ImageContainer>
         <CardDescription>{description}</CardDescription>
+        <Button onClick={() => navigate(navRoute)}>{buttonTitle}</Button>
       </CardContainer>
     </StyledCard>
   );
