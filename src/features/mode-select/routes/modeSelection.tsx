@@ -1,51 +1,57 @@
-import styled from "styled-components";
-import { useRecoilValue } from "recoil";
-
 import { Head } from "@/components/Head";
-import { SelectionLayout, ModeSelect, RoomModeSelect, SelectionGroup } from "../components";
+import styled from "styled-components";
+import { ModeSelect } from "../components";
 import { Button } from "@/components/Elements";
+import { useAtomValueChange } from "@/hooks/useAtomValueChange";
 import { SelectedModeValueState } from "@/atoms";
-import { useNavigate } from "react-router-dom";
-import { MATCH_MODE_PATH, MODES, TRAIN_MODE_PATH } from "../types";
 
+const SelectionGrid= styled.div`
+  height : 100%;
+  width  : 100%;
+  padding: 3rem 20%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 10rem 1fr 1fr;
+`;
 
-const LogoHeader= styled.div`
-  width : 100%;
-  height: 15rem;
-  background: grey;
+const TitleHeader= styled.div`
+  grid-row: 1;
+  grid-column: 1 / span 2;
+  width: 100%;
+  background:grey;
+`;
+
+const SelectionGridCard= styled.section`
+  grid-column: 1;
+  grid-row   : 2;
+  height: 30rem;
+  background:grey;
+`;
+
+const ButtonGridStyle= styled(Button)`
+  grid-column: 2;
+  grid-row   : 3;
 `;
 
 export const ModeSelection= () => {
-  const navigate= useNavigate();
-  const selectedMode= useRecoilValue<string>(SelectedModeValueState);
+  const [ modeSelected, updateModeSelected ]= useAtomValueChange(SelectedModeValueState);
 
-  const handleModeNavigate= (event: React.MouseEvent<HTMLButtonElement>) => {
-    if(selectedMode === MODES.TRAIN_MODE) {
-      navigate(TRAIN_MODE_PATH);
-    } else {
-      navigate(MATCH_MODE_PATH);
-    }
-  }
 
   return (
     <>
-      <Head title='モード選択' />
-      <SelectionLayout>
-        <LogoHeader>Logo</LogoHeader>
-        <SelectionGroup title={'モード選択'} >
+      <Head title='モード選択画面' />
+      <SelectionGrid>
+        <Header>
+          モード選択
+        </Header>
+        <SelectionGridCard>
           <ModeSelect />
-        </SelectionGroup>
-        { selectedMode === MODES.MATCH_MODE
-          ?
-            <SelectionGroup title={'ルーム選択'}>
-              <RoomModeSelect />
-            </SelectionGroup>        
-          : undefined  
-        }
-        <Button onClick={handleModeNavigate}>
-          Start
-        </Button>
-      </SelectionLayout>
+        </SelectionGridCard>
+        <SelectionGridCard>
+          
+        </SelectionGridCard>
+        <ButtonGridStyle>START</ButtonGridStyle>
+      </SelectionGrid>    
     </>
   );
 };
