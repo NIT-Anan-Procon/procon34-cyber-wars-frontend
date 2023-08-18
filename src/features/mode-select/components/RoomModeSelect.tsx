@@ -6,9 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RoomModeValueState } from "@/atoms";
 import { RadioButton } from "@/components/Elements/RadioButton";
 import { InputField } from "@/components/Form";
-import { useAtomValueChange } from "@/hooks/useAtomValueChange";
 import { ROOM_MODES } from "../types";
-
+import { useAtomValueChange } from "@/hooks/useAtomValueChange";
 
 const InputStyle= styled.div`
   position: relative;
@@ -16,7 +15,7 @@ const InputStyle= styled.div`
 
 const InputFieldStyle= styled.div`
   position: absolute;
-  width   : 20rem;
+  width   : 30rem;
   bottom  : -45px;
 `;
 
@@ -66,6 +65,7 @@ export const RoomModeSelect= () => {
                 type='text'
                 size='medium'
                 error= {errors.roomId}
+                placeholder='ルームIDを入力してください。'
                 registration= {register('roomId')} 
               />          
             </InputFieldStyle>
