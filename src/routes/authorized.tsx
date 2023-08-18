@@ -6,6 +6,7 @@ import { NotFound } from '@/features/views';
 
 const { ModeSelection }= lazyImport(() => import('@/features/mode-select'), 'ModeSelection');
 const { MatchModeRoutes }= lazyImport(() => import('@/features/mode'), 'MatchModeRoutes');
+const { Settings }= lazyImport(() => import('@/features/users'), 'Settings');
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ export const authorizedRoutes = [
     element: <App />,
     children: [
       { path: '',  element: <ModeSelection /> },
+      { path: 'settings', element: <Settings/>},
       { path: 'match/*', element: <MatchModeRoutes /> },
       { path: '*', element: <NotFound /> },
     ],
