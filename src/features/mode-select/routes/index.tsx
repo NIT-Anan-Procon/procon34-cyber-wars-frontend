@@ -1,9 +1,14 @@
-import { Head } from "@/components/Head";
+import { useState } from 'react';
 import styled   from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
+
+import { Head } from "@/components/Head";
 import { SelectionCard } from "../components";
 import { Header } from "@/components/Elements";
-import { CARD_DESCRIPTION, MATCH_MODE_PATH, TRAIN_MODE_PATH } from "..";
-import { useNavigate } from "react-router-dom";
+import { CARD_DESCRIPTION, MATCH_MODE_PATH, SETTINGS_PATH, TRAIN_MODE_PATH } from "..";
+import userIcon from '@/assets/user.svg';
+import { useSignOut } from '@/features/auth';
+
 
 const SelectionGrid= styled.div`
   height : 100%;
@@ -17,6 +22,7 @@ const SelectionGrid= styled.div`
 `;
 
 const HeaderContainer= styled.div`
+  position       : relative;
   grid-row       : 1;
   grid-column    : 1 / span 2;
   width          : 100%;
@@ -24,6 +30,42 @@ const HeaderContainer= styled.div`
   display        : flex;
   justify-content: center;
   align-items    : center;
+`;
+
+const IconButtonWrapper= styled.div`
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-50%, -50%);
+`;
+
+const IconButton= styled.button`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+`;
+
+const NavList= styled.ul`
+  position: absolute;
+  transform: translateX(-50%);
+  width: 12rem;
+  height: 100%;
+  background: #f3f3f3;
+  border-radius: 15px;
+  list-style: none;
+  padding: 10px;
+`;
+
+const NavItem= styled(Link)`
+  text-decoration: none; 
+  color: grey;
+  font-size: 1.2rem;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const SelectionContainer= styled.div`
@@ -43,7 +85,16 @@ const MatchSelectionCard= styled(SelectionCard)`
 `;
 
 export const ModeSelection= () => {
-  const navigate= useNavigate();
+  const [ isNavOpen, setIsNavOpen ]= useState<boolean>(false);
+  const { signOut }= useSignOut();
+
+  const handleNavOpen= () => {
+    setIsNavOpen(!isNavOpen)
+  }
+
+  const handleNavClose= () => {
+    setIsNavOpen(false);
+  }
 
   return (
     <>
@@ -51,6 +102,20 @@ export const ModeSelection= () => {
       <SelectionGrid>
         <HeaderContainer>
           <Header title='モード選択'/>
+          <IconButtonWrapper>
+            <div style={{position: 'relative'}}>
+              <IconButton onClick={handleNavOpen}>
+                <img src={userIcon} />
+              </IconButton>
+              { isNavOpen 
+                ? <NavList>
+                    <NavItem to={SETTINGS_PATH}>ユーザ設定</NavItem>
+                    <NavItem to='..' onClick={()=> signOut()} >Sign Out</NavItem>
+                  </NavList>
+                : undefined
+              }                          
+            </div>
+          </IconButtonWrapper>
         </HeaderContainer>
 
         <SelectionContainer>
