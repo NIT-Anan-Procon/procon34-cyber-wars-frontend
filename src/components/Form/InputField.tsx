@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 import { FieldWrapper, FieldWrapperPassThroughProps } from './FieldWrapper';
-import { InputSize, InputSizeProps } from '@/styles/dimensions';
+import { InputSizeProps } from '@/styles/dimensions';
 import { colors } from '@/styles';
 
 type InputFieldProps = FieldWrapperPassThroughProps & {
 	id   : string;
 	type?: 'text' | 'password';
 	size : InputSizeProps;
+	placeholder?: string;
 	registration?: Partial<UseFormRegisterReturn>;
 };
 
@@ -30,7 +31,7 @@ const InputFieldStyle = styled.input<InputFieldProps>`
 `;
 
 export const InputField = (props: InputFieldProps) => {
-	const { id, type, label, size, error, registration } = props;
+	const { id, type, label, size, placeholder, error, registration } = props;
 
 	return (
 		<FieldWrapper
@@ -41,6 +42,7 @@ export const InputField = (props: InputFieldProps) => {
 				id  = { id }
 				type= { type }
 				size= { size }
+				placeholder={ placeholder}
 				{ ...registration }
 			/>
 		</FieldWrapper>
