@@ -4,13 +4,7 @@ import { Form, FormTitle, InputField } from "@/components/Form";
 import { Button, Link }          from "@/components/Elements";
 import { AuthUser, FormSchema }  from "..";
 import { colors }                from "@/styles";
-import { useSetRecoilState } from "recoil";
-import { UserStatusFamily } from "@/atoms/userStates";
 import { useSignIn } from "../api/signIn";
-
-type SignInFormProps = {
-	onSuccess: () => void;
-};
 
 const ContentAreaWrapper= styled.div`
   width         : 100%;
@@ -30,16 +24,18 @@ const NavDiscription= styled.p`
   word-spacing: 0.35rem;
 `;
 
+type SignInFormProps = {
+	onSuccess: () => void;
+};
+
 export const SignInForm = ({onSuccess}: SignInFormProps) => {
 	const { isSignIn }= useSignIn();
-  // const setUserStatus= useSetRecoilState();
 
   return (
     <>
     <Form<AuthUser, typeof FormSchema>
-      onSubmit={async(data:AuthUser) => {
+      onSubmit={async(data:AuthUser ) => {
         await isSignIn(data);
-        // setUserStatus();
         onSuccess();
       }} 
       schema={FormSchema}
