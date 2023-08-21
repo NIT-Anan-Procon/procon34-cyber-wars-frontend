@@ -1,3 +1,3 @@
-export * from './routes/RoomSelectForm';
+export * from './components/RoomSelectForm';
 
 export * from './types';
