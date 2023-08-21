@@ -33,37 +33,38 @@ export const SignInForm = ({onSuccess}: SignInFormProps) => {
 
   return (
     <>
-    <Form<AuthUser, typeof FormSchema>
-      onSubmit={async(data:AuthUser ) => {
-        await isSignIn(data);
-        onSuccess();
-      }} 
-      schema={FormSchema}
-    >
-      {({ register, formState:{errors} }) => (
-        <>
-          <FormTitle title={ 'Sign In' } />
-          <ContentAreaWrapper>
-            <InputField
-              id   = { 'userName' }        
-              type = { 'text' }
-              size = { 'medium' }
-              label= { 'ユーザ名' }
-              error= { errors.userName }
-              registration= { register('userName') }      
-            />
-            <InputField
-              id   = { 'password' }
-              type = { 'password' }
-              size = { 'medium' }
-              label= { 'パスワード' }
-              error= { errors.password }
-              registration= { register('password') }
-            />
-            <Button type="submit">Sign In</Button>        
-          </ContentAreaWrapper>         
-        </>
-      )}</Form>
+      <Form<AuthUser, typeof FormSchema>
+        onSubmit={async(data:AuthUser ) => {
+          await isSignIn(data);
+          onSuccess();
+        }} 
+        schema={FormSchema}
+      >
+        {({ register, formState:{errors} }) => (
+          <>
+            <FormTitle title={ 'Sign In' } />
+            <ContentAreaWrapper>
+              <InputField
+                id   = { 'userName' }        
+                type = { 'text' }
+                size = { 'medium' }
+                label= { 'ユーザ名' }
+                error= { errors.userName }
+                registration= { register('userName') }      
+              />
+              <InputField
+                id   = { 'password' }
+                type = { 'password' }
+                size = { 'medium' }
+                label= { 'パスワード' }
+                error= { errors.password }
+                registration= { register('password') }
+              />
+              <Button type="submit">Sign In</Button>        
+            </ContentAreaWrapper>         
+          </>
+        )}
+      </Form>
       <NavDiscription >
         Don't have account? 
         <Link to='../sign-up'>Sign up</Link>
