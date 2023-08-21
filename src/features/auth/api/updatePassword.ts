@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { SIGNIN_USER_URL } from "@/config/apiEndpoints";
+import { ISSUCCESS_KEY } from "./config/userAuth_keys";
 import { AuthUser } from "..";
 import { useSetRecoilState } from "recoil";
 import { isAuthState } from "@/atoms";
@@ -20,6 +21,7 @@ export const useUpdatePassword= () => {
           },
         }
       )
+      //setIsAuthenticated(response.data.ISSUCCESS_KEY);
       setIsAuthenticated(response.data.success);
     }
     catch(error) {
