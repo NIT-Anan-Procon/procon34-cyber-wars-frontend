@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { MODES } from "@/features/mode-select";
+import { MODES } from "@/features/modeSelect";
 import { ROOM_MODES } from "@/features/rooms";
 
 export const SelectedModeValueState= atom<string>({
