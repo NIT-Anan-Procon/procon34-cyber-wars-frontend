@@ -53,8 +53,7 @@ type SelectionCardProps= {
   title: string;
   imgPath?: string | undefined;
   description: string; 
-  buttonTitle: string; 
-  navRoute: string;
+  children: React.ReactNode;
 }
 
 export const SelectionCard= (
@@ -62,8 +61,7 @@ export const SelectionCard= (
     title, 
     imgPath, 
     description,
-    buttonTitle,
-    navRoute,
+    children
   }: SelectionCardProps
 ) => {
   const navigate= useNavigate();
@@ -77,7 +75,7 @@ export const SelectionCard= (
           <img src={imgPath} />
         </ImageContainer>
         <CardDescription>{description}</CardDescription>
-        <Button onClick={() => navigate(navRoute)}>{buttonTitle}</Button>
+        {children}
       </CardContainer>
     </StyledCard>
   );
