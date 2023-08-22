@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled   from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Head } from "@/components/Head";
 import { SelectionCard } from "../components";
-import { Header } from "@/components/Elements";
+import { Button, Header } from "@/components/Elements";
 import { CARD_DESCRIPTION, MATCH_MODE_PATH, SETTINGS_PATH, TRAIN_MODE_PATH } from "..";
 import userIcon from '@/assets/user.svg';
 import { useSignOut } from '@/features/auth';
+import { RoomSelectForm } from '@/features/rooms';
+import { useModal } from '@/hooks/useModal';
 
 
 const SelectionGrid= styled.div`
@@ -84,16 +86,52 @@ const MatchSelectionCard= styled(SelectionCard)`
   grid-row   : 2;
 `;
 
+const DialogLayout=styled.dialog`
+  top: 30px;
+  padding: 0;
+  width: 400px;
+  top: 70px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: #000;
+
+  /* For Polyfill */
+  height: fit-content;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  &::backdrop {
+    background-color: #000;
+    opacity: 0.3;
+  }
+`;
+
+const DialogContent= styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const ModeSelection= () => {
+  const navigate= useNavigate();
   const [ isNavOpen, setIsNavOpen ]= useState<boolean>(false);
   const { signOut }= useSignOut();
+  const { ref, showModal, closeModal }= useModal();
 
+
+  const stopPropagation = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      e.stopPropagation();
+    },
+    []
+  );
   const handleNavOpen= () => {
     setIsNavOpen(!isNavOpen)
-  }
-
-  const handleNavClose= () => {
-    setIsNavOpen(false);
   }
 
   return (
@@ -124,9 +162,11 @@ export const ModeSelection= () => {
             title='訓練モード'
             imgPath=''
             description={ CARD_DESCRIPTION.TRAIN_DESCRIPTION}
-            buttonTitle='START TUTORIAL'
-            navRoute= { TRAIN_MODE_PATH}
-          />
+          >
+            <Button onClick={() => navigate(TRAIN_MODE_PATH)} >
+              Start Tutorial
+            </Button>
+          </TrainSelectionCard>
         </SelectionContainer>  
 
         <SelectionContainer>
@@ -135,9 +175,16 @@ export const ModeSelection= () => {
             title='対戦モード' 
             imgPath=''
             description={ CARD_DESCRIPTION.MATCH_DESCRIPTION }
-            buttonTitle='START GAME'
-            navRoute= { MATCH_MODE_PATH}
-          />            
+          >
+            <Button type='button' onClick={ showModal }>
+              Start Game
+            </Button>
+            <DialogLayout onClick={closeModal} ref={ref}>
+              <DialogContent onClick={stopPropagation}>
+                <RoomSelectForm />
+              </DialogContent>
+            </DialogLayout>
+          </MatchSelectionCard>            
         </SelectionContainer>   
       </SelectionGrid>    
     </>
