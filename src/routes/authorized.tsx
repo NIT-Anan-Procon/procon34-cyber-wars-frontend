@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { lazyImport } from '@/utils/lazyImport';
 import { NotFound } from '@/features/views';
 
-const { ModeSelection }= lazyImport(() => import('@/features/mode-select'), 'ModeSelection');
+const { ModeSelection }= lazyImport(() => import('@/features/modeSelect'), 'ModeSelection');
 const { MatchModeRoutes }= lazyImport(() => import('@/features/mode'), 'MatchModeRoutes');
 const { Settings }= lazyImport(() => import('@/features/users'), 'Settings');
 
