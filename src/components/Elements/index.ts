@@ -5,4 +5,3 @@ export * from './RadioButton';
 export * from './Card';
 export * from './Dialog';
 export * from './Loading';
-export * from './SnackBar';
