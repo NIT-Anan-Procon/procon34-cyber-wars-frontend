@@ -10,26 +10,29 @@ const StyledHeader= styled.div`
   font-size: 2.75rem;
   color: ${colors.secondary};
   position : relative;
-
   &::before {
     content: '';
     position: absolute;
     top: 50%;
-    left: calc(50% - 100px);
+    left: calc(50% - 120px);
     transform: translate(-100%,-50%);
-    width: 100px;
-    height: 10px;
+    width: 80px;
+    height: 5px;
     background: ${colors.primary};
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px ${colors.primary};
   }
   &::after {
     content: '';
     position: absolute;
     top: 50%;
-    left: calc(50% + 100px);
+    left: calc(50% + 120px);
     transform: translate(0,-50%);
-    width: 100px;
-    height: 10px;
+    width: 80px;
+    height: 5px;
     background: ${colors.primary};
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px ${colors.primary};
   }
 `;
 
