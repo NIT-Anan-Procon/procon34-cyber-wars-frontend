@@ -26,54 +26,57 @@ export const RoomSelectForm = () => {
   const { createRoomId }= useCreateRoom();
   const { isJoinedRoom } = useJoinRoom();
 
-
   return (    
-    <Form<RoomFormType, typeof RoomIdSchema>
-      onSubmit={async(data: RoomFormType) => {
-        if(roomSelected === ROOM_MODES.CREATE_ROOM) {
-          await createRoomId(true);
-        } else {
-          await isJoinedRoom(roomId);
-        }
-      }}
-    >
-      {({ register, formState: { errors }}) => (
-        <>
-          <FormTitle title={ 'ルーム選択' } />
-          <RadioButton 
-            id='create_room'
-            label=' ルーム作成' 
-            value={ROOM_MODES.CREATE_ROOM}
+    <>
+      <FormTitle title={ 'ルーム選択' } />
+        <RadioButton 
+          id='create_room'
+          label=' ルーム作成' 
+          value={ROOM_MODES.CREATE_ROOM}
+          selected={roomSelected}
+          onChange={updateRoomSelected}
+        />
+        <InputStyle>
+          <RadioButton
+            id='join_room'
+            label='ルーム参加'
+            value={ROOM_MODES.JOIN_ROOM}
             selected={roomSelected}
             onChange={updateRoomSelected}
-          />
-          <InputStyle>
-            <RadioButton
-              id='join_room'
-              label='ルーム参加'
-              value={ROOM_MODES.JOIN_ROOM}
-              selected={roomSelected}
-              onChange={updateRoomSelected}
-            />     
-            {
-              roomSelected === ROOM_MODES.JOIN_ROOM
-              ?
-                <InputFieldStyle>
-                  <InputField
-                    id='roomId'
-                    type='text'
-                    size='medium'
-                    error= {errors.roomId}
-                    placeholder='ルームIDを入力してください。'
-                    registration= {register('roomId')} 
-                  />          
-                </InputFieldStyle>
-              : undefined
-            }         
-          </InputStyle>
-          <Button type='submit' >START</Button>
-        </>
-      )}
-    </Form>
+          />     
+          {
+            roomSelected === ROOM_MODES.JOIN_ROOM
+            ?
+              <Form<RoomFormType, typeof RoomIdSchema>
+                onSubmit={ async({roomId} : RoomFormType) => {
+                  await isJoinedRoom(roomId);
+                }}
+                schema={RoomIdSchema}
+              >
+                {({ register, formState: { errors }}) => (
+                  <InputFieldStyle>
+                    <InputField
+                      id='roomId'
+                      type='text'
+                      size='medium'
+                      error= {errors.roomId}
+                      placeholder='ルームIDを入力してください。'
+                      registration= {register('roomId')} 
+                    />          
+                    <Button type='submit'>START</Button>
+                  </InputFieldStyle>
+                )}
+              </Form>
+            : <Button 
+                type='button' 
+                onClick={ async() => {
+                  await createRoomId(false)
+                }} 
+              > 
+                START
+              </Button>
+          }         
+        </InputStyle>
+    </>
   );
 };
