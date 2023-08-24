@@ -33,46 +33,46 @@ const HeaderContainer= styled.div`
   align-items    : center;
 `;
 
-const Descriptions= styled.div`
+const GameRuleStyle= styled.div`
   grid-column: 1;
   grid-row: 2 / span 4;
   display: flex;
   flex-direction: column;
-  row-gap: 5rem;
+  width: 100%;
+  height: 100%;
 `;
-
 
 const UserStateCard= styled.div`
   height: 100%;
   width: 100%;
   position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
 `;
 
 const HostUserCard= styled(UserStateCard)`
   grid-column: 2;
   grid-row   : 2;
-  display: flex;
 `;
 
 const GuestUserCard= styled(UserStateCard)`
   grid-column: 2;
   grid-row: 4;
-  display: flex;
 `;
 
 const CharactorIcon= styled.div`
   width: 15rem;
   height: 15rem;
   background: black;
-  clip-path: polygon(20% 100%, 0% 0%, 100% 0%, 80% 80%); 
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 10px;
-  left: -20px;
+  top: 30%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  border: 3px solid ${colors.redAccent};
   z-index: 1;
   &::before {
     content: '';
@@ -81,15 +81,19 @@ const CharactorIcon= styled.div`
 `;
 
 const UserInfoContent= styled.div`
-  display: inline-block;
+  display: block;
   width: 40rem;
   height: 10rem;
-  background: ${colors.primary};
-  transform: skew(-20deg) translateY(100%);
+  background: ${colors.redAccent};
+  transform: skew(-20deg) translate(-50%, -50%);
   position: absolute;
-  bottom: 50%;
-  left: 35px;
+  top: 50%;
+  left:50%;
   box-shadow: 10px 10px black;
+`;
+
+const GuestUserInfoContent= styled(UserInfoContent)`
+  background: ${colors.blueAccent};
 `;
 
 const StatusBox= styled.div`    
@@ -115,7 +119,7 @@ const StatusBox= styled.div`
 `;
 
 const UserNameBox= styled.div`
-  width: calc(100% + 20px);
+  width: calc(100% - 20px);
   height: 6rem;
   background: black;
   display: flex;
@@ -133,6 +137,7 @@ const BattleLogo= styled.div`
   grid-row: 3;
   display: flex;
   justify-content: center;
+  align-items: center;
   font-size: 5rem;
   font-weight: bold;
   color: white;
@@ -147,7 +152,7 @@ export const StandBy= () => {
   const authenticatedUser= useRecoilValue(authenticatedUserState);
   const userStatus= ['HOST','GUEST'];
   const roomId= useRecoilValue(RoomIdState);
-  const isJoinedRoom= useRecoilValue(isEnterRoomState);
+  const isJoinedRoom=  useRecoilValue(isEnterRoomState);
   const getUserName= useRecoilValue(authenticatedUserState);
   const navigate= useNavigate();
   const { getRoomMember }= useGetRoomMember(); 
@@ -157,12 +162,11 @@ export const StandBy= () => {
   //     if(isJoinedRoom) {
   //       clearInterval(interval);
   //     } else {
-  //       console.log(isJoinedRoom);
   //       getRoomMember();
   //     }
   //   }, 1000);
-  // },[getRoomMember]);
-
+  // },[isJoinedRoom]);
+  
   return (
     <>
       <Head title='待機画面' />
@@ -170,10 +174,12 @@ export const StandBy= () => {
         <HeaderContainer>
         <Header title='ROOM MATCH' />
         </HeaderContainer>
-        <Descriptions>
+        <GameRuleStyle>
           <RuleHeader title='ゲームルール' theme={colors.primary}/>
           <RuleContent>
-            description
+            <h1>対戦形式 : 1 on 1   3フェーズ式</h1>
+            <h1>1フェーズごとの制限時間 : 5分</h1>
+            <h1>ポイントの内訳：ヒントの消費 -20pt</h1>
           </RuleContent>
           {/* <RuleHeader title='アタックフェーズ' theme={colors.primary}/>
           <RuleContent>
@@ -187,7 +193,7 @@ export const StandBy= () => {
           <RuleContent>
             description
           </RuleContent> */}
-        </Descriptions>
+        </GameRuleStyle>
         <HostUserCard>
           <CharactorIcon>
             img
@@ -197,8 +203,7 @@ export const StandBy= () => {
               <span>{userStatus[0]} </span>
             </StatusBox>
             <UserNameBox>
-              <span>{getUserName.userName}</span>
-              {/* {authenticatedUser.userName} */}
+              <span>{getUserName.host}</span>
             </UserNameBox>
           </UserInfoContent>
         </HostUserCard>
@@ -209,15 +214,15 @@ export const StandBy= () => {
                 <CharactorIcon>
                   img
                 </CharactorIcon>
-                <UserInfoContent>
+                <GuestUserInfoContent>
                   <StatusBox>
                     {userStatus[1]} 
                   </StatusBox>
                   <UserNameBox>
-                    <span>{getUserName.userName}</span>
+                    <span>{getUserName.guest}</span>
                     {/* {authenticatedUser.userName} */}
                   </UserNameBox>
-                </UserInfoContent>
+                </GuestUserInfoContent>
               </GuestUserCard>
               <StartButton onClick={() => navigate('attack-phase')}>Game Start</StartButton>
             </>
