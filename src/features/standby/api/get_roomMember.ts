@@ -10,7 +10,7 @@ export const useGetRoomMember= () => {
     try {
       const response= await axios.get(ROOMS_URL)
       // setUserInfo(response.data);
-      setUserInfo({guest: 'kusaka'});
+      setUserInfo({host: 'sato', guest: 'kusaka'});
       console.log('success');
     }
     catch (error) {
