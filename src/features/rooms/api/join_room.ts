@@ -23,10 +23,12 @@ export const useJoinRoom= () => {
           },
         }
       )
-      if(response.data) {
+      const test= true;
+      if(test) {
+      // if(response.data.ROOMS_ISSUCCESSFUL_KEY) {
         setRoomId(inputRoomId);
-        // setIsJoinedRoom(response.data);
-        setIsJoinedRoom(true);
+        // setIsJoinedRoom(response.data.ROOMS_ISSUCCESSFUL_KEY);
+        setIsJoinedRoom(test);
         navigate('match'); 
       } else {
         alert('ルームの参加に失敗しました。');
