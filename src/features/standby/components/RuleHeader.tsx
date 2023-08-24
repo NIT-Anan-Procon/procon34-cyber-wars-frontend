@@ -5,12 +5,13 @@ const TitleWrapper= styled.div`
   width: 200px;
   height: 50px;
   background: #020202;
-  transform: skew(20deg);
+  transform: skew(20deg) translateY(-50%);
   text-align: center;
-  position: relative;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 10px 10px ${colors.primary};
   z-index: 1;
   &::before {
     background: #020202;
@@ -35,12 +36,11 @@ const StyledTitle= styled.h1`
 
 type RuleHeaderProps= {
   title: string;
-  theme: string;
 }
 
 export const RuleHeader= ({ title, theme }: RuleHeaderProps) => {
   return (
-    <TitleWrapper theme={theme}>
+    <TitleWrapper >
       <StyledTitle>
         {title}
       </StyledTitle>
