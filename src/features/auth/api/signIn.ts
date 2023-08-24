@@ -4,8 +4,7 @@ import { SIGNIN_USER_URL } from "./config/userAuth_endpoints";
 import { ISSUCCESS_KEY } from "./config/userAuth_keys";
 import { AuthUser } from "..";
 import { useSetRecoilState } from "recoil";
-import { isAuthState } from "@/atoms";
-import { authenticatedUserState } from "@/atoms/userStates";
+import { authenticatedUserState, isAuthState } from "@/atoms";
 
 export const useSignIn= () => {
   const setIsAuthenticated= useSetRecoilState<boolean>(isAuthState);
