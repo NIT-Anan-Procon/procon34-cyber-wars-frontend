@@ -148,9 +148,9 @@ export const StandBy= () => {
   const userStatus= ['HOST','GUEST'];
   const roomId= useRecoilValue(RoomIdState);
   const isJoinedRoom= useRecoilValue(isEnterRoomState);
+  const getUserName= useRecoilValue(authenticatedUserState);
   const navigate= useNavigate();
   const { getRoomMember }= useGetRoomMember(); 
-
   
   // useEffect(() => {
   //   const interval= setInterval(() => {
@@ -158,7 +158,7 @@ export const StandBy= () => {
   //       clearInterval(interval);
   //     } else {
   //       console.log(isJoinedRoom);
-  //       // getRoomMember();
+  //       getRoomMember();
   //     }
   //   }, 1000);
   // },[getRoomMember]);
@@ -197,7 +197,7 @@ export const StandBy= () => {
               <span>{userStatus[0]} </span>
             </StatusBox>
             <UserNameBox>
-              <span>KUSAKA</span>
+              <span>{getUserName.userName}</span>
               {/* {authenticatedUser.userName} */}
             </UserNameBox>
           </UserInfoContent>
@@ -214,7 +214,7 @@ export const StandBy= () => {
                     {userStatus[1]} 
                   </StatusBox>
                   <UserNameBox>
-                    <span>KUSAKA</span>
+                    <span>{getUserName.userName}</span>
                     {/* {authenticatedUser.userName} */}
                   </UserNameBox>
                 </UserInfoContent>
