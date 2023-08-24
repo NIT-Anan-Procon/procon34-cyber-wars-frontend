@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 const RuleContentStyle= styled.div`
   width: 100%;
-  height: 5rem;
-  background: grey;
+  height: 100%;
+  background: #ffffff;
+  padding: 40px;
 `;
 
 type RuleContentProps= { 
