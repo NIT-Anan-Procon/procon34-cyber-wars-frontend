@@ -1,14 +1,12 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import { NotFound } from "@/features/views";
 import { PHASE_PATH } from "../types";
-import { 
-  AttackPhase, 
-  BattlePhase, 
-  DefencePhase, 
-  ExplanationPhase, 
-  StandBy 
-} from "../components";
+import { StandBy } from "@/features/standby/routes/StandBy";
+import { AttackPhase } from './AttackPhase';
+import { DefencePhase } from "./DefencePhase"; 
+import { BattlePhase } from "./BattlePhase";
+import { ExplanationPhase } from "./ExplanationPhase";
 
 export const MatchModeRoutes= () => {
   return (
@@ -18,7 +16,7 @@ export const MatchModeRoutes= () => {
       <Route path={`${PHASE_PATH.DEFENCE_PHASE_PATH}`} element={<DefencePhase />} />
       <Route path={`${PHASE_PATH.BATTLE_PHASE_PATH}`} element={<BattlePhase />} />
       <Route path={`${PHASE_PATH.EXPLANATION_PHASE_PATH}`} element={<ExplanationPhase />} />
-      <Route path='*' element={<NotFound />} />
+      <Route path='*' element={<Navigate to='.' />} />
     </Routes>
   );
 };

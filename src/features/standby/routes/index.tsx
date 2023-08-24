@@ -1,5 +1,5 @@
-export const StandBy= () => {
+export const StandByRoutes= () => {
   return (
-    <></>
+    
   );
 }
