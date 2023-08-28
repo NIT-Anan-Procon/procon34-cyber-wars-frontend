@@ -49,8 +49,8 @@ export const SignInForm = ({onSuccess}: SignInFormProps) => {
                 type = { 'text' }
                 size = { 'medium' }
                 label= { 'ユーザ名' }
-                error= { errors.userName }
-                registration= { register('userName') }      
+                error= { errors.name }
+                registration= { register('name') }      
               />
               <InputField
                 id   = { 'password' }
