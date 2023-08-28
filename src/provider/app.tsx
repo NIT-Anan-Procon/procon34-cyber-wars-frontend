@@ -3,11 +3,17 @@ import { RecoilRoot } from "recoil";
 import { Suspense } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 
+import { startingMocks } from '@/mocks/browser';
+
 type AppProviderProps = {
   children: React.ReactNode;
 }
 
 export const AppProvider= ({children}: AppProviderProps) => {
+  if (process.env.NODE_ENV === 'development') {
+    startingMocks();
+  }
+
   return(      
     <HelmetProvider>
       <RecoilRoot>
