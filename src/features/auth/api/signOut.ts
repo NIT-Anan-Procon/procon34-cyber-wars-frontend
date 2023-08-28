@@ -11,8 +11,7 @@ export const useSignOut= () => {
   async function signOut(): Promise<void>{
     try {
       const response= await axios.delete( SIGNOUT_USER_URL )
-      //setIsAuthenticated(response.data.ISSUCCESS_KEY);
-      setIsAuthenticated(false);
+      setIsAuthenticated(response.data.ISSUCCESS_KEY);
     }
     catch(error) {
       console.log('error');

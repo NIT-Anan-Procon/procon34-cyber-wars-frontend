@@ -21,8 +21,7 @@ export const useUpdatePassword= () => {
           },
         }
       )
-      //setIsAuthenticated(response.data.ISSUCCESS_KEY);
-      setIsAuthenticated(response.data.success);
+      setIsAuthenticated(response.data.ISSUCCESS_KEY);
     }
     catch(error) {
       console.log('error');

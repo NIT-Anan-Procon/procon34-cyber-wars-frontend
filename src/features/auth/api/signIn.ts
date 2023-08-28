@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { SIGNIN_USER_URL } from "./config/userAuth_endpoints";
-import { ISSUCCESS_KEY } from "./config/userAuth_keys";
+import { ISSUCCESS_KEY } from './config/userAuth_keys';
 import { AuthUser } from "..";
 import { useSetRecoilState } from "recoil";
 import { authenticatedUserState, isAuthState } from "@/atoms";
@@ -22,9 +22,8 @@ export const useSignIn= () => {
           },
         }
       )
-      //setIsAuthenticated(response.data.ISSUCCESS_KEY);
+      setIsAuthenticated(response.data.ISSUCCESS_KEY);
       setUserData(data);
-      setIsAuthenticated(true);
     }
     catch(error) {
       console.log('error');
