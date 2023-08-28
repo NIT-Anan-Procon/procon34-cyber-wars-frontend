@@ -1,7 +1,7 @@
 import { userStatus } from "@/atoms";
-import { ROOMS_URL } from "@/features/rooms/api/config/rooms_endpoints";
 import axios from "axios";
 import { useSetRecoilState } from "recoil"
+import { ROOMS_URL } from '@/config/apiEndpoints';
 
 export const useGetRoomMember= () => {
   const setUserInfo= useSetRecoilState(userStatus);
