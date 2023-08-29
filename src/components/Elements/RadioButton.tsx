@@ -2,20 +2,20 @@ import { colors } from "@/styles";
 import styled from "styled-components";
 
 
-const RadioStyleDiv= styled.div`
+const _RadioWrapper= styled.div`
   display : inline-block;
   position: relative;
   cursor  : pointer;
 `;
 
-const RadioStyle= styled.input`
+const _Radio= styled.input`
   position: absolute;
   opacity : 0;
   width   : 0;
   height  : 0;
 `;
 
-const LabelStyle= styled.label`
+const _RadioLabel= styled.label`
   display      : inline-block;
   padding-left : 30px;
   margin-bottom: 10px;
@@ -25,12 +25,12 @@ const LabelStyle= styled.label`
   cursor       : pointer;
   transition   : all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
 
-  ${RadioStyle}:checked + & {
+  ${_Radio}:checked + & {
     color: ${colors.primary};
   }
 `;
 
-const RadioCircle= styled.span`
+const _RadioCircle= styled.span`
   position     : absolute;
   top          : 50%;
   left         : 0;
@@ -41,13 +41,13 @@ const RadioCircle= styled.span`
   border       : 2px solid #555;
   transition   : all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
 
-  ${RadioStyle}:checked + ${LabelStyle} & {
+  ${_Radio}:checked + ${_RadioLabel} & {
     transform: translateY(-50%) scale(0.9);
     border   : 5px solid ${colors.primary};;
     color    : ${colors.primary};
   }
 
-  ${LabelStyle}:hover & {
+  ${_RadioLabel}:hover & {
     transform   : translateY(-50%) scale(1.2);
     border-color: ${colors.primary};
     box-shadow  : 0 0 10px #20a192;    
@@ -73,8 +73,8 @@ export const RadioButton= (
   }: RadioButtonProps
 ) => {
   return (
-    <RadioStyleDiv>
-      <RadioStyle
+    <_RadioWrapper>
+      <_Radio
         id={id}
         type='radio'
         value={value}
@@ -82,10 +82,10 @@ export const RadioButton= (
         onChange={onChange}
         {...props}
       />
-      <LabelStyle htmlFor={id}>
-        <RadioCircle />
+      <_RadioLabel htmlFor={id}>
+        <_RadioCircle />
         {label}
-      </LabelStyle>    
-    </RadioStyleDiv>
+      </_RadioLabel>    
+    </_RadioWrapper>
   );
 };

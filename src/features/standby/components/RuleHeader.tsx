@@ -38,7 +38,7 @@ type RuleHeaderProps= {
   title: string;
 }
 
-export const RuleHeader= ({ title, theme }: RuleHeaderProps) => {
+export const RuleHeader= ({ title }: RuleHeaderProps) => {
   return (
     <TitleWrapper >
       <StyledTitle>
