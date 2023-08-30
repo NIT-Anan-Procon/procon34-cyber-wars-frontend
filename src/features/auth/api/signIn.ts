@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { SIGNIN_USER_URL } from "./config/userAuth_endpoints";
-import { ISSUCCESS_KEY } from "./config/userAuth_keys";
+import { SIGNIN_USER_URL } from "@/config/apiEndpoints";
+import { ISSUCCESS_KEY } from "@/config/dataKeys";
 import { AuthUser } from "..";
 import { useSetRecoilState } from "recoil";
 import { authenticatedUserState, isAuthState } from "@/atoms";

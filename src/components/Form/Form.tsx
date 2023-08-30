@@ -3,7 +3,7 @@ import { ZodType, ZodTypeDef } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, UseFormReturn, UseFormProps, SubmitHandler } from 'react-hook-form';
 
-const FormContainer = styled.form`
+const _Form = styled.form`
   width         : clamp(40rem, 40vw, 100%);
   height        : calc(85% - 2rem);
   padding       : 4rem;
@@ -18,11 +18,11 @@ const FormContainer = styled.form`
 `;
 
 type FormProps<TFormValues extends Record<string, any>, Schema extends ZodType<any, ZodTypeDef, any>> = {
-  onSubmit: SubmitHandler<TFormValues>;
-  children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
-  options?: UseFormProps<TFormValues>;
-  id?: string;
-  schema?: Schema;
+  onSubmit : SubmitHandler<TFormValues>;
+  children : (methods: UseFormReturn<TFormValues>) => React.ReactNode;
+  options ?: UseFormProps<TFormValues>;
+  id      ?: string;
+  schema  ?: Schema;
 };
 
 export const Form = <
@@ -37,9 +37,9 @@ export const Form = <
   const methods = useForm<TFormValues>({ mode: 'onChange', ...options, resolver: schema && zodResolver(schema) });
 
   return (
-    <FormContainer onSubmit={methods.handleSubmit(onSubmit)}>
+    <_Form onSubmit={methods.handleSubmit(onSubmit)}>
       {children(methods)}
-    </FormContainer>
+    </_Form>
   );
 };
 

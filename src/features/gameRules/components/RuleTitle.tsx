@@ -1,7 +1,7 @@
-import { colors } from "@/styles";
-import styled from "styled-components";
+import { colors } from '@/styles';
+import styled from 'styled-components';
 
-const TitleWrapper= styled.div`
+const _TitleWrapper= styled.div`
   width: 200px;
   height: 50px;
   background: #020202;
@@ -29,21 +29,19 @@ const TitleWrapper= styled.div`
   }
 `;
 
-const StyledTitle= styled.h1`
+const _Title= styled.h1`
   color: white;
   font-size: 18px;
 `;
 
-type RuleHeaderProps= {
+type RuleTitleProps= {
   title: string;
-}
+};
 
-export const RuleHeader= ({ title, theme }: RuleHeaderProps) => {
+export const RuleTitle= ({ title }: RuleTitleProps) => {
   return (
-    <TitleWrapper >
-      <StyledTitle>
-        {title}
-      </StyledTitle>
-    </TitleWrapper>
+    <_TitleWrapper>
+      <_Title>{ title }</_Title>
+    </_TitleWrapper>
   );
-}
+};

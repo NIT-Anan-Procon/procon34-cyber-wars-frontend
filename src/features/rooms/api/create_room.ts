@@ -1,10 +1,11 @@
-import { ROOMS_URL } from './config/rooms_endpoints';
-import { INVITE_ID_KEY } from './config/rooms_keys';
+import { ROOMS_URL } from "@/config/apiEndpoints";
+import { INVITE_ID_KEY } from '../../../config/dataKeys';
 import axios from "axios"
 import { RoomFormType } from ".."
 import { useSetRecoilState } from "recoil";
 import { RoomIdState } from "@/atoms";
 import { useNavigate } from 'react-router';
+
 
 export const useCreateRoom= () => {
   const navigate= useNavigate();
