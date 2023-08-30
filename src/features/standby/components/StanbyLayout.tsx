@@ -1,23 +1,14 @@
 import styled from 'styled-components';
 
 import { Head }      from '@/components/Head';
-import { Header }    from '@/components/Elements';
-import { RoomIdBox } from '@/features/rooms/components/RoomIdBox';
+import { StandbyHeader } from './StanbyHeader';
 
 const GridLayout= styled.div`
   height : 100vh;
   width  : 100vw;
   padding: 0% 10%;
   display: grid;
-`;
-
-const HeaderContainer= styled.div`
-  height         : 100%;
-  width          : 100%;
-  padding-top    : 3.5rem;
-  position       : relative;
-  display        : flex;
-  justify-content: center;
+  grid-template-rows: 15vh 1fr 10vh;
 `;
 
 type StandByLayoutProps= {
@@ -29,9 +20,7 @@ export const StandbyLayout= ({ children }: StandByLayoutProps) => {
     <>
       <Head title='待機画面' />
       <GridLayout>
-        <HeaderContainer>
-          <RoomIdBox roomId={1234} />
-        </HeaderContainer>
+        <StandbyHeader />
         { children }
       </GridLayout>
     </>
