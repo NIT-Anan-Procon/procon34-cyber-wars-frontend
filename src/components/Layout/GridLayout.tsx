@@ -6,8 +6,8 @@ type GridProps= {
   gridTemplateColumns?: string | object | undefined;
   gridTemplateRows   ?: string | object | undefined;
 
-  columns?: string | number | object | undefined;
-  rows   ?: string | number | object | undefined;
+  columns?: string;
+  rows   ?: string;
   
   gap      ?: string | undefined,
   columnGap?: string | undefined,
