@@ -6,6 +6,7 @@ import { useGetRoomMember } from "../api/get_roomMember";
 import { StandbyLayout } from "../components";
 import { StandbyUser } from "../components/StandbyUser";
 import testIcon from '@/assets/attack_phase.svg';
+import { Button } from "@/components/Elements";
 
 const _FlexUsers= styled.div`
   grid-row: 2;
@@ -21,6 +22,14 @@ const _BattleIcon= styled.div`
   font-size: 5rem;
   font-weight: bold;
   color: white;
+`;
+
+const $StartButton= styled(Button)`
+  height  : 10rem;
+  width   : 30rem;
+  position: absolute;
+  bottom  : 0;
+  right   : 0;
 `;
 
 export const StandBy= () => {
@@ -53,11 +62,16 @@ export const StandBy= () => {
           <_BattleIcon>VS</_BattleIcon>
           { isJoinedRoom
             ?
-            <StandbyUser 
-              userName= {'kinoshita'}
-              status= {'GUEST'}
-              iconPath={testIcon} 
-            /> 
+            <>
+              <StandbyUser 
+                userName= {'kinoshita'}
+                status= {'GUEST'}
+                iconPath={testIcon} 
+              />          
+              <$StartButton onClick={() => navigate('attack-phase')}>
+                Start
+              </$StartButton>   
+            </>
             : <p>loading</p>           
           }
         </_FlexUsers>
