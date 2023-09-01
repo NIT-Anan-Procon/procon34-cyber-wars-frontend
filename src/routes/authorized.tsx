@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { lazyImport } from '@/utils/lazyImport';
 
 const { ModeSelection }= lazyImport(() => import('@/features/modeSelect'), 'ModeSelection');
-const { MatchModeRoutes }= lazyImport(() => import('@/features/mode'), 'MatchModeRoutes');
+const { StandByRoutes }= lazyImport(() => import('@/features/standby'), 'StandByRoutes');
 const { Settings }= lazyImport(() => import('@/features/users'), 'Settings');
 
 const App = () => {
@@ -22,7 +22,7 @@ export const authorizedRoutes = [
     children: [
       { path: '',  element: <ModeSelection /> },
       { path: 'settings', element: <Settings/>},
-      { path: 'match/*', element: <MatchModeRoutes /> },
+      { path: 'match/*',  element: <StandByRoutes /> },
       { path: '*', element: <Navigate to="." /> },
     ],
   },
