@@ -8,7 +8,7 @@ export const SignUp= () => {
 
   return (
     <AuthPageLayout title='Sign up for your account'>
-      <SignUpForm onSuccess={() => navigate('/cyberwars')} />
+      <SignUpForm onSuccess={() => navigate('../../cyberwars')} />
     </AuthPageLayout>
   );
 };
