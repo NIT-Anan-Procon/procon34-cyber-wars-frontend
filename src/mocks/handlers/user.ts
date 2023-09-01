@@ -2,14 +2,20 @@ import { rest } from 'msw';
 import jwt from 'jsonwebtoken';
 
 import { AuthUser } from '@/features/auth';
-import { SIGNUP_USER_URL } from '@/features/auth/api/config/userAuth_endpoints';
+import { 
+  IS_LOGGEDIN_URL,
+  SIGNIN_USER_URL, 
+  SIGNOUT_USER_URL, 
+  SIGNUP_USER_URL, 
+  UPDATE_USER_NAME_URL,
+  UPDATE_USER_PASSWORD_URL
+} from '@/config/apiEndpoints';
 
 import { db } from '../db';
-import { authenticate} from '../utils';
-import { SIGNIN_USER_URL } from '../../features/auth/api/config/userAuth_endpoints';
+import { authenticate } from '../utils';
 
 export type AuthUserBody= AuthUser & {
-  user_id: number
+  user_id: number;
 }
 
 export const userHandlers= [
@@ -31,12 +37,11 @@ export const userHandlers= [
 
       db.user.create({
         ...userObject,
-        user_id: Math.floor(Math.random() * 1000000),
+        user_id : Math.floor(Math.random() * 1000000),
         password: userObject.password,
       });
 
       const result= authenticate(userObject);
-      console.log(result);
       return res(ctx.json(result));
 
     } catch(error: any) {
@@ -48,16 +53,59 @@ export const userHandlers= [
 
   rest.post<AuthUserBody>( SIGNIN_USER_URL, (req, res, ctx) => { 
     try {
-      const credentials= req.body;
+      const credential= req.body;
 
-      const result= authenticate(credentials);
-      console.log(result);
+      const result= authenticate(credential);
+
       return res(ctx.json(result));
 
     } catch (error: any) {
+        console.log(error);
       return res(
-        ctx.status(400)
+        ctx.status(400),
+        ctx.json({success :false})
       );
     } 
+  }),
+
+  rest.patch( UPDATE_USER_NAME_URL, (req, res, ctx) => {
+    try {
+      const update_userName= req.body;
+
+      return res(
+        ctx.status(200),
+        ctx.json(({ success: true}))
+      );
+    }
+    catch(error) {
+
+    }
+  }),
+
+  rest.patch( UPDATE_USER_PASSWORD_URL, (req, res, ctx) => {
+    try {
+      const update_password= req.body;
+
+      return res(
+        ctx.status(200),
+        ctx.json(({ success: true}))
+      );
+    }
+    catch(error) {
+
+    }
+  }),
+
+  rest.get( IS_LOGGEDIN_URL, (res, ctx) => {
+    try {
+
+    }
+    catch(error) {
+
+    }
+  }),
+
+  rest.delete( SIGNOUT_USER_URL, () => {
+
   }),
 ];
