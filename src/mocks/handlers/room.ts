@@ -1,17 +1,55 @@
-server.post('/rooms', (req, res) => {
-  const { difficult } = req.body;
-  res.json({ invite_id: 1234 });
-});
+import { rest } from 'msw';
 
-server.put('/rooms', (req, res) => {
-  const { invite_id } = req.body;
-  res.status(200).json({ success: true });
-});
+import { 
+  CREATE_ROOM_URL, 
+  GET_ROOM_INFO_URL, 
+  JOIN_ROOM_URL, 
+  LEAVE_ROOM_URL 
+} from '@/config/apiEndpoints';
 
-server.get('/rooms', (req, res) => {
-  res.status(200).json(req.query);
-});
+export const roomHandlers= [
+  rest.post( CREATE_ROOM_URL, (req, res, ctx) => {
+    try {
+      const isDifficult= req.body;
 
-server.delete('/rooms', (req, res) => {
+      return res(
+        ctx.status(200),
+        ctx.json(({ inviteId: 1234}))
+      );
+    }
+    catch(error) {
+      return res(ctx.status(400));
+    }
+  }),
   
-});
+  rest.put(JOIN_ROOM_URL, (req, res, ctx) => {
+    try {
+
+    }
+    catch(error) {
+
+    }
+  }),
+
+  rest.get(GET_ROOM_INFO_URL, (res, ctx) => {
+    try {
+      const members= {
+        host: true,
+        opponent: "kinoshita",
+        started: true
+      }
+
+      return res(
+        ctx.status(200),
+        ctx.json({ members })
+      );
+    }
+    catch(error) {
+      return res(ctx.status(400));
+    }
+  }),
+
+  rest.delete(LEAVE_ROOM_URL, () => {
+
+  }),
+];
