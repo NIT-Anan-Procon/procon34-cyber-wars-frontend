@@ -7,10 +7,6 @@ import { ISSUCCESS_KEY } from '../features/auth/api/config/userAuth_keys';
 import { AuthUserBody } from './handlers/user';
 
 
-// export const hash= async( str: string ): Promise<string> => {
-//   return await bcrypt.hash(str, 10);
-// };
-
 export function authenticate({ name, password }: AuthUserBody ) {
 
   const user = db.user.findFirst({
@@ -22,7 +18,7 @@ export function authenticate({ name, password }: AuthUserBody ) {
   });
 
   if (user?.password === password) {
-    return { ISSUCCESS_KEY: true };
+    return { success: true };
   }
 
   const error = new Error('ユーザ名もしくはパスワードが正しくありません。');
