@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { isAuthState } from "@/atoms";
 import { Head } from "@/components/Head";
 import { colors } from "@/styles";
+import { APP_ROUTE, AUTH_ROUTE } from "../types/authenticatedRoute";
 
 const LandingContainer= styled.div`
   width: 100%;
@@ -70,12 +71,11 @@ export const Landing = () => {
   const navigate= useNavigate();
   const isAuthenticated= useRecoilValue<boolean>(isAuthState);
 
-  /*No match locationのエラーが出るが、原因はリロードしてしまうとRecoilの状態が初期化されてしまうため*/
   const handleStart= () => {
     if(isAuthenticated) {
-      navigate('/cyberwars');
+      navigate(APP_ROUTE);
     } else {
-      navigate('/auth/sign-in');
+      navigate(AUTH_ROUTE);
     }
   }
 

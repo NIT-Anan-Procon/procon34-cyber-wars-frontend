@@ -1,15 +1,12 @@
 //ユーザ認証関連のエンドポイント
-export const SIGNUP_USER_URL  = '/users';
-export const USER_NAME_URL    = '/users/name';
-export const USER_PASSWORD_URL= '/users/password';
-export const SIGNIN_USER_URL  = '/users/credentials';
-export const SIGNOUT_USER_URL = '/users/credentials';
+export const SIGNIN_USER_URL         = import.meta.env.VITE_API_URL_USER_SIGNIN;
+export const SIGNUP_USER_URL         = import.meta.env.VITE_API_URL_USER_SIGNUP;
+export const SIGNOUT_USER_URL        = import.meta.env.VITE_API_URL_USER_SIGNOUT;
+export const UPDATE_USER_NAME_URL    = import.meta.env.VITE_API_URL_USER_UPDATE_NAME;
+export const UPDATE_USER_PASSWORD_URL= import.meta.env.VITE_API_URL_USER_UPDATE_PASSWORD;
 
 //ルーム関連のエンドポイント
-export const CREATE_ROOM_URL  = '/rooms';
-export const JOIN_ROOM_URL    = '/rooms';
-export const GET_ROOM_INFO_URL= '/rooms';
-export const LEAVE_ROOM_URL   = '/rooms';
+export const ROOMS_URL= import.meta.env.VITE_API_URL_ROOMS;
 
 //ゲーム関連のエンドポイント
 export const IS_START_GAME_URL      = '/games';

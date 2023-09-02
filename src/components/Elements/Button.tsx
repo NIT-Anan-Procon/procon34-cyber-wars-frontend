@@ -4,7 +4,7 @@ import styled         from 'styled-components';
 import { Loading } from '.';
 import { colors } from '@/styles';
 
-const ButtonStyle= styled.button`
+const _Button= styled.button`
   margin-top   : 1.75rem;
   width        : 100%;
   height       : 4.75rem;
@@ -44,7 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     return (
-      <ButtonStyle
+      <_Button
         ref={ref}
         type={type}
         {...props}
@@ -52,9 +52,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {isLoading && <Loading />}
         {!isLoading && startIcon}
         <span>{props.children}</span> {!isLoading && endIcon}
-      </ButtonStyle>
+      </_Button>
     );
   }
 );
-
-Button.displayName = 'Button';
