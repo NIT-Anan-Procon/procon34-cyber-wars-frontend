@@ -1,10 +1,10 @@
-import { ROOMS_URL } from './config/rooms_endpoints';
 import { INVITE_ID_KEY } from './config/rooms_keys';
 import axios from "axios"
 import { RoomFormType } from ".."
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { RoomIdState, isEnterRoomState } from "@/atoms";
 import { useNavigate } from 'react-router';
+import { JOIN_ROOM_URL } from '@/config/apiEndpoints';
 
 export const useJoinRoom= () => {
   const navigate= useNavigate();
@@ -15,7 +15,7 @@ export const useJoinRoom= () => {
     try {
       const formattedJsonData= JSON.stringify({invite_id:inputRoomId});
       const response= await axios.post(
-        ROOMS_URL, 
+        JOIN_ROOM_URL, 
         formattedJsonData,  
         {
           headers: {
@@ -23,12 +23,9 @@ export const useJoinRoom= () => {
           },
         }
       )
-      const test= true;
-      if(test) {
-      // if(response.data.ROOMS_ISSUCCESSFUL_KEY) {
+      if(response.data.success) {
         setRoomId(inputRoomId);
-        // setIsJoinedRoom(response.data.ROOMS_ISSUCCESSFUL_KEY);
-        setIsJoinedRoom(test);
+        setIsJoinedRoom(response.data.success);
         navigate('match'); 
       } else {
         alert('ルームの参加に失敗しました。');

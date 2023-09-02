@@ -5,6 +5,7 @@ import { RoomFormType } from ".."
 import { useSetRecoilState } from "recoil";
 import { RoomIdState } from "@/atoms";
 import { useNavigate } from 'react-router';
+import { CREATE_ROOM_URL } from '@/config/apiEndpoints';
 
 export const useCreateRoom= () => {
   const navigate= useNavigate();
@@ -14,7 +15,7 @@ export const useCreateRoom= () => {
     try {
       const formatedJson= JSON.stringify({difficult:data});
       const response= await axios.post(
-        ROOMS_URL, 
+        CREATE_ROOM_URL, 
         formatedJson,  
         {
           headers: {
@@ -22,8 +23,7 @@ export const useCreateRoom= () => {
           },
         }
       )
-      //setRoomId(response.data.INVITE_ID_KEY);
-      setRoomId(1234);
+      setRoomId(response.data.invite_id);
       navigate('match'); 
     }
     catch(error) {
