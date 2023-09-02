@@ -4,4 +4,5 @@ export * from './Link';
 export * from './RadioButton';
 export * from './Card';
 export * from './Dialog';
+export * from './ContentHeader';
 export * from './Loading';
