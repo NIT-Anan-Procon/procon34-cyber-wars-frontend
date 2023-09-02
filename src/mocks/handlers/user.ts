@@ -42,7 +42,10 @@ export const userHandlers= [
       });
 
       const result= authenticate(userObject);
-      return res(ctx.json(result));
+      return res(
+        ctx.status(200),
+        ctx.json(result)
+      );
 
     } catch(error: any) {
       return res(
@@ -51,16 +54,18 @@ export const userHandlers= [
     }
   }),
 
-  rest.post<AuthUserBody>( SIGNIN_USER_URL, (req, res, ctx) => { 
+  rest.post<AuthUserBody>( SIGNIN_USER_URL, async(req, res, ctx) => { 
     try {
       const credential= req.body;
 
       const result= authenticate(credential);
 
-      return res(ctx.json(result));
+      return res(
+        ctx.status(200),
+        ctx.json(result)
+      );
 
     } catch (error: any) {
-        console.log(error);
       return res(
         ctx.status(400),
         ctx.json({success :false})
@@ -68,7 +73,7 @@ export const userHandlers= [
     } 
   }),
 
-  rest.patch( UPDATE_USER_NAME_URL, (req, res, ctx) => {
+  rest.patch( UPDATE_USER_NAME_URL, async(req, res, ctx) => {
     try {
       const update_userName= req.body;
 
@@ -82,7 +87,7 @@ export const userHandlers= [
     }
   }),
 
-  rest.patch( UPDATE_USER_PASSWORD_URL, (req, res, ctx) => {
+  rest.patch( UPDATE_USER_PASSWORD_URL, async(req, res, ctx) => {
     try {
       const update_password= req.body;
 
@@ -96,7 +101,7 @@ export const userHandlers= [
     }
   }),
 
-  rest.get( IS_LOGGEDIN_URL, (res, ctx) => {
+  rest.get( IS_LOGGEDIN_URL, async(res, ctx) => {
     try {
 
     }
@@ -105,7 +110,7 @@ export const userHandlers= [
     }
   }),
 
-  rest.delete( SIGNOUT_USER_URL, () => {
+  rest.delete( SIGNOUT_USER_URL, async() => {
 
   }),
 ];

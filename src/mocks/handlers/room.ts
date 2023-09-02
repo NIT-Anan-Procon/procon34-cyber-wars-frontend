@@ -6,11 +6,17 @@ import {
   JOIN_ROOM_URL, 
   LEAVE_ROOM_URL 
 } from '@/config/apiEndpoints';
+import { db } from '../db';
 
 export const roomHandlers= [
   rest.post( CREATE_ROOM_URL, (req, res, ctx) => {
     try {
-      const isDifficult= req.body;
+      const create_room= req.body;
+      
+      db.room.create({
+        invite_id: 1234
+      });
+      
 
       return res(
         ctx.status(200),
