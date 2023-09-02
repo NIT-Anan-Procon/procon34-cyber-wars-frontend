@@ -21,7 +21,8 @@ export const useSignUp= () => {
           },
         }
       )
-      setIsAuthenticated(response.data.ISSUCCESS_KEY);
+      setIsAuthenticated(response.data.success);
+      console.log(response.data.success);
     }
     catch(error) {
       console.log('error');
