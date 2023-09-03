@@ -1,9 +1,10 @@
 import axios from "axios";
 
-import { SIGNOUT_USER_URL } from "./config/userAuth_endpoints";
+
 import { ISSUCCESS_KEY } from "./config/userAuth_keys";
 import { useSetRecoilState } from "recoil";
 import { isAuthState } from "@/atoms";
+import { SIGNOUT_USER_URL } from "@/config/apiEndpoints";
 
 export const useSignOut= () => {
   const setIsAuthenticated= useSetRecoilState<boolean>(isAuthState);
