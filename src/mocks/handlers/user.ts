@@ -22,7 +22,7 @@ export const userHandlers= [
   rest.post<AuthUserBody>( SIGNUP_USER_URL, (req, res, ctx) => {
     try {
       const  userObject= req.body;
-      console.log(userObject)
+
       const existingUser= db.user.findFirst({
         where: {
           name: {
