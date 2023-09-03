@@ -7,42 +7,74 @@ import {
   LEAVE_ROOM_URL 
 } from '@/config/apiEndpoints';
 import { db } from '../db';
+import { randomNum } from '../utils';
 
 export const roomHandlers= [
   rest.post( CREATE_ROOM_URL, (req, res, ctx) => {
     try {
-      const create_room= req.body;
+      const isDifficult= req.body.difficult;
+
+      const randomId=  randomNum(4);
+
+      if(!isDifficult) {
+        db.room.create({
+          inviteId: randomId
+        });        
+      } else {
+        throw Error('ルーム作成に失敗しました。');
+      }
+
+      return res(
+        ctx.json({ inviteId: randomId}),
+        ctx.status(200),
+        ctx.delay(1000),
+      );
+    }
+    catch(error) {
+      return res(
+        ctx.status(400),
+        ctx.delay(1000),
+      );
+    }
+  }),
+  
+  rest.put(JOIN_ROOM_URL, (req, res, ctx) => {
+    try {
+      const inputRoomId= req.body;
       
-      db.room.create({
-        invite_id: 1234
+      const existingRoom= db.room.findFirst({
+        where: {
+          inviteId: {
+            equals: inputRoomId.inviteId,
+          }
+        }
       });
-      
+
+      if(existingRoom) {
+        
+      } else {
+        throw Error('ルームが存在していません。');
+      }
 
       return res(
         ctx.status(200),
-        ctx.json(({ inviteId: 1234}))
+        ctx.json({ succuess: true }),
+        ctx.delay(1000)
       );
     }
     catch(error) {
       return res(ctx.status(400));
     }
   }),
-  
-  rest.put(JOIN_ROOM_URL, (req, res, ctx) => {
-    try {
-
-    }
-    catch(error) {
-
-    }
-  }),
 
   rest.get(GET_ROOM_INFO_URL, (res, ctx) => {
     try {
-      const members= {
-        host: true,
-        opponent: "kinoshita",
-        started: true
+      const isHost= db.allocations.getAll();
+
+      if(isHost) {
+
+      } else {
+
       }
 
       return res(
