@@ -12,7 +12,7 @@ export const useSignUp= () => {
   async function isSignUp(data: AuthUser): Promise<void>{
     try {
       const formattedJsonData= JSON.stringify(data);
-      const response= await axios.put( 
+      const response= await axios.post( 
         SIGNUP_USER_URL, 
         formattedJsonData,  
         {
