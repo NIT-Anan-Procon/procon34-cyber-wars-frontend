@@ -2,16 +2,22 @@ import { factory, primaryKey } from '@mswjs/data';
 
 const DBModels= {
   user: {
-    user_id: primaryKey(Number),
+    userId: primaryKey(Number),
     name: String,
     password: String,
+    loggedIn: Boolean,
   },
   room: {
-    room_id: primaryKey(Number),
-    invite_id: Number,
+    roomId: primaryKey(Number),
+    inviteId: Number,
     challenge_id: Number,
     started_at: Date,
     active: Boolean
+  },
+  allocations: {
+    roomId: primaryKey(Number),
+    userId: Number,
+    host  : Boolean,
   },
   vulnerabilities: {
     vulnerability_id: primaryKey(Number),
