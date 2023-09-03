@@ -1,14 +1,8 @@
-import jwt    from 'jsonwebtoken';
-
 import { db } from './db';
-import { AuthUser } from '@/features/auth';
-import { JWT_SECRET } from '@/config/jwt_secret';
-import { ISSUCCESS_KEY } from '../features/auth/api/config/userAuth_keys';
 import { AuthUserBody } from './handlers/user';
 
 
 export function authenticate({ name, password }: AuthUserBody ) {
-
   const user = db.user.findFirst({
     where: {
       name: {
@@ -23,4 +17,15 @@ export function authenticate({ name, password }: AuthUserBody ) {
 
   const error = new Error('ユーザ名もしくはパスワードが正しくありません。');
   throw error;
+}
+
+
+
+export function randomNum(digit: number) {
+  const random = Math.random();
+  const number = Math.floor(random * (10**digit));
+  const string = number.toString();
+  const padded = string.padStart(digit, '0');
+  
+  return Number(padded);
 }
