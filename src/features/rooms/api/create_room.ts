@@ -23,7 +23,8 @@ export const useCreateRoom= () => {
           },
         }
       )
-      setRoomId(response.data.invite_id);
+      setRoomId(response.data.inviteId);
+      
       navigate('match'); 
     }
     catch(error) {
