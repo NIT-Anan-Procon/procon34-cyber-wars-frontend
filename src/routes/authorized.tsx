@@ -5,7 +5,7 @@ import { lazyImport } from '@/utils/lazyImport';
 
 const { ModeSelection }= lazyImport(() => import('@/features/modeSelect'), 'ModeSelection');
 const { StandByRoutes }= lazyImport(() => import('@/features/standby'), 'StandByRoutes');
-const { Settings }= lazyImport(() => import('@/features/users'), 'Settings');
+const { Settings }     = lazyImport(() => import('@/features/users'), 'Settings');
 
 const App = () => {
   return (
