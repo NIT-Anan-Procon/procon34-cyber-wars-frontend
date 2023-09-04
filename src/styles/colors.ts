@@ -4,8 +4,8 @@ export const colors= {
   primary     : '#2DE7D0',
   secondary   : '#D9D9D9',
   greyAccent  : '#8E8E8E',
-  redAccent   : '#A72B2B',
-  blueAccent  : '#3E63AB',
+  redAccent   : '#CA1C1C',
+  blueAccent  : '#1A6AB4',
   yellowAccent: '#BD9A1C',
 
   info   : '#04e4f4',
