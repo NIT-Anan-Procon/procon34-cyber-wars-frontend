@@ -14,18 +14,26 @@ export const roomHandlers= [
     try {
       const isDifficult= req.body.difficult;
 
-      const randomId=  randomNum(4);
+      const roomId  = randomNum(3);
+      const inviteId= randomNum(4);
 
       if(!isDifficult) {
         db.room.create({
-          inviteId: randomId
-        });        
+          roomId  : roomId,
+          inviteId: inviteId
+        });
+
+        db.allocations.create({
+          roomId: db.room.roomId,
+          userId: db.user.userId,
+          host  : true
+        });
       } else {
         throw Error('ルーム作成に失敗しました。');
       }
 
       return res(
-        ctx.json({ inviteId: randomId}),
+        ctx.json({ inviteId: inviteId}),
         ctx.status(200),
         ctx.delay(1000),
       );
@@ -38,7 +46,7 @@ export const roomHandlers= [
     }
   }),
   
-  rest.put(JOIN_ROOM_URL, (req, res, ctx) => {
+  rest.put( JOIN_ROOM_URL, (req, res, ctx) => {
     try {
       const inputRoomId= req.body;
       
@@ -51,7 +59,11 @@ export const roomHandlers= [
       });
 
       if(existingRoom) {
-        
+        db.allocations.create({
+          roomId: existingRoom.roomId,
+          userId: db.user.userId,
+          host  : false
+        })
       } else {
         throw Error('ルームが存在していません。');
       }
@@ -69,7 +81,7 @@ export const roomHandlers= [
 
   rest.get(GET_ROOM_INFO_URL, (res, ctx) => {
     try {
-      const isHost= db.allocations.getAll();
+      const getAllData= db.allocations.roomId;
 
       if(isHost) {
 
