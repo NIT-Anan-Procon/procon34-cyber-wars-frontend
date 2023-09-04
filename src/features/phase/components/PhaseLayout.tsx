@@ -10,13 +10,14 @@ const _PhaseLayout= styled.div`
 `;
 
 type PhaseLayoutProps= {
+  title: string;
   children: React.ReactNode;
 };
 
-export const PhaseLayout= ({ children }: PhaseLayoutProps) => {
+export const PhaseLayout= ({ title, children }: PhaseLayoutProps) => {
   return (
     <>
-      <Head title={ 'ゲーム画面' } />
+      <Head title={ title } />
       <_PhaseLayout>
         { children }
       </_PhaseLayout>    
