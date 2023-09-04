@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import styled         from 'styled-components';
 
 import { Loading } from '.';
-import { colors } from '@/styles';
+import { colors } from '@/assets/styles';
 
 const ButtonStyle= styled.button`
   margin-top   : 1.75rem;

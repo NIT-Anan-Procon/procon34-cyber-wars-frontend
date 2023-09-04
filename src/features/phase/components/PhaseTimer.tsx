@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { colors }   from '@/styles';
-import attackPhase  from '@/assets/attack_phase.svg';
-import defencePhase from '@/assets/defence_phase.svg';
-import battlePhase  from '@/assets/battle_phas.svg';
+import { colors }   from '@/assets/styles';
+import attackPhase  from '@/assets/images/attack_phase.svg';
+import defencePhase from '@/assets/images/defence_phase.svg';
+import battlePhase  from '@/assets/images/battle_phas.svg';
 
 const _TimerWrapper= styled.div`
   height  : 100%;

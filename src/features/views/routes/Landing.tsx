@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isAuthState } from "@/atoms";
 import { Head } from "@/components/Head";
-import { colors } from "@/styles";
+import { colors } from "@/assets/styles";
 import { APP_ROUTE, AUTH_ROUTE } from "../types/authenticatedRoute";
 
 const LandingContainer= styled.div`

@@ -3,7 +3,7 @@ import styled          from "styled-components";
 import { Form, FormTitle, InputField } from "@/components/Form";
 import { Button, Link }          from "@/components/Elements";
 import { AuthUser, FormSchema }  from "..";
-import { colors }                from "@/styles";
+import { colors }                from "@/assets/styles";
 import { useSignIn } from "../api/signIn";
 
 const ContentAreaWrapper= styled.div`

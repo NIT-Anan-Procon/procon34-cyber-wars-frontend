@@ -1,4 +1,4 @@
-import { colors } from "@/styles";
+import { colors } from "@/assets/styles";
 import styled from "styled-components";
 
 type FormTitleProps= {

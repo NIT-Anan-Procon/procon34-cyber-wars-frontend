@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link as RouterLink, LinkProps } from 'react-router-dom';
-import { colors } from "@/styles";
+import { colors } from "@/assets/styles";
 
 const RouterLinkStyle= styled(RouterLink)`
   margin-left: 1.25rem;

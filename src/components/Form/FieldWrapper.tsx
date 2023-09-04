@@ -1,7 +1,7 @@
 import styled         from 'styled-components';
 import { FieldError } from 'react-hook-form';
 
-import { colors } from '@/styles/colors';
+import { colors } from '@/assets/styles/colors';
 
 type FieldWrapperProps= {
   label   ?: string;

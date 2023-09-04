@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { PhaseLayout, PhaseTimer, UserBoardsLayout } from "../components";
 
 import { EditArea } from "@/features/codeEdiror";
-import { colors } from "@/styles";
+import { colors } from "@/assets/styles";
 
 const $PhaseTimer= styled(PhaseTimer)`
   grid-column: 1 / span 2;

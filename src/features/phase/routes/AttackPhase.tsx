@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { PhaseLayout, PhaseTimer, UserBoardsLayout } from "../components";
 
 import { EditArea } from "@/features/codeEdiror";
-import { colors } from "@/styles";
+import { colors } from "@/assets/styles";
+import { CheckBoxList } from "@/components/Elements";
 
 const $PhaseTimer= styled(PhaseTimer)`
   grid-column: 1 / span 2;
@@ -12,14 +13,14 @@ const $PhaseTimer= styled(PhaseTimer)`
 `;
 
 const $MyUserScoreBoard= styled.div`
-  height: 20rem;
-  width : 40rem;
+  height    : 20rem;
+  width     : 40rem;
   background: white;
 `;
 
 const $OpponentScoreBoard= styled.div`
-  height: 20rem;
-  width : 40rem;
+  height    : 20rem;
+  width     : 40rem;
   background: white;
 `;
 
@@ -36,11 +37,11 @@ const _Preview= styled.iframe`
 const _EditorWrapper= styled.div`
   grid-column: 2;
   grid-row   : 3;
-  height: calc(100% - 10px);
-  width : 100%;
-  background: ${ colors.bgDarker };
-  font-size: 1.5rem;
-  overflow: auto;
+  height     : calc(100% - 10px);
+  width      : 100%;
+  background : ${ colors.bgDarker };
+  font-size  : 1.5rem;
+  overflow   : auto;
 `;
 
 export const AttackPhase= () => {
@@ -52,7 +53,9 @@ export const AttackPhase= () => {
         <$OpponentScoreBoard />
       </UserBoardsLayout>
       <_EditorWrapper >
-        <EditArea />
+        <CheckBoxList
+          values={['"', '1', 'OR', '1', '=']}
+        />
       </_EditorWrapper>
       <_Preview src={'@/mocks/challengeData/mock_challenge.php'} />
     </PhaseLayout>
