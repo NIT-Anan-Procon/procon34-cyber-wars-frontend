@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link as RouterLink, LinkProps } from 'react-router-dom';
 import { colors } from "@/styles";
 
-const $RouterLink= styled(RouterLink)`
+const RouterLinkStyle= styled(RouterLink)`
   margin-left: 1.25rem;
   font-size  : 2rem;
   color      : ${colors.secondary};
@@ -14,8 +14,8 @@ const $RouterLink= styled(RouterLink)`
 
 export const Link= ({ children, ...props }: LinkProps) => {
   return (
-    <$RouterLink {...props} >
+    <RouterLinkStyle {...props} >
       { children }
-    </$RouterLink>
+    </RouterLinkStyle>
   );
 }
