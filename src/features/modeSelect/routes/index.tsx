@@ -6,7 +6,7 @@ import { Head } from "@/components/Head";
 import { SelectionCard } from "../components";
 import { Button, Header } from "@/components/Elements";
 import { CARD_DESCRIPTION, MATCH_MODE_PATH, SETTINGS_PATH, TRAIN_MODE_PATH } from "..";
-import userIcon from '@/assets//images/user.svg';
+import userIcon from '@/assets/images/user.svg';
 import { useSignOut } from '@/features/auth';
 import { RoomSelectForm } from '@/features/rooms';
 import { useModal } from '@/hooks/useModal';
