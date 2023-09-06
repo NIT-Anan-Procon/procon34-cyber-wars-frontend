@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useGetRoomMember } from "../api/get_roomMember";
 import { StandbyLayout } from "../components";
 import { StandbyUser } from "../components/StandbyUser";
-import testIcon from '@/assets/attack_phase.svg';
+import testIcon from '@/assets/images/attack_phase.svg';
 import { Button } from "@/components/Elements";
 
 const _FlexUsers= styled.div`
