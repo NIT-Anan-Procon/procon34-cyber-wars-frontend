@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { 
   PhaseLayout, 
   PhaseTimer, 
-  UserBoardsLayout
+  UserBoardsLayout,
+  UserScoreBoard
 } from "../components";
 
 import { colors } from "@/assets/styles";
@@ -18,14 +19,14 @@ const $PhaseTimer= styled(PhaseTimer)`
   height     : 10vh;
 `;
 
-const $MyUserScoreBoard= styled.div`
-  height    : 20rem;
+const $MyUserScoreBoard= styled(UserScoreBoard)`
+  height    : 100%;
   width     : 40rem;
   background: white;
 `;
 
-const $OpponentScoreBoard= styled.div`
-  height    : 20rem;
+const $OpponentScoreBoard= styled(UserScoreBoard)`
+  height    : 100%;
   width     : 40rem;
   background: white;
 `;
@@ -84,8 +85,16 @@ export const AttackPhase= () => {
     <PhaseLayout title='アタックフェーズ'>
       <$PhaseTimer phaseTitle={'attack'}/>
       <UserBoardsLayout>
-        <$MyUserScoreBoard />
-        <$OpponentScoreBoard />
+        <$MyUserScoreBoard 
+          name  = {'日下 遥斗'}
+          status= { 'HOST' }
+          score = { 100 } 
+        />
+        <$OpponentScoreBoard 
+          name  = {'木下 聡大'}
+          status= { 'GUEST' }
+          score = { 100 }           
+        />
       </UserBoardsLayout>
       <_EditorWrapper >
         <_EditorHead >
