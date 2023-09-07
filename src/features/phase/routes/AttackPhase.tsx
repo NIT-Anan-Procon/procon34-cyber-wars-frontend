@@ -72,9 +72,16 @@ const _EditorHead= styled.div`
 const _EditorFoot= styled.div`
   height: 8rem;
   width : 100%;
+  display: flex;
+  justify-content: end;
   position: relative;
   bottom  : 0;
   background: #000007;
+`;
+
+const $SendButton= styled(Button)`
+  height: 5rem;
+  width: 20rem;
 `;
 
 export const AttackPhase= () => {
@@ -106,7 +113,7 @@ export const AttackPhase= () => {
           onChange={ updateCheckedOption }
         />
         <_EditorFoot>
-          <Button type='button' onClick={() => navigate('../defence-phase')} >Send</Button>
+          <$SendButton type='button' onClick={() => navigate('../defence-phase')} >Send</$SendButton>
         </_EditorFoot>
       </_EditorWrapper>
       <_Preview src={'@/mocks/challengeData/mock_challenge.php'} />
