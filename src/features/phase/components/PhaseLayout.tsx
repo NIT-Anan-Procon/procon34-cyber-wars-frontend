@@ -6,7 +6,8 @@ const _PhaseLayout= styled.div`
   width  : 100vw;
   display: grid;
   grid-template-columns: 50vw 50vw;
-  grid-template-rows   : 10vh 15vh 75vh;
+  grid-template-rows   : 10vh 15vh 70vh;
+  row-gap: 20px;
 `;
 
 type PhaseLayoutProps= {
