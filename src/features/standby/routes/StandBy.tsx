@@ -64,11 +64,11 @@ export const StandBy= () => {
             ?
             <>
               <StandbyUser 
-                userName= {'kinoshita'}
+                userName= {'木下 聡大'}
                 status= {'GUEST'}
                 iconPath={testIcon} 
               />          
-              <$StartButton onClick={() => navigate('attack-phase')}>
+              <$StartButton onClick={() => navigate('games/attack-phase')}>
                 Start
               </$StartButton>   
             </>
