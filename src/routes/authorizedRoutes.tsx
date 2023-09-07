@@ -3,8 +3,9 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import { lazyImport } from '@/utils/lazyImport';
 
-const { ModeSelection }= lazyImport(() => import('@/features/modeSelect'), 'ModeSelection');
+const { TrainRoutes }= lazyImport(() => import('./modeRoutes'), 'TrainRoutes');
 const { GamesRoutes }= lazyImport(() => import('./modeRoutes'), 'GamesRoutes');
+const { ModeSelection }= lazyImport(() => import('@/features/modeSelect'), 'ModeSelection');
 const { Settings }     = lazyImport(() => import('@/features/users'), 'Settings');
 
 const App = () => {
@@ -22,7 +23,7 @@ export const authorizedRoutes = [
     children: [
       { path: '',  element: <ModeSelection /> },
       { path: 'settings', element: <Settings/>},
-      { path: 'train/*',  element: <></> },
+      { path: 'train/*',  element: <TrainRoutes /> },
       { path: 'games/*',  element: <GamesRoutes /> },
       { path: '*', element: <Navigate to="." /> },
     ],
