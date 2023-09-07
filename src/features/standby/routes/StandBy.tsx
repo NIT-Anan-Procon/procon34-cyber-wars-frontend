@@ -68,7 +68,7 @@ export const StandBy= () => {
                 status= {'GUEST'}
                 iconPath={testIcon} 
               />          
-              <$StartButton onClick={() => navigate('games/attack-phase')}>
+              <$StartButton onClick={() => navigate('../phase/attack-phase')}>
                 Start
               </$StartButton>   
             </>

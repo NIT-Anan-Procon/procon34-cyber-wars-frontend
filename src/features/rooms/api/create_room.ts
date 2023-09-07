@@ -25,7 +25,7 @@ export const useCreateRoom= () => {
       )
       setRoomId(response.data.inviteId);
       
-      navigate('match'); 
+      navigate('games/standby'); 
     }
     catch(error) {
       console.log('error');

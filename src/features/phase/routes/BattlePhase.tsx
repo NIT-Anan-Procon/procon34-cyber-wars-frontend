@@ -110,7 +110,7 @@ export const BattlePhase= () => {
         </_EditorHead>
           <EditArea />
         <_EditorFoot>
-          <$SendButton type='button' onClick={() => navigate('../defence-phase')} >Send</$SendButton>
+          <$SendButton type='button' onClick={() => navigate('../../result')} >Send</$SendButton>
         </_EditorFoot>
       </_EditorWrapper>
       <_Preview src={'@/mocks/challengeData/mock_challenge.php'} />
