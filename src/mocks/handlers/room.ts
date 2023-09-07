@@ -9,11 +9,19 @@ import {
 import { db } from '../db';
 import { randomNum } from '../utils';
 
+type RoomHandlersType= {
+  difficult: boolean;
+  success  : boolean;
+  roomId   : number;
+  userId   : number; 
+  inviteId : number;
+}
+
 export const roomHandlers= [
-  rest.post( CREATE_ROOM_URL, (req, res, ctx) => {
+  rest.post<RoomHandlersType>( CREATE_ROOM_URL, (req, res, ctx) => {
     try {
       const isDifficult= req.body.difficult;
-
+      console.log(isDifficult)
       const roomId  = randomNum(3);
       const inviteId= randomNum(4);
 
@@ -23,11 +31,11 @@ export const roomHandlers= [
           inviteId: inviteId
         });
 
-        db.allocations.create({
-          roomId: db.room.roomId,
-          userId: db.user.userId,
-          host  : true
-        });
+        // db.allocations.create({
+        //   roomId: db.room.roomId,
+        //   userId: db.user.userId,
+        //   host  : true
+        // });
       } else {
         throw Error('ルーム作成に失敗しました。');
       }
@@ -46,7 +54,7 @@ export const roomHandlers= [
     }
   }),
   
-  rest.put( JOIN_ROOM_URL, (req, res, ctx) => {
+  rest.put<RoomHandlersType>( JOIN_ROOM_URL, (req, res, ctx) => {
     try {
       const inputRoomId= req.body;
       
