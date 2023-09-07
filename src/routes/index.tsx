@@ -2,8 +2,8 @@ import { useRoutes } from 'react-router-dom';
 
 import { Landing } from '@/features/views';
 
-import { authorizedRoutes } from './authorized';
-import { publicRoutes } from './public';
+import { authorizedRoutes } from './authorizedRoutes';
+import { publicRoutes } from './publicRoutes';
 import { useRecoilValue } from 'recoil';
 import { isAuthState } from '@/atoms';
 
