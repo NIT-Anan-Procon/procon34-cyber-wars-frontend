@@ -1,6 +1,6 @@
 import { useRoutes } from 'react-router-dom';
 
-import { Landing } from '@/features/views';
+import { Landing } from '@/features/misc';
 
 import { authorizedRoutes } from './authorizedRoutes';
 import { publicRoutes } from './publicRoutes';
