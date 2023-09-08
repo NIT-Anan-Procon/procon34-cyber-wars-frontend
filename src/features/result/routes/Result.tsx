@@ -1,46 +1,50 @@
-import { Button, Header } from "@/components/Elements";
-import { useNavigate } from "react-router-dom";
-import { ResultLayout, ResultUserCard } from "../components";
-import styled from 'styled-components';
+import styled          from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-const _Result= styled.div`
-  grid-column: 1 / span 2;
-  grid-row   : 1;
-  height     : 25vh;
-  width      : 100%;
-  display    : flex;
+import { ContentLayout }  from '@/components/Layout';
+import { Button }         from '@/components/Elements';
+import { ResultUserCard } from '../components';
+
+const _ResultWrapper= styled.div`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  
-  > h1 {
-    font-size: 7rem;
-    color    : white;
-  }
+  row-gap: 20px;
+`;
+
+const _Result= styled.h1`
+  font-size: 10rem;
 `;
 
 const _NextButton= styled(Button)`
-  grid-row: 4;
+
 `;
 
 export const Result= () => {
   const navigate= useNavigate();
 
   return (
-    <ResultLayout>
-      <_Result>
-        <h1>Result</h1>
-      </_Result>
-      <ResultUserCard 
-        name={ '日下 遥斗' }
-        score={ 200 } 
-        result={ 'WIN' } 
-      />
-      {/* <ResultUserCard 
-        name={ '木下 聡大' }
-        score={ 180 } 
-        result={ 'LOSE' } 
-      /> */}
-      <_NextButton type='button' onClick={() => navigate('../explanation')}>next</_NextButton>
-    </ResultLayout>
+    <ContentLayout
+      headTitle={ 'リザルト画面' }
+      header   ={ 'RESULT' }
+    >
+      <_ResultWrapper>
+        <_Result>{ 'YOU WIN' }</_Result>
+        <ResultUserCard 
+          name    ={ '日下 遥斗' }
+          score   ={ 200 } 
+          result  ={ 'WIN' }
+          userType={ 'MYUSER' } 
+        />
+        <ResultUserCard 
+          name    ={ '木下 聡大' }
+          score   ={ 180 } 
+          result  ={ 'LOSE' }
+          userType={ 'OPPONENTUSER' } 
+        />      
+      </_ResultWrapper>
+      {/* <_NextButton type='button' onClick={() => navigate('../explanation')}>next</_NextButton> */}
+    </ContentLayout>
   );
 };

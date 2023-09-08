@@ -1,49 +1,37 @@
 import styled, { css } from 'styled-components';
 
-const _ResultUserCard= styled.div`
-  height: 30rem;
-  width : 50rem;
-  position  : relative;
+const _ResultUserCard= styled.div<ResultUserCardProps>`
+  display   : flex;
   background: black;
-  opacity: 0.7;
-  
-  ${(props) => props.result === 'WIN'
-    ? css`
+  opacity   : 0.7;
 
+  &::before {
+    position: absolute;
+    content : '';
+  }
+
+  ${(props) => props.userType === 'MYUSER'
+    ? css`
+        height    : 30rem;
+        width     : 80rem;
+        font-size : 5rem;
       `
     : css`
-
+        height    : 20rem;
+        width     : 50rem;
+        font-size : 2rem;
+        transform : translateX(50%);
       `
   }
 `;
 
-const _ResultWrapper= styled.div`
-  position: absolute;
-  transform: translate(100%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #868686;
+const _UserWrapper= styled.div`
 
-  ${(props) => props.result === 'WIN'
-    ? css`
-        height   : 12rem;
-        width    : 25rem;
-        font-size: 5rem;
-        color    : white;
-      `
-    : css`
-        height   : 8rem;
-        width    : 20rem;
-        font-size: 2rem;
-        color    : #000000;
-      `
-  }
 `;
 
 const _UserIconWrapper= styled.div`
-  height: 20rem;
-  width : 20rem;
+  height: 6em;
+  width : 100%;
   background: #464646;
 `;
 
@@ -52,45 +40,56 @@ const UserIcon= styled.div`
 `;
 
 const _UserName= styled.h1`
-  font-size: 4.5rem;
+  font-size: 2em;
   color : white;
 `;
 
 const _ResultScore= styled.div`
-  position: absolute;
-  bottom: 0;
-  height: 10rem;
-  width : 30rem;
+  height: 100%;
+  width : 100%;
+  padding-left: 20px;
+  position: relative;
   display: flex;
-  align-items: center;
+  flex-direction : column;
   justify-content: center;
-  font-size: 4.5rem;
+  font-size: 1.5em;
   color : white;
   background: #808080;
+  
+  > span {
+    font-size: 0.75em;
+  }
+
+  > h3 {
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+  }
 `;
 
 type ResultUserCardProps= {
-  name  : string;
-  score : number;
-  result: 'WIN' | 'LOSE'; 
+  name    : string;
+  score   : number;
+  result  : 'WIN' | 'LOSE';
+  userType: 'MYUSER' | 'OPPONENTUSER';
 };
 
 export const ResultUserCard= (
   { 
     name, 
     score, 
-    result 
+    result,
+    userType
   }: ResultUserCardProps
 ) => {
   return (
-    <_ResultUserCard result={result}>
-      <_ResultWrapper result={result} >
-        <h1>{ result }</h1>
-      </_ResultWrapper>
-      <_UserIconWrapper>
-        <UserIcon />
-      </_UserIconWrapper>
-      <_UserName>{ name }</_UserName>
+    <_ResultUserCard userType={userType} >
+      <_UserWrapper>
+        <_UserIconWrapper>
+          <UserIcon />
+        </_UserIconWrapper>
+        <_UserName>{ name }</_UserName>        
+      </_UserWrapper>
       <_ResultScore>
         <span>Score</span>
         <h3>{ score }</h3>
