@@ -1,1 +1,1 @@
-export const AUTHENTICATED_NAV_PATH= '../../cyberwars/modeSelect';
+export const AUTHENTICATED_NAV_PATH= '../../cyberwars';
