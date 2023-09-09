@@ -1,8 +1,9 @@
-import { colors } from "@/assets/styles";
-import styled from "styled-components";
+import styled from 'styled-components';
+
+import { colors } from '@/assets/styles';
 
 type FormTitleProps= {
-  title?: string
+  title?: string;
 };
 
 const FormTitleStyle= styled.h1`
@@ -11,9 +12,7 @@ const FormTitleStyle= styled.h1`
   color: ${colors.bgLighter}
 `;
 
-export const FormTitle= (props: FormTitleProps) => {
-  const { title }= props;
-
+export const FormTitle= ({ title }: FormTitleProps) => {
   return (
     <FormTitleStyle>{title}</FormTitleStyle>
   );

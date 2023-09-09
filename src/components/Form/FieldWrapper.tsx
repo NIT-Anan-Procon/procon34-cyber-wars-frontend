@@ -27,9 +27,13 @@ const ErrorMessageStyle= styled.div`
   color      : ${colors.danger};
 `;
 
-export const FieldWrapper= (props: FieldWrapperProps) => {
-  const { label, error, children }= props;
-
+export const FieldWrapper= (
+  { 
+    label, 
+    error, 
+    children 
+  }: FieldWrapperProps
+) => {
   return (
     <FieldWrapperStyle>
       <FieldLabelStyle>
