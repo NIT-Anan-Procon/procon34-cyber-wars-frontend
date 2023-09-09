@@ -1,26 +1,22 @@
 //ユーザ認証関連のエンドポイント
-export const SIGNUP_USER_URL  = '/user';
-export const UPDATE_USER_NAME_URL    = '/user/name';
-export const UPDATE_USER_PASSWORD_URL= '/user/password';
-export const SIGNIN_USER_URL = '/user/credential';
-export const IS_LOGGEDIN_URL = '/user/credential'
-export const SIGNOUT_USER_URL= '/user/credential';
+export const SIGNUP_USER_URL= import.meta.env.VITE_API_URL_USER_SIGNUP;
+export const UPDATE_USER_NAME_URL= import.meta.env.VITE_API_URL_USER_UPDATE_NAME;
+export const UPDATE_USER_PASSWORD_URL= import.meta.env.VITE_API_URL_USER_UPDATE_PASSWORD;
+export const SIGNIN_USER_URL = import.meta.env.VITE_API_URL_USER_SIGNIN;
+export const IS_SIGNEDIN_URL = import.meta.env.VITE_API_URL_USER_ISSIGNEDIN;
+export const SIGNOUT_USER_URL= import.meta.env.VITE_API_URL_USER_SIGNOUT;
 
 //ルーム関連のエンドポイント
-export const CREATE_ROOM_URL  = '/room';
-export const JOIN_ROOM_URL    = '/room';
-export const GET_ROOM_INFO_URL= '/room';
-export const LEAVE_ROOM_URL   = '/room';
+export const ROOM_URL  = import.meta.env.VITE_API_URL_ROOM;
 
 //ゲーム関連のエンドポイント
-export const IS_START_GAME_URL      = '/game';
-export const GET_GAME_START_TIME_URL= '/game/start-time';
-export const GAME_ENDS_URL          = '/game';
-export const GET_PLAYERS_INFO_URL   = '/game/players';
-export const GET_SCORE_INFO_URL     = '/game/scores';
-export const GET_CHALLENGE_WEB_URL  = '/game/challenge';
-export const USED_HINT_URL          = '/game/hint';
-export const SEND_KEY_URL           = '/game/key';
-export const GET_SOURCE_CODE_URL    = '/game/code';
-export const SEND_SOURCE_CODE_URL   = '/game/code';
-export const GET_FIXED_WEB_URL      = '/game/revision'
+export const START_GAME_URL         = import.meta.env.VITE_API_URL_GAME_START;
+export const GET_GAME_START_TIME_URL= import.meta.env.VITE_API_URL_GAME_START_TIME;
+export const GAME_OPPONENT_NAME_URL = import.meta.env.VITE_API_URL_GAME_OPPONENT_NAME;
+export const GAME_SCORES_URL        = import.meta.env.VITE_API_URL_GAME_SCORES;
+export const ATTACK_CHALLENGE_URL   = import.meta.env.VITE_API_URL_GAME_ATTACK_CHALLENGE;
+export const ATTACK_HINT_URL        = import.meta.env.VITE_API_URL_GAME_ATTACK_HINT;
+export const ATTACK_SEND_KEY_URL    = import.meta.env.VITE_API_URL_GAME_ATTACK_SEND_KEY;
+export const DEFENCE_CODE_URL       = import.meta.env.VITE_API_URL_GAME_DEFENCE_CODE;
+export const BATTLE_REVISION_URL    = import.meta.env.VITE_API_URL_GAME_BATTLE_REVISION;
+export const BATTLE_SEND_KEY_URL    = import.meta.env.VITE_API_URL_GAME_BATTLE_SEND_KEY;
