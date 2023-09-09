@@ -1,4 +1,3 @@
-//ユーザ認証関連のエンドポイント
 export const SIGNUP_USER_URL= import.meta.env.VITE_API_URL_USER_SIGNUP;
 export const UPDATE_USER_NAME_URL= import.meta.env.VITE_API_URL_USER_UPDATE_NAME;
 export const UPDATE_USER_PASSWORD_URL= import.meta.env.VITE_API_URL_USER_UPDATE_PASSWORD;
@@ -6,10 +5,8 @@ export const SIGNIN_USER_URL = import.meta.env.VITE_API_URL_USER_SIGNIN;
 export const IS_SIGNEDIN_URL = import.meta.env.VITE_API_URL_USER_ISSIGNEDIN;
 export const SIGNOUT_USER_URL= import.meta.env.VITE_API_URL_USER_SIGNOUT;
 
-//ルーム関連のエンドポイント
 export const ROOM_URL  = import.meta.env.VITE_API_URL_ROOM;
 
-//ゲーム関連のエンドポイント
 export const START_GAME_URL         = import.meta.env.VITE_API_URL_GAME_START;
 export const GET_GAME_START_TIME_URL= import.meta.env.VITE_API_URL_GAME_START_TIME;
 export const GAME_OPPONENT_NAME_URL = import.meta.env.VITE_API_URL_GAME_OPPONENT_NAME;
