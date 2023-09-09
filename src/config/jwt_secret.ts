@@ -1,1 +1,1 @@
-export const JWT_SECRET= import.meta.env.JWT_SECRET;
+export const JWT_SECRET= import.meta.env.VITE_JWT_SECRET;
