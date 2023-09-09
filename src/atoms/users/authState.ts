@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
 export const isAuthState= atom<boolean>({
-  key: 'is-auth-state',
+  key: 'is-authenticated-state',
   default: true,
 });
