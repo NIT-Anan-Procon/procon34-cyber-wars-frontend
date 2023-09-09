@@ -5,4 +5,4 @@ import { UPDATE_USER_PASSWORD_URL } from '@/config/apiEndpoints';
 
 export const updatePassword= ( password: string ): Promise<AxiosResponse<string>> => {
   return axios.patch( UPDATE_USER_PASSWORD_URL, password );
-}
+};
