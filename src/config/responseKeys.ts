@@ -1,6 +1,6 @@
 export const USER_NAME_KEY    = import.meta.env.VITE_API_RESPONSE_KEY_USER_NAME;
 export const USER_PASSWORD_KEY= import.meta.env.VITE_API_RESPONSE_KEY_USER_PASSWORD;
-export const IS_SIGNIN        = import.meta.env.VITE_API_RESPONSE_KEY_USER_ISSINGNIN;
+export const IS_SIGNEDIN      = import.meta.env.VITE_API_RESPONSE_KEY_USER_ISSINGNIN;
 export const ISSUCCESS_KEY    = import.meta.env.VITE_API_RESPONSE_KEY_USER_ISSUCCESSFUL;
 
 export const ROOM_DIFFICULT_KEY= import.meta.env.VITE_API_RESPONSE_KEY_ROOM_DIFFICULT;
