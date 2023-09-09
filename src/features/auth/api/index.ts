@@ -3,3 +3,4 @@ export * from './signUp';
 export * from './signOut';
 export * from './updateUserName';
 export * from './updatePassword';
+export * from './getAuthenticatedUser';

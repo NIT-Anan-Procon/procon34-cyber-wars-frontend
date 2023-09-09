@@ -1,4 +1,4 @@
 export * from './user';
 export * from './room';
-// export * from './games';
+export * from './game';
 export * from './misc';
