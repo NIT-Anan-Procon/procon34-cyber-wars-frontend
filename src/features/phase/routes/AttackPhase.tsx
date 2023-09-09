@@ -9,7 +9,7 @@ import {
 import { colors } from "@/assets/styles";
 import { Button, CheckBoxList } from "@/components/Elements";
 import { useAtomValueChange } from '@/hooks/useAtomValueChange';
-import { vulnerabilityOptionState } from '@/atoms/games';
+import { vulnerabilityOptionState } from '@/atoms/game';
 import { useNavigate } from 'react-router-dom';
 
 const $PhaseTimer= styled(PhaseTimer)`
