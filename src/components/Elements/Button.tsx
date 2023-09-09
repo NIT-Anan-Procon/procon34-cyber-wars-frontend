@@ -4,7 +4,7 @@ import styled         from 'styled-components';
 import { Loading } from '.';
 import { colors } from '@/assets/styles';
 
-const ButtonStyle= styled.button`
+const _Button= styled.button`
   margin-top   : 1.75rem;
   width        : 100%;
   height       : 4.75rem;
@@ -14,7 +14,7 @@ const ButtonStyle= styled.button`
   border-radius: 0.8rem;
   border       : 0;
   outline      : 0;
-  background: ${colors.secondary};
+  background   : ${colors.secondary};
 
   &:hover {
     color     : ${colors.bgLighter}; 
@@ -44,7 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     return (
-      <ButtonStyle
+      <_Button
         ref={ref}
         type={type}
         {...props}
@@ -52,7 +52,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {isLoading && <Loading />}
         {!isLoading && startIcon}
         <span>{props.children}</span> {!isLoading && endIcon}
-      </ButtonStyle>
+      </_Button>
     );
   }
 );

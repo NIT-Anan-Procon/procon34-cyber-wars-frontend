@@ -1,7 +1,8 @@
-import { colors } from '@/assets/styles';
 import styled from 'styled-components';
 
-const StyledHeader= styled.div`
+import { colors } from '@/assets/styles';
+
+const _Header= styled.div`
   width: 100vw;
   height: 10rem;
   display: flex;
@@ -42,6 +43,6 @@ type HeaderProps= {
 
 export const Header= ({ title }: HeaderProps) => {
   return (
-    <StyledHeader>{title}</StyledHeader>
+    <_Header>{title}</_Header>
   );
 }
