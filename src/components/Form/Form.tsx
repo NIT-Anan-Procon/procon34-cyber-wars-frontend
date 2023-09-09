@@ -1,7 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { ZodType, ZodTypeDef } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, UseFormReturn, UseFormProps, SubmitHandler } from 'react-hook-form';
+import { 
+  useForm, 
+  UseFormReturn, 
+  UseFormProps, 
+  SubmitHandler 
+} from 'react-hook-form';
 
 const FormContainer = styled.form`
   width         : clamp(40rem, 40vw, 100%);
@@ -21,8 +26,8 @@ type FormProps<TFormValues extends Record<string, any>, Schema extends ZodType<a
   onSubmit: SubmitHandler<TFormValues>;
   children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
   options?: UseFormProps<TFormValues>;
-  id?: string;
-  schema?: Schema;
+  id     ?: string;
+  schema ?: Schema;
 };
 
 export const Form = <
