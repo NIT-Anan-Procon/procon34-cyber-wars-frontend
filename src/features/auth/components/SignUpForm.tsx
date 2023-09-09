@@ -4,7 +4,7 @@ import { Form, FormTitle, InputField } from "@/components/Form";
 import { Button, Link }          from "@/components/Elements";
 import { AuthUser, FormSchema }  from "..";
 import { colors }                from "@/assets/styles";
-import { useSignUp } from "../api/signUp";
+import { useSignUp } from "../api";
 
 type SignInFormProps = {
 	onSuccess: () => void;
