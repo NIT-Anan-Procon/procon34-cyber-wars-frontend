@@ -120,9 +120,8 @@ const DialogContent= styled.div`
 export const ModeSelection= () => {
   const navigate= useNavigate();
   const [ isNavOpen, setIsNavOpen ]= useState<boolean>(false);
-  const { signOut }= useSignOut();
   const { ref, showModal, closeModal }= useModal();
-
+  const { isSignOut }= useSignOut();
 
   const stopPropagation = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -148,7 +147,7 @@ export const ModeSelection= () => {
               { isNavOpen 
                 ? <NavList>
                     <NavItem to={SETTINGS_PATH}>ユーザ設定</NavItem>
-                    <NavItem to='..' onClick={()=> signOut()} >Sign Out</NavItem>
+                    <NavItem to='..' onClick={()=> isSignOut() } >Sign Out</NavItem>
                   </NavList>
                 : undefined
               }                          
