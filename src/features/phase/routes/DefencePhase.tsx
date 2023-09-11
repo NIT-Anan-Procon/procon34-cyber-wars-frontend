@@ -7,9 +7,7 @@ import {
 } from "../components";
 
 import { colors } from "@/assets/styles";
-import { Button, CheckBoxList } from "@/components/Elements";
-import { useAtomValueChange } from '@/hooks/useAtomValueChange';
-import { vulnerabilityOptionState } from '@/atoms/games';
+import { Button } from "@/components/Elements";
 import { useNavigate } from 'react-router-dom';
 import { EditArea } from '@/features/codeEdiror';
 
@@ -87,8 +85,7 @@ const $SendButton= styled(Button)`
 
 export const DefencePhase= () => {
   const navigate= useNavigate();
-  const [ checkedOption, updateCheckedOption ]= useAtomValueChange(vulnerabilityOptionState);
-
+  
   return (
     <PhaseLayout title='ディフェンスフェーズ'>
       <$PhaseTimer phaseTitle={'defence'}/>
