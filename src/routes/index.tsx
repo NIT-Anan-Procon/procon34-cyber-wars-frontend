@@ -10,7 +10,7 @@ import { isAuthState } from '@/atoms';
 
 export const AppRoutes = () => {
   const isAuthenticated= useRecoilValue<boolean>(isAuthState);
-  
+
   const commonRoutes= [{ path: '/', element: <Landing /> }];
   
   const routes = isAuthenticated ? authorizedRoutes : publicRoutes;

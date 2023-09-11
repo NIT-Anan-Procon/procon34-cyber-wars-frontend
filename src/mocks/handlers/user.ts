@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 import { AuthUser } from '@/features/auth';
 import { 
-  IS_LOGGEDIN_URL,
+  IS_SIGNEDIN_URL,
   SIGNIN_USER_URL, 
   SIGNOUT_USER_URL, 
   SIGNUP_USER_URL, 
@@ -140,11 +140,11 @@ export const userHandlers= [
     }
   }),
 
-  rest.get( IS_LOGGEDIN_URL, (req, res, ctx) => {
+  rest.get( IS_SIGNEDIN_URL, (req, res, ctx) => {
     try {
       const user= db.user.findFirst(
         { 
-          where: { 
+          where: {
             loggedIn: {
               equals: true
             } 
@@ -154,7 +154,7 @@ export const userHandlers= [
       if(!user) {
         throw Error('ユーザは存在していません。');
       }
-
+      
       return res(
         ctx.status(200),
         ctx.json(
@@ -168,6 +168,12 @@ export const userHandlers= [
     catch(error) {
       return res(
         ctx.status(400),
+        ctx.json(
+          {
+            loggedIn: false,
+            
+          }
+        )
       );
     }
   }),

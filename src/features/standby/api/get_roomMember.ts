@@ -1,14 +1,14 @@
 import { userStatus } from "@/atoms";
-import { ROOMS_URL } from "@/features/rooms/api/config/rooms_endpoints";
+import { ROOM_URL } from '@/config/apiEndpoints';
 import axios from "axios";
 import { useSetRecoilState } from "recoil"
 
-export const useGetRoomMember= () => {
+export const getRoomInfo= () => {
   const setUserInfo= useSetRecoilState(userStatus);
 
   async function getRoomMember(): Promise<void> {
     try {
-      const response= await axios.get(ROOMS_URL)
+      const response= await axios.get(ROOM_URL)
       // setUserInfo(response.data);
       setUserInfo({host: 'sato', guest: 'kusaka'});
       console.log('success');

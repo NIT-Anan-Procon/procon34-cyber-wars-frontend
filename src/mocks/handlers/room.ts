@@ -1,11 +1,6 @@
 import { rest } from 'msw';
 
-import { 
-  CREATE_ROOM_URL, 
-  GET_ROOM_INFO_URL, 
-  JOIN_ROOM_URL, 
-  LEAVE_ROOM_URL 
-} from '@/config/apiEndpoints';
+import { ROOM_URL } from '@/config/apiEndpoints';
 import { db } from '../db';
 import { randomNum } from '../utils';
 
@@ -18,7 +13,7 @@ type RoomHandlersType= {
 }
 
 export const roomHandlers= [
-  rest.post<RoomHandlersType>( CREATE_ROOM_URL, (req, res, ctx) => {
+  rest.post<RoomHandlersType>( ROOM_URL, (req, res, ctx) => {
     try {
       const isDifficult= req.body.difficult;
       console.log(isDifficult)
@@ -54,7 +49,7 @@ export const roomHandlers= [
     }
   }),
   
-  rest.put<RoomHandlersType>( JOIN_ROOM_URL, (req, res, ctx) => {
+  rest.put<RoomHandlersType>( ROOM_URL, (req, res, ctx) => {
     try {
       const inputRoomId= req.body;
       
@@ -87,7 +82,7 @@ export const roomHandlers= [
     }
   }),
 
-  rest.get(GET_ROOM_INFO_URL, (res, ctx) => {
+  rest.get(ROOM_URL, (res, ctx) => {
     try {
       const getAllData= db.allocations.roomId;
 
@@ -107,7 +102,7 @@ export const roomHandlers= [
     }
   }),
 
-  rest.delete(LEAVE_ROOM_URL, () => {
+  rest.delete(ROOM_URL, () => {
 
   }),
 ];
