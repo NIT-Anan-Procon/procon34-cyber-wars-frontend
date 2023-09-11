@@ -1,8 +1,7 @@
-import { RoomIdState, authenticatedUserState, isEnterRoomState } from "@/atoms";
+import { isEnterRoomState } from "@/atoms";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useGetRoomMember } from "../api/get_roomMember";
 import { StandbyLayout } from "../components";
 import { StandbyUser } from "../components/StandbyUser";
 import testIcon from '@/assets/images/attack_phase.svg';
@@ -33,12 +32,8 @@ const $StartButton= styled(Button)`
 `;
 
 export const StandBy= () => {
-  const authenticatedUser= useRecoilValue(authenticatedUserState);
-  const roomId= useRecoilValue(RoomIdState);
   const isJoinedRoom=  useRecoilValue(isEnterRoomState);
-  const getUserName= useRecoilValue(authenticatedUserState);
   const navigate= useNavigate();
-  const { getRoomMember }= useGetRoomMember(); 
   
   // useEffect(() => {
   //   const interval= setInterval(() => {
@@ -63,7 +58,7 @@ export const StandBy= () => {
           { isJoinedRoom
             ?
             <>
-              <StandbyUser 
+              <StandbyUser
                 userName= {'木下 聡大'}
                 status= {'GUEST'}
                 iconPath={testIcon} 
