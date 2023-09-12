@@ -7,10 +7,11 @@ import battlePhase  from '@/assets/images/battle_phas.svg';
 
 const _TimerWrapper= styled.div`
   height  : 100%;
-  width   : 100vw;
+  width   : 100%;
   position: relative;
   display : flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `; 
 
 const _TimeArea= styled.div`
@@ -40,7 +41,7 @@ const _TimeArea= styled.div`
     transform: translateX(-50%);
     content: '';
     clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
-    background: ${ colors.bgDarker};
+    background: #000007;
     z-index: -1;
   }
 
@@ -56,10 +57,7 @@ const _PhaseIconWrapper= styled.div`
   display   : flex;
   align-items: center;
   justify-content: center;
-  position  : absolute;
-  bottom    : 5px;
-  left      : 50%;
-  transform : translate(-50%, 100%);
+  transform: translateY(-5px);
   clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
   background: 
     ${(props) => 
@@ -74,7 +72,7 @@ const _PhaseIcon= styled.img`
 `;
 
 type PhaseTimerProps= {
-  phaseTitle: 'attack' | 'defence' | 'battle';
+  phaseTitle: string;
 };
 
 export const PhaseTimer= ({ phaseTitle }: PhaseTimerProps) => {
