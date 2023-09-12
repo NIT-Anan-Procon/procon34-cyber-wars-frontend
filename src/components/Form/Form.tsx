@@ -8,7 +8,7 @@ import {
   SubmitHandler 
 } from 'react-hook-form';
 
-const FormContainer = styled.form`
+const FormContainer = styled.form<{ styles?: string }>`
   width         : clamp(40rem, 40vw, 100%);
   height        : calc(85% - 2rem);
   padding       : 4rem;
@@ -20,6 +20,8 @@ const FormContainer = styled.form`
   background    : #2D2D2D;
   border-radius : 2.75rem;
   box-shadow    : 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+
+  ${(props) => props.styles}
 `;
 
 type FormProps<TFormValues extends Record<string, any>, Schema extends ZodType<any, ZodTypeDef, any>> = {
@@ -28,6 +30,7 @@ type FormProps<TFormValues extends Record<string, any>, Schema extends ZodType<a
   options?: UseFormProps<TFormValues>;
   id     ?: string;
   schema ?: Schema;
+  styles ?: string;
 };
 
 export const Form = <
@@ -38,11 +41,15 @@ export const Form = <
   children,
   options,
   schema,
+  styles,
 }: FormProps<TFormValues, Schema>) => {
   const methods = useForm<TFormValues>({ mode: 'onChange', ...options, resolver: schema && zodResolver(schema) });
 
   return (
-    <FormContainer onSubmit={methods.handleSubmit(onSubmit)}>
+    <FormContainer 
+      onSubmit= {methods.handleSubmit(onSubmit)}
+      styles  = { styles }
+    >
       {children(methods)}
     </FormContainer>
   );
