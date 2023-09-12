@@ -2,11 +2,10 @@ import { Head } from '@/components/Head';
 import styled from 'styled-components';
 
 const _PhaseLayout= styled.div`
-  height : 100vh;
+  height : calc(100vh - 10px);
   width  : 100vw;
-  display: grid;
-  grid-template-columns: 50vw 50vw;
-  grid-template-rows   : 10vh 15vh 70vh;
+  display: flex;
+  flex-direction: column;
   row-gap: 20px;
 `;
 
