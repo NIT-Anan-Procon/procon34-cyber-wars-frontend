@@ -16,32 +16,32 @@ body,
 
 @media ( min-width: 1024px ) {
   html {
-    font-size: 8px;
+    font-size: 13px;
   }
 }
 
 @media ( min-width: 1440px ) {
   html {
-    font-size: 10px;
+    font-size: 14px;
   }
 }
 
 @media ( min-width: 1920px ) {
   html {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 
 @media ( min-width: 2048px ) {
   html {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
 
 @media ( min-width: 2560px ) {
   html {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 
