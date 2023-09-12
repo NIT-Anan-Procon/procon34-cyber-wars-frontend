@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
 const _UserBoardsLayout= styled.div`
-  grid-row: 2;
   height  : 100%;
-  width   : 100vw;
-  padding : 0 5vw;
+  width   : 100%;
   display : flex;
   align-items: start;
   justify-content: space-between;
