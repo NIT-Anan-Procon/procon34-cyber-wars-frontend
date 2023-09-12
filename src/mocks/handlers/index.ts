@@ -1,9 +1,17 @@
-import { gameHandlers } from "./game";
-import { roomHandlers } from "./room";
-import { userHandlers } from "./user";
+import { userHandlers } from './user';
+import { roomHandlers } from './room';
+import { 
+  attackPhaseHandler, 
+  battlePhaseHandler, 
+  defencePhaseHandler, 
+  gameHandlers 
+} from './game';
 
 export const handlers= [
   ...userHandlers,
   ...roomHandlers,
   ...gameHandlers,
+  ...attackPhaseHandler,
+  ...defencePhaseHandler,
+  ...battlePhaseHandler,
 ];
