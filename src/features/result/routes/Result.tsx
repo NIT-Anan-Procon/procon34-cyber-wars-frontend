@@ -18,7 +18,11 @@ const _Result= styled.h1`
 `;
 
 const _NextButton= styled(Button)`
-
+  height  : 10rem;
+  width   : 20rem;
+  position: absolute;
+  right   : 0;
+  bottom  : 0;
 `;
 
 export const Result= () => {
@@ -44,7 +48,7 @@ export const Result= () => {
           userType={ 'OPPONENTUSER' } 
         />      
       </_ResultWrapper>
-      {/* <_NextButton type='button' onClick={() => navigate('../explanation')}>next</_NextButton> */}
+      <_NextButton type='button' onClick={() => navigate('../explanation')}>next</_NextButton>
     </ContentLayout>
   );
 };

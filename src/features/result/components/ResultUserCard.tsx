@@ -13,7 +13,7 @@ const _ResultUserCard= styled.div<ResultUserCardProps>`
   ${(props) => props.userType === 'MYUSER'
     ? css`
         height    : 30rem;
-        width     : 80rem;
+        width     : 100rem;
         font-size : 5rem;
       `
     : css`
@@ -30,18 +30,25 @@ const _UserWrapper= styled.div`
 `;
 
 const _UserIconWrapper= styled.div`
-  height: 6em;
+  height: 70%;
   width : 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #464646;
 `;
 
 const UserIcon= styled.div`
-
+  width: 100%;
 `;
 
 const _UserName= styled.h1`
-  font-size: 2em;
-  color : white;
+  width    : 6em;
+  display    : flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35em;
+  color    : white;
 `;
 
 const _ResultScore= styled.div`
