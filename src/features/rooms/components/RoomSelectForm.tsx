@@ -7,8 +7,9 @@ import { Button, RadioButton } from "@/components/Elements";
 import { RoomIdState, RoomModeValueState } from "@/atoms";
 import { useAtomValueChange } from "@/hooks/useAtomValueChange";
 import { ROOM_MODES } from "../types/roomModes";
-import { useCreateRoom, useJoinRoom } from "../api";
+import { createRoom, joinRoom } from "../api";
 import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 const InputStyle= styled.div`
   position: relative;
@@ -23,8 +24,7 @@ const InputFieldStyle= styled.div`
 export const RoomSelectForm = () => {
   const [ roomSelected, updateRoomSelected ]= useAtomValueChange(RoomModeValueState);
   const roomId= useRecoilValue<number>(RoomIdState);
-  const { createRoomId }= useCreateRoom();
-  const { isJoinedRoom } = useJoinRoom();
+  const navigate= useNavigate();
 
   return (    
     <>
@@ -49,7 +49,7 @@ export const RoomSelectForm = () => {
             ?
               <Form<RoomFormType, typeof RoomIdSchema>
                 onSubmit={ async({roomId} : RoomFormType) => {
-                  await isJoinedRoom(roomId);
+                  await joinRoom(roomId);
                 }}
                 schema={RoomIdSchema}
               >
@@ -69,9 +69,10 @@ export const RoomSelectForm = () => {
               </Form>
             : <Button 
                 type='button' 
-                onClick={ async() => {
-                  await createRoomId(false)
-                }} 
+                onClick={ async() => (
+                  await createRoom(false),
+                  navigate('games/standby')
+                )} 
               > 
                 START
               </Button>
