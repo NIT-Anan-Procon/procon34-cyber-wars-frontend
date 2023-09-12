@@ -14,6 +14,37 @@ body,
   font-family: 'Black Ops One', cursive;
 }
 
+@media ( min-width: 1024px ) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media ( min-width: 1440px ) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media ( min-width: 1920px ) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media ( min-width: 2048px ) {
+  html {
+    font-size: 14px;
+  }
+}
+
+
+@media ( min-width: 2560px ) {
+  html {
+    font-size: 16px;
+  }
+}
+
 ::-webkit-scrollbar {
   height: 0.5rem;
   width : 0.5rem;
