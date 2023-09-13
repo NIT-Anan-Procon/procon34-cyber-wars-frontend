@@ -5,8 +5,12 @@ import { php }                from '@codemirror/lang-php';
 import { useAtomValueChange } from '@/hooks/useAtomValueChange';
 import { updateCodeSelector } from '../selector/updateCodeSelector';
 
-export const EditArea= () => {
-  const [ value, updateValue ] =useAtomValueChange( updateCodeSelector );
+type EditAreaProps= {
+  phase: string;
+};
+
+export const EditArea= ({ phase }: EditAreaProps) => {
+  const [ value, updateValue ] =useAtomValueChange( updateCodeSelector( phase ) );
 
   return (
     <CodeMirror

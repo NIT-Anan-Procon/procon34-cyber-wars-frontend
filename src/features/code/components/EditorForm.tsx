@@ -71,9 +71,10 @@ const _HintButton= styled.button`
 type EditorFormProps= {
   isHint : boolean;
   navText: string;
+  phase  : string;
 };
 
-export const EditorForm= ({ isHint, navText }: EditorFormProps) => {
+export const EditorForm= ({ isHint, navText, phase }: EditorFormProps) => {
   return (
     <$EditorForm onSubmit={()=> console.log('')} >
       <_EditorHead>
@@ -82,7 +83,7 @@ export const EditorForm= ({ isHint, navText }: EditorFormProps) => {
       </_EditorHead>
       <_EditorContents>
         <_EditorWrapper>
-          <EditArea />
+          <EditArea phase={ phase } />
         </_EditorWrapper>           
         <_HintButton>hint</_HintButton>
           { isHint 
