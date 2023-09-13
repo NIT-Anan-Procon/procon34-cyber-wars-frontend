@@ -3,13 +3,13 @@ import { RecoilState, useRecoilState } from "recoil";
 
 export const useAtomValueChange= ( atom: RecoilState<string> ): [
   string,
-  (e: React.ChangeEvent<HTMLInputElement>) => void
+  ( value: string ) => void
 ] => {
   const [ value, setValue ]= useRecoilState<string>(atom);
 
   const updateValue= useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(event.target.value);
+    (value: string) => {
+      setValue(value);
     },
     [setValue]
   );
