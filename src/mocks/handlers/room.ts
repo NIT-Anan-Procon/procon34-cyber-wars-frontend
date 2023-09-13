@@ -16,7 +16,7 @@ export const roomHandlers= [
   rest.post<RoomHandlersType>( ROOM_URL, (req, res, ctx) => {
     try {
       const isDifficult= req.body.difficult;
-      console.log(isDifficult)
+
       const roomId  = randomNum(3);
       const inviteId= randomNum(4);
 
