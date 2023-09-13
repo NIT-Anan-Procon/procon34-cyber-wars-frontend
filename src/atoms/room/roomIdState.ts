@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
 export const RoomIdState= atom<number>({
-  key: 'room-id-state',
+  key    : 'atom_roomIdState',
   default: undefined,
 });
