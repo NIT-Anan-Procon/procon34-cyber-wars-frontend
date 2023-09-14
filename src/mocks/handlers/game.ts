@@ -110,7 +110,7 @@ export const attackPhaseHandler= [
           [ CODE_PATH_KEY ]: 1,
           [ VULNERABILITIES_KEY ]: [
             {
-              [ CHOICES_KEY ]   : [ "a", "b", "c", "d" ],
+              [ CHOICES_KEY ]   : [ "'", "or", "1", "=", "1" ],
               [ HINT_KEY ]      : "4行目の",
               [ HINT_SCORE_KEY ]: -10
             }
@@ -208,7 +208,7 @@ export const battlePhaseHandler= [
         ctx.status(200),
         ctx.json(
           {
-            [ CODE_PATH_KEY ]: '../challengeData/mock_challenge.php',
+            [ CODE_PATH_KEY ]: '1/1',
             [ CODE_KEY ]     : { mockChallenge }
           }
         ),
