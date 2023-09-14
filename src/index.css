@@ -16,19 +16,19 @@ body,
 
 @media ( min-width: 1024px ) {
   html {
-    font-size: 13px;
+    font-size: 10px;
   }
 }
 
 @media ( min-width: 1440px ) {
   html {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
 @media ( min-width: 1920px ) {
   html {
-    font-size: 13px;
+    font-size: 14px;
   }
 }
 
