@@ -1,8 +1,9 @@
+import { useRecoilState }     from 'recoil';
 import CodeMirror             from '@uiw/react-codemirror';
 import { vscodeDark }         from '@uiw/codemirror-theme-vscode';
 import { color }              from '@uiw/codemirror-extensions-color';
 import { php }                from '@codemirror/lang-php';
-import { useAtomValueChange } from '@/hooks/useAtomValueChange';
+
 import { updateCodeSelector } from '../selector/updateCodeSelector';
 
 type EditAreaProps= {
@@ -10,12 +11,16 @@ type EditAreaProps= {
 };
 
 export const EditArea= ({ phase }: EditAreaProps) => {
-  const [ value, updateValue ] =useAtomValueChange( updateCodeSelector( phase ) );
+  const [ code, setCode ] =useRecoilState( updateCodeSelector( phase ) );
+
+  const handleCode= (value: string) => {
+    setCode(value);
+  };
 
   return (
     <CodeMirror
-      value     = { value }
-      onChange  = { updateValue }
+      value     = { code }
+      onChange  = { handleCode }
       theme     = { vscodeDark }
       extensions= {[ 
         color,
