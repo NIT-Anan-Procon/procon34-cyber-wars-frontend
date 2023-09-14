@@ -1,5 +1,6 @@
 import { rest } from 'msw';
 import { db } from '../db';
+import { mockChallenge } from '../challengeData/mock_challenge';
 import { 
   FETCH_GAME_START_TIME_URL, 
   START_GAME_URL, 
@@ -22,35 +23,15 @@ import {
   HINT_KEY, 
   HINT_SCORE_KEY, 
   IS_VALID_KEY, 
+  OPPONENT_NAME_KEY, 
   SCORES_KEY, 
+  START_TIME_KEY, 
   VULNERABILITIES_KEY 
 } from '@/config/responseKeys';
 
 export const gameHandlers= [
   rest.patch( START_GAME_URL, ( req, res, ctx ) => {
     try {
-      const date = new Date();
-      const utcTime= date.toUTCString();
-
-      db.room.update({
-        where: {
-          roomId: {
-            equals: roomId,
-          },
-        },
-        data: {
-          started_at: utcTime,
-          active: false
-        }
-      })
-      db.room.delete({
-        where: {
-          roomId: {
-            equals: roomId
-          }
-        }
-      })
-
       return res(
         ctx.status(200),
         ctx.delay(1000),
@@ -66,17 +47,12 @@ export const gameHandlers= [
 
   rest.get( FETCH_GAME_START_TIME_URL, ( req, res, ctx ) => {
     try {
-      const room= db.room.findFirst({
-        where: {
-          roomId: {
-            equals: roomId
-          },
-        },
-      })
+      const date = new Date();
+      const utcTime= date.toUTCString();
 
       return res(
         ctx.status(200),
-        ctx.json({ startTime: room?.started_at }),
+        ctx.json({ [ START_TIME_KEY ]: utcTime }),
         ctx.delay(1000),
       );
 
@@ -88,13 +64,27 @@ export const gameHandlers= [
     }
   }),
   rest.get( GAME_OPPONENT_NAME_URL, ( req, res, ctx ) => {
-    
+    try {
+      return res(
+        ctx.status(200),
+        ctx.json(
+          {
+            [ OPPONENT_NAME_KEY ]: "木下 聡大"
+          }
+        ),
+        ctx.delay(1000)
+      );
+
+    } catch(error) {
+      return res(
+        ctx.status(400),
+        ctx.delay(1000)
+      );
+    }
   }),
   rest.get( GAME_SCORES_URL, ( req, res, ctx ) => {
     try {
-      const scores= db.scores.update({
-        
-      });
+      const scores= [ 100, 200 ];
 
       return res(
         ctx.status(200),
@@ -117,7 +107,7 @@ export const attackPhaseHandler= [
       return res(
         ctx.status(200),
         ctx.json({
-          [ CODE_PATH_KEY ]: '../challengeData/mock_challenge.php',
+          [ CODE_PATH_KEY ]: 1,
           [ VULNERABILITIES_KEY ]: [
             {
               [ CHOICES_KEY ]   : [ "a", "b", "c", "d" ],
@@ -153,8 +143,6 @@ export const attackPhaseHandler= [
   }),
   rest.post( ATTACK_SEND_KEY_URL, ( req, res, ctx ) => {
     try {
-      const flag= req.body;
-
       return res(
         ctx.status(200),
         ctx.json(
@@ -178,13 +166,12 @@ export const attackPhaseHandler= [
 export const defencePhaseHandler= [
   rest.get( DEFENCE_CODE_URL, ( req, res, ctx ) => {
     try {
-
       return res(
         ctx.status(200),
         ctx.json(
           {
-            [ CODE_PATH_KEY ]: '../challengeData/mock_challenge.php',
-            [ CODE_KEY ]     : '<?php'
+            [ CODE_PATH_KEY ]: 1,
+            [ CODE_KEY ]     : { mockChallenge }
           }
         ),
         ctx.delay(1000)
@@ -217,13 +204,12 @@ export const defencePhaseHandler= [
 export const battlePhaseHandler= [
   rest.get( BATTLE_REVISION_URL, ( req, res, ctx ) => {
     try {
-
       return res(
         ctx.status(200),
         ctx.json(
           {
             [ CODE_PATH_KEY ]: '../challengeData/mock_challenge.php',
-            [ CODE_KEY ]     : '<?php'
+            [ CODE_KEY ]     : { mockChallenge }
           }
         ),
         ctx.delay(1000)
