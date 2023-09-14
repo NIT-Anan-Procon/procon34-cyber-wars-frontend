@@ -1,3 +1,4 @@
 export * from './scoreState';
-export * from './vulnerabilityOptionState';
+export * from './vulnerabilitiesState';
 export * from './codeState';
+export * from './isValidState';

@@ -6,4 +6,4 @@ export * from './Card';
 export * from './Dialog';
 export * from './ContentHeader';
 export * from './Loading';
-export * from './CheckBoxList';
+export * from './CheckBox';
