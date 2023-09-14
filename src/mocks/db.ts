@@ -15,9 +15,9 @@ const DBModels= {
     active: Boolean
   },
   allocations: {
-    roomId: primaryKey(Number),
-    userId: Number,
-    host  : Boolean,
+    roomId: Number,
+    userId: primaryKey(Number),
+    host: Boolean,
   },
   vulnerabilities: {
     vulnerability_id: primaryKey(Number),
@@ -30,7 +30,7 @@ const DBModels= {
   scores: {
     score_type: primaryKey(Number),
     difficult: Boolean,
-    score: Number
+    score: Array<Number>,
   }
 }
 
