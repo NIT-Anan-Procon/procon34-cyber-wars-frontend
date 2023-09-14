@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 import { EditArea } from '.';
 import { Button }   from '@/components/Elements';
+import { sendCode } from '../api/sendCode';
+import { useRecoilValue } from 'recoil';
+import { codeState } from '@/atoms';
 
 const $EditorForm= styled.div`
   height : 100%;
@@ -69,14 +72,22 @@ const _HintButton= styled.button`
 `;
 
 type EditorFormProps= {
-  isHint : boolean;
-  navText: string;
-  phase  : string;
+  isHint     : boolean;
+  navText    : string;
+  phase      : string;
+  submitData?: () => void;
 };
 
-export const EditorForm= ({ isHint, navText, phase }: EditorFormProps) => {
+export const EditorForm= (
+  { 
+    isHint, 
+    navText, 
+    phase, 
+    submitData 
+  }: EditorFormProps
+) => {
   return (
-    <$EditorForm onSubmit={()=> console.log('')} >
+    <$EditorForm onSubmit={ submitData } >
       <_EditorHead>
         <_LanguageLabel>php</_LanguageLabel>
         <_NavText>{ navText }</_NavText>
