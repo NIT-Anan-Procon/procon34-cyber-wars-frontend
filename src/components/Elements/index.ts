@@ -7,3 +7,5 @@ export * from './Dialog';
 export * from './ContentHeader';
 export * from './Loading';
 export * from './CheckBox';
+export * from './IconButton';
+export * from './CheckBoxList';
