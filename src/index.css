@@ -22,26 +22,26 @@ body,
 
 @media ( min-width: 1440px ) {
   html {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 
 @media ( min-width: 1920px ) {
   html {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
 @media ( min-width: 2048px ) {
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
 
 @media ( min-width: 2560px ) {
   html {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 
