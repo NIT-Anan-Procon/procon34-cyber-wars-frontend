@@ -3,6 +3,7 @@ import { rest } from 'msw';
 import { ROOM_URL } from '@/config/apiEndpoints';
 import { db } from '../db';
 import { randomNum } from '../utils';
+import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY } from '@/config/responseKeys';
 
 type RoomHandlersType= {
   difficult: boolean;
@@ -82,19 +83,17 @@ export const roomHandlers= [
     }
   }),
 
-  rest.get(ROOM_URL, (res, ctx) => {
+  rest.get(ROOM_URL, (req ,res, ctx) => {
     try {
-      const getAllData= db.allocations.roomId;
-
-      if(isHost) {
-
-      } else {
-
-      }
-
       return res(
         ctx.status(200),
-        ctx.json({ members })
+        ctx.json(
+          {
+            [ IS_HOST_KEY ]: true,
+            [ OPPONENT_NAME_KEY ]: 'kinoshita',
+            [ IS_STARTED_KEY ]: true
+          }
+        )
       );
     }
     catch(error) {
@@ -102,7 +101,17 @@ export const roomHandlers= [
     }
   }),
 
-  rest.delete(ROOM_URL, () => {
-
+  rest.delete(ROOM_URL, ( req, res, ctx ) => {
+    try {
+      return res(
+        ctx.status(200),
+        ctx.delay(1000)
+      );
+    } catch(error) {
+      return res(
+        ctx.status(400),
+        ctx.delay(1000)
+      );
+    }
   }),
 ];
