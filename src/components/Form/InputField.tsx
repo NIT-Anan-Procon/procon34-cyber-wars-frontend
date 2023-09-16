@@ -8,8 +8,10 @@ import { colors }         from '@/assets/styles';
 type InputFieldProps = FieldWrapperPassThroughProps & {
 	id   : string;
 	type?: 'text' | 'password';
+	value?: string;
 	size : InputSizeProps;
 	placeholder ?: string;
+	onChange    ?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	registration?: Partial<UseFormRegisterReturn>;
 };
 
@@ -34,11 +36,12 @@ export const InputField = (
 	{ 
 		id, 
 		type, 
-		label, 
-		size, 
+		label,
+		size,
+		value,
 		placeholder, 
 		error, 
-		registration 
+		...props
 	}: InputFieldProps
 ) => {
 	return (
@@ -49,9 +52,10 @@ export const InputField = (
 			<InputFieldStyle
 				id  = { id }
 				type= { type }
+				value={ value }
 				size= { size }
 				placeholder={ placeholder}
-				{ ...registration }
+				{ ...props }
 			/>
 		</FieldWrapper>
 	);
