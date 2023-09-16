@@ -21,6 +21,6 @@ export const HINT_SCORE_KEY      = "hintScore";
 export const VULNERABILITY_ID_KEY= "vulnerabilityId";
 export const FLAG_KEY            = "flag";
 export const IS_VALID_KEY        = "valid";
-export const CORRECT_KEY         = "correct";
+export const IS_CORRECT_KEY      = "correct";
 export const GAME_SCORE_KEY      = "score";
 export const CODE_KEY            = "code";
