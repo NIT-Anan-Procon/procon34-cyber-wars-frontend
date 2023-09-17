@@ -8,12 +8,13 @@ import {
 } from "@/config/responseKeys";
 
 export const useChallengeDataTranslator= () => {
-  const { data: challengeData } = useChallengeQuery({});
+  const { data: challengeData, ...options } = useChallengeQuery({});
 
   const challengePath= challengeData?.[ CODE_PATH_KEY ];
 
   const vulnerabilities = challengeData?.[VULNERABILITIES_KEY].flatMap(
-    (item: { choices: string[]; hint: string; hintScore: number }) => item[CHOICES_KEY]
+    (item: { choices: string[]; hint: string; hintScore: number }) =>
+      item[CHOICES_KEY]
   );
 
   const hintObject= challengeData?.[ VULNERABILITIES_KEY ].map((item, index) => {
@@ -26,5 +27,5 @@ export const useChallengeDataTranslator= () => {
     };
   });
   
-  return { challengePath, vulnerabilities, hintObject }
+  return { challengePath, vulnerabilities, hintObject, ...options }
 };
