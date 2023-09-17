@@ -12,17 +12,13 @@ import {
 } from '../components';
 
 import { DESCRIPTIONS, PHASE } from '../types';
-import { useAtomValueChange } from '@/hooks/useAtomValueChange';
-import { hasHintState, isHintDrawerState, sendKeyState, vulnerabilityListState } from '@/atoms';
-import { useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import { hasHintState, isHintDrawerState } from '@/atoms';
 import { Preview } from '@/features/preview';
 import { useSendKey } from '@/features/sendKeys';
-import { ATTACK_SEND_KEY_URL } from '@/config/apiUrls';
 import { DisplayHintBox, HintButton, HintForm } from '@/features/hint';
-import { VulnerabilitiesLayout } from '@/features/challenge/components';
-import { CheckBoxList } from '@/components/Elements';
-import { useChallengeDataTranslator } from '@/features/challenge/hooks/challengeDataTranslator';
+import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/challenge/components';
+import { Button } from '@/components/Elements';
+import { vulnerabiliesFormatSelector } from '@/features/challenge';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -38,20 +34,10 @@ const _PhaseContents= styled.div`
 `;
 
 export const AttackPhase= () => {
-  const iframeRef = useRef(null);
   const isDrawerHint= useRecoilValue( isHintDrawerState );
   const hasHint= useRecoilValue( hasHintState );
-  const { formatedVulnerabilities, isLoading }= useChallengeDataTranslator();
-
-  // function handleClick() {
-  //   const input = iframeRef?.current.contentDocument.querySelector('input');
-  //   const button = iframeRef?.current.contentDocument.querySelector('button');
-  //   input.value = 'aa';
-  //   button.addEventListener('click', () => {
-  //     console.log('フォーカスされました');
-  //   });
-  //   button.click()
-  // }
+  const { vulnerabilities, isLoading }= useChallengeDataTranslator();
+  const currentInput=useRecoilValue( vulnerabiliesFormatSelector );
   
   if( isLoading ) {
     return <>Loading</>
@@ -76,14 +62,13 @@ export const AttackPhase= () => {
       </_PhaseHead>
       <_PhaseContents>
         <Preview
-          iframeRef= { iframeRef }
           codePath = { '1' }
         />
         <PhaseContentsLayout >
           <PhaseContentHead description={ DESCRIPTIONS.ATTACK_PHASE } />
           <PhaseContentBody >
             <VulnerabilitiesLayout>
-              <CheckBoxList values={ formatedVulnerabilities } />
+              <VulnerabilityCheckList />
             </VulnerabilitiesLayout>
               <HintButton />
               { isDrawerHint 
