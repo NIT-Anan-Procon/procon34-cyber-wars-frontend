@@ -1,8 +1,8 @@
-import { codeState } from '@/atoms';
-import { useRecoilValue } from 'recoil';
+import { previewRefState } from '@/atoms';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { createAbsolutePath } from '../selector/createAbsolutePath';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 const _PreviewBox= styled.div<{ styles?: string }>`
   width      : 100%;
@@ -20,19 +20,23 @@ const _Preview= styled.iframe`
 `;
 
 type PreviewProps= {
-  iframeRef : React.LegacyRef<HTMLIFrameElement>; 
   codePath ?: string | number ;
   styles   ?: string;
 };
 
 export const Preview= (
   { 
-    iframeRef,
     codePath,
     styles,  
   }: PreviewProps
 ) => {
   // const getCodePath= useRecoilValue( createAbsolutePath(codePath) );
+  const iframeRef= useRef(null);
+  const [ previewRefValue, setPreviewRefValue ]= useRecoilState( previewRefState );
+
+  useEffect(() => {
+    setPreviewRefValue(iframeRef);
+  }, []);
 
   return (
     <_PreviewBox styles={ styles } >
