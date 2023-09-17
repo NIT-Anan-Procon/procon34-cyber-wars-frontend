@@ -84,8 +84,8 @@ export const Preview= (
           <div class="container">
             <h1>ログインページ</h1>
             <form action="login.php" method="post">
-              <input type="text" name="user" placeholder="ユーザー名" required>
-              <input type="password" name="pass" placeholder="パスワード" required>
+              <input type="text" name="user" id="user" placeholder="ユーザー名" required>
+              <input type="password" name="pass" id="pass" placeholder="パスワード" required>
               <button type="submit">ログイン</button>
             </form>
           </div>
