@@ -27,7 +27,6 @@ type FieldWrapperProps= {
 
 export type FieldWrapperPassThroughProps= Omit<FieldWrapperProps, 'children'>;
 
-<<<<<<< HEAD
 const FieldWrapperStyle= styled.div`
   width: 100%;
 `;
@@ -51,11 +50,6 @@ export const FieldWrapper= (
     children 
   }: FieldWrapperProps
 ) => {
-=======
-export const FieldWrapper= (props: FieldWrapperProps) => {
-  const { label, error, children }= props;
-
->>>>>>> a76ffb114326a6370828c7a550356847a40b688e
   return (
     <_FieldWrapper>
       <_FieldLabel>

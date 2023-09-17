@@ -5,7 +5,6 @@ import { FieldWrapper, FieldWrapperPassThroughProps } from './FieldWrapper';
 import { InputSizeProps } from '@/assets/styles/dimensions';
 import { colors }         from '@/assets/styles';
 
-<<<<<<< HEAD
 type InputFieldProps = FieldWrapperPassThroughProps & {
 	id   : string;
 	type?: 'text' | 'password';
@@ -16,10 +15,7 @@ type InputFieldProps = FieldWrapperPassThroughProps & {
 	registration?: Partial<UseFormRegisterReturn>;
 };
 
-const InputFieldStyle = styled.input<InputFieldProps>`
-=======
 const _InputField = styled.input<InputFieldProps>`
->>>>>>> a76ffb114326a6370828c7a550356847a40b688e
   width        : 100%;
 	line-height  : 2.75rem;
 	font-size    : 1.75rem;
@@ -36,7 +32,6 @@ const _InputField = styled.input<InputFieldProps>`
 	}
 `;
 
-<<<<<<< HEAD
 export const InputField = (
 	{ 
 		id, 
@@ -49,19 +44,6 @@ export const InputField = (
 		...props
 	}: InputFieldProps
 ) => {
-=======
-type InputFieldProps = FieldWrapperPassThroughProps & {
-	id   : string;
-	type?: 'text' | 'password';
-	size : InputSizeProps;
-	placeholder?: string;
-	registration?: Partial<UseFormRegisterReturn>;
-};
-
-export const InputField = (props: InputFieldProps) => {
-	const { id, type, label, size, placeholder, error, registration } = props;
-
->>>>>>> a76ffb114326a6370828c7a550356847a40b688e
 	return (
 		<FieldWrapper
 			label= { label }

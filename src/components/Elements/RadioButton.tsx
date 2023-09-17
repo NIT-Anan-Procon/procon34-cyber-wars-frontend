@@ -2,21 +2,13 @@ import styled from 'styled-components';
 
 import { colors } from '@/assets/styles';
 
-<<<<<<< HEAD
 const _RadioButtonWrapper= styled.div`
-=======
-const _RadioWrapper= styled.div`
->>>>>>> a76ffb114326a6370828c7a550356847a40b688e
   display : inline-block;
   position: relative;
   cursor  : pointer;
 `;
 
-<<<<<<< HEAD
 const _RadioButton= styled.input`
-=======
-const _Radio= styled.input`
->>>>>>> a76ffb114326a6370828c7a550356847a40b688e
   position: absolute;
   opacity : 0;
   width   : 0;
@@ -33,11 +25,7 @@ const _RadioLabel= styled.label`
   cursor       : pointer;
   transition   : all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
 
-<<<<<<< HEAD
   ${_RadioButton}:checked + & {
-=======
-  ${_Radio}:checked + & {
->>>>>>> a76ffb114326a6370828c7a550356847a40b688e
     color: ${colors.primary};
   }
 `;
@@ -53,11 +41,7 @@ const _RadioCircle= styled.span`
   border       : 2px solid #555;
   transition   : all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
 
-<<<<<<< HEAD
   ${_RadioButton}:checked + ${_RadioLabel} & {
-=======
-  ${_Radio}:checked + ${_RadioLabel} & {
->>>>>>> a76ffb114326a6370828c7a550356847a40b688e
     transform: translateY(-50%) scale(0.9);
     border   : 5px solid ${colors.primary};;
     color    : ${colors.primary};
@@ -89,13 +73,8 @@ export const RadioButton= (
   }: RadioButtonProps
 ) => {
   return (
-<<<<<<< HEAD
     <_RadioButtonWrapper>
       <_RadioButton
-=======
-    <_RadioWrapper>
-      <_Radio
->>>>>>> a76ffb114326a6370828c7a550356847a40b688e
         id={id}
         type='radio'
         value={value}
@@ -107,10 +86,6 @@ export const RadioButton= (
         <_RadioCircle />
         {label}
       </_RadioLabel>    
-<<<<<<< HEAD
     </_RadioButtonWrapper>
-=======
-    </_RadioWrapper>
->>>>>>> a76ffb114326a6370828c7a550356847a40b688e
   );
 };
