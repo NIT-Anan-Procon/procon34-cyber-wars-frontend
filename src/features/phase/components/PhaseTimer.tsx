@@ -72,14 +72,15 @@ const _PhaseIcon= styled.img`
 `;
 
 type PhaseTimerProps= {
+  count     : string;
   phaseTitle: string;
 };
 
-export const PhaseTimer= ({ phaseTitle }: PhaseTimerProps) => {
+export const PhaseTimer= ({ count, phaseTitle }: PhaseTimerProps) => {
   return (
     <_TimerWrapper>
       <_TimeArea bg={phaseTitle} >
-        <h1>{'05:00'}</h1>        
+        <h1>{ count }</h1>        
       </_TimeArea>
       <_PhaseIconWrapper bg={phaseTitle}>
         <_PhaseIcon 
