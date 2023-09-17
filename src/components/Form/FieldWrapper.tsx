@@ -3,6 +3,22 @@ import { FieldError } from 'react-hook-form';
 
 import { colors } from '@/assets/styles/colors';
 
+const _FieldWrapper= styled.div`
+  width: 100%;
+`;
+
+const _FieldLabel= styled.label`
+  font-size: 1.75rem;
+  color    : rgba(156, 163, 175, 1);
+` ;
+
+const _ErrorMessage= styled.div`
+  margin     : 0  0 -2rem 1.5rem;
+  font-size  : 1.25rem;
+  line-height: 2rem;
+  color      : ${colors.danger};
+`;
+
 type FieldWrapperProps= {
   label   ?: string;
   children?: React.ReactNode;
@@ -11,6 +27,7 @@ type FieldWrapperProps= {
 
 export type FieldWrapperPassThroughProps= Omit<FieldWrapperProps, 'children'>;
 
+<<<<<<< HEAD
 const FieldWrapperStyle= styled.div`
   width: 100%;
 `;
@@ -34,17 +51,22 @@ export const FieldWrapper= (
     children 
   }: FieldWrapperProps
 ) => {
+=======
+export const FieldWrapper= (props: FieldWrapperProps) => {
+  const { label, error, children }= props;
+
+>>>>>>> a76ffb114326a6370828c7a550356847a40b688e
   return (
-    <FieldWrapperStyle>
-      <FieldLabelStyle>
+    <_FieldWrapper>
+      <_FieldLabel>
         { label }
         <div>{ children }</div>
-      </FieldLabelStyle>
+      </_FieldLabel>
       { error?.message && (
-        <ErrorMessageStyle >
+        <_ErrorMessage >
           { error.message }
-        </ErrorMessageStyle>
+        </_ErrorMessage>
       )}
-    </FieldWrapperStyle>
+    </_FieldWrapper>
   );
 };
