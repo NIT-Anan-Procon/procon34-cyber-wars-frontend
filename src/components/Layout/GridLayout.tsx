@@ -1,20 +1,21 @@
 import styled, { css } from 'styled-components';
 
 type GridProps= {
-  type: 'grid' | 'item';
-
   gridTemplateColumns?: string | object | undefined;
   gridTemplateRows   ?: string | object | undefined;
 
-  columns?: string;
-  rows   ?: string;
-  
   gap      ?: string | undefined,
   columnGap?: string | undefined,
   rowGap   ?: string | undefined,
 
   children: React.ReactNode;
-}
+};
+
+type GridItemProps= {
+  column ?: string | object | undefined;
+  row    ?: string | object | undefined;
+  children: React.ReactNode;
+};
 
 const formatGridValue = (value: string | object | undefined) => {
   if (typeof value === 'string') {
@@ -28,35 +29,33 @@ const formatGridValue = (value: string | object | undefined) => {
   };
 };
 
-const StyledGridLayout= styled.div<GridProps>`
-  ${(props) => props.type === 'grid' 
-    ? 
-      css`
-        display: grid;
-        grid-template-columns: ${ formatGridValue(props.gridTemplateColumns) };
-        grid-template-rows   : ${ formatGridValue(props.gridTemplateRows) };
-        gap       : ${ props.gap }
-        column-gap: ${ props.columnGap }
-        row-gap   : ${ props.rowGap }
-      ` 
-    : props.type === 'item' 
-    ?
-      css`
-        grid-column: ${ props.columns };
-        grid-row   : ${ props.rows }; 
-      `
-    :
-      undefined
-  };
+const _Grid= styled.div<GridProps>`
+  display: grid;
+
+  ${(props) => 
+    css`
+      grid-template-columns: ${ formatGridValue(props.gridTemplateColumns) };
+      grid-template-rows   : ${ formatGridValue(props.gridTemplateRows) };
+      gap       : ${ props.gap };
+      column-gap: ${ props.columnGap };
+      row-gap   : ${ props.rowGap };       
+    `
+  }
+`;
+
+const _GridItem= styled.div<GridItemProps>`
+  ${(props) => 
+    css`
+      grid-column: ${ formatGridValue(props.column) };
+      grid-row   : ${ formatGridValue(props.row) };
+    `
+  }
 `;
 
 export const Grid= (
   {
-    type,
     gridTemplateColumns,
     gridTemplateRows,
-    columns,
-    rows,
     gap,
     columnGap,
     rowGap,
@@ -64,17 +63,31 @@ export const Grid= (
   }: GridProps
 ) => {
   return (
-    <StyledGridLayout
-      type= { type }
+    <_Grid
       gridTemplateColumns= { gridTemplateColumns }
       gridTemplateRows   = { gridTemplateRows }
-      columns  = { columns }
-      rows     = { rows }
       gap      = { gap }
       columnGap= { columnGap }
       rowGap   = { rowGap }
     >
       { children }
-    </StyledGridLayout>
+    </_Grid>
+  );
+};
+
+export const GridItem= (
+  {
+    column,
+    row,
+    children
+  }: GridItemProps
+) => {
+  return (
+    <_GridItem
+      column= { column }
+      row   = { row }
+    >
+      { children }
+    </_GridItem>
   );
 };

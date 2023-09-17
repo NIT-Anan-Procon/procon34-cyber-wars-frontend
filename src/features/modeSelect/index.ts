@@ -1,3 +1,3 @@
-export * from './routes';
+export * from './routes/ModeSelect';
 
 export * from './types';

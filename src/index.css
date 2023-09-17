@@ -12,6 +12,40 @@ body,
   background: #1e1e1e;
   font-size: 62.5%;
   font-family: 'Black Ops One', cursive;
+<<<<<<< HEAD
+}
+
+@media ( min-width: 1024px ) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media ( min-width: 1440px ) {
+  html {
+    font-size: 11px;
+  }
+}
+
+@media ( min-width: 1920px ) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media ( min-width: 2048px ) {
+  html {
+    font-size: 14px;
+  }
+}
+
+
+@media ( min-width: 2560px ) {
+  html {
+    font-size: 16px;
+  }
+=======
+>>>>>>> a76ffb114326a6370828c7a550356847a40b688e
 }
 
 ::-webkit-scrollbar {

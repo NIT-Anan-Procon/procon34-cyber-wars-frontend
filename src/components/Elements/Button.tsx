@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import styled         from 'styled-components';
 
 import { Loading } from '.';
-import { colors } from '@/styles';
+import { colors } from '@/assets/styles';
 
 const _Button= styled.button`
   margin-top   : 1.75rem;
@@ -14,7 +14,7 @@ const _Button= styled.button`
   border-radius: 0.8rem;
   border       : 0;
   outline      : 0;
-  background: ${colors.secondary};
+  background   : ${colors.secondary};
 
   &:hover {
     color     : ${colors.bgLighter}; 

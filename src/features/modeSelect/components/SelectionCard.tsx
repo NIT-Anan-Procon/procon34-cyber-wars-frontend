@@ -1,5 +1,5 @@
 import { Button } from '@/components/Elements';
-import { colors } from '@/styles';
+import { colors } from '@/assets/styles';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 

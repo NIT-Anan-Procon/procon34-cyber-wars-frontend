@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const FormSchema= z.object({
-  userName: z
+  name: z
 		.string()
 		.nonempty('ユーザ名は必須です。')
 		.max(20, '20文字以内で入力してください。'),

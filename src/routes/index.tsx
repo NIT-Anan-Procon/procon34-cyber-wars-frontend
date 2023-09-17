@@ -1,10 +1,11 @@
-import { useRoutes } from 'react-router-dom';
-
-import { Landing } from '@/features/views';
-
-import { authorizedRoutes } from './authorized';
-import { publicRoutes } from './public';
+import { useRoutes }      from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+
+import { Landing } from '@/features/misc';
+
+import { authorizedRoutes } from './authorizedRoutes';
+import { publicRoutes }     from './publicRoutes';
+
 import { isAuthState } from '@/atoms';
 
 export const AppRoutes = () => {
