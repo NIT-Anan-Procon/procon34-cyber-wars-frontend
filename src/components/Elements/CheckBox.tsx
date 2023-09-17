@@ -53,6 +53,7 @@ const _CheckBoxLabel= styled.label`
   top:50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  cursor: pointer;
 
   ${_CheckBox}:checked {
     color:white;
@@ -62,7 +63,7 @@ const _CheckBoxLabel= styled.label`
 type CheckBoxProps= {
   id    : string;
   value : string;
-  checked: string;
+  checked: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -81,9 +82,8 @@ export const CheckBox= (
         id={ id }
         type='checkbox'
         value={ value }
-        checked={ checked === value}
+        checked={ checked }
         onChange={ onChange }
-        name={value}
         {...props} 
       />        
       <_CheckBoxLabel htmlFor={ id } >
