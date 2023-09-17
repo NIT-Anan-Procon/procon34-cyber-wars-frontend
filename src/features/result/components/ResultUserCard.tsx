@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const _ResultUserCard= styled.div<ResultUserCardProps>`
+const _ResultUserCard= styled.div<{usertype: 'MYUSER' | 'OPPONENTUSER'}>`
   display   : flex;
   background: black;
   opacity   : 0.7;
@@ -10,7 +10,7 @@ const _ResultUserCard= styled.div<ResultUserCardProps>`
     content : '';
   }
 
-  ${(props) => props.userType === 'MYUSER'
+  ${(props) => props.usertype === 'MYUSER'
     ? css`
         height    : 30rem;
         width     : 100rem;
@@ -78,7 +78,7 @@ type ResultUserCardProps= {
   name    : string;
   score   : number;
   result  : 'WIN' | 'LOSE';
-  userType: 'MYUSER' | 'OPPONENTUSER';
+  usertype: 'MYUSER' | 'OPPONENTUSER';
 };
 
 export const ResultUserCard= (
@@ -86,11 +86,11 @@ export const ResultUserCard= (
     name, 
     score, 
     result,
-    userType
+    usertype
   }: ResultUserCardProps
 ) => {
   return (
-    <_ResultUserCard userType={userType} >
+    <_ResultUserCard usertype={usertype} >
       <_UserWrapper>
         <_UserIconWrapper>
           <UserIcon />

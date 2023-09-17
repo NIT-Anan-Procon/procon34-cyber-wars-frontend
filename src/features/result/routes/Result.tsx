@@ -39,13 +39,13 @@ export const Result= () => {
           name    ={ '日下 遥斗' }
           score   ={ 200 } 
           result  ={ 'WIN' }
-          userType={ 'MYUSER' } 
+          usertype={ 'MYUSER' } 
         />
         <ResultUserCard 
           name    ={ '木下 聡大' }
           score   ={ 180 } 
           result  ={ 'LOSE' }
-          userType={ 'OPPONENTUSER' } 
+          usertype={ 'OPPONENTUSER' } 
         />      
       </_ResultWrapper>
       <_NextButton type='button' onClick={() => navigate('../explanation')}>next</_NextButton>
