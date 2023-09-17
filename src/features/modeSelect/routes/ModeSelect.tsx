@@ -64,6 +64,7 @@ const NavItem= styled(Link)`
 `;
 
 const SelectionContainer= styled.div`
+height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -80,21 +81,19 @@ const MatchSelectionCard= styled(SelectionCard)`
 `;
 
 const DialogLayout=styled.dialog`
-  top: 30px;
   padding: 0;
-  width: 400px;
-  top: 70px;
+  width  : 100vw;
   border: none;
-  padding: 0;
   background: transparent;
   color: #000;
   height: fit-content;
   position: absolute;
-  left: 0;
-  right: 0;
-  margin: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   &::backdrop {
+    
     background-color: #000;
     opacity: 0.3;
   }
@@ -103,9 +102,12 @@ const DialogLayout=styled.dialog`
 const DialogContent= styled.div`
   height: 100%;
   width: 100%;
+
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  row-gap: 2rem;
 `;
 
 export const ModeSelection= () => {
@@ -170,7 +172,7 @@ export const ModeSelection= () => {
             <Button type='button' onClick={ showModal }>
               Start Game
             </Button>
-            <DialogLayout onClick={closeModal} ref={ref}>
+            <DialogLayout onClick={ closeModal } ref={ref}>
               <DialogContent onClick={stopPropagation}>
                 <RoomSelectForm />
               </DialogContent>
