@@ -14,9 +14,9 @@ type AppProviderProps = {
 }
 
 export const AppProvider= ({children}: AppProviderProps) => {
-  if (process.env.NODE_ENV === 'development') {
-    worker.start();
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   worker.start();
+  // }
 
   return(
     <React.Suspense fallback={<div>...loading</div>} >
