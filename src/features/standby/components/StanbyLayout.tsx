@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Head }      from '@/components/Head';
-import { StandbyHeader } from './StanbyHeader';
+import { StandbyHeader } from './StandbyHeader';
 
 const GridLayout= styled.div`
   height : 100vh;
