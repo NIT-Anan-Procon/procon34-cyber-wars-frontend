@@ -1,17 +1,28 @@
 import styled from 'styled-components';
 import { 
-  PhaseContents,
+  PhaseContentBody,
+  PhaseContentFoot,
+  PhaseContentForm,
+  PhaseContentHead,
+  PhaseContentsLayout,
   PhaseLayout, 
   PhaseTimer, 
   UserBoardsLayout,
   UserScoreBoard
-} from "../components";
+} from '../components';
 
-import { useNavigate } from 'react-router-dom';
-import { PHASE } from '../types';
-import { CheckBoxList } from '@/components/Elements';
+import { DESCRIPTIONS, PHASE } from '../types';
 import { useAtomValueChange } from '@/hooks/useAtomValueChange';
-import { vulnerabilityOptionsState } from '@/atoms';
+import { hasHintState, isHintDrawerState, sendKeyState, vulnerabilityListState } from '@/atoms';
+import { useRef } from 'react';
+import { useRecoilValue } from 'recoil';
+import { Preview } from '@/features/preview';
+import { useSendKey } from '@/features/sendKeys';
+import { ATTACK_SEND_KEY_URL } from '@/config/apiUrls';
+import { DisplayHintBox, HintButton, HintForm } from '@/features/hint';
+import { VulnerabilitiesLayout } from '@/features/challenge/components';
+import { CheckBoxList } from '@/components/Elements';
+import { useChallengeDataTranslator } from '@/features/challenge/hooks/challengeDataTranslator';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -19,22 +30,32 @@ const _PhaseHead= styled.div`
   display: flex;
 `;
 
-const _EditorWrapper= styled.div`
-  grid-column   : 2;
-  grid-row      : 3;
-  height        : 100%;
-  width         : 100%;
-  display       : flex;
-  flex-direction: column;
-  row-gap       : 2rem;
-  background    : transparent;
-  font-size     : 1.5rem;
-  overflow      : auto;
+const _PhaseContents= styled.div`
+  height : 70vh;
+  width  : 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 export const AttackPhase= () => {
-  const navigate= useNavigate();
-  const [ checkedOption, updateCheckedOption ]= useAtomValueChange(vulnerabilityOptionsState);
+  const iframeRef = useRef(null);
+  const isDrawerHint= useRecoilValue( isHintDrawerState );
+  const hasHint= useRecoilValue( hasHintState );
+  const { formatedVulnerabilities, isLoading }= useChallengeDataTranslator();
+
+  // function handleClick() {
+  //   const input = iframeRef?.current.contentDocument.querySelector('input');
+  //   const button = iframeRef?.current.contentDocument.querySelector('button');
+  //   input.value = 'aa';
+  //   button.addEventListener('click', () => {
+  //     console.log('フォーカスされました');
+  //   });
+  //   button.click()
+  // }
+  
+  if( isLoading ) {
+    return <>Loading</>
+  }
 
   return (
     <PhaseLayout title='アタックフェーズ'>
@@ -45,7 +66,7 @@ export const AttackPhase= () => {
             status= { 'HOST' }
             score = { 100 } 
           /> 
-          <PhaseTimer phaseTitle={ PHASE.ATTACK_PHASE }/>
+          <PhaseTimer count={''} phaseTitle={ PHASE.ATTACK_PHASE }/>
           <UserScoreBoard 
             name  = {'木下 聡大'}
             status= { 'GUEST' }
@@ -53,15 +74,32 @@ export const AttackPhase= () => {
           />
         </UserBoardsLayout>      
       </_PhaseHead>
-      <PhaseContents phaseTitle={ PHASE.ATTACK_PHASE } >
-        <_EditorWrapper >
-          <CheckBoxList
-            values ={ ['"', '1', 'OR', '1', '='] }
-            checked={ checkedOption }
-            onChange={ updateCheckedOption }
-          />
-        </_EditorWrapper>        
-      </PhaseContents>
+      <_PhaseContents>
+        <Preview
+          iframeRef= { iframeRef }
+          codePath = { '1' }
+        />
+        <PhaseContentsLayout >
+          <PhaseContentHead description={ DESCRIPTIONS.ATTACK_PHASE } />
+          <PhaseContentBody >
+            <VulnerabilitiesLayout>
+              <CheckBoxList values={ formatedVulnerabilities } />
+            </VulnerabilitiesLayout>
+              <HintButton />
+              { isDrawerHint 
+                ? hasHint ?  <DisplayHintBox /> : <HintForm />
+                : undefined
+              }              
+            
+          </PhaseContentBody>
+          <PhaseContentFoot>
+            <PhaseContentForm
+              id={ 'attack_sendKey' }
+              submitFnEndpoint={ ATTACK_SEND_KEY_URL }
+            />
+          </PhaseContentFoot>
+        </PhaseContentsLayout>        
+      </_PhaseContents>
     </PhaseLayout>
   );
 };

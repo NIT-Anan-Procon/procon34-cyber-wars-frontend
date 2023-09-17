@@ -1,16 +1,26 @@
 import styled from 'styled-components';
 import { 
-  PhaseContents,
+  PhaseContentBody,
+  PhaseContentFoot,
+  PhaseContentForm,
+  PhaseContentHead,
+  PhaseContentsLayout,
   PhaseLayout, 
   PhaseTimer, 
   UserBoardsLayout,
   UserScoreBoard
-} from "../components";
+} from '../components';
 
-import { useNavigate } from 'react-router-dom';
-import { EditorForm } from '@/features/code';
 import { DESCRIPTIONS, PHASE } from '../types';
-import { useSendCode } from '@/features/code/api/sendCode';
+import { useAtomValueChange } from '@/hooks/useAtomValueChange';
+import { hasHintState, isHintDrawerState, sendKeyState } from '@/atoms';
+import { useRef } from 'react';
+import { useRecoilValue } from 'recoil';
+import { Preview } from '@/features/preview';
+import { useSendKey } from '@/features/sendKeys';
+import { DisplayHintBox, HintButton, HintForm } from '@/features/hint';
+import { BATTLE_SEND_KEY_URL } from '../../../config/apiUrls';
+import { EditArea } from '@/features/code';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -18,22 +28,24 @@ const _PhaseHead= styled.div`
   display: flex;
 `;
 
-const _EditorWrapper= styled.div`
-  grid-column   : 2;
-  grid-row      : 3;
-  height        : 100%;
-  width         : 100%;
-  display       : flex;
-  flex-direction: column;
-  row-gap       : 2rem;
-  background    : transparent;
-  font-size     : 1.5rem;
-  overflow      : auto;
+const _PhaseContents= styled.div`
+  height : 70vh;
+  width  : 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 export const BattlePhase= () => {
-  const navigate= useNavigate();
-  const { sendCode }= useSendCode();
+  // const [ checkedOption, updateCheckedOption ]= useAtomValueChange( vulnerabilityListState );
+  const [ key, updateKey ]= useAtomValueChange( sendKeyState );
+  const { sendKeyData }= useSendKey();
+  const iframeRef = useRef(null);
+  const isDrawerHint= useRecoilValue( isHintDrawerState );
+  const hasHint= useRecoilValue( hasHintState );
+  // function handleClick() {
+  //   const input = iframeRef.current.contentDocument.querySelector('input');
+  //   input.value = '挿入したい値';
+  // }
   
   return (
     <PhaseLayout title='バトルフェーズ'>
@@ -44,7 +56,7 @@ export const BattlePhase= () => {
             status= { 'HOST' }
             score = { 100 } 
           /> 
-          <PhaseTimer phaseTitle={ PHASE.BATTLE_PHASE }/>
+          <PhaseTimer count={''} phaseTitle={ PHASE.BATTLE_PHASE }/>
           <UserScoreBoard 
             name  = {'木下 聡大'}
             status= { 'GUEST' }
@@ -52,16 +64,29 @@ export const BattlePhase= () => {
           />
         </UserBoardsLayout>      
       </_PhaseHead>
-      <PhaseContents phaseTitle={ PHASE.BATTLE_PHASE } >
-        <_EditorWrapper >
-          <EditorForm 
-            isHint = { false }
-            navText= { DESCRIPTIONS.BATTLE_PHASE }
-            phase  = { PHASE.BATTLE_PHASE }
-            submitData={ sendCode }
-          />
-        </_EditorWrapper>        
-      </PhaseContents>
+      <_PhaseContents>
+        <Preview
+          iframeRef= { iframeRef }
+          codePath = { '1' }
+        />
+        <PhaseContentsLayout >
+          <PhaseContentHead description={ DESCRIPTIONS.BATTLE_PHASE } />
+          <PhaseContentBody >
+            <EditArea phase={ PHASE.BATTLE_PHASE } />
+            <HintButton />
+            { isDrawerHint 
+              ? hasHint ?  <DisplayHintBox /> : <HintForm />
+              : undefined
+            }
+          </PhaseContentBody>
+          <PhaseContentFoot>
+            <PhaseContentForm
+              id={ 'battle_sendKey' }
+              submitFnEndpoint={ BATTLE_SEND_KEY_URL }
+            />
+          </PhaseContentFoot>
+        </PhaseContentsLayout>        
+      </_PhaseContents>
     </PhaseLayout>
   );
 };
