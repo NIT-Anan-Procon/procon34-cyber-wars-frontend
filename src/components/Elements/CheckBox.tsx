@@ -1,21 +1,7 @@
 import { colors } from '@/assets/styles';
 import styled, { css } from 'styled-components';
 
-const _CheckBoxList= styled.ul`
-  height: 100%;
-  width : 100%;
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(12rem, 1fr)
-  );
-  grid-template-rows: repeat(
-    auto-fill,
-    minmax(8rem, 1fr)
-  );
-`;
-
-const _CheckBoxItem= styled.li`
+const _CheckBoxItem= styled.div`
   height: 5rem;
   width: 10rem;
   position: relative;
@@ -73,41 +59,36 @@ const _CheckBoxLabel= styled.label`
   }
 `;
 
-type CheckBoxListProps= {
-  label?: string | undefined;
-  values: Array<string>;
+type CheckBoxProps= {
+  id    : string;
+  value : string;
   checked: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const CheckBoxList= (
+export const CheckBox= (
   {     
-    label, 
-    values, 
+    id,
+    value, 
     checked, 
     onChange, 
     ...props
-  }: CheckBoxListProps
+  }: CheckBoxProps
 ) => {
   return (
-    <_CheckBoxList>
-      { 
-        values.map(( value, index ) => (
-          <_CheckBoxItem key={ index }>
-            <_CheckBox 
-              id={`id_${index}`}
-              type='checkbox'
-              value={ value }
-              checked={ checked === value}
-              onChange={ onChange }
-              {...props} 
-            />        
-            <_CheckBoxLabel htmlFor={`id_${index}`} >
-              { value }        
-            </_CheckBoxLabel>
-          </_CheckBoxItem>
-        ))
-      }
-    </_CheckBoxList>
+    <_CheckBoxItem {...props} >
+      <_CheckBox 
+        id={ id }
+        type='checkbox'
+        value={ value }
+        checked={ checked === value}
+        onChange={ onChange }
+        name={value}
+        {...props} 
+      />        
+      <_CheckBoxLabel htmlFor={ id } >
+        { value }        
+      </_CheckBoxLabel>
+    </_CheckBoxItem>
   );
 };
