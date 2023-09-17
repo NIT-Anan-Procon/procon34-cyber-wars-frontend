@@ -1,5 +1,5 @@
 import { authenticatedUserState, isAuthState } from '@/atoms';
-import { IS_SIGNEDIN_URL } from '@/config/apiEndpoints';
+import { IS_SIGNEDIN_URL } from '@/config/apiUrls';
 import { IS_SIGNEDIN, USER_NAME_KEY } from '@/config/responseKeys';
 import { axios } from '@/lib/axios';
 import { useSetRecoilState } from 'recoil';
