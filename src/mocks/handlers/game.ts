@@ -12,7 +12,7 @@ import {
   DEFENCE_CODE_URL,
   BATTLE_REVISION_URL,
   BATTLE_SEND_KEY_URL
-} from '@/config/apiEndpoints';
+} from '@/config/apiUrls';
 
 import { 
   CHOICES_KEY, 

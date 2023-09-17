@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 
-import { ROOM_URL } from '@/config/apiEndpoints';
+import { ROOM_URL } from '@/config/apiUrls';
 import { db } from '../db';
 import { randomNum } from '../utils';
 import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY } from '@/config/responseKeys';
