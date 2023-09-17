@@ -18,7 +18,9 @@ import { useSendKey } from '@/features/sendKeys';
 import { DisplayHintBox, HintButton, HintForm } from '@/features/hint';
 import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/challenge/components';
 import { Button } from '@/components/Elements';
-import { vulnerabiliesFormatSelector } from '@/features/challenge';
+import { useChallengeDataTranslator, vulnerabiliesFormatSelector } from '@/features/challenge';
+import { useRecoilValue } from 'recoil';
+import { ATTACK_SEND_KEY_URL } from '@/config/apiUrls';
 
 const _PhaseHead= styled.div`
   height: 30vh;
