@@ -1,4 +1,4 @@
-export * from './users';
-export * from './rooms';
-// export * from './games';
+export * from './user';
+export * from './room';
+export * from './game';
 export * from './misc';

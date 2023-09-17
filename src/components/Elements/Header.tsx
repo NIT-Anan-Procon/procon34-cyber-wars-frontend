@@ -1,5 +1,6 @@
-import { colors } from '@/styles';
 import styled from 'styled-components';
+
+import { colors } from '@/assets/styles';
 
 const _Header= styled.div`
   width: 100vw;

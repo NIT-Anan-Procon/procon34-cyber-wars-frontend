@@ -3,8 +3,8 @@ import styled          from "styled-components";
 import { Form, FormTitle, InputField } from "@/components/Form";
 import { Button, Link }          from "@/components/Elements";
 import { AuthUser, FormSchema }  from "..";
-import { colors }                from "@/styles";
-import { useSignUp } from "../api/signUp";
+import { colors }                from "@/assets/styles";
+import { useSignUp } from "../api";
 
 type SignInFormProps = {
 	onSuccess: () => void;
@@ -49,8 +49,8 @@ export const SignUpForm = ({onSuccess}: SignInFormProps) => {
               type = { 'text' }
               size = { 'medium' }
               label= { 'ユーザ名' }
-              error= { errors.userName }
-              registration= { register('userName') }      
+              error= { errors.name }
+              registration= { register('name') }      
             />
             <InputField
               id   = { 'password' }

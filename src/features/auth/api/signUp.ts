@@ -1,32 +1,15 @@
-import axios from "axios";
-
-import { SIGNUP_USER_URL } from "@/config/apiEndpoints";
-import { ISSUCCESS_KEY } from "@/config/dataKeys";
-import { AuthUser } from "..";
-import { useSetRecoilState } from "recoil";
-import { isAuthState } from "@/atoms";
+import { axios } from '@/lib/axios';
+import { AuthUser } from '..';
+import { SIGNUP_USER_URL } from '@/config/apiUrls';
+import { useIsAuthenticated } from './hook/useIsAuthenticated';
+import { ISSUCCESS_KEY } from '@/config/responseKeys';
 
 export const useSignUp= () => {
-  const setIsAuthenticated= useSetRecoilState<boolean>(isAuthState);
+  const { setIsAuthenticated }= useIsAuthenticated(ISSUCCESS_KEY);
 
-  async function isSignUp(data: AuthUser): Promise<void>{
-    try {
-      const formattedJsonData= JSON.stringify(data);
-      const response= await axios.put( 
-        SIGNUP_USER_URL, 
-        formattedJsonData,  
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
-      //setIsAuthenticated(response.data.ISSUCCESS_KEY);
-      setIsAuthenticated(true);
-    }
-    catch(error) {
-      console.log('error');
-    }
+  async function isSignUp( data: AuthUser ): Promise<void>{
+    const resData= await axios.post( SIGNUP_USER_URL, data );
+    setIsAuthenticated( resData );
   }
 
   return { isSignUp };
