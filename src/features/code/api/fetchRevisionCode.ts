@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { BATTLE_REVISION_URL } from '@/config/apiEndpoints';
+import { BATTLE_REVISION_URL } from '@/config/apiUrls';
 import { axios } from '@/lib/axios';
 
 export const fetchRevisionCode= async(): Promise<string> => {

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { GAME_SCORES_URL } from '@/config/apiEndpoints';
+import { GAME_SCORES_URL } from '@/config/apiUrls';
 import { axios } from '@/lib/axios';
 
 export const fetchScores= async() => {

@@ -1,14 +1,15 @@
 import { axios } from '@/lib/axios';
 import { AuthUser } from '..';
-import { SIGNIN_USER_URL } from '@/config/apiEndpoints';
+import { SIGNIN_USER_URL } from '@/config/apiUrls';
 import { useIsAuthenticated } from './hook/useIsAuthenticated';
-import { AxiosResponse } from 'axios';
+import { ISSUCCESS_KEY } from '@/config/responseKeys';
+import { IsSuccessType } from './types/responseTypes';
 
 export const useSignIn= () => {
-  const { setIsAuthenticated }= useIsAuthenticated();
+  const { setIsAuthenticated }= useIsAuthenticated( ISSUCCESS_KEY );
 
   async function isSignIn(data: AuthUser): Promise<void>{
-    const resData= await axios.post( SIGNIN_USER_URL, data );
+    const resData: IsSuccessType = await axios.post( SIGNIN_USER_URL, data );
     setIsAuthenticated( resData );
   };
 

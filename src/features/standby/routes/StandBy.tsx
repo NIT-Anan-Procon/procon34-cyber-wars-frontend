@@ -6,6 +6,8 @@ import { StandbyLayout } from "../components";
 import { StandbyUser } from "../components/StandbyUser";
 import testIcon from '@/assets/images/attack_phase.svg';
 import { Button } from "@/components/Elements";
+import { useEffect } from "react";
+import { fetchRoomInfo } from "@/features/rooms/api/fetchRoomInfo";
 
 const _FlexUsers= styled.div`
   grid-row: 2;
@@ -35,15 +37,15 @@ export const StandBy= () => {
   const isJoinedRoom=  useRecoilValue(isEnterRoomState);
   const navigate= useNavigate();
   
-  // useEffect(() => {
-  //   const interval= setInterval(() => {
-  //     if(isJoinedRoom) {
-  //       clearInterval(interval);
-  //     } else {
-  //       getRoomMember();
-  //     }
-  //   }, 1000);
-  // },[isJoinedRoom]);
+  useEffect(() => {
+    const interval= setInterval(() => {
+      if(isJoinedRoom) {
+        clearInterval(interval);
+      } else {
+        fetchRoomInfo();
+      }
+    }, 1000);
+  },[ isJoinedRoom ]);
   
   return (
     <>

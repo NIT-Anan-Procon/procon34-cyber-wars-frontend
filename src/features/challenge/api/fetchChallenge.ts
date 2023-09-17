@@ -1,6 +1,6 @@
 import { axios } from '@/lib/axios';
 import { useQuery } from '@tanstack/react-query';
-import { ATTACK_CHALLENGE_URL } from '@/config/apiEndpoints';
+import { ATTACK_CHALLENGE_URL } from '@/config/apiUrls';
 import { ChallengeDataType } from '../types';
 import { QueryConfig } from '@/lib/react-query';
 

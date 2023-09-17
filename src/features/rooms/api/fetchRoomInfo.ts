@@ -1,4 +1,4 @@
-import { ROOM_URL } from '@/config/apiEndpoints';
+import { ROOM_URL } from '@/config/apiUrls';
 import { axios } from '@/lib/axios';
 import { useQuery } from '@tanstack/react-query';
 

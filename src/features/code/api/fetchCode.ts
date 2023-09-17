@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { DEFENCE_CODE_URL } from '@/config/apiEndpoints';
+import { DEFENCE_CODE_URL } from '@/config/apiUrls';
 import { axios } from '@/lib/axios';
 
 
