@@ -1,26 +1,24 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+
+import { hasHintState, isHintDrawerState } from '@/atoms';
+import { Preview }     from '@/features/preview';
+import { DisplayHintBox, HintButton, HintForm } from '@/features/hint';
+import { BATTLE_SEND_KEY_URL } from '@/config/apiUrls';
+import { EditArea } from '@/features/code';
+import { Timer, TimerWrapper } from '@/features/timer';
+import { DESCRIPTIONS, PHASE } from '../types';
 import { 
   PhaseContentBody,
   PhaseContentFoot,
   PhaseContentForm,
   PhaseContentHead,
   PhaseContentsLayout,
-  PhaseLayout, 
-  PhaseTimer, 
+  PhaseLayout,  
   UserBoardsLayout,
   UserScoreBoard
 } from '../components';
-
-import { DESCRIPTIONS, PHASE } from '../types';
-import { useAtomValueChange } from '@/hooks/useAtomValueChange';
-import { hasHintState, isHintDrawerState, sendKeyState } from '@/atoms';
-import { useRef } from 'react';
-import { useRecoilValue } from 'recoil';
-import { Preview } from '@/features/preview';
-import { useSendKey } from '@/features/sendKeys';
-import { DisplayHintBox, HintButton, HintForm } from '@/features/hint';
-import { BATTLE_SEND_KEY_URL } from '../../../config/apiUrls';
-import { EditArea } from '@/features/code';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -36,16 +34,9 @@ const _PhaseContents= styled.div`
 `;
 
 export const BattlePhase= () => {
-  // const [ checkedOption, updateCheckedOption ]= useAtomValueChange( vulnerabilityListState );
-  const [ key, updateKey ]= useAtomValueChange( sendKeyState );
-  const { sendKeyData }= useSendKey();
   const iframeRef = useRef(null);
   const isDrawerHint= useRecoilValue( isHintDrawerState );
   const hasHint= useRecoilValue( hasHintState );
-  // function handleClick() {
-  //   const input = iframeRef.current.contentDocument.querySelector('input');
-  //   input.value = '挿入したい値';
-  // }
   
   return (
     <PhaseLayout title='バトルフェーズ'>
@@ -56,7 +47,12 @@ export const BattlePhase= () => {
             status= { 'HOST' }
             score = { 100 } 
           /> 
-          <PhaseTimer count={''} phaseTitle={ PHASE.BATTLE_PHASE }/>
+          <TimerWrapper phase={ PHASE.BATTLE_PHASE } >
+            <Timer 
+              targetTime = { 6 }
+              redirectUrl= { '../result' }
+            />
+          </TimerWrapper>
           <UserScoreBoard 
             name  = {'木下 聡大'}
             status= { 'GUEST' }

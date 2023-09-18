@@ -61,16 +61,18 @@ const _CheckBoxLabel= styled.label`
 `;
 
 type CheckBoxProps= {
-  id    : string;
-  value : string;
-  checked: boolean;
+  id      : string;
+  value   : string;
+  label   : string;
+  checked : boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const CheckBox= (
   {     
     id,
-    value, 
+    value,
+    label, 
     checked, 
     onChange, 
     ...props
@@ -79,15 +81,15 @@ export const CheckBox= (
   return (
     <_CheckBoxItem {...props} >
       <_CheckBox 
-        id={ id }
-        type='checkbox'
-        value={ value }
-        checked={ checked }
-        onChange={ onChange }
+        id      = { id }
+        type    = 'checkbox'
+        value   = { value }
+        checked = { checked }
+        onChange= { onChange }
         {...props} 
       />        
       <_CheckBoxLabel htmlFor={ id } >
-        { value }        
+        { label }        
       </_CheckBoxLabel>
     </_CheckBoxItem>
   );
