@@ -39,7 +39,8 @@ export const InputField = (
 		label,
 		size,
 		value,
-		placeholder, 
+		placeholder,
+		onChange,
 		error, 
 		...props
 	}: InputFieldProps
