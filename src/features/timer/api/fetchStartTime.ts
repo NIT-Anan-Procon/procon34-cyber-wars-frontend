@@ -3,8 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { axios } from '@/lib/axios';
 import { FETCH_GAME_START_TIME_URL } from '@/config/apiUrls';
 
-export const fetchStartTime= async(): Promise<object> => {
-  const  startTime = await axios.get( FETCH_GAME_START_TIME_URL );
+export const fetchStartTime= async(): Promise<string> => {
+  const  startTime: string = await axios.get( FETCH_GAME_START_TIME_URL );
   return startTime;
 };
 
