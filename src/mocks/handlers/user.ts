@@ -160,7 +160,7 @@ export const userHandlers= [
         ctx.json(
           {
             loggedIn: true,
-            name    : user.name
+            name    : 'kusaka'
           }
         )
       );
