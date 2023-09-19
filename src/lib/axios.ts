@@ -1,8 +1,12 @@
 import Axios from 'axios';
+import { API_URL } from '@/config/apiUrls'
 
 export const axios= Axios.create({
+  // baseURL: API_URL,
   baseURL: '',
-  headers: { 'Content-Type': 'application/json' }
+  headers: {
+    'Content-Type': 'application/json',
+  }
 });
 
 axios.interceptors.request.use(
