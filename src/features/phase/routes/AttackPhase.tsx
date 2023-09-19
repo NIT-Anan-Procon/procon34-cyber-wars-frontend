@@ -6,7 +6,7 @@ import { Timer, TimerWrapper } from '@/features/timer';
 import { DESCRIPTIONS, PHASE } from '../types';
 import { hasHintState, isHintDrawerState } from '@/atoms';
 import { Preview } from '@/features/preview';
-import { DisplayHintBox, HintButton, HintForm, HintLayout, HintList } from '@/features/hint';
+import { DisplayHintBox, HintButton, HintLayout, HintList } from '@/features/hint';
 import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/challenge/components';
 import { 
   PhaseContentBody,
@@ -54,7 +54,7 @@ export const AttackPhase= () => {
           <UserScoreBoard 
             name  = {'木下 聡大'}
             status= { 'GUEST' }
-            score = { 100 }           
+            score = { 100 }
           />
         </UserBoardsLayout>      
       </_PhaseHead>
@@ -67,7 +67,7 @@ export const AttackPhase= () => {
               <VulnerabilityCheckList />
             </VulnerabilitiesLayout>
               <HintButton />
-              { isDrawerHint 
+              { !isDrawerHint 
                 ? <HintLayout
                     title= {'ポイントを消費して、ヒントを閲覧'}
                     body= {
