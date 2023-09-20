@@ -1,2 +1,3 @@
 export * from './isEnterRoomState';
-export * from './roomIdState';
+export * from './inviteIdState';
+export * from './roomMemberInfo';

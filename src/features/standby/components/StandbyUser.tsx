@@ -68,7 +68,7 @@ export const StandbyUser= (
     <_UserInfoCard ishost={ ishost } >
       <$UserCardHeader title={ ishost? 'HOST': 'GUEST' } />
       <_UserIconWrapper>
-        <_UserIcon src={ iconPath } />
+        <_UserIcon src={ '' } alt={'icon'}/>
       </_UserIconWrapper>
       <_UserNameBox>
         <span>{ userName }</span>

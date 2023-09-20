@@ -7,7 +7,7 @@ import { SelectionCard } from "../components";
 import { Button, Header, IconButton } from "@/components/Elements";
 import { CARD_DESCRIPTION, MATCH_MODE_PATH, SETTINGS_PATH, TRAIN_MODE_PATH } from "..";
 import userIcon from '@/assets/images/user.svg';
-import { useSignOut } from '@/features/auth';
+import { fetchAuthenticatedUser, useSignOut } from '@/features/auth';
 import { RoomSelectForm } from '@/features/rooms';
 import { useModal } from '@/hooks/useModal';
 
@@ -112,9 +112,14 @@ const DialogContent= styled.div`
 
 export const ModeSelection= () => {
   const navigate= useNavigate();
+  const { authUser }= fetchAuthenticatedUser();
   const [ isNavOpen, setIsNavOpen ]= useState<boolean>(false);
   const { ref, showModal, closeModal }= useModal();
   const { isSignOut }= useSignOut();
+
+  useEffect(() => {
+    authUser();
+  },[]);
 
   const stopPropagation = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
