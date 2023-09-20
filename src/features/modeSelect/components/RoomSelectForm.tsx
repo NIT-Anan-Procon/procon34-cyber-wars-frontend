@@ -21,7 +21,11 @@ const InputFieldStyle= styled.div`
   bottom  : -45px;
 `;
 
-export const RoomSelectForm = () => {
+type RoomSelectFormProps = {
+	onSuccess: () => void;
+};
+
+export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
   const [ roomSelected, updateRoomSelected ]= useAtomValueChange(RoomModeValueState);
   const roomId= useRecoilValue<number>(RoomIdState);
   const navigate= useNavigate();
@@ -50,7 +54,7 @@ export const RoomSelectForm = () => {
               <Form<RoomFormType, typeof RoomIdSchema>
                 onSubmit={ async({roomId} : RoomFormType) => {
                   await joinRoom(roomId);
-                  navigate('games/standby')
+                  onSuccess()
                 }}
                 schema={RoomIdSchema}
               >

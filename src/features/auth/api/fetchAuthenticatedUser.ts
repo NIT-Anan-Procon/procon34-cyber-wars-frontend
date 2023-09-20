@@ -7,7 +7,7 @@ export const fetchAuthenticatedUser= async() => {
   return await axios.get( IS_SIGNEDIN_URL );
 };
 
-const useAuthenticatedUser= () => {
+export const useAuthUser= () => {
   return useQuery({
     queryKey: [ 'query_authenticatedUser' ],
     queryFn : () => fetchAuthenticatedUser(),

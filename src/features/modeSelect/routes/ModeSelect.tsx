@@ -174,7 +174,7 @@ export const ModeSelection= () => {
             </Button>
             <DialogLayout onClick={ closeModal } ref={ref}>
               <DialogContent onClick={stopPropagation}>
-                <RoomSelectForm />
+                <RoomSelectForm onSuccess={() => navigate('games/standby')} />
               </DialogContent>
             </DialogLayout>
           </MatchSelectionCard>            
