@@ -7,36 +7,16 @@ export const useFocusedElementId= () => {
   const [ focusedId, setFocusedId ]= useRecoilState( focusedElementIdState );
 
   useEffect(() => {
-
-    const iframeDoc = iframeRef?.current?.contentDocument;
     const handleFocus = (e) => {
-
       const id = e.target.id;
-
       setFocusedId(id);
+      console.log(id);
     };
 
-    if (iframeDoc) {
+    const input = iframeRef?.current?.contentDocument.querySelector('input');
+    input.addEventListener("focus", handleFocus);
 
-      const inputs = iframeDoc.querySelectorAll("input");
-
-      inputs.forEach((input) => {
-        input.addEventListener("focus", handleFocus);
-      });
-    }
-
-    return () => {
-
-      if (iframeDoc) {
-
-        const inputs = iframeDoc.querySelectorAll("input");
-
-        inputs.forEach((input) => {
-          input.removeEventListener("focus", handleFocus);
-        });
-      }
-    };
-  }, [iframeRef]);
+  }, [ iframeRef, focusedId ]);
 
   return focusedId;
 };

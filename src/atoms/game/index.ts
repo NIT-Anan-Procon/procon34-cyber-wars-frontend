@@ -6,3 +6,4 @@ export * from './hintState';
 export * from './sendKeyState';
 export * from './previewRefState';
 export * from './focusedElementIdState';
+export * from './isCorrectState';

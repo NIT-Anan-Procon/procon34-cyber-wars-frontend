@@ -1,13 +1,16 @@
 import styled, { css } from 'styled-components';
 import attackPhase from '@/assets/images/attack_phase.svg'
+import { useScoresQuery } from '@/features/score';
+import { OPPONENT_NAME_KEY, SCORES_KEY } from '@/config/responseKeys';
+import { fetchOpponentUser, useOpponentUserQuery } from '../api/fetchOpponentUser';
 
-const _UserBoardWrapper= styled.div`
+const _UserBoardWrapper= styled.div<{ ishost: boolean }>`
   height     : 100%;
   width      : 40vw;
   padding-top: 10px;
   position   : relative; 
   
-  ${(props) => props.status === 'HOST'
+  ${(props) => props.ishost
     ? css`
         &::before {
           height    : 100%;
@@ -31,7 +34,7 @@ const _UserBoardWrapper= styled.div`
   };
 `;
 
-const _UserIconArea= styled.div`
+const _UserIconArea= styled.div<{ ishost: boolean }>`
   height         : 15rem;
   width          : 15rem;
   display        : flex;
@@ -41,7 +44,7 @@ const _UserIconArea= styled.div`
   background     : #d4d4d4;
   z-index        : 100;
 
-  ${(props) => props.status === 'HOST'
+  ${(props) => props.ishost
       ? css` 
           left : 2rem;
           transform: rotate(-5deg);
@@ -74,7 +77,7 @@ const _UserIcon= styled.img`
   justify-content: center;
 `;
 
-const _UserScoreWrapper= styled.div`
+const _UserScoreWrapper= styled.div<{ ishost: boolean }>`
   height     : 10rem;
   width      : calc(100% - 10px);
   display    : flex;
@@ -82,7 +85,7 @@ const _UserScoreWrapper= styled.div`
   position   : relative;
   background : black;
   
-  ${(props) => props.status === 'HOST'
+  ${(props) => props.ishost
     ? css`
         padding-right  : 20px;  
         justify-content: end;
@@ -108,7 +111,7 @@ const _UserScore= styled.h1`
   }
 `;
 
-const _UserNameWrapper= styled.div`
+const _UserNameWrapper= styled.div<{ ishost: boolean }>`
   position  : relative;
   height    : 6.5rem;
   width     : 20rem;
@@ -119,7 +122,7 @@ const _UserNameWrapper= styled.div`
   z-index   : 100;
   
   &::after {
-    ${(props) => props.status === 'HOST'
+    ${(props) => props.ishost
       ? css`
           clip-path: polygon(0 70%, 100% 0, 100% 100%, 0% 100%)
         `
@@ -130,12 +133,12 @@ const _UserNameWrapper= styled.div`
   }
 `;
 
-const _UserName= styled.h1`
+const _UserName= styled.h1<{ ishost: boolean }>`
   font-size: 3.5rem;
   color    : white;
   z-index  : 999;
 
-  ${(props) => props.status === 'HOST'
+  ${(props) => props.ishost
       ? css`
           transform: rotate(-5deg);
         `
@@ -146,34 +149,47 @@ const _UserName= styled.h1`
 `;
 
 type UserScoreBoardProps= {
-  name  : string;
-  status: 'HOST' | 'GUEST';
-  score : number;
+  ishost: boolean;
 };
 
 export const UserScoreBoard= (
   {
-    name,
-    status,
-    score 
+    ishost,
   }: UserScoreBoardProps
 ) => {
+
+  const { data: scores, isLoading }= useScoresQuery({
+    config: {
+      select: ( data ) => {
+        return data[ SCORES_KEY ]
+      },
+      refetchInterval: 1000 * 3
+    }
+  });
+
+  if( isLoading) {
+    return <>loading</>
+  }  
+  
   return (
-    <_UserBoardWrapper status={status} >
-      <_UserIconArea status={status} >
+    <_UserBoardWrapper ishost={ ishost } >
+      <_UserIconArea ishost={ ishost } >
         <_UserIcon 
           src={attackPhase}
           alt= { 'icon' }
         />
       </_UserIconArea>
-      <_UserScoreWrapper status={status}>
+      <_UserScoreWrapper ishost={ ishost } >
         <_UserScore>
-          { score }
+          { ishost
+            ? scores[0] 
+            : scores[1]
+          }
           <span>pt</span>
         </_UserScore>
       </_UserScoreWrapper>
-      <_UserNameWrapper status={status} >
-        <_UserName status={status} >{ name }</_UserName>
+      <_UserNameWrapper ishost={ ishost } >
+        <_UserName ishost={ ishost } >{ }</_UserName>
       </_UserNameWrapper>
     </_UserBoardWrapper>
   );

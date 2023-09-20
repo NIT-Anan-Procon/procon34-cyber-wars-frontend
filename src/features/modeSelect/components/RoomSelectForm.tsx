@@ -4,10 +4,10 @@ import { Form, FormTitle, InputField } from "@/components/Form"
 import { RoomFormType } from "../../rooms/types/formType";
 import { RoomIdSchema } from "../../rooms";
 import { Button, RadioButton } from "@/components/Elements";
-import { RoomIdState, RoomModeValueState } from "@/atoms";
+import { inviteIdState, RoomModeValueState } from "@/atoms";
 import { useAtomValueChange } from "@/hooks/useAtomValueChange";
 import { ROOM_MODES } from "../../rooms/types/roomModes";
-import { createRoom, joinRoom } from "../../rooms/api";
+import { useCreateRoom, joinRoom } from "../../rooms/api";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 
@@ -21,9 +21,14 @@ const InputFieldStyle= styled.div`
   bottom  : -45px;
 `;
 
-export const RoomSelectForm = () => {
+type RoomSelectFormProps = {
+	onSuccess: () => void;
+};
+
+export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
   const [ roomSelected, updateRoomSelected ]= useAtomValueChange(RoomModeValueState);
-  const roomId= useRecoilValue<number>(RoomIdState);
+  const roomId= useRecoilValue<number>(inviteIdState);
+  const { createRoom }= useCreateRoom();
   const navigate= useNavigate();
 
   return (    
@@ -50,7 +55,7 @@ export const RoomSelectForm = () => {
               <Form<RoomFormType, typeof RoomIdSchema>
                 onSubmit={ async({roomId} : RoomFormType) => {
                   await joinRoom(roomId);
-                  navigate('games/standby')
+                  onSuccess()
                 }}
                 schema={RoomIdSchema}
               >
@@ -72,7 +77,7 @@ export const RoomSelectForm = () => {
                 type='button' 
                 onClick={ async() => (
                   await createRoom(false),
-                  navigate('games/standby')
+                  onSuccess()
                 )} 
               > 
                 START

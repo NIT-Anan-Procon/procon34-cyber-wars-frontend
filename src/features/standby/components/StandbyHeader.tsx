@@ -1,4 +1,6 @@
 import { colors } from '@/assets/styles';
+import { inviteIdState } from '@/atoms';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 const _HeaderContainer= styled.div`
@@ -68,13 +70,15 @@ const _RoomId= styled.span`
 `;
 
 export const StandbyHeader= () => {
+  const inviteId= useRecoilValue( inviteIdState );
+
   return (
     <_HeaderContainer>
       <_RoomIdBox>
         <_HeadTitle>
-          <span>ROOMID</span>
+          <span>INVITE ID</span>
         </_HeadTitle>
-        <_RoomId>{1234}</_RoomId>
+        <_RoomId>{ inviteId }</_RoomId>
       </_RoomIdBox>
     </_HeaderContainer>
   );

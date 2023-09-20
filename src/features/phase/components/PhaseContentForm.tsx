@@ -5,8 +5,9 @@ import { useAtomValueChange } from '@/hooks/useAtomValueChange';
 import { Button } from '@/components/Elements';
 import { InputField } from '@/components/Form';
 import { useSendKey } from '@/features/sendKeys';
+import { useState } from 'react';
 
-const _PhaseContentForm= styled.form`
+const _PhaseContentForm= styled.div`
   height    : 100%;
   width     : 100%;
   background: transparent;
@@ -30,24 +31,24 @@ type PhaseContentFormProps= {
 };
 
 export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps) => {
-  const [ keyValue, updateKeyValue ]= useAtomValueChange( sendKeyState );
-  const { sendKeyData }= useSendKey();
+  const [ keyValue, setKeyValue ]= useState();
+  const { sendKey }= useSendKey();
+
+  const handleChange= () => {
+    setKeyValue( keyValue );
+  };
 
   return (
-    <_PhaseContentForm 
-      onSubmit={
-        async( value ) => await sendKeyData( submitFnEndpoint, value )
-      }
-    >
+    <_PhaseContentForm >
       <$InputKeyFeild
         id   = { id } 
         type = { 'text' }
         size = { 'small' }
         value= { keyValue }
         placeholder= { 'キーを入力してください' } 
-        onChange   = { updateKeyValue }
+        onChange   = { handleChange }
       />
-      <$SendKeyButton type={'submit'}> Send </$SendKeyButton>
+      <$SendKeyButton type={'button'} onClick={ async() => await sendKey( submitFnEndpoint, keyValue )}> Send </$SendKeyButton>
     </_PhaseContentForm>
   );
 };

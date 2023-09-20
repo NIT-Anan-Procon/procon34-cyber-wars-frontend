@@ -16,7 +16,7 @@ const _ErrorMessage= styled.div`
   margin     : 0  0 -2rem 1.5rem;
   font-size  : 1.25rem;
   line-height: 2rem;
-  color      : ${colors.danger};
+  color      : ${ colors.danger };
 `;
 
 type FieldWrapperProps= {
@@ -26,22 +26,6 @@ type FieldWrapperProps= {
 };
 
 export type FieldWrapperPassThroughProps= Omit<FieldWrapperProps, 'children'>;
-
-const FieldWrapperStyle= styled.div`
-  width: 100%;
-`;
-
-const FieldLabelStyle= styled.label`
-  font-size: 1.75rem;
-  color    : rgba(156, 163, 175, 1);
-` ;
-
-const ErrorMessageStyle= styled.div`
-  margin     : 0  0 -2rem 1.5rem;
-  font-size  : 1.25rem;
-  line-height: 2rem;
-  color      : ${colors.danger};
-`;
 
 export const FieldWrapper= (
   { 

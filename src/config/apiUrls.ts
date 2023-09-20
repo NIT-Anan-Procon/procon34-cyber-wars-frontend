@@ -1,4 +1,4 @@
-const API_URL= import.meta.env.VITE_API_URL;
+export const API_URL= import.meta.env.VITE_API_URL;
 
 export const SIGNUP_USER_URL         = `/user`;
 export const UPDATE_USER_NAME_URL    = `/user/name`;

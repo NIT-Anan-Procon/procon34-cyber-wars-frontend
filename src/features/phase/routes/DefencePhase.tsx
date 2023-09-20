@@ -7,18 +7,18 @@ import { DESCRIPTIONS, PHASE } from '../types';
 import { useSendCode } from '@/features/code/api/sendCode';
 import { codeState, hasHintState, isHintDrawerState } from '@/atoms';
 import { Preview } from '@/features/preview';
-import { DisplayHintBox, HintButton, HintForm } from '@/features/hint';
+import { HintButton, HintLayout, HintList } from '@/features/hint';
 import { Button } from '@/components/Elements';
 import { Timer, TimerWrapper } from '@/features/timer';
+import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
 import { 
   PhaseContentBody,
   PhaseContentFoot,
   PhaseContentHead,
   PhaseContentsLayout,
   PhaseLayout,  
-  UserBoardsLayout,
-  UserScoreBoard
 } from "../components";
+import { queryClient } from '@/lib/react-query';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -55,12 +55,12 @@ export const DefencePhase= () => {
             status= { 'HOST' }
             score = { 100 } 
           /> 
-          <TimerWrapper phase={ PHASE.DEFENCE_PHASE } >
+          {/* <TimerWrapper phase={ PHASE.DEFENCE_PHASE } >
             <Timer 
               targetTime = { 10 }
               redirectUrl= { 'battle-phase' }
             />
-          </TimerWrapper>
+          </TimerWrapper> */}
           <UserScoreBoard 
             name  = {'木下 聡大'}
             status= { 'GUEST' }
@@ -78,10 +78,14 @@ export const DefencePhase= () => {
           <PhaseContentBody >
             <EditArea phase={ PHASE.DEFENCE_PHASE } />
             <HintButton />
-            { isDrawerHint 
-              ? hasHint ?  <DisplayHintBox /> : <HintForm />
-              : undefined
-            }
+
+                ? <HintLayout
+                    title= {'ポイントを消費して、ヒントを閲覧'}
+                    body= {
+                      <HintList />
+                    }
+                />
+          
           </PhaseContentBody>
           <PhaseContentFoot>
             <_SendCodeButton 

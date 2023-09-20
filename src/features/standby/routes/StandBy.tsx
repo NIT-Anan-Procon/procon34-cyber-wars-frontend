@@ -1,4 +1,4 @@
-import { isEnterRoomState } from "@/atoms";
+import { authenticatedUserState, inviteIdState, isEnterRoomState, roomMemberInfo } from "@/atoms";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -6,8 +6,9 @@ import { StandbyLayout } from "../components";
 import { StandbyUser } from "../components/StandbyUser";
 import testIcon from '@/assets/images/attack_phase.svg';
 import { Button } from "@/components/Elements";
-import { useEffect } from "react";
-import { fetchRoomInfo } from "@/features/rooms/api/fetchRoomInfo";
+import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY, USER_NAME_KEY } from "@/config/responseKeys";
+import { useRoomInfoQuery } from '../../rooms/api/fetchRoomInfo';
+import { startGame } from "../api/startGame";
 
 const _FlexUsers= styled.div`
   grid-row: 2;
@@ -31,45 +32,75 @@ const $StartButton= styled(Button)`
   position: absolute;
   bottom  : 0;
   right   : 0;
+  clip-path: ;
 `;
 
 export const StandBy= () => {
   const isJoinedRoom=  useRecoilValue(isEnterRoomState);
+  const authUserState= useRecoilValue( authenticatedUserState );
+  const roomMember= useRecoilValue( roomMemberInfo );
+  const inviteId= useRecoilValue( inviteIdState );
   const navigate= useNavigate();
-  
-  useEffect(() => {
-    const interval= setInterval(() => {
-      if(isJoinedRoom) {
-        clearInterval(interval);
-      } else {
-        fetchRoomInfo();
-      }
-    }, 1000);
-  },[ isJoinedRoom ]);
+
+  // const authUserQuery= useAuthUserQuery({});
+  const { data: roomInfoQuery, isLoading, isSuccess }= useRoomInfoQuery({
+    config: {
+      refetchInterval: (data) => data?.[ IS_STARTED_KEY ] ? 0 : 1000
+    }
+  });
+
+  if( isLoading) {
+    return <></>
+  }
+
+  // if(authUserQuery.isLoading) {
+  //   return <></>
+  // }
+  // if( info?.[ OPPONENT_NAME_KEY ]=== null && !isSuccess) {
+  //   deleteRoom();
+  //   navigate('../..');
+  // }
   
   return (
     <>
       <StandbyLayout>
         <_FlexUsers>
           <StandbyUser 
-            userName= {'日下遥斗'}
-            status= {'HOST'}
+            userName= {
+              roomInfoQuery?.[ IS_HOST_KEY ]
+              ? authUserState[ USER_NAME_KEY ]
+              : roomInfoQuery?.[ OPPONENT_NAME_KEY ]
+            }
+            ishost  = { true }
             iconPath={testIcon} 
           />
           <_BattleIcon>VS</_BattleIcon>
-          { isJoinedRoom
+          { isSuccess
             ?
             <>
               <StandbyUser
-                userName= {'木下 聡大'}
-                status= {'GUEST'}
-                iconPath={testIcon} 
+                userName= {
+                  ! roomInfoQuery?.[ IS_HOST_KEY ]
+                  ? authUserState[ USER_NAME_KEY ]
+                  : roomInfoQuery?.[ OPPONENT_NAME_KEY ]
+                }
+                ishost  = { false }
+                iconPath= { testIcon } 
               />          
-              <$StartButton onClick={() => navigate('../phase/attack-phase')}>
-                Start
-              </$StartButton>   
             </>
-            : <p>loading</p>           
+            : <p>対戦相手を待っています...</p>           
+          }
+          { roomInfoQuery?.[ IS_HOST_KEY ] 
+            ?
+              <$StartButton 
+                onClick={ async() => {
+                  await startGame(),
+                  navigate('../phase/attack-phase')
+                }}
+              >
+                ゲーム開始
+              </$StartButton>
+            : undefined          
           }
         </_FlexUsers>
       </StandbyLayout>    

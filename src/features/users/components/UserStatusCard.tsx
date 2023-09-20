@@ -13,7 +13,7 @@ const _UserCard= styled.div`
   gap: 1rem;
 `;
 
-const _UserIconWrapper= styled.div`
+const _UserIconWrapper= styled.div<{ ishost: boolean }>`
   grid-column: 1;
   grid-row   : 1 / span 2;
   width : 100%;
@@ -23,7 +23,7 @@ const _UserIconWrapper= styled.div`
   justify-content: center;
   align-items: center;
   border: 3px solid     
-    ${(props) => props.status === 'host'
+    ${(props) => props.ishost
       ? colors.blueAccent
       : colors.redAccent
     };
@@ -75,16 +75,21 @@ const _UserNameFeild= styled.span`
 
 type UserStatusCardProps= {
   userName: string;
-  status  : 'host' | 'guest';
+  ishost  : boolean;
 }
 
-export const UserStatusCard= ({ userName, status }: UserStatusCardProps) => {
+export const UserStatusCard= ({ userName, ishost }: UserStatusCardProps) => {
   return (
     <_UserCard >
-      <_UserIconWrapper status={ status } >
+      <_UserIconWrapper ishost={ ishost } >
         {/* <_UserIcon src={} /> */}
       </_UserIconWrapper> 
-        <_StatusTag >{ status }</_StatusTag>
+        <_StatusTag >
+          { ishost
+            ? <span>HOST</span>
+            : <span>GUEST</span>
+          }
+        </_StatusTag>
         <_UserNameFeild >{ userName }</_UserNameFeild>
     </_UserCard>
   );

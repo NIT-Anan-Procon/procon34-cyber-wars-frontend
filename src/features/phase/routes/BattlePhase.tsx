@@ -4,11 +4,12 @@ import { useRecoilValue } from 'recoil';
 
 import { hasHintState, isHintDrawerState } from '@/atoms';
 import { Preview }     from '@/features/preview';
-import { DisplayHintBox, HintButton, HintForm } from '@/features/hint';
+import { HintButton } from '@/features/hint';
 import { BATTLE_SEND_KEY_URL } from '@/config/apiUrls';
 import { EditArea } from '@/features/code';
 import { Timer, TimerWrapper } from '@/features/timer';
 import { DESCRIPTIONS, PHASE } from '../types';
+import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
 import { 
   PhaseContentBody,
   PhaseContentFoot,
@@ -16,8 +17,6 @@ import {
   PhaseContentHead,
   PhaseContentsLayout,
   PhaseLayout,  
-  UserBoardsLayout,
-  UserScoreBoard
 } from '../components';
 
 const _PhaseHead= styled.div`
@@ -70,10 +69,7 @@ export const BattlePhase= () => {
           <PhaseContentBody >
             <EditArea phase={ PHASE.BATTLE_PHASE } />
             <HintButton />
-            { isDrawerHint 
-              ? hasHint ?  <DisplayHintBox /> : <HintForm />
-              : undefined
-            }
+
           </PhaseContentBody>
           <PhaseContentFoot>
             <PhaseContentForm
