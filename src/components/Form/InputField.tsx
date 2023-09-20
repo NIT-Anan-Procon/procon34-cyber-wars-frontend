@@ -6,12 +6,11 @@ import { InputSizeProps } from '@/assets/styles/dimensions';
 import { colors }         from '@/assets/styles';
 
 type InputFieldProps = FieldWrapperPassThroughProps & {
-	id   : string;
-	type?: 'text' | 'password';
+	id    : string;
+	type ?: 'text' | 'password';
 	value?: string;
-	size : InputSizeProps;
+	size  : InputSizeProps;
 	placeholder ?: string;
-	onChange    ?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	registration?: Partial<UseFormRegisterReturn>;
 };
 
@@ -40,9 +39,8 @@ export const InputField = (
 		size,
 		value,
 		placeholder,
-		onChange,
 		error, 
-		...props
+		registration
 	}: InputFieldProps
 ) => {
 	return (
@@ -56,7 +54,7 @@ export const InputField = (
 				value={ value }
 				size= { size }
 				placeholder={ placeholder}
-				{ ...props }
+				{...registration}
 			/>
 		</FieldWrapper>
 	);
