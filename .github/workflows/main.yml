@@ -19,7 +19,7 @@ jobs:
           proxy_username: ${{ secrets.PROXY_USERNAME }}
           proxy_password: ${{ secrets.PROXY_PASSWORD }}
           script: |
-            cd /var/www/procon34_CYBER_WARS_frontend/
+            cd /var/www/procon34-cyber-wars-frontend/
             git pull origin main
       - name: Use Node.js 16
         uses: actions/setup-node@v2
