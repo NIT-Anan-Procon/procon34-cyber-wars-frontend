@@ -5,6 +5,5 @@ export * from './RadioButton';
 export * from './Card';
 export * from './Dialog';
 export * from './ContentHeader';
-export * from './Loading';
 export * from './CheckBox';
 export * from './IconButton';

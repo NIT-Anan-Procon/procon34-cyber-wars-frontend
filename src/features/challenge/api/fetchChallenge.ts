@@ -17,7 +17,7 @@ type UseChallengeQueryOptions = {
   config?: QueryConfig<QueryFnType>;
 };
 
-export const useChallengeQuery= ( config : UseChallengeQueryOptions) => {
+export const useChallengeQuery= ({ config } : UseChallengeQueryOptions) => {
   return useQuery<ChallengeDataType>({
     queryKey: [ 'query_challenge' ],
     queryFn : fetchChallenge,

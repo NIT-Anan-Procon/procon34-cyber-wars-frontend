@@ -52,25 +52,25 @@ export const roomHandlers= [
   
   rest.put<RoomHandlersType>( ROOM_URL, (req, res, ctx) => {
     try {
-      const inputRoomId= req.body;
+      // const inputRoomId= req.body;
       
-      const existingRoom= db.room.findFirst({
-        where: {
-          inviteId: {
-            equals: inputRoomId.inviteId,
-          }
-        }
-      });
+      // const existingRoom= db.room.findFirst({
+      //   where: {
+      //     inviteId: {
+      //       equals: inputRoomId.inviteId,
+      //     }
+      //   }
+      // });
 
-      if(existingRoom) {
-        db.allocations.create({
-          roomId: existingRoom.roomId,
-          userId: db.user.userId,
-          host  : false
-        })
-      } else {
-        throw Error('ルームが存在していません。');
-      }
+      // if(existingRoom) {
+      //   db.allocations.create({
+      //     roomId: existingRoom.roomId,
+      //     userId: db.user.userId,
+      //     host  : false
+      //   })
+      // } else {
+      //   throw Error('ルームが存在していません。');
+      // }
 
       return res(
         ctx.status(200),

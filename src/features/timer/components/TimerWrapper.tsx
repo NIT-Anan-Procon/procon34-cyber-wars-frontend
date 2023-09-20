@@ -14,7 +14,7 @@ const _TimerWrapper= styled.div`
   align-items: center;
 `; 
 
-const _TimeArea= styled.div`
+const _TimeArea= styled.div<{phase: string}>`
   height : 10vh;
   width  : 30rem;    
   display: flex;
@@ -24,8 +24,8 @@ const _TimeArea= styled.div`
   clip-path : polygon(0 0, 100% 0, 90% 100%, 10% 100%);
   background: 
     ${(props) => 
-        props.bg === 'attack' ? colors.redAccent
-        : props.bg === 'defence' ? colors.blueAccent
+        props.phase === 'attack' ? colors.redAccent
+        : props.phase === 'defence' ? colors.blueAccent
         : colors.yellowAccent
     };
   
@@ -44,14 +44,9 @@ const _TimeArea= styled.div`
     background: #000007;
     z-index: -1;
   }
-
-  > h1 {
-    font-size: 5rem;
-    color: white;
-  }
 `;
 
-const _PhaseIconWrapper= styled.div`
+const _TimerIconWrapper= styled.div<{phase: string}>`
   height    : 8rem;
   width     : 10rem;
   display   : flex;
@@ -61,36 +56,36 @@ const _PhaseIconWrapper= styled.div`
   clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
   background: 
     ${(props) => 
-        props.bg === 'attack' ? colors.redAccent
-        : props.bg === 'defence' ? colors.blueAccent
+        props.phase === 'attack' ? colors.redAccent
+        : props.phase === 'defence' ? colors.blueAccent
         : colors.yellowAccent
     };
 `;
 
-const _PhaseIcon= styled.img`
+const _TimerIcon= styled.img`
   width: 5rem;
 `;
 
-type PhaseTimerProps= {
-  count     : string;
-  phaseTitle: string;
+type TimerWrapperProps= {
+  children: React.ReactNode;
+  phase   : string
 };
 
-export const PhaseTimer= ({ count, phaseTitle }: PhaseTimerProps) => {
+export const TimerWrapper= ({ children, phase }: TimerWrapperProps) => {
   return (
-    <_TimerWrapper>
-      <_TimeArea bg={phaseTitle} >
-        <h1>{ count }</h1>        
+    <_TimerWrapper >
+      <_TimeArea phase={phase}>
+        { children }        
       </_TimeArea>
-      <_PhaseIconWrapper bg={phaseTitle}>
-        <_PhaseIcon 
+      <_TimerIconWrapper  phase={phase}>
+        <_TimerIcon 
           src={ 
-            phaseTitle === 'attack' ? attackPhase 
-            : phaseTitle === 'defence' ? defencePhase
+            phase === 'attack' ? attackPhase 
+            : phase === 'defence' ? defencePhase
             : battlePhase
           } 
         />
-      </_PhaseIconWrapper>
+      </_TimerIconWrapper>
     </_TimerWrapper>
   );
 };

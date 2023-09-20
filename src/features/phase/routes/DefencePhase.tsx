@@ -1,26 +1,24 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
-import { 
+import { useRecoilValue } from 'recoil';
 
+import { EditArea } from '@/features/code';
+import { DESCRIPTIONS, PHASE } from '../types';
+import { useSendCode } from '@/features/code/api/sendCode';
+import { codeState, hasHintState, isHintDrawerState } from '@/atoms';
+import { Preview } from '@/features/preview';
+import { HintButton, HintLayout, HintList } from '@/features/hint';
+import { Button } from '@/components/Elements';
+import { Timer, TimerWrapper } from '@/features/timer';
+import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
+import { 
   PhaseContentBody,
   PhaseContentFoot,
   PhaseContentHead,
   PhaseContentsLayout,
-  PhaseLayout, 
-  PhaseTimer, 
-  UserBoardsLayout,
-  UserScoreBoard
+  PhaseLayout,  
 } from "../components";
-
-import { useNavigate } from 'react-router-dom';
-import { EditArea } from '@/features/code';
-import { DESCRIPTIONS, PHASE } from '../types';
-import { useSendCode } from '../../code/api/sendCode';
-import { useRecoilValue } from 'recoil';
-import { codeState, hasHintState, isHintDrawerState } from '@/atoms';
-import { Preview } from '@/features/preview';
-import { DisplayHintBox, HintButton, HintForm } from '@/features/hint';
-import { Button } from '@/components/Elements';
-import { useRef } from 'react';
+import { queryClient } from '@/lib/react-query';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -36,19 +34,18 @@ const _PhaseContents= styled.div`
 `;
 
 const _SendCodeButton= styled(Button)`
-  width: 15rem;
+  width   : 15rem;
   position: absolute;
-  right: 30px;
+  right   : 30px;
 `;
 
 export const DefencePhase= () => {
-  const navigate= useNavigate();
   const currentCode= useRecoilValue(codeState);
   const { sendCode }= useSendCode();
   const iframeRef = useRef(null);
   const isDrawerHint= useRecoilValue( isHintDrawerState );
   const hasHint= useRecoilValue( hasHintState );
-  
+
   return (
     <PhaseLayout title='ディフェンスフェーズ'>
       <_PhaseHead>
@@ -58,7 +55,12 @@ export const DefencePhase= () => {
             status= { 'HOST' }
             score = { 100 } 
           /> 
-          <PhaseTimer count={''} phaseTitle={ PHASE.DEFENCE_PHASE }/>
+          {/* <TimerWrapper phase={ PHASE.DEFENCE_PHASE } >
+            <Timer 
+              targetTime = { 10 }
+              redirectUrl= { 'battle-phase' }
+            />
+          </TimerWrapper> */}
           <UserScoreBoard 
             name  = {'木下 聡大'}
             status= { 'GUEST' }
@@ -76,10 +78,14 @@ export const DefencePhase= () => {
           <PhaseContentBody >
             <EditArea phase={ PHASE.DEFENCE_PHASE } />
             <HintButton />
-            { isDrawerHint 
-              ? hasHint ?  <DisplayHintBox /> : <HintForm />
-              : undefined
-            }
+
+                ? <HintLayout
+                    title= {'ポイントを消費して、ヒントを閲覧'}
+                    body= {
+                      <HintList />
+                    }
+                />
+          
           </PhaseContentBody>
           <PhaseContentFoot>
             <_SendCodeButton 

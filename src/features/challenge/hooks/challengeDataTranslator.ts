@@ -8,7 +8,13 @@ import {
 } from "@/config/responseKeys";
 
 export const useChallengeDataTranslator= () => {
-  const { data: challengeData, ...options } = useChallengeQuery({});
+  const { data: challengeData, ...options } = useChallengeQuery({
+    config: {
+      refetchOnMount: false,
+      staleTime: Infinity,
+      cacheTime: Infinity
+    }
+  });
 
   const challengePath= challengeData?.[ CODE_PATH_KEY ];
 

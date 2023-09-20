@@ -41,6 +41,7 @@ export const Form = <
   children,
   options,
   schema,
+  id,
   styles,
 }: FormProps<TFormValues, Schema>) => {
   const methods = useForm<TFormValues>({ mode: 'onChange', ...options, resolver: schema && zodResolver(schema) });
@@ -49,6 +50,7 @@ export const Form = <
     <FormContainer 
       onSubmit= {methods.handleSubmit(onSubmit)}
       styles  = { styles }
+      id={id}
     >
       {children(methods)}
     </FormContainer>

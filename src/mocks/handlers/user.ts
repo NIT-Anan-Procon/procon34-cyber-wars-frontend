@@ -142,25 +142,25 @@ export const userHandlers= [
 
   rest.get( IS_SIGNEDIN_URL, (req, res, ctx) => {
     try {
-      const user= db.user.findFirst(
-        { 
-          where: {
-            loggedIn: {
-              equals: true
-            } 
-          }
-        }
-      );
-      if(!user) {
-        throw Error('ユーザは存在していません。');
-      }
+      // const user= db.user.findFirst(
+      //   { 
+      //     where: {
+      //       loggedIn: {
+      //         equals: true
+      //       } 
+      //     }
+      //   }
+      // );
+      // if(!user) {
+      //   throw Error('ユーザは存在していません。');
+      // }
       
       return res(
         ctx.status(200),
         ctx.json(
           {
             loggedIn: true,
-            name    : user.name
+            name    : 'kusaka'
           }
         )
       );

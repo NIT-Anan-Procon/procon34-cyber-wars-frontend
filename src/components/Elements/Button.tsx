@@ -1,8 +1,8 @@
 import { forwardRef } from 'react';
 import styled         from 'styled-components';
 
-import { Loading } from '.';
 import { colors } from '@/assets/styles';
+import { Loading } from '../Animation';
 
 const _Button= styled.button`
   margin-top   : 1.75rem;
