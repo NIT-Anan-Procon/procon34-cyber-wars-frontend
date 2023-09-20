@@ -5,7 +5,7 @@ export const roomMemberInfo= atom({
   key: 'atom_roomMemberInfo',
   default: {
     [ IS_HOST_KEY ]: false,
-    [ OPPONENT_NAME_KEY ]: null,
+    [ OPPONENT_NAME_KEY ]: '',
     [ IS_STARTED_KEY ]: false,
   }
 });
