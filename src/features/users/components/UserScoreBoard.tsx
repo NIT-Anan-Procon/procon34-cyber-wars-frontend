@@ -149,47 +149,46 @@ const _UserName= styled.h1<{ ishost: boolean }>`
 `;
 
 type UserScoreBoardProps= {
+  userName: string;
   ishost: boolean;
 };
 
 export const UserScoreBoard= (
   {
+    userName,
     ishost,
   }: UserScoreBoardProps
 ) => {
 
-  const { data: scores, isLoading }= useScoresQuery({
-    config: {
-      select: ( data ) => {
-        return data[ SCORES_KEY ]
-      },
-      refetchInterval: 1000 * 3
-    }
-  });
+  // const { data: scores, isLoading }= useScoresQuery({
+  //   config: {
+  //     select: ( data ) => {
+  //       return data[ SCORES_KEY ]
+  //     },
+  //     refetchInterval: 1000 * 3
+  //   }
+  // });
 
-  if( isLoading) {
-    return <>loading</>
-  }  
+  // if( isLoading) {
+  //   return <>loading</>
+  // }  
   
   return (
     <_UserBoardWrapper ishost={ ishost } >
       <_UserIconArea ishost={ ishost } >
         <_UserIcon 
-          src={attackPhase}
-          alt= { 'icon' }
+          src={''}
+          alt= {'icon'}
         />
       </_UserIconArea>
       <_UserScoreWrapper ishost={ ishost } >
         <_UserScore>
-          { ishost
-            ? scores[0] 
-            : scores[1]
-          }
+
           <span>pt</span>
         </_UserScore>
       </_UserScoreWrapper>
       <_UserNameWrapper ishost={ ishost } >
-        <_UserName ishost={ ishost } >{ }</_UserName>
+        <_UserName ishost={ ishost } >{ userName }</_UserName>
       </_UserNameWrapper>
     </_UserBoardWrapper>
   );
