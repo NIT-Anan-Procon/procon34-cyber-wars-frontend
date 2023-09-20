@@ -1,7 +1,7 @@
 import { ContentHeader } from '@/components/Elements';
 import styled, { css } from 'styled-components';
 
-const _UserInfoCard= styled.div`
+const _UserInfoCard= styled.div<{ ishost: boolean }>`
   height : 60rem;
   width  : 50rem;
   padding: 0 1.5rem;
@@ -11,7 +11,7 @@ const _UserInfoCard= styled.div`
   justify-content: center;
   align-items: center;
   background: #111111;
-  ${(props) => props.status === 'HOST'
+  ${(props) => props.ishost
     ? css`clip-path: polygon(10% 0, 80% 0, 100% 20%, 100% 90%, 90% 100%, 10% 100%, 0 90%, 0 10%);`
     : css`clip-path: polygon(20% 0, 90% 0, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0 90%, 0 20%);`
   }
@@ -53,20 +53,20 @@ const _UserNameBox= styled.div`
 
 type StandbyUserProps= {
   userName: string;
-  status  : 'HOST' | 'GUEST';
+  ishost  : boolean;
   iconPath: string;
 };
 
 export const StandbyUser= (
   { 
     userName, 
-    status, 
-    iconPath 
+    ishost, 
+    iconPath
   }: StandbyUserProps 
 ) => {
   return (
-    <_UserInfoCard status={ status } >
-      <$UserCardHeader title={ status } />
+    <_UserInfoCard ishost={ ishost } >
+      <$UserCardHeader title={ ishost? 'HOST': 'GUEST' } />
       <_UserIconWrapper>
         <_UserIcon src={ iconPath } />
       </_UserIconWrapper>

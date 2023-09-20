@@ -6,8 +6,13 @@ import { StandbyLayout } from "../components";
 import { StandbyUser } from "../components/StandbyUser";
 import testIcon from '@/assets/images/attack_phase.svg';
 import { Button } from "@/components/Elements";
-import { useEffect } from "react";
+import { useEffect, useState } from 'react';
 import { fetchRoomInfo } from "@/features/rooms/api/fetchRoomInfo";
+import { useAuthUser } from "@/features/auth";
+import { IS_HOST_KEY, OPPONENT_NAME_KEY, USER_NAME_KEY } from "@/config/responseKeys";
+import { useRoomInfoQuery } from '../../rooms/api/fetchRoomInfo';
+import { deleteRoom } from "@/features/rooms/api/deleteRoom";
+import { startGame } from "../api/startGame";
 
 const _FlexUsers= styled.div`
   grid-row: 2;
@@ -36,37 +41,45 @@ const $StartButton= styled(Button)`
 export const StandBy= () => {
   const isJoinedRoom=  useRecoilValue(isEnterRoomState);
   const navigate= useNavigate();
-  
-  useEffect(() => {
-    const interval= setInterval(() => {
-      if(isJoinedRoom) {
-        clearInterval(interval);
-      } else {
-        fetchRoomInfo();
-      }
-    }, 1000);
-  },[ isJoinedRoom ]);
+  const authUserQuery= useAuthUser();
+  const { data: info, isSuccess }= useRoomInfoQuery({
+    config: {
+      refetchInterval: (data) => data? 0 : 1000
+    }
+  });
+
+  if(authUserQuery.isLoading) {
+    return <></>
+  }
+  if(info?.[ OPPONENT_NAME_KEY ]=== null && isSuccess) {
+    deleteRoom();
+    navigate('../..');
+  }
   
   return (
     <>
       <StandbyLayout>
         <_FlexUsers>
           <StandbyUser 
-            userName= {'日下遥斗'}
-            status= {'HOST'}
+            userName= { authUserQuery?.data?.[USER_NAME_KEY] }
+            ishost  = { info?.[ IS_HOST_KEY ] }
             iconPath={testIcon} 
           />
           <_BattleIcon>VS</_BattleIcon>
-          { isJoinedRoom
+          { isSuccess
             ?
             <>
               <StandbyUser
-                userName= {'木下 聡大'}
-                status= {'GUEST'}
-                iconPath={testIcon} 
+                userName= {info?.[ OPPONENT_NAME_KEY ]}
+                ishost  = { info?.[ IS_HOST_KEY ] }
+                iconPath= { testIcon } 
               />          
-              <$StartButton onClick={() => navigate('../phase/attack-phase')}>
-                Start
+              <$StartButton onClick={ async() => {
+                  await startGame(),
+                  navigate('../phase/attack-phase')
+                }}
+              >
+                ゲーム開始
               </$StartButton>   
             </>
             : <p>loading</p>           

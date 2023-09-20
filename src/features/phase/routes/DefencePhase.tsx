@@ -10,14 +10,13 @@ import { Preview } from '@/features/preview';
 import { HintButton, HintLayout, HintList } from '@/features/hint';
 import { Button } from '@/components/Elements';
 import { Timer, TimerWrapper } from '@/features/timer';
+import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
 import { 
   PhaseContentBody,
   PhaseContentFoot,
   PhaseContentHead,
   PhaseContentsLayout,
   PhaseLayout,  
-  UserBoardsLayout,
-  UserScoreBoard
 } from "../components";
 import { queryClient } from '@/lib/react-query';
 

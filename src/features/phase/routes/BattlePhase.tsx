@@ -9,6 +9,7 @@ import { BATTLE_SEND_KEY_URL } from '@/config/apiUrls';
 import { EditArea } from '@/features/code';
 import { Timer, TimerWrapper } from '@/features/timer';
 import { DESCRIPTIONS, PHASE } from '../types';
+import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
 import { 
   PhaseContentBody,
   PhaseContentFoot,
@@ -16,8 +17,6 @@ import {
   PhaseContentHead,
   PhaseContentsLayout,
   PhaseLayout,  
-  UserBoardsLayout,
-  UserScoreBoard
 } from '../components';
 
 const _PhaseHead= styled.div`
