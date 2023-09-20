@@ -2,13 +2,15 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { ATTACK_SEND_KEY_URL } from '@/config/apiUrls';
-import { Timer, TimerWrapper } from '@/features/timer';
+import { Timer, TimerWrapper, useFetchStartTime } from '@/features/timer';
 import { DESCRIPTIONS, PHASE } from '../types';
-import { hasHintState, isHintDrawerState, isValidState } from '@/atoms';
+import { authenticatedUserState, hasHintState, isHintDrawerState, isValidState } from '@/atoms';
 import { Preview } from '@/features/preview';
 import { HintButton, HintLayout, HintList } from '@/features/hint';
 import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/challenge/components';
 import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
+import { useEffect } from 'react';
+import { fetchAuthenticatedUser } from '@/features/auth';
 import { 
   PhaseContentBody,
   PhaseContentFoot,
@@ -34,28 +36,37 @@ const _PhaseContents= styled.div`
 
 export const AttackPhase= () => {
   const isDrawerHint= useRecoilValue( isHintDrawerState );
+  const authMyUser= useRecoilValue( authenticatedUserState );
+
+  const { startTime }= useFetchStartTime();
+  const { authUser }=fetchAuthenticatedUser();
+  const {  }
+
+  useEffect(() => {
+    startTime(),
+    authUser()
+  },[]);
 
   return (
     <PhaseLayout title='アタックフェーズ'>
       <_PhaseHead >
         <UserBoardsLayout>
-          <UserScoreBoard 
+          <UserScoreBoard
             ishost= { true }
           /> 
-          {/* <TimerWrapper phase={ PHASE.ATTACK_PHASE } >
+          <TimerWrapper phase={ PHASE.ATTACK_PHASE } >
             <Timer 
-              targetTime = { 3 }
-              redirectUrl= { '../defence-phase' }
+              targetTime = { 300 }
+              redirectUrl= { 'defence-phase' }
             />
-          </TimerWrapper> */}
+          </TimerWrapper>
           <UserScoreBoard 
-
             ishost= { false }
           />
         </UserBoardsLayout>      
       </_PhaseHead>
       <_PhaseContents>
-        <Preview codePath = { '1' } />
+        <Preview phase={ PHASE.ATTACK_PHASE } />
         <PhaseContentsLayout >
           <PhaseContentHead description={ DESCRIPTIONS.ATTACK_PHASE } />
           <PhaseContentBody >

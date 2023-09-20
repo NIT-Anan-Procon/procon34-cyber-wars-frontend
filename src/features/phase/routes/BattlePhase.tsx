@@ -1,13 +1,13 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
 import { hasHintState, isHintDrawerState } from '@/atoms';
 import { Preview }     from '@/features/preview';
-import { HintButton } from '@/features/hint';
+import { HintButton, HintLayout, HintList } from '@/features/hint';
 import { BATTLE_SEND_KEY_URL } from '@/config/apiUrls';
 import { EditArea } from '@/features/code';
-import { Timer, TimerWrapper } from '@/features/timer';
+import { Timer, TimerWrapper, useFetchStartTime } from '@/features/timer';
 import { DESCRIPTIONS, PHASE } from '../types';
 import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
 import { 
@@ -36,40 +36,46 @@ export const BattlePhase= () => {
   const iframeRef = useRef(null);
   const isDrawerHint= useRecoilValue( isHintDrawerState );
   const hasHint= useRecoilValue( hasHintState );
+  const { startTime }= useFetchStartTime();
   
+  useEffect(() => {
+    startTime()
+  },[]) 
+
   return (
     <PhaseLayout title='バトルフェーズ'>
       <_PhaseHead>
         <UserBoardsLayout>
-          <UserScoreBoard 
-            name  = {'日下 遥斗'}
-            status= { 'HOST' }
-            score = { 100 } 
+        <UserScoreBoard
+            ishost= { true }
           /> 
           <TimerWrapper phase={ PHASE.BATTLE_PHASE } >
             <Timer 
-              targetTime = { 6 }
-              redirectUrl= { '../result' }
+              targetTime = { 300 }
+              redirectUrl= { 'result' }
             />
           </TimerWrapper>
           <UserScoreBoard 
-            name  = {'木下 聡大'}
-            status= { 'GUEST' }
-            score = { 100 }           
+            ishost= { false }
           />
         </UserBoardsLayout>      
       </_PhaseHead>
       <_PhaseContents>
-        <Preview
-          iframeRef= { iframeRef }
-          codePath = { '1' }
-        />
+        <Preview phase={ PHASE.BATTLE_PHASE } />
         <PhaseContentsLayout >
           <PhaseContentHead description={ DESCRIPTIONS.BATTLE_PHASE } />
           <PhaseContentBody >
             <EditArea phase={ PHASE.BATTLE_PHASE } />
             <HintButton />
-
+            { isDrawerHint
+                ? <HintLayout
+                    title= {'ポイントを消費して、ヒントを閲覧'}
+                    body= {
+                      <HintList />
+                    }
+                />
+                : undefined         
+              }          
           </PhaseContentBody>
           <PhaseContentFoot>
             <PhaseContentForm

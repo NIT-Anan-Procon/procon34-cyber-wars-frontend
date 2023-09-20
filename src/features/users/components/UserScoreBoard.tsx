@@ -3,6 +3,8 @@ import attackPhase from '@/assets/images/attack_phase.svg'
 import { useScoresQuery } from '@/features/score';
 import { OPPONENT_NAME_KEY, SCORES_KEY } from '@/config/responseKeys';
 import { fetchOpponentUser, useOpponentUserQuery } from '../api/fetchOpponentUser';
+import { useRecoilValue } from 'recoil';
+import { authenticatedUserState, roomMemberInfo } from '@/atoms';
 
 const _UserBoardWrapper= styled.div<{ ishost: boolean }>`
   height     : 100%;
@@ -157,7 +159,8 @@ export const UserScoreBoard= (
     ishost,
   }: UserScoreBoardProps
 ) => {
-
+  const authUser= useRecoilValue( authenticatedUserState );
+  const roomMember= useRecoilValue( roomMemberInfo );
   const { data: scores, isLoading }= useScoresQuery({
     config: {
       select: ( data ) => {
@@ -175,21 +178,21 @@ export const UserScoreBoard= (
     <_UserBoardWrapper ishost={ ishost } >
       <_UserIconArea ishost={ ishost } >
         <_UserIcon 
-          src={attackPhase}
+          src={''}
           alt= { 'icon' }
         />
       </_UserIconArea>
       <_UserScoreWrapper ishost={ ishost } >
         <_UserScore>
           { ishost
-            ? scores[0] 
+            ? scores[0]
             : scores[1]
           }
           <span>pt</span>
         </_UserScore>
       </_UserScoreWrapper>
       <_UserNameWrapper ishost={ ishost } >
-        <_UserName ishost={ ishost } >{ }</_UserName>
+        <_UserName ishost={ ishost } >{ authUser.name }</_UserName>
       </_UserNameWrapper>
     </_UserBoardWrapper>
   );

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
@@ -9,7 +9,7 @@ import { codeState, hasHintState, isHintDrawerState } from '@/atoms';
 import { Preview } from '@/features/preview';
 import { HintButton, HintLayout, HintList } from '@/features/hint';
 import { Button } from '@/components/Elements';
-import { Timer, TimerWrapper } from '@/features/timer';
+import { Timer, TimerWrapper, useFetchStartTime } from '@/features/timer';
 import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
 import { 
   PhaseContentBody,
@@ -19,6 +19,7 @@ import {
   PhaseLayout,  
 } from "../components";
 import { queryClient } from '@/lib/react-query';
+import { fetchAuthenticatedUser } from '@/features/auth';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -42,50 +43,51 @@ const _SendCodeButton= styled(Button)`
 export const DefencePhase= () => {
   const currentCode= useRecoilValue(codeState);
   const { sendCode }= useSendCode();
+  const { startTime }= useFetchStartTime();
+  const { authUser }= fetchAuthenticatedUser();
   const iframeRef = useRef(null);
   const isDrawerHint= useRecoilValue( isHintDrawerState );
   const hasHint= useRecoilValue( hasHintState );
+
+  useEffect(() => {
+    startTime(),
+    authUser()
+  },[]);
 
   return (
     <PhaseLayout title='ディフェンスフェーズ'>
       <_PhaseHead>
         <UserBoardsLayout>
-          <UserScoreBoard 
-            name  = {'日下 遥斗'}
-            status= { 'HOST' }
-            score = { 100 } 
+        <UserScoreBoard
+            ishost= { true }
           /> 
-          {/* <TimerWrapper phase={ PHASE.DEFENCE_PHASE } >
+          <TimerWrapper phase={ PHASE.DEFENCE_PHASE } >
             <Timer 
-              targetTime = { 10 }
+              targetTime = { 300 }
               redirectUrl= { 'battle-phase' }
             />
-          </TimerWrapper> */}
+          </TimerWrapper>
           <UserScoreBoard 
-            name  = {'木下 聡大'}
-            status= { 'GUEST' }
-            score = { 100 }           
+            ishost= { false }
           />
         </UserBoardsLayout>      
       </_PhaseHead>
       <_PhaseContents>
-        <Preview
-          iframeRef= { iframeRef }
-          codePath = { '1' }
-        />
+        <Preview phase={ PHASE.DEFENCE_PHASE } />
         <PhaseContentsLayout >
           <PhaseContentHead description={ DESCRIPTIONS.DEFENCE_PHASE } />
           <PhaseContentBody >
             <EditArea phase={ PHASE.DEFENCE_PHASE } />
             <HintButton />
-
+              { isDrawerHint
                 ? <HintLayout
                     title= {'ポイントを消費して、ヒントを閲覧'}
                     body= {
                       <HintList />
                     }
                 />
-          
+                : undefined         
+              }          
           </PhaseContentBody>
           <PhaseContentFoot>
             <_SendCodeButton 
