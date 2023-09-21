@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { hasHintState, isHintDrawerState } from '@/atoms';
+import { authenticatedUserState, hasHintState, isHintDrawerState, roomMemberInfo } from '@/atoms';
 import { Preview }     from '@/features/preview';
 import { HintButton, HintLayout, HintList } from '@/features/hint';
 import { BATTLE_SEND_KEY_URL } from '@/config/apiUrls';
@@ -20,6 +20,8 @@ import {
   PhaseLayout,  
 } from '../components';
 import { fetchAuthenticatedUser } from '@/features/auth';
+import { useScoresQuery } from '@/features/score';
+import { SCORES_KEY } from '@/config/responseKeys';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -39,10 +41,24 @@ export const BattlePhase= () => {
   const isDrawerHint= useRecoilValue( isHintDrawerState );
   const hasHint= useRecoilValue( hasHintState );
   const { startTime }= useFetchStartTime();
-
+  const roomMember= useRecoilValue( roomMemberInfo );
+  const authMyUser= useRecoilValue( authenticatedUserState );
   const { fetchChallenge }= useFetchChallenge();
   const { authUser }= fetchAuthenticatedUser();
   
+  const { data: scores, isLoading }= useScoresQuery({
+    config: {
+      select: ( data ) => {
+        return data[ SCORES_KEY ]
+      },
+      refetchInterval: 1000 * 3
+    }
+  });
+
+  if(isLoading) {
+    return <></>
+  }
+
   useEffect(() => {
     startTime(),
     authUser(),

@@ -21,6 +21,7 @@ import {
 import { queryClient } from '@/lib/react-query';
 import { fetchAuthenticatedUser } from '@/features/auth';
 import { useFetchChallenge } from '@/features/challenge';
+import { useScoresQuery } from '@/features/score';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -53,12 +54,20 @@ export const DefencePhase= () => {
   const { authUser }= fetchAuthenticatedUser();
   const { fetchChallenge }= useFetchChallenge();
 
+  const { data: scores, isLoading }= useScoresQuery({
+    config: {
+      select: ( data ) => {
+        return data[ SCORES_KEY ]
+      },
+      refetchInterval: 1000 * 3
+    }
+  });
+
   useEffect(() => {
     startTime(),
     authUser(),
     fetchChallenge()
   },[]);
-
 
   return (
     <PhaseLayout title='ディフェンスフェーズ'>
