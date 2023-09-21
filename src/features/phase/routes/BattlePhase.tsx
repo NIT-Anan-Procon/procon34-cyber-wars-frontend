@@ -10,6 +10,7 @@ import { EditArea } from '@/features/code';
 import { Timer, TimerWrapper, useFetchStartTime } from '@/features/timer';
 import { DESCRIPTIONS, PHASE } from '../types';
 import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
+import { useFetchChallenge } from '../../challenge/api/fetchChallenge';
 import { 
   PhaseContentBody,
   PhaseContentFoot,
@@ -18,6 +19,7 @@ import {
   PhaseContentsLayout,
   PhaseLayout,  
 } from '../components';
+import { fetchAuthenticatedUser } from '@/features/auth';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -37,26 +39,51 @@ export const BattlePhase= () => {
   const isDrawerHint= useRecoilValue( isHintDrawerState );
   const hasHint= useRecoilValue( hasHintState );
   const { startTime }= useFetchStartTime();
+
+  const { fetchChallenge }= useFetchChallenge();
+  const { authUser }= fetchAuthenticatedUser();
   
   useEffect(() => {
-    startTime()
-  },[]) 
+    startTime(),
+    authUser(),
+    fetchChallenge()
+  },[]);
 
   return (
     <PhaseLayout title='バトルフェーズ'>
       <_PhaseHead>
         <UserBoardsLayout>
         <UserScoreBoard
+            userName={
+              roomMember.host
+              ? authMyUser.name
+              : roomMember.opponentName
+            }
             ishost= { true }
+            score={
+              roomMember.host
+              ? scores[0]
+              : scores[1]
+            }
           /> 
-          <TimerWrapper phase={ PHASE.BATTLE_PHASE } >
+          <TimerWrapper phase={ PHASE.ATTACK_PHASE } >
             <Timer 
               targetTime = { 300 }
-              redirectUrl= { 'result' }
+              redirectUrl= { 'defence-phase' }
             />
           </TimerWrapper>
           <UserScoreBoard 
+            userName={
+              !roomMember.host
+              ? authMyUser.name
+              : roomMember.opponentName
+            }
             ishost= { false }
+            score={
+              !roomMember.host
+              ? scores[0]
+              : scores[1]
+            }
           />
         </UserBoardsLayout>      
       </_PhaseHead>

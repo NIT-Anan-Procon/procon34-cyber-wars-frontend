@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { ATTACK_SEND_KEY_URL } from '@/config/apiUrls';
 import { Timer, TimerWrapper, useFetchStartTime } from '@/features/timer';
 import { DESCRIPTIONS, PHASE } from '../types';
-import { authenticatedUserState, hasHintState, isHintDrawerState, isValidState } from '@/atoms';
+import { authenticatedUserState, hasHintState, isHintDrawerState, isValidState, roomMemberInfo } from '@/atoms';
 import { Preview } from '@/features/preview';
 import { HintButton, HintLayout, HintList } from '@/features/hint';
-import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/challenge/components';
+import { VulnerabilitiesLayout } from '@/features/challenge/components';
 import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
 import { useEffect } from 'react';
 import { fetchAuthenticatedUser } from '@/features/auth';
@@ -19,6 +19,11 @@ import {
   PhaseContentsLayout,
   PhaseLayout, 
 } from '../components';
+import { useFetchChallenge } from '@/features/challenge';
+import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
+import { VulnerabilityCheckList } from '../../challenge/components/VulnerabilityCheckList';
+import { useScoresQuery } from '@/features/score';
+import { SCORES_KEY } from '@/config/responseKeys';
 
 
 const _PhaseHead= styled.div`
@@ -37,22 +42,46 @@ const _PhaseContents= styled.div`
 export const AttackPhase= () => {
   const isDrawerHint= useRecoilValue( isHintDrawerState );
   const authMyUser= useRecoilValue( authenticatedUserState );
-
-  const { startTime }= useFetchStartTime();
-  const { authUser }=fetchAuthenticatedUser();
-  const {  }
-
+  const roomMember= useRecoilValue( roomMemberInfo );
   useEffect(() => {
     startTime(),
-    authUser()
+    authUser(),
+    fetchChallenge()
   },[]);
+  const { startTime }= useFetchStartTime();
+  const { authUser }=fetchAuthenticatedUser();
+  const { fetchChallenge }= useFetchChallenge();
+  const roomInfoQuery= useRoomInfoQuery({});
+  
+  const { data: scores, isLoading }= useScoresQuery({
+    config: {
+      select: ( data ) => {
+        return data[ SCORES_KEY ]
+      },
+      refetchInterval: 1000 * 3
+    }
+  });
+
+  if( isLoading) {
+    return <>loading</>
+  }  
 
   return (
     <PhaseLayout title='アタックフェーズ'>
       <_PhaseHead >
         <UserBoardsLayout>
           <UserScoreBoard
+            userName={
+              roomMember.host
+              ? authMyUser.name
+              : roomMember.opponentName
+            }
             ishost= { true }
+            score={
+              roomMember.host
+              ? scores[0]
+              : scores[1]
+            }
           /> 
           <TimerWrapper phase={ PHASE.ATTACK_PHASE } >
             <Timer 
@@ -61,7 +90,17 @@ export const AttackPhase= () => {
             />
           </TimerWrapper>
           <UserScoreBoard 
+            userName={
+              !roomMember.host
+              ? authMyUser.name
+              : roomMember.opponentName
+            }
             ishost= { false }
+            score={
+              !roomMember.host
+              ? scores[0]
+              : scores[1]
+            }
           />
         </UserBoardsLayout>      
       </_PhaseHead>

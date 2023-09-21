@@ -151,29 +151,18 @@ const _UserName= styled.h1<{ ishost: boolean }>`
 `;
 
 type UserScoreBoardProps= {
+  userName: string;
   ishost: boolean;
+  score: number;
 };
 
 export const UserScoreBoard= (
   {
+    userName,
+    score,
     ishost,
   }: UserScoreBoardProps
-) => {
-  const authUser= useRecoilValue( authenticatedUserState );
-  const roomMember= useRecoilValue( roomMemberInfo );
-  const { data: scores, isLoading }= useScoresQuery({
-    config: {
-      select: ( data ) => {
-        return data[ SCORES_KEY ]
-      },
-      refetchInterval: 1000 * 3
-    }
-  });
-
-  if( isLoading) {
-    return <>loading</>
-  }  
-  
+) => {  
   return (
     <_UserBoardWrapper ishost={ ishost } >
       <_UserIconArea ishost={ ishost } >
@@ -184,15 +173,12 @@ export const UserScoreBoard= (
       </_UserIconArea>
       <_UserScoreWrapper ishost={ ishost } >
         <_UserScore>
-          { ishost
-            ? scores[0]
-            : scores[1]
-          }
+          { score }
           <span>pt</span>
         </_UserScore>
       </_UserScoreWrapper>
       <_UserNameWrapper ishost={ ishost } >
-        <_UserName ishost={ ishost } >{ authUser.name }</_UserName>
+        <_UserName ishost={ ishost } >{ userName }</_UserName>
       </_UserNameWrapper>
     </_UserBoardWrapper>
   );
