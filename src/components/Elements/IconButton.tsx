@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const _IconButton= styled.button<{ styles?: string }>`
   height: 60px;
   width : 60px;
-  background: #111111;
+  background: #6c6c6c;
   border-radius: 50%;
   border: none;
 
