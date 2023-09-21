@@ -61,7 +61,7 @@ export const Result= () => {
     >
       <_ResultWrapper>
         <_Result>
-          { scores[0] < scores[1] 
+          { scores[0] > scores[1] 
             ? 'YOU WIN'
             : 'YOU LOSE'
           }
