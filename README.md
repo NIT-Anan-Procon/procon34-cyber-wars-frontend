@@ -1,4 +1,4 @@
-# procon34_CYBER_WARS_frontend
+# procon34-cyber-wars-frontend
 
 ## 開発環境
 - [Node 18.16.0](https://nodejs.org/)
