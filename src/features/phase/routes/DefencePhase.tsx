@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { EditArea } from '@/features/code';
 import { DESCRIPTIONS, PHASE } from '../types';
 import { useSendCode } from '@/features/code/api/sendCode';
-import { authenticatedUserState, codeState, hasHintState, isHintDrawerState } from '@/atoms';
+import { authenticatedUserState, codeState, hasHintState, isHintDrawerState, roomMemberInfo } from '@/atoms';
 import { Preview } from '@/features/preview';
 import { HintButton, HintLayout, HintList } from '@/features/hint';
 import { Button } from '@/components/Elements';
@@ -22,6 +22,8 @@ import { queryClient } from '@/lib/react-query';
 import { fetchAuthenticatedUser } from '@/features/auth';
 import { useFetchChallenge } from '@/features/challenge';
 import { useScoresQuery } from '@/features/score';
+import { SCORES_KEY } from '@/config/responseKeys';
+import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -44,16 +46,22 @@ const _SendCodeButton= styled(Button)`
 
 export const DefencePhase= () => {
   const currentCode= useRecoilValue(codeState);
-  const authMyUser= useRecoilValue( authenticatedUserState );
   const iframeRef = useRef(null);
   const isDrawerHint= useRecoilValue( isHintDrawerState );
   const hasHint= useRecoilValue( hasHintState );
-
-  const { sendCode }= useSendCode();
+  const authMyUser= useRecoilValue( authenticatedUserState );
+  const roomMember= useRecoilValue( roomMemberInfo );
+  useEffect(() => {
+    startTime(),
+    authUser(),
+    fetchChallenge()
+  },[]);
   const { startTime }= useFetchStartTime();
-  const { authUser }= fetchAuthenticatedUser();
+  const { authUser }=fetchAuthenticatedUser();
   const { fetchChallenge }= useFetchChallenge();
-
+  const { sendCode }= useSendCode();
+  const roomInfoQuery= useRoomInfoQuery({});
+  
   const { data: scores, isLoading }= useScoresQuery({
     config: {
       select: ( data ) => {
@@ -63,11 +71,9 @@ export const DefencePhase= () => {
     }
   });
 
-  useEffect(() => {
-    startTime(),
-    authUser(),
-    fetchChallenge()
-  },[]);
+  if( isLoading) {
+    return <>loading</>
+  }  
 
   return (
     <PhaseLayout title='ディフェンスフェーズ'>
@@ -86,9 +92,9 @@ export const DefencePhase= () => {
               : scores[1]
             }
           /> 
-          <TimerWrapper phase={ PHASE.ATTACK_PHASE } >
+          <TimerWrapper phase={ PHASE.DEFENCE_PHASE } >
             <Timer 
-              targetTime = { 300 }
+              targetTime = { 100 }
               redirectUrl= { 'defence-phase' }
             />
           </TimerWrapper>
@@ -127,7 +133,10 @@ export const DefencePhase= () => {
           <PhaseContentFoot>
             <_SendCodeButton 
               type='button'
-              onClick= { async() => await sendCode( currentCode ) }
+              onClick= { 
+                async() => {await sendCode( currentCode ) 
+                alert('コードを送信しました。');
+              }}
             > 
               Send 
             </_SendCodeButton>

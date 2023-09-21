@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { authenticatedUserState, hasHintState, isHintDrawerState, roomMemberInfo } from '@/atoms';
+import { authenticatedUserState, codeState, hasHintState, isHintDrawerState, roomMemberInfo } from '@/atoms';
 import { Preview }     from '@/features/preview';
 import { HintButton, HintLayout, HintList } from '@/features/hint';
 import { BATTLE_SEND_KEY_URL } from '@/config/apiUrls';
@@ -22,6 +22,7 @@ import {
 import { fetchAuthenticatedUser } from '@/features/auth';
 import { useScoresQuery } from '@/features/score';
 import { SCORES_KEY } from '@/config/responseKeys';
+import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -40,11 +41,18 @@ export const BattlePhase= () => {
   const iframeRef = useRef(null);
   const isDrawerHint= useRecoilValue( isHintDrawerState );
   const hasHint= useRecoilValue( hasHintState );
-  const { startTime }= useFetchStartTime();
   const roomMember= useRecoilValue( roomMemberInfo );
   const authMyUser= useRecoilValue( authenticatedUserState );
+  const currentCode= useRecoilValue(codeState);
+  useEffect(() => {
+    startTime(),
+    authUser(),
+    fetchChallenge()
+  },[]);
+  const { startTime }= useFetchStartTime();
+  const { authUser }=fetchAuthenticatedUser();
   const { fetchChallenge }= useFetchChallenge();
-  const { authUser }= fetchAuthenticatedUser();
+  const roomInfoQuery= useRoomInfoQuery({});
   
   const { data: scores, isLoading }= useScoresQuery({
     config: {
@@ -55,15 +63,9 @@ export const BattlePhase= () => {
     }
   });
 
-  if(isLoading) {
-    return <></>
-  }
-
-  useEffect(() => {
-    startTime(),
-    authUser(),
-    fetchChallenge()
-  },[]);
+  if( isLoading) {
+    return <>loading</>
+  }  
 
   return (
     <PhaseLayout title='バトルフェーズ'>
@@ -82,10 +84,10 @@ export const BattlePhase= () => {
               : scores[1]
             }
           /> 
-          <TimerWrapper phase={ PHASE.ATTACK_PHASE } >
+          <TimerWrapper phase={ PHASE.BATTLE_PHASE } >
             <Timer 
-              targetTime = { 300 }
-              redirectUrl= { 'defence-phase' }
+              targetTime = { 100 }
+              redirectUrl= { '../result' }
             />
           </TimerWrapper>
           <UserScoreBoard 

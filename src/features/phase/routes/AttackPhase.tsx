@@ -85,7 +85,7 @@ export const AttackPhase= () => {
           /> 
           <TimerWrapper phase={ PHASE.ATTACK_PHASE } >
             <Timer 
-              targetTime = { 300 }
+              targetTime = { 120 }
               redirectUrl= { 'defence-phase' }
             />
           </TimerWrapper>
