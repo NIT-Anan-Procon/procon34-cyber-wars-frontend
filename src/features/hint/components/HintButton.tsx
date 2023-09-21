@@ -11,6 +11,7 @@ const _HintButton= `
   bottom: 10px;
   right : 10px;
   border-radius: 50%;
+  background: grey
 `;
 
 export const HintButton= () => {

@@ -4,6 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { ContentLayout }  from '@/components/Layout';
 import { Button }         from '@/components/Elements';
 import { ResultUserCard } from '../components';
+import { useScoresQuery } from '@/features/score';
+import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
+import { fetchAuthenticatedUser } from '@/features/auth';
+import { useEffect } from 'react';
+import { OPPONENT_NAME_KEY, SCORES_KEY, USER_NAME_KEY } from '@/config/responseKeys';
+import { useRecoilValue } from 'recoil';
+import { authenticatedUserState } from '@/atoms';
 
 const _ResultWrapper= styled.div`
   width: 100vw;
@@ -27,6 +34,25 @@ const _NextButton= styled(Button)`
 
 export const Result= () => {
   const navigate= useNavigate();
+  const { authUser }=fetchAuthenticatedUser();
+  const roomInfoQuery= useRoomInfoQuery({});
+  const { data: scores, isLoading }= useScoresQuery({
+    config: {
+      select: ( data ) => {
+        return data[ SCORES_KEY ]
+      },
+      refetchInterval: 1000 * 3
+    }
+  })
+  const authMyUser= useRecoilValue( authenticatedUserState );
+
+  useEffect(() => {
+    authUser()
+  },[])
+
+  if( roomInfoQuery.isLoading || isLoading ) {
+    return <>Loading</>
+  }
 
   return (
     <ContentLayout
@@ -34,16 +60,21 @@ export const Result= () => {
       header   ={ 'RESULT' }
     >
       <_ResultWrapper>
-        <_Result>{ 'YOU WIN' }</_Result>
-        <ResultUserCard 
-          name    ={ '日下 遥斗' }
-          score   ={ 200 } 
+        <_Result>
+          { scores[0] < scores[1] 
+            ? 'YOU WIN'
+            : 'YOU LOSE'
+          }
+        </_Result>
+        <ResultUserCard
+          name    ={ authMyUser[ USER_NAME_KEY ] }
+          score   ={ scores[0] } 
           result  ={ 'WIN' }
           usertype={ 'MYUSER' } 
         />
         <ResultUserCard 
-          name    ={ '木下 聡大' }
-          score   ={ 180 } 
+          name    ={ roomInfoQuery?.data[ OPPONENT_NAME_KEY ] }
+          score   ={ scores[1] } 
           result  ={ 'LOSE' }
           usertype={ 'OPPONENTUSER' } 
         />      

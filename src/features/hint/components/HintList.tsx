@@ -44,8 +44,8 @@ export const HintList= () => {
 
   return (
     <_HintList>
-      {vulnerabilities.map(( props, index) => (
-          <li key={index}>
+      { vulnerabilities.map(( props, index) => (
+          <_HintListItem key={index}>
             <HintListItemWrapper
               icon= {<LockIcon />}
             >
@@ -61,7 +61,7 @@ export const HintList= () => {
                 </$HintButton>
             }
             </HintListItemWrapper>
-          </li>
+          </_HintListItem>
         )) 
       }
     </_HintList>
