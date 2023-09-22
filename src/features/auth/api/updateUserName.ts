@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
 
 import { axios } from '@/lib/axios';
-import { UPDATE_USER_NAME_URL } from '@/config/apiUrls';
+import { UPDATE_USERNAME_URL } from './config/endpoints';
 
-export const useUpdateUserName= ( name: string ): Promise<AxiosResponse<string>> => {
-  return axios.patch( UPDATE_USER_NAME_URL, name );
+export const updateUserName= ( name: string ): Promise<AxiosResponse<string>> => {
+  return axios.patch( UPDATE_USERNAME_URL, name );
 };
