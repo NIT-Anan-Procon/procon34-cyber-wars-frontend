@@ -1,2 +1,2 @@
-export * from './updateUserNameFn';
-export * from './useUpdateUserNameMutation';
+export * from './updateUsernameFn';
+export * from './useUpdateUsernameMutation';
