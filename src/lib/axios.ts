@@ -1,8 +1,7 @@
 import Axios from 'axios';
-import { API_URL } from '@/config/apiUrls'
 
 export const axios= Axios.create({
-  // baseURL: API_URL,
+  // baseURL: import.meta.env.VITE_API_URL,
   baseURL: '',
   headers: {
     'Content-Type': 'application/json',
