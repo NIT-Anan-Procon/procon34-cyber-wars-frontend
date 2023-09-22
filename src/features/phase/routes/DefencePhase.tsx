@@ -51,20 +51,16 @@ export const DefencePhase= () => {
       <_PhaseHead>
         <UserBoardsLayout>
           <UserScoreBoard 
-            name  = {'日下 遥斗'}
-            status= { 'HOST' }
-            score = { 100 } 
+            ishost={true}
           /> 
-          {/* <TimerWrapper phase={ PHASE.DEFENCE_PHASE } >
+          <TimerWrapper phase={ PHASE.DEFENCE_PHASE } >
             <Timer 
-              targetTime = { 10 }
+              targetTime = { 300 }
               redirectUrl= { 'battle-phase' }
             />
-          </TimerWrapper> */}
+          </TimerWrapper>
           <UserScoreBoard 
-            name  = {'木下 聡大'}
-            status= { 'GUEST' }
-            score = { 100 }           
+            ishost={false}
           />
         </UserBoardsLayout>      
       </_PhaseHead>

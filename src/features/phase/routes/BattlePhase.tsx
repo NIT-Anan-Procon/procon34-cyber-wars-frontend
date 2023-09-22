@@ -48,7 +48,7 @@ export const BattlePhase= () => {
           /> 
           <TimerWrapper phase={ PHASE.BATTLE_PHASE } >
             <Timer 
-              targetTime = { 6 }
+              targetTime = { 300 }
               redirectUrl= { '../result' }
             />
           </TimerWrapper>

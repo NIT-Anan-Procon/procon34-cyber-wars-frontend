@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ATTACK_SEND_KEY_URL } from '@/config/apiUrls';
 import { Timer, TimerWrapper } from '@/features/timer';
 import { DESCRIPTIONS, PHASE } from '../types';
-import { hasHintState, isHintDrawerState, isValidState } from '@/atoms';
+import { authenticatedUserState, hasHintState, isHintDrawerState, isValidState, roomMemberInfo } from '@/atoms';
 import { Preview } from '@/features/preview';
 import { HintButton, HintLayout, HintList } from '@/features/hint';
 import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/challenge/components';
@@ -17,6 +17,7 @@ import {
   PhaseContentsLayout,
   PhaseLayout, 
 } from '../components';
+import { IS_HOST_KEY, OPPONENT_NAME_KEY, USER_NAME_KEY } from '@/config/responseKeys';
 
 
 const _PhaseHead= styled.div`
@@ -33,23 +34,34 @@ const _PhaseContents= styled.div`
 `;
 
 export const AttackPhase= () => {
+  const authUser= useRecoilValue( authenticatedUserState );
+  const roomMember= useRecoilValue( roomMemberInfo );
   const isDrawerHint= useRecoilValue( isHintDrawerState );
 
   return (
     <PhaseLayout title='アタックフェーズ'>
       <_PhaseHead >
         <UserBoardsLayout>
-          <UserScoreBoard 
+          <UserScoreBoard
+            userName={ 
+              roomMember.host
+              ? authUser[ USER_NAME_KEY ]
+              : roomMember[ OPPONENT_NAME_KEY ]
+            }
             ishost= { true }
           /> 
-          {/* <TimerWrapper phase={ PHASE.ATTACK_PHASE } >
+          <TimerWrapper phase={ PHASE.ATTACK_PHASE } >
             <Timer 
-              targetTime = { 3 }
+              targetTime = { 302 }
               redirectUrl= { '../defence-phase' }
             />
-          </TimerWrapper> */}
-          <UserScoreBoard 
-
+          </TimerWrapper>
+          <UserScoreBoard
+            userName={
+              roomMember[IS_HOST_KEY]
+              ? authUser[USER_NAME_KEY]
+              : roomMember[ OPPONENT_NAME_KEY ]
+            }
             ishost= { false }
           />
         </UserBoardsLayout>      
