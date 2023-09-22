@@ -1,2 +1,2 @@
 export * from './joinRoomFn';
-export * from './useJsonRoomMutation';
+export * from './useJoinRoomMutation';
