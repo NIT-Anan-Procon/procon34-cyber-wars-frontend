@@ -4,11 +4,11 @@ import {
   USER_NAME_KEY
 } from '../config/responseKeys';
 
-export type IsSuccessfulType= {
+export type AuthResponseType= {
   [ IS_SUCCESSFUL_KEY ]: boolean;
 };
 
-export type IsLoggedInType= {
+export type AuthenticatedResponseType= {
   [ IS_LOGGED_IN_KEY ]: boolean;
   [ USER_NAME_KEY ]   : string;
 };
