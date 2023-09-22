@@ -1,9 +1,11 @@
 import { AxiosResponse } from 'axios';
 
 import { axios } from '@/lib/axios';
-import { UPDATE_USERNAME_URL } from '../constants';
-import { AuthResponseType }    from '../types';
+import { UPDATE_USERNAME_URL, USER_NAME_KEY } from '../constants';
+import { AuthResponseType } from '../types';
 
-export const updateUserNameFn= ( name: string ): Promise<AxiosResponse<AuthResponseType>> => {
-  return axios.patch( UPDATE_USERNAME_URL, name );
+export const updateUsernameFn= async( name: string ): Promise<AxiosResponse<AuthResponseType>> => {
+  const userNameJson= JSON.stringify({ [ USER_NAME_KEY ]: name });
+
+  return await axios.patch( UPDATE_USERNAME_URL, userNameJson );
 };

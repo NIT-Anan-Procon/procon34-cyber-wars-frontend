@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { updateUserNameFn } from './updateUserNameFn';
+import { updateUsernameFn } from './updateUsernameFn';
 
-export const useUpdateUserNameMutation= () => {
+export const useUpdateUsernameMutation= () => {
   return useMutation({
-    mutationFn: updateUserNameFn
+    mutationFn: updateUsernameFn
   });
 };
