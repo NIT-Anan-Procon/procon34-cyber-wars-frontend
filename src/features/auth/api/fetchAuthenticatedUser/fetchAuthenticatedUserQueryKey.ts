@@ -1,2 +1,2 @@
 
-export const AUTHENTICATED_USER_QUERY_KEY= [ 'query_authenticatedUser' ];
+export const AuthenticatedUserQueryKey= [ 'query_authenticatedUser' ];
