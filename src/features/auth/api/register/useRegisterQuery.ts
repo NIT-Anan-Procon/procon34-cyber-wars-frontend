@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { registerFn } from '.';
+import { registerFn } from './registerFn';
 
 export const useRegisterMutation= () => {
   return useMutation({

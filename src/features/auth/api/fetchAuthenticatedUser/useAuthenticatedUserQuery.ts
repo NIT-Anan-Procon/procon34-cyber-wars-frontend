@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { AUTHENTICATED_USER_QUERY_KEY, fetchAuthenticatedUserFn } from '.';
+import { fetchAuthenticatedUserFn }     from './fetchAuthenticatedUserFn';
+import { AUTHENTICATED_USER_QUERY_KEY } from './fetchAuthenticatedUserQueryKey';
 
 export const useAuthenticatedUserQuery= () => {
   return useQuery({

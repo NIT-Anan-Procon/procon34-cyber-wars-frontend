@@ -1,11 +1,10 @@
-export const API_URL= import.meta.env.VITE_API_URL;
+export const REGISTER_URL    = '/user';
+export const LOGIN_URL       = '/user/credential';
+export const LOGOUT_URL      = '/user/credential';
+export const IS_LOGGED_IN_URL= '/user/credential';
 
-export const SIGNUP_USER_URL         = `/user`;
-export const UPDATE_USER_NAME_URL    = `/user/name`;
-export const UPDATE_USER_PASSWORD_URL= `/user/password`;
-export const SIGNIN_USER_URL         = `/user/credential`;
-export const IS_SIGNEDIN_URL         = `/user/credential`;
-export const SIGNOUT_USER_URL        = `/user/credential`;
+export const UPDATE_USERNAME_URL     = '/user/name';
+export const UPDATE_USER_PASSWORD_URL= '/user/password';
 
 export const ROOM_URL  = `/room`;
 

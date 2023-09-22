@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { updatePasswordFn } from './mutationFn';
+import { updatePasswordFn } from './updatePasswardFn';
 
 export const useUpdatePassword= () => {
   return useMutation({

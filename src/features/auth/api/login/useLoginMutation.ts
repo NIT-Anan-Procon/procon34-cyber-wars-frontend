@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { MutationConfig } from '@/lib/react-query';
-import { loginFn } from '.';
+import { loginFn } from './loginFn';
 
 type UseLoginMutationOptions= {
   config?: MutationConfig<typeof loginFn>
