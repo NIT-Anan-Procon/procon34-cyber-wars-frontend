@@ -1,1 +1,2 @@
-export * from './useHint';
+export * from './constants';
+export * from './showHint';
