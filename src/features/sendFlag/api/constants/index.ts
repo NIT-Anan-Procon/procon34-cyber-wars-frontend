@@ -1,3 +1,3 @@
 export * from './endpoints';
-export * from './requestKeys';
+export * from './requestKey';
 export * from './responseKeys';
