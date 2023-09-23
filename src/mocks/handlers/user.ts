@@ -159,7 +159,7 @@ export const userHandlers= [
         ctx.status(200),
         ctx.json(
           {
-            loggedIn: true,
+            loggedIn: false,
             name    : 'kusaka'
           }
         )
