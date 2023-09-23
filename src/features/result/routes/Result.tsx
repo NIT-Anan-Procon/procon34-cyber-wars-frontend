@@ -8,7 +8,7 @@ import { useScoresQuery } from '@/features/score';
 import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
 import { fetchAuthenticatedUser } from '@/features/auth';
 import { useEffect } from 'react';
-import { OPPONENT_NAME_KEY, SCORES_KEY, USER_NAME_KEY } from '@/config/responseKeys';
+import { OPPONENT_NAME_KEY, SCORES_KEY, USER_NAME_KEY } from '@/constants/responseKeys';
 import { useRecoilValue } from 'recoil';
 import { authenticatedUserState } from '@/atoms';
 

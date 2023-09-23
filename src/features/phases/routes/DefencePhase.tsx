@@ -22,7 +22,7 @@ import { queryClient } from '@/lib/react-query';
 import { fetchAuthenticatedUser } from '@/features/auth';
 import { useFetchChallenge } from '@/features/challenge';
 import { useScoresQuery } from '@/features/score';
-import { SCORES_KEY } from '@/config/responseKeys';
+import { SCORES_KEY } from '@/constants/responseKeys';
 import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
 
 const _PhaseHead= styled.div`

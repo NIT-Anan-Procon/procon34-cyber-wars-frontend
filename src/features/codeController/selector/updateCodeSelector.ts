@@ -2,7 +2,7 @@ import { selectorFamily } from 'recoil';
 
 import { codeState } from '@/atoms';
 import { fetchCode } from '../api/fetchCode';
-import { CODE_KEY } from '@/config/responseKeys';
+import { CODE_KEY } from '@/constants/responseKeys';
 import { PHASE } from '@/features/phase/types';
 import { fetchRevisionCode } from '../api/fetchRevisionCode';
 

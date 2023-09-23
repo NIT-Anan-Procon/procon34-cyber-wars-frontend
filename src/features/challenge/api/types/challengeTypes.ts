@@ -4,7 +4,7 @@ import {
   HINT_KEY,
   HINT_SCORE_KEY,
   VULNERABILITIES_KEY
-} from "../constants";
+} from '../constants';
 
 export type ChallengeResponseType= {
   [ CODE_PATH_KEY ]      : number;

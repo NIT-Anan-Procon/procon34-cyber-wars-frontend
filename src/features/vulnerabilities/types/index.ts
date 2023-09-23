@@ -1,4 +1,4 @@
-import { CHOICES_KEY, CODE_PATH_KEY, HINT_KEY, HINT_SCORE_KEY, VULNERABILITIES_KEY } from "@/config/responseKeys";
+import { CHOICES_KEY, CODE_PATH_KEY, HINT_KEY, HINT_SCORE_KEY, VULNERABILITIES_KEY } from "@/constants/responseKeys";
 
 export type ChallengeDataType= {
   [ CODE_PATH_KEY ]      : string | number;

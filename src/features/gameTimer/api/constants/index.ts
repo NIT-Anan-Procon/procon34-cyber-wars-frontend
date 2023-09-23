@@ -1,2 +1,2 @@
 export * from './endpoints';
-export * from './responseKey';
+export * from './timerKey';

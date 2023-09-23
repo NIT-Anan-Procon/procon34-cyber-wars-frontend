@@ -1,9 +1,9 @@
 import { rest } from 'msw';
 
-import { ROOM_URL } from '@/config/apiUrls';
+import { ROOM_URL } from '@/constants/apiUrls';
 import { db } from '../db';
 import { randomNum } from '../utils';
-import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY } from '@/config/responseKeys';
+import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY } from '@/constants/responseKeys';
 
 type RoomHandlersType= {
   difficult: boolean;

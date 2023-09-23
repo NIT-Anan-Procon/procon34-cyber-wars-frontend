@@ -5,7 +5,7 @@ import {
   HINT_KEY, 
   HINT_SCORE_KEY, 
   VULNERABILITIES_KEY 
-} from "@/config/responseKeys";
+} from "@/constants/responseKeys";
 
 export const useChallengeDataTranslator= () => {
   const { data: challengeData, ...options } = useChallengeQuery({

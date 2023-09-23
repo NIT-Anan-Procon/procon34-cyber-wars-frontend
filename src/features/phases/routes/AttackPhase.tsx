@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { ATTACK_SEND_KEY_URL } from '@/config/apiUrls';
+import { ATTACK_SEND_KEY_URL } from '@/constants/apiUrls';
 import { Timer, TimerWrapper, useFetchStartTime } from '@/features/timer';
 import { DESCRIPTIONS, PHASE } from '../types';
 import { authenticatedUserState, hasHintState, isHintDrawerState, isValidState, roomMemberInfo } from '@/atoms';
@@ -23,7 +23,7 @@ import { useFetchChallenge } from '@/features/challenge';
 import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
 import { VulnerabilityCheckList } from '../../challenge/components/VulnerabilityCheckList';
 import { useScoresQuery } from '@/features/score';
-import { SCORES_KEY } from '@/config/responseKeys';
+import { SCORES_KEY } from '@/constants/responseKeys';
 
 
 const _PhaseHead= styled.div`

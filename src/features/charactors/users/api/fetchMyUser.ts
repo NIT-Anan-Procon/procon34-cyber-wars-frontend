@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { axios } from '@/lib/axios';
 import { QueryConfig } from '@/lib/react-query';
-import { IS_SIGNEDIN_URL } from '@/config/apiUrls';
+import { IS_SIGNEDIN_URL } from '@/constants/apiUrls';
 
 export const fetchMyUser= async() => {
   return await axios.get( IS_SIGNEDIN_URL );

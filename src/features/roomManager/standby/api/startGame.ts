@@ -1,4 +1,4 @@
-import { START_GAME_URL } from "@/config/apiUrls";
+import { START_GAME_URL } from "@/constants/apiUrls";
 import axios from "axios";
 
 export const startGame= async() => {

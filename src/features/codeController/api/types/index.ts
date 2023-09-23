@@ -1,1 +1,1 @@
-export * from './responseTypes';
+export * from './codeTypes';

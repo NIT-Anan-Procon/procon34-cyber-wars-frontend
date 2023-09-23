@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { axios } from '@/lib/axios';
 import { QueryConfig } from '@/lib/react-query';
-import { GAME_OPPONENT_NAME_URL } from '@/config/apiUrls';
+import { GAME_OPPONENT_NAME_URL } from '@/constants/apiUrls';
 
 
 

@@ -6,7 +6,7 @@ import { StandbyLayout } from "../components";
 import { StandbyUser } from "../components/StandbyUser";
 import testIcon from '@/assets/images/attack_phase.svg';
 import { Button } from "@/components/Elements";
-import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY, USER_NAME_KEY } from "@/config/responseKeys";
+import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY, USER_NAME_KEY } from "@/constants/responseKeys";
 import { useRoomInfoQuery } from '../../rooms/api/fetchRoomInfo';
 import { startGame } from "../api/startGame";
 

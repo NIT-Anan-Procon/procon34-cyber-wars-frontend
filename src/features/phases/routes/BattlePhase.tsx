@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { authenticatedUserState, codeState, hasHintState, isHintDrawerState, roomMemberInfo } from '@/atoms';
 import { Preview }     from '@/features/preview';
 import { HintButton, HintLayout, HintList } from '@/features/hint';
-import { BATTLE_SEND_KEY_URL } from '@/config/apiUrls';
+import { BATTLE_SEND_KEY_URL } from '@/constants/apiUrls';
 import { EditArea } from '@/features/code';
 import { Timer, TimerWrapper, useFetchStartTime } from '@/features/timer';
 import { DESCRIPTIONS, PHASE } from '../types';
@@ -21,7 +21,7 @@ import {
 } from '../components';
 import { fetchAuthenticatedUser } from '@/features/auth';
 import { useScoresQuery } from '@/features/score';
-import { SCORES_KEY } from '@/config/responseKeys';
+import { SCORES_KEY } from '@/constants/responseKeys';
 import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
 
 const _PhaseHead= styled.div`

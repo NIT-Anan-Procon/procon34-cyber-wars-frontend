@@ -1,2 +1,2 @@
 export * from './endpoints';
-export * from './responseKeys';
+export * from './authKeys';

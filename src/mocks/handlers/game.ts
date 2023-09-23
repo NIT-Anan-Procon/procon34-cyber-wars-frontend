@@ -12,7 +12,7 @@ import {
   DEFENCE_CODE_URL,
   BATTLE_REVISION_URL,
   BATTLE_SEND_KEY_URL
-} from '@/config/apiUrls';
+} from '@/constants/apiUrls';
 
 import { 
   CHOICES_KEY, 
@@ -27,7 +27,7 @@ import {
   SCORES_KEY, 
   START_TIME_KEY, 
   VULNERABILITIES_KEY 
-} from '@/config/responseKeys';
+} from '@/constants/responseKeys';
 
 export const gameHandlers= [
   rest.patch( START_GAME_URL, ( req, res, ctx ) => {

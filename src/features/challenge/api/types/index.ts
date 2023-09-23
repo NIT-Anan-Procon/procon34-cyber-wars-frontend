@@ -1,1 +1,1 @@
-export * from './responseType';
+export * from './challengeTypes';
