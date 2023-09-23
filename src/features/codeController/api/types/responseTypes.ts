@@ -9,6 +9,11 @@ export type CodeResponseType= {
   [ CODE_KEY ]     : string;
 };
 
+export type RevisionCodeResponseType= {
+  [ CODE_PATH_KEY ]: string;
+  [ CODE_KEY ]     : string;
+};
+
 export type SendCodeResponseType= {
   [ IS_VALID_KEY ]: boolean;
 };
