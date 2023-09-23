@@ -1,0 +1,1 @@
+export const CHALLENGE_URL= `/game/attack/challenge`;
