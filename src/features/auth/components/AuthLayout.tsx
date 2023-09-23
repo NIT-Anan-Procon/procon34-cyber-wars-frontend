@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 
-import { colors } from '@/assets/styles/colors';
 import { Head } from '@/components/Head';
+import { colors } from '@/assets/styles/colors';
+
 import { cautionText } from '../types/description';
 
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 
-type AuthPageLayoutProps= {
+type AuthLayoutProps= {
   title   : string,
   children: React.ReactNode;
-}
+};
 
 const GridLayout= styled.div`
   height : 100%;

@@ -6,7 +6,7 @@ import { AuthUser, FormSchema }  from "..";
 import { colors }                from "@/assets/styles";
 import { useSignUp } from "../api";
 
-type SignInFormProps = {
+type RegisterFormProps = {
 	onSuccess: () => void;
 };
 
@@ -28,7 +28,7 @@ const NavDiscription= styled.p`
   word-spacing: 0.35rem;
 `;
 
-export const SignUpForm = ({onSuccess}: SignInFormProps) => {
+export const RegisterForm = ({onSuccess}: RegisterFormProps) => {
 	const { isSignUp }= useSignUp();
 
   return (
@@ -42,7 +42,7 @@ export const SignUpForm = ({onSuccess}: SignInFormProps) => {
     >
       {({ register, formState:{errors} }) => (
         <>
-          <FormTitle title={ 'Sign Up' } />
+          <FormTitle title={ 'Create Account' } />
           <ContentAreaWrapper>
             <InputField
               id   = { 'userName' }        
@@ -60,13 +60,13 @@ export const SignUpForm = ({onSuccess}: SignInFormProps) => {
               error= { errors.password }
               registration= { register('password') }
             />
-            <Button type="submit">Sign up</Button>        
+            <Button type="submit">Create Account</Button>        
           </ContentAreaWrapper>         
         </>
       )}</Form>
       <NavDiscription >
         Already have an account? 
-        <Link to='../sign-in'>Sign in</Link>
+        <Link to='../login'>Create Account</Link>
       </NavDiscription>
     </>
   );

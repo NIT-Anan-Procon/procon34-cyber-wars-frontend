@@ -24,11 +24,11 @@ const NavDiscription= styled.p`
   word-spacing: 0.35rem;
 `;
 
-type SignInFormProps = {
+type LoginFormProps = {
 	onSuccess: () => void;
 };
 
-export const SignInForm = ({onSuccess}: SignInFormProps) => {
+export const LoginForm = ({onSuccess}: LoginFormProps) => {
 	const { isSignIn }= useSignIn();
 
   return (
@@ -60,14 +60,14 @@ export const SignInForm = ({onSuccess}: SignInFormProps) => {
                 error= { errors.password }
                 registration= { register('password') }
               />
-              <Button type="submit">Sign In</Button>        
+              <Button type="submit">Login</Button>        
             </ContentAreaWrapper>         
           </>
         )}
       </Form>
       <NavDiscription >
         Don't have account? 
-        <Link to='../sign-up'>Sign up</Link>
+        <Link to='../register'>Sign up</Link>
       </NavDiscription>
     </>
   );
