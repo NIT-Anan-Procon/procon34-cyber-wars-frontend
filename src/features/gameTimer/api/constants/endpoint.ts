@@ -1,1 +1,0 @@
-export const GAME_START_TIME_URL= `/game/start-time`;
