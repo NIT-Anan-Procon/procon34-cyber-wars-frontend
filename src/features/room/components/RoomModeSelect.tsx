@@ -3,10 +3,9 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { RoomModeValueState } from "@/atoms";
 import { RadioButton } from "@/components/Elements/RadioButton";
 import { InputField } from "@/components/Form";
-import { ROOM_MODES } from "../types";
+import { ROOM_MODES } from "../../modeSelect/types";
 import { useAtomValueChange } from "@/hooks/useAtomValueChange";
 
 const InputStyle= styled.div`
@@ -66,7 +65,7 @@ export const RoomModeSelect= () => {
                 size='medium'
                 error= {errors.roomId}
                 placeholder='ルームIDを入力してください。'
-                registration= {register('roomId')} 
+                registration= { register('roomId') } 
               />          
             </InputFieldStyle>
           : undefined
