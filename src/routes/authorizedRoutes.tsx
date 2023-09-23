@@ -6,7 +6,6 @@ import { lazyImport } from '@/utils/lazyImport';
 const { TrainRoutes }  = lazyImport(() => import('./modeRoutes'), 'TrainRoutes');
 const { GamesRoutes }  = lazyImport(() => import('./modeRoutes'), 'GamesRoutes');
 const { ModeSelection }= lazyImport(() => import('@/features/modeSelect'), 'ModeSelection');
-const { Settings }     = lazyImport(() => import('@/features/users'), 'Settings');
 
 const App = () => {
   return (
@@ -21,11 +20,10 @@ export const authorizedRoutes = [
     path: 'cyberwars',
     element: <App />,
     children: [
-      { path: '', element: <ModeSelection /> },
-      { path: 'settings', element: <Settings/>},
-      { path: 'train/*',  element: <TrainRoutes /> },
-      { path: 'games/*',  element: <GamesRoutes /> },
-      { path: '*', element: <Navigate to="." /> },
+      { path: '',        element: <ModeSelection /> },
+      { path: 'train/*', element: <TrainRoutes /> },
+      { path: 'games/*', element: <GamesRoutes /> },
+      { path: '*',       element: <Navigate to="." /> },
     ],
   },
 ];

@@ -2,9 +2,8 @@ import styled          from "styled-components";
 
 import { Form, FormTitle, InputField } from "@/components/Form";
 import { Button, Link }          from "@/components/Elements";
-import { AuthUser, FormSchema }  from "..";
+import { AuthUser, FormSchema, useRegisterMutation }  from "..";
 import { colors }                from "@/assets/styles";
-import { useSignUp } from "../api";
 
 type RegisterFormProps = {
 	onSuccess: () => void;
@@ -29,13 +28,13 @@ const NavDiscription= styled.p`
 `;
 
 export const RegisterForm = ({onSuccess}: RegisterFormProps) => {
-	const { isSignUp }= useSignUp();
+  const registerMutation= useRegisterMutation({});
 
   return (
     <>
     <Form<AuthUser, typeof FormSchema>
       onSubmit={async(data:AuthUser) => {
-        await isSignUp(data);
+        await registerMutation.mutateAsync( data );
         onSuccess();
       }} 
       schema={FormSchema}

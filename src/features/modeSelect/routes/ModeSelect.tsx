@@ -7,9 +7,8 @@ import { SelectionCard } from "../components";
 import { Button, Header, IconButton } from "@/components/Elements";
 import { CARD_DESCRIPTION, MATCH_MODE_PATH, SETTINGS_PATH, TRAIN_MODE_PATH } from "..";
 import userIcon from '@/assets/images/user.svg';
-import { fetchAuthenticatedUser, useSignOut } from '@/features/auth';
-import { RoomSelectForm } from '@/features/rooms';
 import { useModal } from '@/hooks/useModal';
+import { RoomSelectForm } from '../components/RoomSelectForm';
 
 
 const SelectionGrid= styled.div`
@@ -112,14 +111,8 @@ const DialogContent= styled.div`
 
 export const ModeSelection= () => {
   const navigate= useNavigate();
-  const { authUser }= fetchAuthenticatedUser();
   const [ isNavOpen, setIsNavOpen ]= useState<boolean>(false);
   const { ref, showModal, closeModal }= useModal();
-  const { isSignOut }= useSignOut();
-
-  useEffect(() => {
-    authUser();
-  },[]);
 
   const stopPropagation = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -146,7 +139,7 @@ export const ModeSelection= () => {
               { isNavOpen 
                 ? <NavList>
                     <NavItem to={SETTINGS_PATH}>ユーザ設定</NavItem>
-                    <NavItem to='..' onClick={()=> isSignOut() } >Sign Out</NavItem>
+                    <NavItem to='..' onClick={()=> console.log() } >Sign Out</NavItem>
                   </NavList>
                 : undefined
               }                          

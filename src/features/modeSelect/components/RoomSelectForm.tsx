@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { Form, FormTitle, InputField } from "@/components/Form"
-import { RoomFormType } from "../../rooms/types/formType";
+import { RoomFormType } from '@/features/'
 import { RoomIdSchema } from "../../rooms";
 import { Button, RadioButton } from "@/components/Elements";
 import { inviteIdState, RoomModeValueState } from "@/atoms";

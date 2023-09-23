@@ -4,7 +4,7 @@ import { Form, FormTitle, InputField } from "@/components/Form";
 import { Button, Link }          from "@/components/Elements";
 import { AuthUser, FormSchema }  from "..";
 import { colors }                from "@/assets/styles";
-import { useSignIn } from "../api/signIn";
+import { useLoginMutation } from '../api/login/useLoginMutation';
 
 const ContentAreaWrapper= styled.div`
   width         : 100%;
@@ -29,13 +29,13 @@ type LoginFormProps = {
 };
 
 export const LoginForm = ({onSuccess}: LoginFormProps) => {
-	const { isSignIn }= useSignIn();
+	const loginMutation= useLoginMutation({});
 
   return (
     <>
       <Form<AuthUser, typeof FormSchema>
         onSubmit={async(data:AuthUser ) => {
-          await isSignIn(data);
+          await loginMutation.mutateAsync( data );
           onSuccess();
         }} 
         schema={FormSchema}
