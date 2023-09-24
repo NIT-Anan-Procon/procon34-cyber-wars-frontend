@@ -18,9 +18,7 @@ export const PhaseLayout= ({ title, children }: PhaseLayoutProps) => {
   return (
     <>
       <Head title={ title } />
-      <_PhaseLayout>
-        { children }
-      </_PhaseLayout>    
+      <_PhaseLayout>{ children }</_PhaseLayout>    
     </>
   );
 };
