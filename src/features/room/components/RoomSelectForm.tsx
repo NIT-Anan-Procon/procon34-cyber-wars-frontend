@@ -1,15 +1,14 @@
 import styled from "styled-components";
 
 import { Form, FormTitle, InputField } from "@/components/Form"
-import { RoomFormType } from '@/features/'
-import { RoomIdSchema } from "../../rooms";
+import { RoomIdSchema } from "../types";
 import { Button, RadioButton } from "@/components/Elements";
-import { inviteIdState, RoomModeValueState } from "@/atoms";
 import { useAtomValueChange } from "@/hooks/useAtomValueChange";
-import { ROOM_MODES } from "../../rooms/types/roomModes";
-import { useCreateRoom, joinRoom } from "../../rooms/api";
+import { ROOM_MODES } from "../types";
+import { CreateRoomResponseType, JoinRoomRequestType, JoinRoomResponseType, useCreateRoomMutation, useJoinRoomMutation } from "../api";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
+import { roomModeState } from "../states";
 
 const InputStyle= styled.div`
   position: relative;
@@ -26,10 +25,9 @@ type RoomSelectFormProps = {
 };
 
 export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
-  const [ roomSelected, updateRoomSelected ]= useAtomValueChange(RoomModeValueState);
-  const roomId= useRecoilValue<number>(inviteIdState);
-  const { createRoom }= useCreateRoom();
-  const navigate= useNavigate();
+  const [ roomSelected, updateRoomSelected ]= useAtomValueChange(roomModeState);
+  const createRoomMutation= useCreateRoomMutation();
+  const joinRoomMutation  = useJoinRoomMutation({});
 
   return (    
     <>
@@ -52,9 +50,9 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
           {
             roomSelected === ROOM_MODES.JOIN_ROOM
             ?
-              <Form<RoomFormType, typeof RoomIdSchema>
-                onSubmit={ async({roomId} : RoomFormType) => {
-                  await joinRoom(roomId);
+              <Form<JoinRoomRequestType, typeof RoomIdSchema>
+                onSubmit={ async( roomId: JoinRoomRequestType ) => {
+                  await joinRoomMutation.mutateAsync(roomId);
                   onSuccess()
                 }}
                 schema={RoomIdSchema}
@@ -76,7 +74,7 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
             : <Button 
                 type='button' 
                 onClick={ async() => (
-                  await createRoom(false),
+                  await createRoomMutation.mutateAsync(false),
                   onSuccess()
                 )} 
               > 
