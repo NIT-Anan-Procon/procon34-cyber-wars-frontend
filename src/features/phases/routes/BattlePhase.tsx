@@ -1,16 +1,16 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
+// import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { authenticatedUserState, codeState, hasHintState, isHintDrawerState, roomMemberInfo } from '@/atoms';
-import { Preview }     from '@/features/preview';
-import { HintButton, HintLayout, HintList } from '@/features/hint';
-import { BATTLE_SEND_KEY_URL } from '@/constants/apiUrls';
-import { EditArea } from '@/features/code';
-import { Timer, TimerWrapper, useFetchStartTime } from '@/features/timer';
-import { DESCRIPTIONS, PHASE } from '../types';
-import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
-import { useFetchChallenge } from '../../challenge/api/fetchChallenge';
+// import { authenticatedUserState, codeState, hasHintState, isHintDrawerState, roomMemberInfo } from '@/atoms';
+// import { Preview }     from '@/features/preview';
+// import { HintButton, HintLayout, HintList } from '@/features/hint';
+// import { BATTLE_SEND_KEY_URL } from '@/constants/apiUrls';
+// import { EditArea } from '@/features/code';
+// import { Timer, TimerWrapper, useFetchStartTime } from '@/features/timer';
+// import { DESCRIPTIONS, PHASE } from '../types';
+// import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
+// import { useFetchChallenge } from '../../challenge/api/fetchChallenge';
 import { 
   PhaseContentBody,
   PhaseContentFoot,
@@ -19,10 +19,10 @@ import {
   PhaseContentsLayout,
   PhaseLayout,  
 } from '../components';
-import { fetchAuthenticatedUser } from '@/features/auth';
-import { useScoresQuery } from '@/features/score';
-import { SCORES_KEY } from '@/constants/responseKeys';
-import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
+// import { fetchAuthenticatedUser } from '@/features/auth';
+// import { useScoresQuery } from '@/features/score';
+// import { SCORES_KEY } from '@/constants/responseKeys';
+// import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
 
 const _PhaseHead= styled.div`
   height: 30vh;
@@ -38,38 +38,38 @@ const _PhaseContents= styled.div`
 `;
 
 export const BattlePhase= () => {
-  const iframeRef = useRef(null);
-  const isDrawerHint= useRecoilValue( isHintDrawerState );
-  const hasHint= useRecoilValue( hasHintState );
-  const roomMember= useRecoilValue( roomMemberInfo );
-  const authMyUser= useRecoilValue( authenticatedUserState );
-  const currentCode= useRecoilValue(codeState);
-  useEffect(() => {
-    startTime(),
-    authUser(),
-    fetchChallenge()
-  },[]);
-  const { startTime }= useFetchStartTime();
-  const { authUser }=fetchAuthenticatedUser();
-  const { fetchChallenge }= useFetchChallenge();
-  const roomInfoQuery= useRoomInfoQuery({});
+  // const iframeRef = useRef(null);
+  // const isDrawerHint= useRecoilValue( isHintDrawerState );
+  // const hasHint= useRecoilValue( hasHintState );
+  // const roomMember= useRecoilValue( roomMemberInfo );
+  // const authMyUser= useRecoilValue( authenticatedUserState );
+  // const currentCode= useRecoilValue(codeState);
+  // useEffect(() => {
+  //   startTime(),
+  //   authUser(),
+  //   fetchChallenge()
+  // },[]);
+  // const { startTime }= useFetchStartTime();
+  // const { authUser }=fetchAuthenticatedUser();
+  // const { fetchChallenge }= useFetchChallenge();
+  // const roomInfoQuery= useRoomInfoQuery({});
   
-  const { data: scores, isLoading }= useScoresQuery({
-    config: {
-      select: ( data ) => {
-        return data[ SCORES_KEY ]
-      },
-      refetchInterval: 1000 * 3
-    }
-  });
+  // const { data: scores, isLoading }= useScoresQuery({
+  //   config: {
+  //     select: ( data ) => {
+  //       return data[ SCORES_KEY ]
+  //     },
+  //     refetchInterval: 1000 * 3
+  //   }
+  // });
 
-  if( isLoading) {
-    return <>loading</>
-  }  
+  // if( isLoading) {
+  //   return <>loading</>
+  // }  
 
   return (
     <PhaseLayout title='バトルフェーズ'>
-      <_PhaseHead>
+      {/* <_PhaseHead>
         <UserBoardsLayout>
         <UserScoreBoard
             userName={
@@ -129,7 +129,7 @@ export const BattlePhase= () => {
             />
           </PhaseContentFoot>
         </PhaseContentsLayout>        
-      </_PhaseContents>
+      </_PhaseContents> */}
     </PhaseLayout>
   );
 };

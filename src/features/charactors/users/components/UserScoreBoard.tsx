@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
-import attackPhase from '@/assets/images/attack_phase.svg'
-import { useScoresQuery } from '@/features/score';
-import { OPPONENT_NAME_KEY, SCORES_KEY } from '@/constants/responseKeys';
-import { fetchOpponentUser, useOpponentUserQuery } from '../api/fetchOpponentUser';
-import { useRecoilValue } from 'recoil';
-import { authenticatedUserState, roomMemberInfo } from '@/atoms';
+// import attackPhase from '@/assets/images/attack_phase.svg'
+// import { useScoresQuery } from '@/features/score';
+// import { OPPONENT_NAME_KEY, SCORES_KEY } from '@/constants/responseKeys';
+// import { fetchOpponentUser, useOpponentUserQuery } from '../api/fetchOpponentUser';
+// import { useRecoilValue } from 'recoil';
+// import { authenticatedUserState, roomMemberInfo } from '@/atoms';
 
 const _UserBoardWrapper= styled.div<{ ishost: boolean }>`
   height     : 100%;
