@@ -1,2 +1,3 @@
 export * from './endpoint';
-export * from './roomKeys';
+export * from './requestKeys';
+export * from './responseKeys';
