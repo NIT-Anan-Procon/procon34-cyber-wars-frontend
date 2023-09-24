@@ -1,4 +1,4 @@
-export const ROOMMODES= {
-  CREATE: 'create',
-  JOIN  : 'join'
+export const ROOM_MODES= {
+  CREATE_ROOM: 'create',
+  JOIN_ROOM  : 'join'
 };
