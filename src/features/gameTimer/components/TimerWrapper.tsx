@@ -24,8 +24,8 @@ const _TimeArea= styled.div<{phase: string}>`
   clip-path : polygon(0 0, 100% 0, 90% 100%, 10% 100%);
   background: 
     ${(props) => 
-        props.phase === 'attack' ? colors.redAccent
-        : props.phase === 'defence' ? colors.blueAccent
+        props.phase === 'ATTACK' ? colors.redAccent
+        : props.phase === 'DEFENCE' ? colors.blueAccent
         : colors.yellowAccent
     };
   
@@ -56,8 +56,8 @@ const _TimerIconWrapper= styled.div<{phase: string}>`
   clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
   background: 
     ${(props) => 
-        props.phase === 'attack' ? colors.redAccent
-        : props.phase === 'defence' ? colors.blueAccent
+        props.phase === 'ATTACK' ? colors.redAccent
+        : props.phase === 'DEFENCE' ? colors.blueAccent
         : colors.yellowAccent
     };
 `;
@@ -80,8 +80,8 @@ export const TimerWrapper= ({ children, phase }: TimerWrapperProps) => {
       <_TimerIconWrapper  phase={phase}>
         <_TimerIcon 
           src={ 
-            phase === 'attack' ? attackPhase 
-            : phase === 'defence' ? defencePhase
+            phase === 'ATTACK' ? attackPhase 
+            : phase === 'DEFENCE' ? defencePhase
             : battlePhase
           } 
         />

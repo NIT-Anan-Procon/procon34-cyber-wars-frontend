@@ -1,16 +1,20 @@
+import { useFetchStartTimeQuery } from "@/features/gameTimer";
+import { START_TIME_KEY } from "@/features/gameTimer/api";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { startTimeState } from "@/atoms/game/startTimeState";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export const useCountDownTimer= ( targetTime: number, redirectUrl: string ) => {
   const [ countdown, setCountdown ]= useState<number | null>(null);
-  const startTime= useRecoilValue( startTimeState );
   const navigate= useNavigate();
+  const { data: startTime }= useFetchStartTimeQuery({
+    config: {
+      refetchOnMount: true
+    }
+  });
 
   const  SECONDS_IN_MINUTE= 60;
 
-  const gameStartTime = new Date( startTime );
+  const gameStartTime = new Date( startTime?.[ START_TIME_KEY ] );
   const milliseconds  = gameStartTime.getTime();
   const endTime       = new Date(new Date(milliseconds + targetTime * 1000))
 
@@ -28,7 +32,7 @@ export const useCountDownTimer= ( targetTime: number, redirectUrl: string ) => {
               }
               else if (prevCountdown === 0) {
                 clearInterval(timer);
-                window.location.href= redirectUrl
+                navigate( redirectUrl );
               }
               else {
                 return prevCountdown;

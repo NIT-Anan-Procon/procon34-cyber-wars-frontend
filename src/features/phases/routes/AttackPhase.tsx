@@ -1,36 +1,10 @@
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-// import { ATTACK_SEND_KEY_URL } from '@/constants/apiUrls';
-// import { Timer, TimerWrapper, useFetchStartTime } from '@/features/timer';
-// import { DESCRIPTIONS, PHASE } from '../types';
-// import { authenticatedUserState, hasHintState, isHintDrawerState, isValidState, roomMemberInfo } from '@/atoms';
-// import { Preview } from '@/features/preview';
-// import { HintButton, HintLayout, HintList } from '@/features/hint';
-// import { VulnerabilitiesLayout } from '@/features/challenge/components';
-// import { UserBoardsLayout, UserScoreBoard } from '@/features/users';
-import { useEffect } from 'react';
-// import { fetchAuthenticatedUser } from '@/features/auth';
 import { 
-  PhaseContentBody,
-  PhaseContentFoot,
-  PhaseContentForm,
-  PhaseContentHead,
-  PhaseContentsLayout,
+  PhaseStatusContents,
   PhaseLayout, 
 } from '../components';
-// import { useFetchChallenge } from '@/features/challenge';
-// import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
-// import { VulnerabilityCheckList } from '../../challenge/components/VulnerabilityCheckList';
-// import { useScoresQuery } from '@/features/score';
-import { SCORES_KEY } from '@/constants/responseKeys';
-
-
-const _PhaseHead= styled.div`
-  height: 30vh;
-  width : 100%;
-  display: flex;
-`;
+import { PHASE, REDIRECT_PATHS } from '../types';
 
 const _PhaseContents= styled.div`
   height : 70vh;
@@ -40,70 +14,15 @@ const _PhaseContents= styled.div`
 `;
 
 export const AttackPhase= () => {
-  // const isDrawerHint= useRecoilValue( isHintDrawerState );
-  // const authMyUser= useRecoilValue( authenticatedUserState );
-  // const roomMember= useRecoilValue( roomMemberInfo );
-  // useEffect(() => {
-  //   startTime(),
-  //   authUser(),
-  //   fetchChallenge()
-  // },[]);
-  // const { startTime }= useFetchStartTime();
-  // const { authUser }=fetchAuthenticatedUser();
-  // const { fetchChallenge }= useFetchChallenge();
-  // const roomInfoQuery= useRoomInfoQuery({});
-  
-  // const { data: scores, isLoading }= useScoresQuery({
-  //   config: {
-  //     select: ( data ) => {
-  //       return data[ SCORES_KEY ]
-  //     },
-  //     refetchInterval: 1000 * 3
-  //   }
-  // });
-
-  // if( isLoading) {
-  //   return <>loading</>
-  // }  
 
   return (
     <PhaseLayout title='アタックフェーズ'>
-      {/* <_PhaseHead >
-        <UserBoardsLayout>
-          <UserScoreBoard
-            userName={
-              roomMember.host
-              ? authMyUser.name
-              : roomMember.opponentName
-            }
-            ishost= { true }
-            score={
-              roomMember.host
-              ? scores[0]
-              : scores[1]
-            }
-          /> 
-          <TimerWrapper phase={ PHASE.ATTACK_PHASE } >
-            <Timer 
-              targetTime = { 120 }
-              redirectUrl= { 'defence-phase' }
-            />
-          </TimerWrapper>
-          <UserScoreBoard 
-            userName={
-              !roomMember.host
-              ? authMyUser.name
-              : roomMember.opponentName
-            }
-            ishost= { false }
-            score={
-              !roomMember.host
-              ? scores[0]
-              : scores[1]
-            }
-          />
-        </UserBoardsLayout>      
-      </_PhaseHead>
+      <PhaseStatusContents 
+        phase      = { PHASE.ATTACK_PHASE }
+        targetTime = { 1000 }
+        redirectUrl= { REDIRECT_PATHS.ATTACK_TO_DEFENCE }
+      />
+  {/*
       <_PhaseContents>
         <Preview phase={ PHASE.ATTACK_PHASE } />
         <PhaseContentsLayout >
