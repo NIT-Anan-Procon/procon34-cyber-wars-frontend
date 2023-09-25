@@ -17,9 +17,8 @@ export const GamesRoutes= () => {
   return (
     <Routes>
       <Route path= { 'standby' }     element={ <StandBy /> } />
-      <Route path= { 'phase/*' }     element={ <PhaseRoutes/> } />
-      {/* 
-      <Route path= { 'result' }      element={ <Result /> } />
+      <Route path= { 'phase/*' }     element={ <PhaseRoutes/> } /> 
+      {/* <Route path= { 'result' }      element={ <Result /> } />
       <Route path= { 'explanation' } element={ <Explanation /> } /> */}
       <Route path= { '*' }           element={ <Navigate to='' /> } />
     </Routes>
