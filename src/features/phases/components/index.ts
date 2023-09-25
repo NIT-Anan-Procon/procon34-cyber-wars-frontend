@@ -1,4 +1,5 @@
 export * from './PhaseLayout';
+export * from './PhaseStatusContents';
 export * from './PhaseContentsLayout';
 export * from './PhaseContentHead';
 export * from './PhaseContentBody';
