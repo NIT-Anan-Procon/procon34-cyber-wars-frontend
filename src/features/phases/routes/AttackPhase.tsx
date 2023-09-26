@@ -7,6 +7,7 @@ import {
 } from '../components';
 import { PHASE, REDIRECT_PATHS } from '../types';
 import { WebViewer } from '@/features/webViewer';
+import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/vulnerabilities';
 
 const _PhaseContents= styled.div`
   height : 70vh;
@@ -27,7 +28,9 @@ export const AttackPhase= () => {
       <_PhaseContents>
         <WebViewer phase={ PHASE.ATTACK_PHASE } />
         <PhaseContentsWrapper >
-          d
+          <VulnerabilitiesLayout >
+            <VulnerabilityCheckList />
+          </VulnerabilitiesLayout>
         </PhaseContentsWrapper>
   {/*
       
