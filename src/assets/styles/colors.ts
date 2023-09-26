@@ -1,5 +1,5 @@
 export const colors= {
-  bgDarker    : '#1E1E1E',
+  bgDarker    : '#303841',
   bgLighter   : '#FEFEFE',
   primary     : '#2DE7D0',
   secondary   : '#D9D9D9',
