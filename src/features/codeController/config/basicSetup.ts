@@ -1,0 +1,30 @@
+export const EditorSetup= {
+  tabSize: 2,
+  lineNumbers : true,
+  foldGutter  : true,
+  dropCursor  : true,  
+  searchKeymap: true,
+  foldKeymap  : false,
+  lintKeymap  : true,
+  indentOnInput   : true,
+  completionKeymap: true,
+  bracketMatching : true,
+  closeBrackets   : true,
+  autocompletion  : true,
+  crosshairCursor : true,
+  highlightActiveLine : true,
+  closeBracketsKeymap : true,
+  rectangularSelection: true,
+  highlightActiveLineGutter: true,
+  highlightSelectionMatches: true,
+  allowMultipleSelections  : true,
+};
+
+export const minimalSetup= {
+  history: true,
+  drawSelection: true,
+  defaultKeymap: true,
+  historyKeymap: true,
+  syntaxHighlighting   : true,
+  highlightSpecialChars: true,
+};
