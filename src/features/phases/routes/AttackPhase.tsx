@@ -2,9 +2,11 @@ import styled from 'styled-components';
 
 import { 
   PhaseStatusContents,
-  PhaseLayout, 
+  PhaseLayout,
+  PhaseContentsWrapper, 
 } from '../components';
 import { PHASE, REDIRECT_PATHS } from '../types';
+import { WebViewer } from '@/features/webViewer';
 
 const _PhaseContents= styled.div`
   height : 70vh;
@@ -22,9 +24,14 @@ export const AttackPhase= () => {
         targetTime = { 1000 }
         redirectUrl= { REDIRECT_PATHS.ATTACK_TO_DEFENCE }
       />
-  {/*
       <_PhaseContents>
-        <Preview phase={ PHASE.ATTACK_PHASE } />
+        <WebViewer phase={ PHASE.ATTACK_PHASE } />
+        <PhaseContentsWrapper >
+          d
+        </PhaseContentsWrapper>
+  {/*
+      
+        
         <PhaseContentsLayout >
           <PhaseContentHead description={ DESCRIPTIONS.ATTACK_PHASE } />
           <PhaseContentBody >
@@ -49,7 +56,8 @@ export const AttackPhase= () => {
             />
           </PhaseContentFoot>
         </PhaseContentsLayout>        
-      </_PhaseContents> */}
+       */}
+      </_PhaseContents>
     </PhaseLayout>
   );
 };
