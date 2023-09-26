@@ -5,7 +5,10 @@ import { vscodeDark }     from '@uiw/codemirror-theme-vscode';
 import { color }          from '@uiw/codemirror-extensions-color';
 import { php }            from '@codemirror/lang-php';
 
-import { updateCodeSelector } from '../selector/updateCodeSelector';
+import { updateCodeSelector } from '../states/selector/updateCodeSelector';
+import { EditorSetup }        from '../config';
+import { codeState } from '../states';
+import { CODE_KEY, useFetchCodeQuery } from '../api';
 
 
 const _EditorWrapper= styled.div`
@@ -22,19 +25,23 @@ type EditAreaProps= {
 };
 
 export const EditArea= ({ phase }: EditAreaProps) => {
-  const [ code, setCode ] =useRecoilState( updateCodeSelector(phase) );
+  const [ code, setCode ] =useRecoilState(codeState );
+  const codeQuery= useFetchCodeQuery();
 
   const handleCode= (value: string) => {
     setCode(value);
   };
+  if( codeQuery.isLoading ) return <>loading</>
 
+  if( !codeQuery?.data ) return null;
   
   return (
     <_EditorWrapper>
       <CodeMirror
-        value     = { code }
+        value     = { codeQuery?.data[ CODE_KEY ] }
         onChange  = { handleCode }
         theme     = { vscodeDark }
+        basicSetup= { EditorSetup }
         extensions= {[ 
           color,
           php()

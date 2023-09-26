@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 import { 
@@ -8,6 +9,10 @@ import {
 import { PHASE, REDIRECT_PATHS } from '../types';
 import { WebViewer } from '@/features/webViewer';
 import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/vulnerabilities';
+import { HintButton, HintDrawer } from '@/features/hint';
+import { useRecoilValue } from 'recoil';
+import { isHintDrawerState } from '@/features/hint/states/atom';
+
 
 const _PhaseContents= styled.div`
   height : 70vh;
@@ -17,12 +22,13 @@ const _PhaseContents= styled.div`
 `;
 
 export const AttackPhase= () => {
+  const isDrawerHint= useRecoilValue( isHintDrawerState );
 
   return (
     <PhaseLayout title='アタックフェーズ'>
       <PhaseStatusContents 
         phase      = { PHASE.ATTACK_PHASE }
-        targetTime = { 1000 }
+        targetTime = { 100000 }
         redirectUrl= { REDIRECT_PATHS.ATTACK_TO_DEFENCE }
       />
       <_PhaseContents>
@@ -30,7 +36,17 @@ export const AttackPhase= () => {
         <PhaseContentsWrapper >
           <VulnerabilitiesLayout >
             <VulnerabilityCheckList />
-          </VulnerabilitiesLayout>
+          </VulnerabilitiesLayout>              
+          <HintButton />
+          { !isDrawerHint 
+            ? <HintDrawer
+                title= {'ポイントを消費して、ヒントを閲覧'}
+                body= {
+                  <div></div>
+                }
+              />
+            : undefined
+          }       
         </PhaseContentsWrapper>
   {/*
       
@@ -41,16 +57,7 @@ export const AttackPhase= () => {
             <VulnerabilitiesLayout >
               <VulnerabilityCheckList />
             </VulnerabilitiesLayout>
-              <HintButton />
-              { !isDrawerHint 
-                ? <HintLayout
-                    title= {'ポイントを消費して、ヒントを閲覧'}
-                    body= {
-                      <HintList />
-                    }
-                />
-                : undefined
-              }               
+        
           </PhaseContentBody>
           <PhaseContentFoot>
             <PhaseContentForm

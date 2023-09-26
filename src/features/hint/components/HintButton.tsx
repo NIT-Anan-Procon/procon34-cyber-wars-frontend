@@ -1,8 +1,8 @@
 import { useRecoilState } from 'recoil';
 
 import { IconButton } from '@/components/Elements';
-import hintIcon from '@/assets/images/hint.svg';
-import { isHintDrawerState } from '@/atoms';
+import hintIcon       from '@/assets/images/hint.svg';
+import { isHintDrawerState } from '../states/atom';
 
 const _HintButton= `
   height: 5rem;
