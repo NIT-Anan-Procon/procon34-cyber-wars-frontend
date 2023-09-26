@@ -1,4 +1,3 @@
-import { useChallengeQuery } from "..";
 import { 
   CHOICES_KEY, 
   CODE_PATH_KEY, 
@@ -6,9 +5,10 @@ import {
   HINT_SCORE_KEY, 
   VULNERABILITIES_KEY 
 } from "@/constants/responseKeys";
+import { useFetchChallengeQuery } from "@/features/challenge";
 
 export const useChallengeDataTranslator= () => {
-  const { data: challengeData, ...options } = useChallengeQuery({
+  const { data: challengeData, ...options } = useFetchChallengeQuery({
     config: {
       refetchOnMount: false,
       staleTime: Infinity,
