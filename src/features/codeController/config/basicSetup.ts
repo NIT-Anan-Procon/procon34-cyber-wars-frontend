@@ -17,10 +17,7 @@ export const EditorSetup= {
   rectangularSelection: true,
   highlightActiveLineGutter: true,
   highlightSelectionMatches: true,
-  allowMultipleSelections  : true,
-};
-
-export const minimalSetup= {
+  allowMultipleSelections  : true,  
   history: true,
   drawSelection: true,
   defaultKeymap: true,
