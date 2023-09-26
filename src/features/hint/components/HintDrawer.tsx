@@ -21,21 +21,17 @@ const _HintLayoutBody= styled.div`
 type HintDrawerProps= {
   title: string;
   body : React.ReactNode;
-  triggerButton: React.ReactElement;
 };
 
 export const HintDrawer= (
   {
     title,
     body,
-    triggerButton,
   }: HintDrawerProps
 ) => {
-  const { close, open, isOpen }= useDisclosure();
 
   return (
     <>
-      { React.cloneElement( triggerButton, { onClick: open } ) }
       <_HintLayout>
         <_HintLayoutTitle>{ title }</_HintLayoutTitle>
         <_HintLayoutBody>{ body }</_HintLayoutBody>
