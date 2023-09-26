@@ -1,4 +1,4 @@
 // export * from './api';
-export * from './components/Preview';
+export * from './components/WebViewer';
 export * from './hook';
-export * from './selector/';
+export * from './states/selector';
