@@ -12,7 +12,7 @@ const _PhaseStatusContentsLayout= styled.div`
 `;
 
 type PhaseHeadContentsProps= {
-  phase      : 'ATTACK' | 'DEFENCE' | 'BATTLE';
+  phase      : string;
   targetTime : number;
   redirectUrl: string;
 };
