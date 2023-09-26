@@ -85,7 +85,7 @@ const _ScoreWrapper= styled.div<CharacterScoreBoardTransTypes>`
   position   : relative;
   background : black;
   
-  ${(props) => props.ishost
+  ${(props) => props.status === 'HOST'
     ? css`
         padding-right  : 20px;  
         justify-content: end;
