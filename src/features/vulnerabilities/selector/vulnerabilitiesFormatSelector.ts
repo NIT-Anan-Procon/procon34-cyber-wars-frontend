@@ -1,13 +1,13 @@
-import { selector } from 'recoil';
+// import { selector } from 'recoil';
 
-import { vulnerabilityListState } from '@/atoms';
+// import { vulnerabilityListState } from '@/atoms';
 
-export const vulnerabiliesFormatSelector= selector({
-  key: 'selector_vulnerabiliesFormatSelector',
-  get: ({ get }) => {
-    const vulnerabilies= get( vulnerabilityListState );
-    const formatToString= vulnerabilies.join(" ");
+// export const vulnerabiliesFormatSelector= selector({
+//   key: 'selector_vulnerabiliesFormatSelector',
+//   get: ({ get }) => {
+//     const vulnerabilies= get( vulnerabilityListState );
+//     const formatToString= vulnerabilies.join(" ");
 
-    return formatToString;
-  }
-});
+//     return formatToString;
+//   }
+// });
