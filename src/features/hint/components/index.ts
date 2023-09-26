@@ -1,3 +1,3 @@
 export * from './HintButton';
-export * from './HintLayout';
+export * from './HintDrawer';
 export * from './HintList';
