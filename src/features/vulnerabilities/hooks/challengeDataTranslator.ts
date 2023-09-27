@@ -16,6 +16,8 @@ export const useChallengeDataTranslator= () => {
     }
   });
 
+  if( !challengeData ) return null;
+  
   const challengePath= challengeData?.[ CODE_PATH_KEY ];
 
   const vulnerabilities = challengeData?.[VULNERABILITIES_KEY].flatMap(
@@ -33,5 +35,5 @@ export const useChallengeDataTranslator= () => {
     };
   });
   
-  return { challengePath, vulnerabilities, hintObject, ...options }
+  return { challengePath, vulnerabilities, hintObject, ...options };
 };
