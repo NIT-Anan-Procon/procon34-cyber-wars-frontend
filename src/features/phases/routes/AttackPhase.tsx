@@ -4,14 +4,17 @@ import styled from 'styled-components';
 import { 
   PhaseStatusContents,
   PhaseLayout,
-  PhaseContentsWrapper, 
+  PhaseContentsWrapper,
+  PhaseContentForm, 
 } from '../components';
 import { PHASE, REDIRECT_PATHS } from '../types';
-import { WebViewer } from '@/features/webViewer';
+import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
 import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/vulnerabilities';
 import { HintButton, HintDrawer } from '@/features/hint';
 import { useRecoilValue } from 'recoil';
 import { isHintDrawerState } from '@/features/hint/states/atom';
+import { InputField } from '@/components/Form';
+import { ATTACK_SEND_KEY_URL } from '@/features/sendFlag';
 
 
 const _PhaseContents= styled.div`
@@ -23,6 +26,11 @@ const _PhaseContents= styled.div`
 
 export const AttackPhase= () => {
   const isDrawerHint= useRecoilValue( isHintDrawerState );
+  const [ text, setText ]= React.useState();
+
+  const handleOnChange= (e) => {
+    setText(e.target.value);
+  };
 
   return (
     <PhaseLayout title='アタックフェーズ'>
@@ -32,22 +40,24 @@ export const AttackPhase= () => {
         redirectUrl= { REDIRECT_PATHS.ATTACK_TO_DEFENCE }
       />
       <_PhaseContents>
-        <WebViewer phase={ PHASE.ATTACK_PHASE } />
-        <PhaseContentsWrapper >
-          <VulnerabilitiesLayout >
-            <VulnerabilityCheckList />
-          </VulnerabilitiesLayout>              
-          <HintButton />
-          { !isDrawerHint 
-            ? <HintDrawer
-                title= {'ポイントを消費して、ヒントを閲覧'}
-                body= {
-                  <div></div>
-                }
-              />
-            : undefined
-          }       
-        </PhaseContentsWrapper>
+        <WebViewerWrapper >
+          <WebViewer phase={ PHASE.ATTACK_PHASE } />
+        </WebViewerWrapper>
+        <PhaseContentsWrapper
+          body={
+            <VulnerabilitiesLayout >
+              <VulnerabilityCheckList />
+            </VulnerabilitiesLayout>              
+          }
+          foot= {
+            <PhaseContentForm
+              id={ 'sendFlag' }
+              submitFnEndpoint={ ATTACK_SEND_KEY_URL }
+            />
+          }
+        />
+    
+
   {/*
       
         

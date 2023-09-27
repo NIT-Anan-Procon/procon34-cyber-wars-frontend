@@ -1,4 +1,6 @@
-import styled from 'styled-components';
+import styled     from 'styled-components';
+import { colors } from '@/assets/styles';
+import { HintButtonList } from '@/features/hint';
 
 const _PhaseContentsLayout= styled.div`
   grid-column   : 2;
@@ -9,7 +11,7 @@ const _PhaseContentsLayout= styled.div`
   display       : flex;
   flex-direction: column;
   row-gap       : 2rem;
-  background    : #000007;
+  background    : ${ colors.bgDarker };
   font-size     : 1.5rem;
   overflow      : auto;
 `;
@@ -20,21 +22,30 @@ const _PhaseContentHead= styled.div`
   position   : relative;
   display    : flex;
   align-items: center;
-  background : transparent;
-  justify-content: center;
-  border-bottom: 2px solid grey;
+  justify-content: space-between;
+  background : ${ colors.bgDarker };
+  border-bottom  : 2px solid grey;
+`;
+
+const _HintListWrapper= styled.div`
+  height    : 5rem;
+  width     : 100%;
+  padding   : 10px;
+  display   : flex;
+  align-items: center;
+  background: ${ colors.bgLighter };
 `;
 
 const _LanguageLabel= styled.p`
-  position   : absolute;
-  left       : 20px;
-  display    : inline-block;
-  line-height: 3rem;
-  width      : 5rem;
-  font-size  : 1.5rem;
-  color      : #b9b9b9;
-  text-align : center;
-  border     : 2px solid #b9b9b9;
+  position     : absolute;
+  left         : 20px;
+  display      : inline-block;
+  line-height  : 3rem;
+  width        : 5rem;
+  font-size    : 1.5rem;
+  color        : #b9b9b9;
+  text-align   : center;
+  border       : 2px solid #b9b9b9;
   border-radius: 5px;
 `;
 
@@ -49,7 +60,7 @@ const _PhaseContentBody= styled.div`
   position     : relative;
   display      : flex;
   column-gap   : 10px;
-  background   : #000007;
+  background   : ${ colors.bgDarker };
   border-radius: 5px;
   overflow     : auto;
 `;
@@ -59,26 +70,35 @@ const _PhaseContentFoot= styled.div`
   width     : 100%;
   position  : relative;
   bottom    : 0;
-  background: #010007;
+  background: ${ colors.bgDarker };
   border-top: 2px solid grey;
 `;
 
 type PhaseContentsLayoutProps= {
-  children: React.ReactNode;
+  header?: string;
+  body  : React.ReactNode;
+  foot  : React.ReactNode;
 };
 
-export const PhaseContentsWrapper= ({ children }: PhaseContentsLayoutProps ) => {
+export const PhaseContentsWrapper= (
+  { 
+    header,
+    body,
+    foot
+  }: PhaseContentsLayoutProps
+) => {
   return (
     <_PhaseContentsLayout>
       <_PhaseContentHead>
-        <_LanguageLabel> php </_LanguageLabel>
         <_HeadDescription>{ 'description '}</_HeadDescription>
+        <_HintListWrapper>
+          <HintButtonList />
+        </_HintListWrapper>
       </_PhaseContentHead>
 
-      <_PhaseContentBody >{ children }</_PhaseContentBody>
+      <_PhaseContentBody >{ body }</_PhaseContentBody>
 
-      
-      <_PhaseContentFoot></_PhaseContentFoot>
+      <_PhaseContentFoot>{ foot }</_PhaseContentFoot>
     </_PhaseContentsLayout>
   );
 };  

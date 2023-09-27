@@ -7,7 +7,7 @@ import {
   PhaseContentsWrapper,  
 } from "../components";
 import { PHASE, REDIRECT_PATHS } from '../types';
-import { WebViewer } from '@/features/webViewer';
+import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
 import { EditArea } from '@/features/codeController';
 import { HintButton, HintDrawer, HintListItemWrapper } from '@/features/hint';
 import { isHintDrawerState } from '@/features/hint/states';
@@ -51,7 +51,9 @@ export const DefencePhase= () => {
         redirectUrl= { REDIRECT_PATHS.DEFENCE_TO_BATTLE }
       />
       <_PhaseContents>
-        <WebViewer phase={ PHASE.DEFENCE_PHASE } />
+        <WebViewerWrapper >
+          <WebViewer phase={ PHASE.DEFENCE_PHASE } />
+        </WebViewerWrapper>
         <PhaseContentsWrapper >
           <EditArea phase={PHASE.DEFENCE_PHASE}/>
           <HintButton />
