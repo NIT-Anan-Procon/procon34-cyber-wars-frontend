@@ -1,11 +1,9 @@
+import React  from 'react';
 import styled from 'styled-components';
 
-// import { sendKeyState }       from '@/atoms';
-import { useAtomValueChange } from '@/hooks/useAtomValueChange';
 import { Button } from '@/components/Elements';
 import { InputField } from '@/components/Form';
-// import { useSendKey } from '@/features/sendKeys';
-// import { useState } from 'react';
+import { useSendFlagMutation } from '@/features/sendFlag';
 
 const _PhaseContentForm= styled.div`
   height    : 100%;
@@ -14,6 +12,7 @@ const _PhaseContentForm= styled.div`
   display   : flex;
   align-items: center;
   justify-content: space-around;
+  column-gap: 15px;
 `;
 
 const $InputKeyFeild= styled(InputField)`
@@ -31,24 +30,25 @@ type PhaseContentFormProps= {
 };
 
 export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps) => {
-  // const [ keyValue, setKeyValue ]= useState();
-  // const { sendKey }= useSendKey();
+  const [ flagValue, setFlagValue ]= React.useState();
+  const sendFlagMutation= useSendFlagMutation();
+  
 
-  // const handleChange= () => {
-  //   setKeyValue( keyValue );
-  // };
+  const handleChange= () => {
+    setFlagValue( flagValue );
+  };
 
   return (
     <_PhaseContentForm >
-      {/* <$InputKeyFeild
+      <$InputKeyFeild
         id   = { id } 
         type = { 'text' }
         size = { 'small' }
-        value= { keyValue }
+        value= { flagValue }
         placeholder= { 'キーを入力してください' } 
         onChange   = { handleChange }
       />
-      <$SendKeyButton type={'button'} onClick={ async() => await sendKey( submitFnEndpoint, keyValue )}> Send </$SendKeyButton> */}
+      <$SendKeyButton type={'button'} onClick={ async() => await sendFlagMutation.mutateAsync( submitFnEndpoint, flagValue )}> Send </$SendKeyButton>
     </_PhaseContentForm>
   );
 };

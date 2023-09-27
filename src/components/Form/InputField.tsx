@@ -39,7 +39,7 @@ export const InputField = (
 		size,
 		value,
 		placeholder,
-		error, 
+		error,
 		registration
 	}: InputFieldProps
 ) => {
