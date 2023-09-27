@@ -5,7 +5,6 @@ import { colors } from '@/assets/styles';
 import { Loading } from '../Animation';
 
 const _Button= styled.button`
-  margin-top   : 1.75rem;
   width        : 100%;
   height       : 4.75rem;
   font-size    : 1.75rem;
