@@ -1,6 +1,6 @@
 # procon34-cyber-wars-frontend
 
 ## 開発環境
-- [Node 18.16.0](https://nodejs.org/)
+- [Node.js 18.16.0](https://nodejs.org/)
 - [npm 9.5.1](https://www.npmjs.com/)
-- [vite 4.3.2](https://vitejs.dev/)
+- [Vite 4.3.2](https://vitejs.dev/)
