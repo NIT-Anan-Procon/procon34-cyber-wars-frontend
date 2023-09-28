@@ -21,8 +21,8 @@ jobs:
           proxy_password: ${{ secrets.PROXY_PASSWORD }}
           script: |
             cd /var/www/procon34-cyber-wars-frontend/
-            git fetch origin ${{ inputs.branch-name }}
-            git reset --hard origin/${{ inputs.branch-name }}
+            git fetch origin main
+            git reset --hard origin/main
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
