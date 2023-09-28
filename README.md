@@ -3,4 +3,4 @@
 ## 開発環境
 - [Node.js 18.16.0](https://nodejs.org/)
 - [npm 9.5.1](https://www.npmjs.com/)
-- [Vite 4.3.2](https://vitejs.dev/)
+- [Vite 4.4.9](https://vitejs.dev/)
