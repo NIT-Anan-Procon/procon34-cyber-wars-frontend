@@ -17,7 +17,7 @@ const App = () => {
 
 export const authorizedRoutes = [
   {
-    path: 'cyberwars',
+    path: '',
     element: <App />,
     children: [
       { path: '',        element: <ModeSelection /> },
