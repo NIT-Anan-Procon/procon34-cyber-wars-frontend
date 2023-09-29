@@ -1,3 +1,3 @@
 export * from './StandbyHeader';
 export * from './StanbyLayout';
-export * from './StandbyUser';
+export * from './StandbyContentsWrapper';
