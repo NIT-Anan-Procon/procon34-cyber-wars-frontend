@@ -28,26 +28,25 @@ export const AttackPhase= () => {
   const isDrawerHint= useRecoilValue( isHintDrawerState );
   const [ text, setText ]= React.useState();
 
-  const handleOnChange= (e) => {
-    setText(e.target.value);
-  };
-
   return (
     <PhaseLayout title='アタックフェーズ'>
       <PhaseStatusContents 
         phase      = { PHASE.ATTACK_PHASE }
-        targetTime = { 100000 }
+        targetTime = { 15 }
         redirectUrl= { REDIRECT_PATHS.ATTACK_TO_DEFENCE }
       />
       <_PhaseContents>
-        <WebViewerWrapper >
-          <WebViewer phase={ PHASE.ATTACK_PHASE } />
-        </WebViewerWrapper>
         <PhaseContentsWrapper
           body={
-            <VulnerabilitiesLayout >
-              <VulnerabilityCheckList />
-            </VulnerabilitiesLayout>              
+            <>
+              <WebViewerWrapper >
+                <WebViewer phase={ PHASE.ATTACK_PHASE } />
+              </WebViewerWrapper>
+              <VulnerabilitiesLayout >
+                <VulnerabilityCheckList />
+              </VulnerabilitiesLayout>                
+            </>
+          
           }
           foot= {
             <PhaseContentForm
@@ -56,27 +55,6 @@ export const AttackPhase= () => {
             />
           }
         />
-    
-
-  {/*
-      
-        
-        <PhaseContentsLayout >
-          <PhaseContentHead description={ DESCRIPTIONS.ATTACK_PHASE } />
-          <PhaseContentBody >
-            <VulnerabilitiesLayout >
-              <VulnerabilityCheckList />
-            </VulnerabilitiesLayout>
-        
-          </PhaseContentBody>
-          <PhaseContentFoot>
-            <PhaseContentForm
-              id={ 'attack_sendKey' }
-              submitFnEndpoint={ ATTACK_SEND_KEY_URL }
-            />
-          </PhaseContentFoot>
-        </PhaseContentsLayout>        
-       */}
       </_PhaseContents>
     </PhaseLayout>
   );

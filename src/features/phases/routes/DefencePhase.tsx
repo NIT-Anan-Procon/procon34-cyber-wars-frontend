@@ -47,70 +47,26 @@ export const DefencePhase= () => {
     <PhaseLayout title='ディフェンスフェーズ'>
       <PhaseStatusContents 
         phase      = { PHASE.DEFENCE_PHASE }
-        targetTime = { 10000 }
+        targetTime = { 15 }
         redirectUrl= { REDIRECT_PATHS.DEFENCE_TO_BATTLE }
       />
-      <_PhaseContents>
-        <WebViewerWrapper >
-          <WebViewer phase={ PHASE.DEFENCE_PHASE } />
-        </WebViewerWrapper>
-        <PhaseContentsWrapper >
-          <EditArea phase={PHASE.DEFENCE_PHASE}/>
-          <HintButton />
-          { isDrawerHint
-            ? <HintDrawer
-                title= {'ポイントを消費して、ヒントを閲覧'}
-                body= {
-                  <HintListItemWrapper>vbnm,.,mnb</HintListItemWrapper>
-                }
-              />
-            : undefined         
+      <PhaseContentsWrapper
+          body={
+            <>
+              <WebViewerWrapper >
+                <WebViewer phase={ PHASE.ATTACK_PHASE } />
+              </WebViewerWrapper>
+              <EditArea phase={PHASE.DEFENCE_PHASE}/>
+            </>
+          
           }
+          foot= {
+            <Button>Send</Button>
+          }
+        />
+        
 
-          {/* <_PhaseContentFoot>
-            <_SendCodeButton 
-              type='button'
-              onClick= { async() => {
-                await sendCodeMutation.mutateAsync( currentCode ) 
-                alert('コードを送信しました。');
-              }}
-            > 
-              Send 
-            </_SendCodeButton>            
-          </_PhaseContentFoot> */}
-        </PhaseContentsWrapper>
-    {/*
-      <_PhaseContents>
-        <Preview phase={ PHASE.DEFENCE_PHASE } />
-        <PhaseContentsLayout >
-          <PhaseContentHead description={ DESCRIPTIONS.DEFENCE_PHASE } />
-          <PhaseContentBody >
-            <EditArea phase={ PHASE.DEFENCE_PHASE } />
-            <HintButton />
-              { isDrawerHint
-                ? <HintLayout
-                    title= {'ポイントを消費して、ヒントを閲覧'}
-                    body= {
-                      <HintList />
-                    }
-                />
-                : undefined         
-              }          
-          </PhaseContentBody>
-          <PhaseContentFoot>
-            <_SendCodeButton 
-              type='button'
-              onClick= { 
-                async() => {await sendCode( currentCode ) 
-                alert('コードを送信しました。');
-              }}
-            > 
-              Send 
-            </_SendCodeButton>
-          </PhaseContentFoot>
-        </PhaseContentsLayout>        
-      </_PhaseContents> */}
-      </_PhaseContents>
+
     </PhaseLayout>
   );
 };
