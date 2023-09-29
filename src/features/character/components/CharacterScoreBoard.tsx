@@ -1,32 +1,38 @@
 import styled, { css } from 'styled-components';
 
 import { SCORES_KEY, useFetchScoresQuery } from '@/features/scores';
+import { colors } from '@/assets/styles';
 
 const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
   height     : 100%;
-  width      : 40vw;
-  padding-top: 10px;
-  position   : relative; 
+  width      : 50vw;
+  padding    : 0 20px;
+  display    : grid;
+  grid-template-rows   : 30% 70%;
+  position   : relative;
+  margin-top : 10px; 
   
+  &::before {
+    height  : 50%;
+    width   : calc( 100% - 20px );
+    content : '';
+    position: absolute;
+    bottom  : 0;  
+  };
+
   ${(props) => props.status === 'HOST'
     ? css`
+        grid-template-columns: 20rem 1fr;
         &::before {
-          height    : 100%;
-          width     : 100%;
-          content   : '';
-          position  : absolute;
-          clip-path : polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
-          background: #2F1FF6;
+          /* clip-path: polygon(0 5%, 96% 0, 93% 100%, 0 75%);
+          background: #2F1FF6; */
         }
       `
     : css`
+        grid-template-columns: 1fr 20rem;
         &::before {
-          height    : 100%;
-          width     : 100%;
-          content   : '';
-          position  : absolute;
-          clip-path : polygon(25% 0, 100% 0%, 100% 100%, 0% 100%);
-          background: #CA1C1C;
+          /* clip-path: polygon(4% 0, 100% 5%, 100% 75%, 7% 100%);
+          background: #CA1C1C; */
         }
       `
   };
@@ -35,37 +41,38 @@ const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
 `;
 
 const _CharacterIconWrapper= styled.div<CharacterScoreBoardTransTypes>`
+  grid-row       : 1 / span 2;
   height         : 15rem;
-  width          : 15rem;
+  width          : 20rem;
+  position       : relative;
   display        : flex;
   justify-content: center;
-  position       : absolute;
-  bottom         : 10px;
-  background     : #d4d4d4;
-  z-index        : 100;
+  background     : ${ colors.bgLighter };
+  z-index        : 0;
 
   ${(props) => props.status === 'HOST'
-      ? css` 
-          left : 2rem;
-          transform: rotate(-5deg);
+      ? css`
+          grid-column: 1;
           &::before {
             content   : '';
+            position  : absolute;
             height    : 100%;
             width     : 100%;
-            background: black;
+            background: #2b2b2b;
             z-index   : -100;
+            transform: skew(3deg);
           }
         `
-      : css` 
-          right: 2rem;
-          transform: rotate(5deg);
-          &::before {
+      : css`
+          grid-column: 2;
+          
+          /* &::before {
             content   : '';
             height    : 100%;
             width     : 100%;
             background: black;
             z-index   : -100;
-          }
+          } */
         `
   };
 `;
@@ -78,25 +85,76 @@ const _CharacterIcon= styled.img`
 `;
 
 const _ScoreWrapper= styled.div<CharacterScoreBoardTransTypes>`
-  height     : 10rem;
-  width      : calc(100% - 10px);
+  grid-row   : 2;
+  height     : 100%;
+  width      : 100%;
   display    : flex;
-  align-items: center;        
+  align-items: center;
   position   : relative;
-  background : black;
   
+  &::before {
+    content   : ''; 
+    position  : absolute;
+    bottom    : 0px;
+    left      : 0px;
+    height    : 100%;
+    width     : 100%;
+    background: black;
+    
+  };
+
   ${(props) => props.status === 'HOST'
     ? css`
-        padding-right  : 20px;  
-        justify-content: end;
-        box-shadow     : 8px 8px #2F1FF6;
+        grid-column: 2;
+        justify-content: center;
+        &::before {
+          clip-path: polygon(0 5%, 96% 0, 100% 94%, 0 75%);
+        }
       `
     : css`
-        padding-left   : 20px;  
-        justify-content: start;
-        box-shadow     : 8px 8px #CA1C1C;
+    grid-column: 1;
+        justify-content: center;
+        &::before {
+          clip-path: polygon(4% 0, 100% 0, 100% 75%, 6% 100%);
+        }
       `
   }
+`;
+
+const _ScoreHead= styled.div<CharacterScoreBoardTransTypes>`
+  grid-row  : 1;
+  position  : absolute;
+  top       : -20px;
+  height    : 4.5rem;
+  width     : 100%;
+  display   : flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  z-index   : 100;
+  
+  > h1 {
+    font-size: 2.5rem;
+    color    : #2F1FF6;
+    z-index  : 999;    
+  };
+
+  ${(props) => props.status === 'HOST'
+      ? css`
+          left     : 0px;
+          clip-path: polygon(0 25%, 100% 0%, 100% 100%, 0 100%);
+          > h1 {
+            color: #2F1FF6;
+          }
+        `
+      : css`
+          right: 0px;
+          clip-path: polygon(0 0, 100% 25%, 100% 100%, 0 100%);
+          > h1 {
+            color: #CA1C1C;
+          }
+        `
+    }
 `;
 
 const _Score= styled.h1`
@@ -112,42 +170,29 @@ const _Score= styled.h1`
 `;
 
 const _CharacterNameWrapper= styled.div<CharacterScoreBoardTransTypes>`
-  position  : relative;
+  grid-row  : 1;
+  position  : absolute;
+  padding   : 5px;
   height    : 6.5rem;
-  width     : 20rem;
+  width     : 100%;
   display   : flex;
+  bottom: 0;
   align-items: center;
   justify-content: center;
-  background: black;
+  background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,1));
   z-index   : 100;
-
-  ${( props ) => props.status === 'HOST'
-    ? css`
-        &::after {
-          clip-path: polygon(0 70%, 100% 0, 100% 100%, 0% 100%)
-        }
-        `
-      : css`
-        &::after {
-          clip-path: polygon(0 0, 100% 70%, 100% 100%, 0% 100%)
-        }
-      `  
-  };
 `;
 
 const _CharacterName= styled.h1<CharacterScoreBoardTransTypes>`
-  font-size: 3.5rem;
-  color    : white;
+  font-size: 2.5rem;
+  color    : 
+    ${(props) => props.status === 'HOST'
+        ? '#2F1FF6'
+        : '#CA1C1C'
+    };
   z-index  : 999;
 
-  ${(props) => props.status === 'HOST'
-      ? css`
-          transform: rotate(-5deg);
-        `
-      : css`
-          transform: rotate(5deg);
-        `
-    }
+
 `;
 
 type CharacterScoreBoardProps= {
@@ -180,8 +225,14 @@ export const CharacterScoreBoard= (
           src={''}
           alt= { 'icon' }
         />
+        <_CharacterNameWrapper status={ status } >
+          <_CharacterName status={ status } >{ userName }</_CharacterName>
+        </_CharacterNameWrapper>
       </_CharacterIconWrapper>
       <_ScoreWrapper status={ status } >
+        <_ScoreHead status={ status }>
+          <h1>Score</h1>
+        </_ScoreHead>
         <_Score>
           { status === 'HOST'
             ? scoresQuery.data[ SCORES_KEY ][0]
@@ -190,9 +241,6 @@ export const CharacterScoreBoard= (
           <span>pt</span>
         </_Score>
       </_ScoreWrapper>
-      <_CharacterNameWrapper status={ status } >
-        <_CharacterName status={ status } >{ userName }</_CharacterName>
-      </_CharacterNameWrapper>
     </_CharacterScoreBoardWrapper>
   );
 };

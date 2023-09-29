@@ -6,7 +6,7 @@ import { Timer, TimerWrapper } from '@/features/gameTimer';
 import { IS_HOST_KEY, OPPONENT_NAME_KEY, useFetchRoomInfoQuery } from '@/features/room';
 
 const _PhaseStatusContentsLayout= styled.div`
-  height: 30vh;
+  height: 18vh;
   width : 100%;
   display: flex;
 `;

@@ -4,8 +4,7 @@ import { colors } from '@/assets/styles';
 import { ContentHeader } from '@/components/Elements';
 
 const _WebViewerWrapper= styled.div`
-  margin-top: 5%;
-  height: 95%;
+  height: 100%;
   width : 100%;
   position  : relative;
   background: ${ colors.bgDarker };
@@ -50,9 +49,9 @@ type WebViewerWrapperProps= {
 export const WebViewerWrapper= ({ children }: WebViewerWrapperProps ) => {
   return (
     <_WebViewerWrapper>
-      <_WebViewerHead >
+      {/* <_WebViewerHead >
         <h1>My WebSite</h1>
-      </_WebViewerHead>
+      </_WebViewerHead> */}
 
       { children }
     </_WebViewerWrapper>

@@ -3,9 +3,7 @@ import { colors } from '@/assets/styles';
 import { HintButtonList } from '@/features/hint';
 
 const _PhaseContentsLayout= styled.div`
-  grid-column   : 2;
-  grid-row      : 3;
-  height        : 100%;
+  height        : calc( 82vh - 20px );
   width         : 100%;
   padding       : 20px;
   display       : flex;
@@ -13,7 +11,6 @@ const _PhaseContentsLayout= styled.div`
   row-gap       : 2rem;
   background    : ${ colors.bgDarker };
   font-size     : 1.5rem;
-  overflow      : auto;
 `;
 
 const _PhaseContentHead= styled.div`
@@ -22,9 +19,9 @@ const _PhaseContentHead= styled.div`
   position   : relative;
   display    : flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   background : ${ colors.bgDarker };
-  border-bottom  : 2px solid grey;
+  /* border-bottom  : 2px solid grey; */
 `;
 
 const _HintListWrapper= styled.div`
@@ -62,7 +59,6 @@ const _PhaseContentBody= styled.div`
   column-gap   : 10px;
   background   : ${ colors.bgDarker };
   border-radius: 5px;
-  overflow     : auto;
 `;
 
 const _PhaseContentFoot= styled.div`
@@ -90,10 +86,10 @@ export const PhaseContentsWrapper= (
   return (
     <_PhaseContentsLayout>
       <_PhaseContentHead>
-        <_HeadDescription>{ 'description '}</_HeadDescription>
-        <_HintListWrapper>
+        <_HeadDescription>{ 'SQLインジェクションを使って、ログイン情報を抜き出そう!!'}</_HeadDescription>
+        {/* <_HintListWrapper>
           <HintButtonList />
-        </_HintListWrapper>
+        </_HintListWrapper> */}
       </_PhaseContentHead>
 
       <_PhaseContentBody >{ body }</_PhaseContentBody>

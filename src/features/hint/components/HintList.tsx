@@ -19,7 +19,7 @@ import { Button } from "@/components/Elements";
 
 const _HintList= styled.ul`
   height: 100%;
-  width: 30%;
+  width: 100%;
   padding: 10px 20px;
   display: flex;
   flex-direction: column;

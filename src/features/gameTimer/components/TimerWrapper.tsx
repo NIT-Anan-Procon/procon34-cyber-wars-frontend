@@ -15,7 +15,7 @@ const _TimerWrapper= styled.div`
 `; 
 
 const _TimeArea= styled.div<{phase: string}>`
-  height : 10vh;
+  height : 8vh;
   width  : 30rem;    
   display: flex;
   justify-content: center;
@@ -32,7 +32,7 @@ const _TimeArea= styled.div<{phase: string}>`
 
   &::after {
     display: block;
-    height: calc(10vh - 5px);
+    height: calc(8vh - 5px);
     width : calc(30rem - 10px);
 
     position: absolute;
