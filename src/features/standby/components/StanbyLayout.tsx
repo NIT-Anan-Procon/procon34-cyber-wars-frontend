@@ -7,8 +7,8 @@ const GridLayout= styled.div`
   height : 100vh;
   width  : 100vw;
   padding: 0% 10%;
-  display: grid;
-  grid-template-rows: 15vh 1fr 10vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 type StandByLayoutProps= {
