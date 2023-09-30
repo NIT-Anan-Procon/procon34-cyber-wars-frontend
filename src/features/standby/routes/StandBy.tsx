@@ -1,79 +1,42 @@
-// import { authenticatedUserState, inviteIdState, isEnterRoomState, roomMemberInfo } from "@/atoms";
-// import { useNavigate } from "react-router-dom";
-// import { useRecoilValue } from "recoil";
-import styled from "styled-components";
-import { CharacterStandbyCard } from "@/features/character";
-import { StandbyLayout } from "../components";
-import { GameRulesDescriptions, GameRulesLayout } from "@/features/gameRules";
-// import { StandbyUser } from "../components/StandbyUser";
-// import testIcon from '@/assets/images/attack_phase.svg';
-// import { Button } from "@/components/Elements";
-// import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY, USER_NAME_KEY } from "@/constants/responseKeys";
-// import { startGame } from "../api/startGame";
-// import { useFetchRoomInfoQuery } from "@/features/room";
+import styled from 'styled-components';
 
-// const _FlexUsers= styled.div`
-//   grid-row: 2;
-//   height : 100%;
-//   width  : 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   column-gap : 4.5rem;
-// `;
-
-// const _BattleIcon= styled.div`
-//   font-size: 5rem;
-//   font-weight: bold;
-//   color: white;
-// `;
-
-// const $StartButton= styled(Button)`
-//   height  : 10rem;
-//   width   : 30rem;
-//   position: absolute;
-//   bottom  : 0;
-//   right   : 0;
-//   clip-path: ;
-// `;
+import { colors }        from '@/assets/styles';
+import { StandbyLayout } from '../components';
+import { CharacterStandbyCard } from '@/features/character';
+import { GameRulesDescriptions, GameRulesLayout } from '@/features/gameRules';
 
 const _StandbyUsers= styled.div`
   height: 100%;
   width : 100%;
   display: flex;
-`
+  align-items: center;
+  justify-content: center;
+  column-gap: 5%;
+`;
+
+const _FightTypo= styled.span`
+  font-size: 5.5rem;
+  color    : ${ colors.bgLighter };
+  text-shadow: 3px 10px black;
+`;
 
 export const StandBy= () => {
-  // const isJoinedRoom=  useRecoilValue(isEnterRoomState);
-  // const authUserState= useRecoilValue( authenticatedUserState );
-  // const roomMember= useRecoilValue( roomMemberInfo );
-  // const inviteId= useRecoilValue( inviteIdState );
-  // const navigate= useNavigate();
-
-  // const roomInfoQuery= useFetchRoomInfoQuery({});
-
-  // if( roomInfoQuery.isLoading) {
-  //   return <></>
-  // }
-  
   return (
-    <>
-      <StandbyLayout>
-        <GameRulesLayout>
-          <GameRulesDescriptions />
-        </GameRulesLayout>
-        <_StandbyUsers>
-          <CharacterStandbyCard
-            userName= { 'kusaka' }
-            status  = { 'HOST' }
-          />
-          VS
-          <CharacterStandbyCard
-            userName= { 'kinoshita' }
-            status  = { 'GUEST' }
-          />          
-        </_StandbyUsers>
-      </StandbyLayout>    
-    </>
+    <StandbyLayout>
+      <_StandbyUsers>
+        <CharacterStandbyCard
+          userName= { 'KUSAKA' }
+          status  = { 'HOST' }
+        />
+        <_FightTypo>VS</_FightTypo>
+        <CharacterStandbyCard
+          userName= { 'KINOSHITA' }
+          status  = { 'GUEST' }
+        />          
+      </_StandbyUsers>
+      <GameRulesLayout>
+        <GameRulesDescriptions />
+      </GameRulesLayout>
+    </StandbyLayout>    
   );
 };
