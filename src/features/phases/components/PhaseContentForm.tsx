@@ -11,12 +11,12 @@ const _PhaseContentForm= styled.div`
   background: transparent;
   display   : flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: end;
   column-gap: 15px;
 `;
 
-const $InputKeyFeild= styled(InputField)`
-  width: 50%;
+const $InputKeyFeild= `
+  width: 40rem;
 `;
 
 const $SendKeyButton= styled(Button)`
@@ -40,10 +40,11 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
 
   return (
     <_PhaseContentForm >
-      <$InputKeyFeild
+      <InputField
         id   = { id } 
         type = { 'text' }
         size = { 'small' }
+        styles={ $InputKeyFeild }
         value= { flagValue }
         placeholder= { 'キーを入力してください' } 
         onChange   = { handleChange }

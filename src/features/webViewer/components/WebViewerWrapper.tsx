@@ -5,7 +5,7 @@ import { ContentHeader } from '@/components/Elements';
 
 const _WebViewerWrapper= styled.div`
   height: 100%;
-  width : 100%;
+  width : 50vw;
   position  : relative;
   background: ${ colors.bgDarker };
 `;

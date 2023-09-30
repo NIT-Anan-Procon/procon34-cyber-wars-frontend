@@ -14,7 +14,7 @@ const _PhaseContentsLayout= styled.div`
 `;
 
 const _PhaseContentHead= styled.div`
-  height     : 6rem;
+  height     : 4.5rem;
   width      : 100%;
   position   : relative;
   display    : flex;
@@ -52,7 +52,7 @@ const _HeadDescription= styled.h3`
 `;
 
 const _PhaseContentBody= styled.div`
-  height       : 100%;
+  height       : calc( 100% - 15rem );
   width        : 100%;
   position     : relative;
   display      : flex;
@@ -62,12 +62,14 @@ const _PhaseContentBody= styled.div`
 `;
 
 const _PhaseContentFoot= styled.div`
-  height    : 10rem;
-  width     : 100%;
-  position  : relative;
-  bottom    : 0;
-  background: ${ colors.bgDarker };
-  border-top: 2px solid grey;
+  height     : 8rem;
+  width      : 100%;
+  position   : relative;
+  bottom     : 0;
+  display    : flex;
+  align-items: center;
+  background : ${ colors.bgDarker };
+  border-top : 2px solid grey;
 `;
 
 type PhaseContentsLayoutProps= {

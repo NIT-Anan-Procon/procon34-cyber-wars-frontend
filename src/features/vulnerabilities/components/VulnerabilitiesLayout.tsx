@@ -3,7 +3,7 @@ import { VulnerabilitySelectedFeild, VulnerabilitySubmitButton } from '.';
 
 const _VulnerabilitiesLayout= styled.div`
   height         : 100%;
-  width          : 100%;
+  width          : 50vw;
   display        : flex;
   flex-direction : column;
   align-items    : center;
@@ -28,8 +28,8 @@ const _VulnerabilitiesBody= styled.div`
   padding        : 20px;
   justify-content: center;
   position       : relative;
-  background     : grey;
-  border-radius  : 5px;
+  background     : #01000a;
+  border-radius  : 10px;
   overflow-y     : auto;
 `;
 
