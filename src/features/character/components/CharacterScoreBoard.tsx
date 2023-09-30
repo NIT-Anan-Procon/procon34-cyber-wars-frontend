@@ -210,7 +210,7 @@ export const CharacterScoreBoard= (
     styles
   }: CharacterScoreBoardProps
 ) => {
-  const scoresQuery= useFetchScoresQuery();
+  const scoresQuery= useFetchScoresQuery({});
 
   if( scoresQuery.isLoading ) {
     return <>Loading</>

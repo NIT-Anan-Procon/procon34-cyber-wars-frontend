@@ -5,14 +5,6 @@ import { FieldWrapper, FieldWrapperPassThroughProps } from './FieldWrapper';
 import { InputSizeProps } from '@/assets/styles/dimensions';
 import { colors }         from '@/assets/styles';
 
-type InputFieldProps = FieldWrapperPassThroughProps & {
-	id    : string;
-	type ?: 'text' | 'password';
-	value?: string;
-	size  : InputSizeProps;
-	placeholder ?: string;
-	registration?: Partial<UseFormRegisterReturn>;
-};
 
 const _InputField = styled.input<InputFieldProps>`
   width        : 100%;
@@ -31,12 +23,23 @@ const _InputField = styled.input<InputFieldProps>`
 	}
 `;
 
+type InputFieldProps = FieldWrapperPassThroughProps & {
+	id     : string;
+	type  ?: 'text' | 'password';
+	value ?: string;
+	size  ?: InputSizeProps;
+	styles?: string;
+	placeholder ?: string;
+	registration?: Partial<UseFormRegisterReturn>;
+};
+
 export const InputField = (
 	{ 
 		id, 
 		type, 
 		label,
 		size,
+		styles,
 		value,
 		placeholder,
 		error,
@@ -47,12 +50,14 @@ export const InputField = (
 		<FieldWrapper
 			label= { label }
 			error= { error }
+			styles= { styles }
 		>
 			<_InputField
 				id  = { id }
 				type= { type }
-				value={ value }
-				size= { size }
+				value ={ value }
+				size  = { size }
+				styles= { styles }
 				placeholder={ placeholder}
 				{...registration}
 			/>
