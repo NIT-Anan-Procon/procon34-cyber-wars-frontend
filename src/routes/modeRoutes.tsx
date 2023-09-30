@@ -18,8 +18,8 @@ export const GamesRoutes= () => {
     <Routes>
       <Route path= { 'standby' }     element={ <StandBy /> } />
       <Route path= { 'phase/*' }     element={ <PhaseRoutes/> } /> 
-      {/* <Route path= { 'result' }      element={ <Result /> } />
-      <Route path= { 'explanation' } element={ <Explanation /> } /> */}
+      <Route path= { 'result' }      element={ <Result /> } />
+      <Route path= { 'explanation' } element={ <Explanation /> } />
       <Route path= { '*' }           element={ <Navigate to='' /> } />
     </Routes>
   );
