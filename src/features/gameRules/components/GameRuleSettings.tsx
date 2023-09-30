@@ -1,0 +1,5 @@
+export const GameRuleSettings= () => {
+  return (
+    <></>
+  );
+};
