@@ -1,85 +1,86 @@
-import styled          from 'styled-components';
+import styled, { css }          from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import { ContentLayout }  from '@/components/Layout';
 import { Button }         from '@/components/Elements';
 import { ResultUserCard } from '../components';
-import { useScoresQuery } from '@/features/score';
-import { useRoomInfoQuery } from '@/features/rooms/api/fetchRoomInfo';
-import { fetchAuthenticatedUser } from '@/features/auth';
-import { useEffect } from 'react';
+import { useFetchScoresQuery } from '@/features/scores';
+import { useFetchRoomInfoQuery } from '@/features/room';
+import { useAuthenticatedUserQuery } from '@/features/auth';
 import { OPPONENT_NAME_KEY, SCORES_KEY, USER_NAME_KEY } from '@/constants/responseKeys';
-import { useRecoilValue } from 'recoil';
-import { authenticatedUserState } from '@/atoms';
+import { colors } from '@/assets/styles';
 
 const _ResultWrapper= styled.div`
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
+  height     : 100%;
+  width      : 100vw;
+  position   : absolute;
+  left       : 50%;
+  top        : 50%;
+  transform  : translate(-50%, -50%);
+  display    : flex;
   align-items: center;
-  row-gap: 20px;
+  justify-content: center;
+  column-gap: 10%;
 `;
 
 const _Result= styled.h1`
-  font-size: 10rem;
+  font-size: 12rem;
+  position : absolute;
+  left     : 50%;
+  transform: translateX(-50%);
+  color: 
+    ${(props) => props.result === 'YOU WIN'
+        ? `${ colors.info }`
+        : `${ colors.danger }`
+    };
 `;
 
 const _NextButton= styled(Button)`
   height  : 10rem;
   width   : 20rem;
   position: absolute;
-  right   : 0;
-  bottom  : 0;
+  right   : 20px;
+  bottom  : 20px;
+  border-radius: 0;
+  font-size: 4rem;
+  clip-path: polygon(2% 6%, 96% 1%, 93% 100%, 5% 96%);
 `;
 
 export const Result= () => {
   const navigate= useNavigate();
-  const { authUser }=fetchAuthenticatedUser();
-  const roomInfoQuery= useRoomInfoQuery({});
-  const { data: scores, isLoading }= useScoresQuery({
-    config: {
-      select: ( data ) => {
-        return data[ SCORES_KEY ]
-      },
-      refetchInterval: 1000 * 3
-    }
-  })
-  const authMyUser= useRecoilValue( authenticatedUserState );
+  const authUserQuery=useAuthenticatedUserQuery({});
+  const roomInfoQuery= useFetchRoomInfoQuery({});
+  const scoresQuery= useFetchScoresQuery({});
 
-  useEffect(() => {
-    authUser()
-  },[])
-
-  if( roomInfoQuery.isLoading || isLoading ) {
+  if( authUserQuery.isLoading || roomInfoQuery.isLoading || scoresQuery.isLoading ) {
     return <>Loading</>
   }
+
+  if( !authUserQuery.data || !roomInfoQuery.data || !scoresQuery.data ) return null;
+
+  const result= scoresQuery.data[ SCORES_KEY ][0] > scoresQuery.data[ SCORES_KEY ][1] ? 'YOU WIN' : 'YOU LOSE'
 
   return (
     <ContentLayout
       headTitle={ 'リザルト画面' }
       header   ={ 'RESULT' }
-    >
+    >        
+      <_Result result={ result } >{ result }</_Result>
       <_ResultWrapper>
-        <_Result>
-          { scores[0] > scores[1] 
-            ? 'YOU WIN'
-            : 'YOU LOSE'
-          }
-        </_Result>
         <ResultUserCard
-          name    ={ authMyUser[ USER_NAME_KEY ] }
-          score   ={ scores[0] } 
+          name    ={ authUserQuery.data[ USER_NAME_KEY ] }
+          score   ={ scoresQuery.data[ SCORES_KEY ][0] } 
           result  ={ 'WIN' }
           usertype={ 'MYUSER' } 
         />
         <ResultUserCard 
-          name    ={ roomInfoQuery?.data[ OPPONENT_NAME_KEY ] }
-          score   ={ scores[1] } 
+          name    ={ roomInfoQuery.data[ OPPONENT_NAME_KEY ] }
+          score   ={ scoresQuery.data[ SCORES_KEY ][1] } 
           result  ={ 'LOSE' }
           usertype={ 'OPPONENTUSER' } 
         />      
       </_ResultWrapper>
-      <_NextButton type='button' onClick={() => navigate('../explanation')}>next</_NextButton>
+      <_NextButton type='button' onClick={() => navigate('../explanation')}>Next</_NextButton>
     </ContentLayout>
   );
 };

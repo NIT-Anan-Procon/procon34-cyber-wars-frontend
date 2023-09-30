@@ -1,83 +1,115 @@
-import styled, { css } from 'styled-components';
+import styled     from 'styled-components';
+
+import { colors } from '@/assets/styles';
 
 const _ResultUserCard= styled.div<{usertype: 'MYUSER' | 'OPPONENTUSER'}>`
-  display   : flex;
-  background: black;
-  opacity   : 0.7;
+  height    : 20rem;
+  width     : 60rem;
+  font-size : 3rem;
+  position  : relative;
+  background: transparent;
+`;
+
+const _UserNameWrapper= styled.div<{usertype: 'MYUSER' | 'OPPONENTUSER'}>`
+  height     : 10rem;
+  width      : 40rem;
+  position   : absolute;
+  bottom     : 15px;
+  right      : 0px;
+  display    : flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(100%);
+  z-index  : 10;
+
+  &::before,
+  &::after {
+    content : '';
+    position: absolute;
+    height  : 100%;
+    width   : 100%;
+  }
 
   &::before {
-    position: absolute;
-    content : '';
+    background: ${ colors.bgDarker };
+    clip-path : polygon(2% 6%, 98% 14%, 95% 91%, 5% 96%);
+    z-index: 2;
   }
 
-  ${(props) => props.usertype === 'MYUSER'
-    ? css`
-        height    : 30rem;
-        width     : 100rem;
-        font-size : 5rem;
-      `
-    : css`
-        height    : 20rem;
-        width     : 50rem;
-        font-size : 2rem;
-        transform : translateX(50%);
-      `
+  &::after {
+    background: ${ colors.bgLighter };
+    clip-path : polygon(0 0, 99% 0, 100% 100%, 3% 100%);
+    z-index: 1;
   }
-`;
-
-const _UserWrapper= styled.div`
-
-`;
-
-const _UserIconWrapper= styled.div`
-  height: 70%;
-  width : 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #464646;
-`;
-
-const UserIcon= styled.div`
-  width: 100%;
 `;
 
 const _UserName= styled.h1`
-  width    : 6em;
+  width      : 6rem;
   display    : flex;
   align-items: center;
   justify-content: center;
   font-size: 1.35em;
-  color    : white;
+  color    : ${ colors.bgLighter };
+  z-index  : 10;
 `;
 
 const _ResultScore= styled.div`
   height: 100%;
   width : 100%;
-  padding-left: 20px;
   position: relative;
-  display: flex;
+  display : flex;
   flex-direction : column;
   justify-content: center;
-  font-size: 1.5em;
-  color : white;
-  background: #808080;
-  
-  > span {
-    font-size: 0.75em;
+  color    : white;
+
+  &::before,
+  &::after {
+    content : '';
+    position: absolute;
+    height  : 100%;
+    width   : 100%;
   }
 
-  > h3 {
+  &::before {
+    background: ${ colors.bgDarker };
+    clip-path : polygon(2% 5%, 97% 6%, 96% 98%, 2% 96%);
+    z-index   : 2;
+  }
+  
+  &::after {
+    background: ${ colors.bgLighter };
+    clip-path : polygon(64% 1%, 100% 2%, 98% 100%, 0 100%, 0 3%);
+    z-index   : 1;
+  }
+
+
+  > span {
+    margin-top: 40px;
+    margin-left: 30px;
+    line-height: 1rem;
+    font-size: 5rem;
+    z-index  : 10;
+  }
+
+  > h1 {
     display: flex;
     justify-content: center;
-    font-size: 2em;
+    font-size: 12rem;
+    z-index: 10;
+  }
+
+  > p {
+    position : absolute;
+    right    : 40px;
+    bottom   : 20px;
+    font-size: 4rem;
+    z-index  : 10;
   }
 `;
 
 type ResultUserCardProps= {
   name    : string;
   score   : number;
-  result  : 'WIN' | 'LOSE';
   usertype: 'MYUSER' | 'OPPONENTUSER';
 };
 
@@ -85,21 +117,18 @@ export const ResultUserCard= (
   { 
     name, 
     score, 
-    result,
     usertype
   }: ResultUserCardProps
 ) => {
   return (
     <_ResultUserCard usertype={usertype} >
-      <_UserWrapper>
-        <_UserIconWrapper>
-          <UserIcon />
-        </_UserIconWrapper>
+      <_UserNameWrapper usertype={usertype} >
         <_UserName>{ name }</_UserName>        
-      </_UserWrapper>
+      </_UserNameWrapper>
       <_ResultScore>
         <span>Score</span>
-        <h3>{ score }</h3>
+        <h1>{ score }</h1>
+        <p>pt</p>
       </_ResultScore>
     </_ResultUserCard>
   );

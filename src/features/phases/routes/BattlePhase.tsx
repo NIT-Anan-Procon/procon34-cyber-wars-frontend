@@ -2,9 +2,14 @@ import styled from 'styled-components';
 
 import { 
   PhaseStatusContents,
-  PhaseLayout,  
+  PhaseLayout,
+  PhaseContentsWrapper,
+  PhaseContentForm,  
 } from '../components';
 import { PHASE, REDIRECT_PATHS } from '../types';
+import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
+import { EditArea, EditorWrapper } from '@/features/codeController';
+import { BATTLE_SEND_KEY_URL } from '@/features/sendFlag';
 
 const _PhaseContents= styled.div`
   height : 70vh;
@@ -19,35 +24,27 @@ export const BattlePhase= () => {
     <PhaseLayout title='バトルフェーズ'>
       <PhaseStatusContents
         phase      = { PHASE.BATTLE_PHASE }
-        targetTime = { 20 }
+        targetTime = { 30 }
         redirectUrl= { REDIRECT_PATHS.BATTLE_TO_RESULT }
       />
-    {/*
-      <_PhaseContents>
-        <Preview phase={ PHASE.BATTLE_PHASE } />
-        <PhaseContentsLayout >
-          <PhaseContentHead description={ DESCRIPTIONS.BATTLE_PHASE } />
-          <PhaseContentBody >
-            <EditArea phase={ PHASE.BATTLE_PHASE } />
-            <HintButton />
-            { isDrawerHint
-                ? <HintLayout
-                    title= {'ポイントを消費して、ヒントを閲覧'}
-                    body= {
-                      <HintList />
-                    }
-                />
-                : undefined         
-              }          
-          </PhaseContentBody>
-          <PhaseContentFoot>
-            <PhaseContentForm
-              id={ 'battle_sendKey' }
-              submitFnEndpoint={ BATTLE_SEND_KEY_URL }
-            />
-          </PhaseContentFoot>
-        </PhaseContentsLayout>        
-      </_PhaseContents> */}
+      <PhaseContentsWrapper
+        body={
+          <>
+            <WebViewerWrapper >
+              <WebViewer phase={ PHASE.BATTLE_PHASE } />
+            </WebViewerWrapper>
+            <EditorWrapper >
+              <EditArea phase={PHASE.BATTLE_PHASE }/>
+            </EditorWrapper>
+          </>
+        }
+        foot= {
+          <PhaseContentForm
+            id={ 'sendFlag' }
+            submitFnEndpoint={ BATTLE_SEND_KEY_URL }
+          />
+        }
+      />
     </PhaseLayout>
   );
 };

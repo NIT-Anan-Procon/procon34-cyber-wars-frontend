@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { Head } from '../Head';
 import { Header } from '../Elements';
-import { Grid } from './GridLayout';
 
 const _ContentLayout= styled.div`
   height : 20vh;

@@ -8,8 +8,7 @@ import {
 } from "../components";
 import { PHASE, REDIRECT_PATHS } from '../types';
 import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
-import { EditArea } from '@/features/codeController';
-import { HintButton, HintDrawer, HintListItemWrapper } from '@/features/hint';
+import { EditArea, EditorWrapper } from '@/features/codeController';
 import { isHintDrawerState } from '@/features/hint/states';
 import { Button } from '@/components/Elements';
 import { useSendCodeMutation } from '@/features/codeController/api/sendCode';
@@ -47,26 +46,24 @@ export const DefencePhase= () => {
     <PhaseLayout title='ディフェンスフェーズ'>
       <PhaseStatusContents 
         phase      = { PHASE.DEFENCE_PHASE }
-        targetTime = { 15 }
+        targetTime = { 1000 }
         redirectUrl= { REDIRECT_PATHS.DEFENCE_TO_BATTLE }
       />
       <PhaseContentsWrapper
-          body={
-            <>
-              <WebViewerWrapper >
-                <WebViewer phase={ PHASE.ATTACK_PHASE } />
-              </WebViewerWrapper>
+        body={
+          <>
+            <WebViewerWrapper >
+              <WebViewer phase={ PHASE.DEFENCE_PHASE } />
+            </WebViewerWrapper>
+            <EditorWrapper >
               <EditArea phase={PHASE.DEFENCE_PHASE}/>
-            </>
-          
-          }
-          foot= {
-            <Button>Send</Button>
-          }
-        />
-        
-
-
+            </EditorWrapper>
+          </>
+        }
+        foot= {
+          <_SendCodeButton>Send</_SendCodeButton>
+        }
+      />
     </PhaseLayout>
   );
 };

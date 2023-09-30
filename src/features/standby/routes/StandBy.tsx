@@ -1,8 +1,10 @@
 // import { authenticatedUserState, inviteIdState, isEnterRoomState, roomMemberInfo } from "@/atoms";
 // import { useNavigate } from "react-router-dom";
 // import { useRecoilValue } from "recoil";
-// import styled from "styled-components";
+import styled from "styled-components";
+import { CharacterStandbyCard } from "@/features/character";
 import { StandbyLayout } from "../components";
+import { GameRulesDescriptions, GameRulesLayout } from "@/features/gameRules";
 // import { StandbyUser } from "../components/StandbyUser";
 // import testIcon from '@/assets/images/attack_phase.svg';
 // import { Button } from "@/components/Elements";
@@ -35,6 +37,12 @@ import { StandbyLayout } from "../components";
 //   clip-path: ;
 // `;
 
+const _StandbyUsers= styled.div`
+  height: 100%;
+  width : 100%;
+  display: flex;
+`
+
 export const StandBy= () => {
   // const isJoinedRoom=  useRecoilValue(isEnterRoomState);
   // const authUserState= useRecoilValue( authenticatedUserState );
@@ -51,7 +59,20 @@ export const StandBy= () => {
   return (
     <>
       <StandbyLayout>
-z
+        <GameRulesLayout>
+          <GameRulesDescriptions />
+        </GameRulesLayout>
+        <_StandbyUsers>
+          <CharacterStandbyCard
+            userName= { 'kusaka' }
+            status  = { 'HOST' }
+          />
+          VS
+          <CharacterStandbyCard
+            userName= { 'kinoshita' }
+            status  = { 'GUEST' }
+          />          
+        </_StandbyUsers>
       </StandbyLayout>    
     </>
   );

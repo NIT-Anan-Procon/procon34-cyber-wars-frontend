@@ -1,9 +1,8 @@
 import { colors } from '@/assets/styles';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 const _HeaderContainer= styled.div`
-  height         : 100%;
+  height         : 18vh;
   width          : 100%;
   padding-top    : 3.5rem;
   position       : relative;
