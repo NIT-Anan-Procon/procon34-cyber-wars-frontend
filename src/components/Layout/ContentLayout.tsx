@@ -6,6 +6,9 @@ import { Header } from '../Elements';
 const _ContentLayout= styled.div`
   height : 20vh;
   width  : 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 type ContentLayoutProps= {
