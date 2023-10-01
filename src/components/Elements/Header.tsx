@@ -28,7 +28,7 @@ const _Header= styled.div`
   &::after {
     height  : 50%;
     width   : 100%;
-    bottom  : 0;
+    bottom  : -5px;
     background: black;
     clip-path: polygon(0 40%, 100% 0, 97% 98%, 3% 85%);
     transform: rotate( 1deg );
