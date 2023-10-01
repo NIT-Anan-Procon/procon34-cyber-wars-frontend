@@ -3,9 +3,13 @@ import styled from 'styled-components';
 import { colors } from '@/assets/styles';
 
 const _RadioButtonWrapper= styled.div`
-  display : inline-block;
+  display : flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   cursor  : pointer;
+  height  : 5rem;
+  width   : 100%;
 `;
 
 const _RadioButton= styled.input`
