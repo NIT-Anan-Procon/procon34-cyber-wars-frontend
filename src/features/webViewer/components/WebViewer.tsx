@@ -9,7 +9,12 @@ const _PreviewBox= styled.div<{ styles?: string }>`
   height     : 100%;
   border     : none;
   outline    : none;
+  position   : absolute;
+  display    : flex;
+  align-items: center;
+  justify-content: center;
   background : transparent;
+  z-index    : 2;
 
   ${(props) => props.styles};
 `;
@@ -17,6 +22,9 @@ const _PreviewBox= styled.div<{ styles?: string }>`
 const _Preview= styled.iframe`
   width      : 100%;
   height     : 100%;
+  z-index    : 9999;
+  clip-path: polygon(6% 6%, 94% 6%, 94% 94%, 6% 94%);
+
 `;
 
 type PreviewProps= {
