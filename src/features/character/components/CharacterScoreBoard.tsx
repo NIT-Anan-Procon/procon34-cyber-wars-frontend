@@ -5,16 +5,15 @@ import { colors } from '@/assets/styles';
 
 const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
   height     : 100%;
-  width      : 50vw;
-  padding    : 0 20px;
-  display    : grid;
-  grid-template-rows   : 30% 70%;
+  width      : 100vw;
+  padding-top: 10px;
   position   : relative;
-  margin-top : 10px; 
-  
+  display    : flex;
+  flex-direction: column;
+
   &::before {
-    height  : 50%;
-    width   : calc( 100% - 20px );
+    height  : 100%;
+    width   : 100%;
     content : '';
     position: absolute;
     bottom  : 0;  
@@ -22,17 +21,17 @@ const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
 
   ${(props) => props.status === 'HOST'
     ? css`
-        grid-template-columns: 20rem 1fr;
+        align-items: start;
         &::before {
-          /* clip-path: polygon(0 5%, 96% 0, 93% 100%, 0 75%);
-          background: #2F1FF6; */
+          clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+          background: #2F1FF6;
         }
       `
     : css`
-        grid-template-columns: 1fr 20rem;
+        align-items: end;
         &::before {
-          /* clip-path: polygon(4% 0, 100% 5%, 100% 75%, 7% 100%);
-          background: #CA1C1C; */
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%);
+          background: #CA1C1C;
         }
       `
   };
@@ -40,57 +39,97 @@ const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
   ${ ( props ) => props.styles }
 `;
 
-const _CharacterIconWrapper= styled.div<CharacterScoreBoardTransTypes>`
-  grid-row       : 1 / span 2;
-  height         : 15rem;
-  width          : 20rem;
-  position       : relative;
-  display        : flex;
+const _CharacterNameWrapper= styled.div<CharacterScoreBoardTransTypes>`
+  margin    : 0 20px;
+  height    : calc( 50% - 10px );
+  width     : 60%;
+  display   : flex;
+  align-items: center;
   justify-content: center;
-  background     : ${ colors.bgLighter };
-  z-index        : 0;
+  background: ${ colors.bgLighter };
+  clip-path: 
+    ${(props) => props.status === 'HOST' 
+        ? `polygon(0 0, 100% 16%, 97% 100%, 4% 100%)`
+        : `polygon(0 12%, 100% 0, 97% 100%, 3% 100%)`
+    };
+  z-index   : 100;
+`;
 
+const _CharacterName= styled.h1<CharacterScoreBoardTransTypes>`
+  font-size: 3.8rem;
+  z-index  : 999;
+    
   ${(props) => props.status === 'HOST'
       ? css`
-          grid-column: 1;
-          &::before {
-            content   : '';
-            position  : absolute;
-            height    : 100%;
-            width     : 100%;
-            background: #2b2b2b;
-            z-index   : -100;
-            transform: skew(3deg);
-          }
+          color: #2F1FF6;
+          transform: skew( 3deg );
         `
       : css`
-          grid-column: 2;
-          
-          /* &::before {
-            content   : '';
-            height    : 100%;
-            width     : 100%;
-            background: black;
-            z-index   : -100;
-          } */
-        `
+          color: #CA1C1C;
+          transform: skew( -3deg );
+      `
   };
 `;
 
-const _CharacterIcon= styled.img`
-  width      : 100%;
-  display    : flex;
+const _AddScore= styled.div<CharacterScoreBoardTransTypes>`
+  height: 8rem;
+  width : 15rem;
+  position: absolute;
+  display: flex;
   align-items: center;
   justify-content: center;
+  
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width : 100%;
+  };
+  ${(props) => props.status === 'HOST'
+    ? css`
+        right: 10%;
+        &::before {
+          background: black;
+          clip-path: polygon(10% 15%, 96% 4%, 90% 88%, 44% 78%, 28% 96%, 36% 73%, 4% 71%);
+          z-index: 200;
+        };
+        &::after {
+          background: ${ colors.bgLighter };
+          clip-path: polygon(6% 11%, 100% 0%, 94% 96%, 48% 82%, 24% 100%, 32% 77%, 0 75%);
+          z-index: 199;
+        };
+      `
+    : css`
+        left: 10%;
+        &::before {
+          background: black;
+          clip-path: polygon(4% 4%, 90% 15%, 96% 71%, 64% 73%, 72% 96%, 44% 78%, 10% 88%);
+          z-index: 200;
+        };
+        &::after {
+          background: ${ colors.bgLighter };
+          clip-path: polygon(0% 0%, 94% 11%, 100% 75%, 68% 77%, 76% 100%, 48% 82%, 6% 92%);
+          z-index: 199;
+        };
+      `
+  };
+
+  > span {
+    font-size: 2.75rem;
+    color: ${ colors.primary };
+    z-index: 1000;
+  };
 `;
 
 const _ScoreWrapper= styled.div<CharacterScoreBoardTransTypes>`
-  grid-row   : 2;
-  height     : 100%;
-  width      : 100%;
+  height     : 50%;
+  width      : 55%;
   display    : flex;
   align-items: center;
-  position   : relative;
+  justify-content: center;
+  position   : absolute;
+  bottom     : 10px;
   
   &::before {
     content   : ''; 
@@ -100,61 +139,24 @@ const _ScoreWrapper= styled.div<CharacterScoreBoardTransTypes>`
     height    : 100%;
     width     : 100%;
     background: black;
-    
   };
 
   ${(props) => props.status === 'HOST'
     ? css`
-        grid-column: 2;
-        justify-content: center;
+        right: 50%;
+        transform: translateX( 50% );
         &::before {
-          clip-path: polygon(0 5%, 96% 0, 100% 94%, 0 75%);
+          clip-path: polygon(0 0, 100% 0, 97% 100%, 4% 89%);
         }
       `
     : css`
-    grid-column: 1;
-        justify-content: center;
+        left: 50%;
+        transform: translateX( -50% );
         &::before {
-          clip-path: polygon(4% 0, 100% 0, 100% 75%, 6% 100%);
+          clip-path: polygon(0 0, 100% 0, 96% 89%, 3% 100%);
         }
       `
   }
-`;
-
-const _ScoreHead= styled.div<CharacterScoreBoardTransTypes>`
-  grid-row  : 1;
-  position  : absolute;
-  top       : -20px;
-  height    : 4.5rem;
-  width     : 100%;
-  display   : flex;
-  align-items: center;
-  justify-content: center;
-  background: black;
-  z-index   : 100;
-  
-  > h1 {
-    font-size: 2.5rem;
-    color    : #2F1FF6;
-    z-index  : 999;    
-  };
-
-  ${(props) => props.status === 'HOST'
-      ? css`
-          left     : 0px;
-          clip-path: polygon(0 25%, 100% 0%, 100% 100%, 0 100%);
-          > h1 {
-            color: #2F1FF6;
-          }
-        `
-      : css`
-          right: 0px;
-          clip-path: polygon(0 0, 100% 25%, 100% 100%, 0 100%);
-          > h1 {
-            color: #CA1C1C;
-          }
-        `
-    }
 `;
 
 const _Score= styled.h1`
@@ -167,32 +169,6 @@ const _Score= styled.h1`
     margin-left: 10px;
     font-size  : 3rem;
   }
-`;
-
-const _CharacterNameWrapper= styled.div<CharacterScoreBoardTransTypes>`
-  grid-row  : 1;
-  position  : absolute;
-  padding   : 5px;
-  height    : 6.5rem;
-  width     : 100%;
-  display   : flex;
-  bottom: 0;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,1));
-  z-index   : 100;
-`;
-
-const _CharacterName= styled.h1<CharacterScoreBoardTransTypes>`
-  font-size: 2.5rem;
-  color    : 
-    ${(props) => props.status === 'HOST'
-        ? '#2F1FF6'
-        : '#CA1C1C'
-    };
-  z-index  : 999;
-
-
 `;
 
 type CharacterScoreBoardProps= {
@@ -220,19 +196,13 @@ export const CharacterScoreBoard= (
 
   return (
     <_CharacterScoreBoardWrapper status={ status } styles={ styles } >
-      <_CharacterIconWrapper status={ status } >
-        <_CharacterIcon
-          src={''}
-          alt= { 'icon' }
-        />
-        <_CharacterNameWrapper status={ status } >
-          <_CharacterName status={ status } >{ userName }</_CharacterName>
-        </_CharacterNameWrapper>
-      </_CharacterIconWrapper>
+      <_CharacterNameWrapper status={ status } >
+        <_CharacterName status={ status } >{ userName }</_CharacterName>
+      </_CharacterNameWrapper>
+      <_AddScore status={ status } >
+        <span>{ '+20pt' }</span>
+      </_AddScore>
       <_ScoreWrapper status={ status } >
-        <_ScoreHead status={ status }>
-          <h1>Score</h1>
-        </_ScoreHead>
         <_Score>
           { status === 'HOST'
             ? scoresQuery.data[ SCORES_KEY ][0]
