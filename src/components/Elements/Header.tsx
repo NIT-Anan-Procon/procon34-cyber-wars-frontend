@@ -3,38 +3,43 @@ import styled from 'styled-components';
 import { colors } from '@/assets/styles';
 
 const _Header= styled.div`
-  width: 100vw;
-  height: 10rem;
-  display: flex;
-  justify-content: center;
+  width      : 40rem;
+  height     : 10rem;
+  position   : relative;
+  display    : flex;
   align-items: center;
-  font-size: 2.75rem;
-  color: ${colors.secondary};
-  position : relative;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: calc(50% - 120px);
-    transform: translate(-100%,-50%);
-    width: 80px;
-    height: 5px;
-    background: ${colors.primary};
-    border-radius: 10px;
-    box-shadow: 0px 3px 10px ${colors.primary};
-  }
+  justify-content: center;
+
+  &::before,
   &::after {
-    content: '';
+    content : '';
     position: absolute;
-    top: 50%;
-    left: calc(50% + 120px);
-    transform: translate(0,-50%);
-    width: 80px;
-    height: 5px;
-    background: ${colors.primary};
-    border-radius: 10px;
-    box-shadow: 0px 3px 10px ${colors.primary};
-  }
+  };
+
+  &::before {
+    bottom  : 20px;
+    height  : 3rem;
+    width   : 90%;
+    background: ${ colors.primary };
+    clip-path: polygon(0 44%, 100% 0, 97% 98%, 0 86%);
+    z-index   : 2;
+  };
+
+  &::after {
+    height  : 50%;
+    width   : 100%;
+    bottom  : 0;
+    background: black;
+    clip-path: polygon(0 40%, 100% 0, 97% 98%, 3% 85%);
+    transform: rotate( 1deg );
+    z-index   : 1;
+  };
+
+  > h1 {
+    font-size: 4rem;
+    color    : ${ colors.bgLighter };
+    z-index  : 100;
+  };
 `;
 
 type HeaderProps= {
@@ -43,6 +48,8 @@ type HeaderProps= {
 
 export const Header= ({ title }: HeaderProps) => {
   return (
-    <_Header>{title}</_Header>
+    <_Header>
+      <h1>{ title }</h1>
+    </_Header>
   );
 }
