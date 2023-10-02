@@ -1,36 +1,23 @@
 import { colors } from '@/assets/styles';
 import styled from 'styled-components';
-import { GameRuleContentWrapper } from '.';
+import { GameRuleContentWrapper, GameRuleSettingWrapper } from '.';
 import { RULES } from '../types/ruleDescriptions';
+import { PHASE } from '@/features/phases';
 
 const _GameRulesDescriptionsWrapper= styled.div`
   height: 100%;
   width : 100%;
   display: flex;
   flex-direction: column;
-  row-gap: 10%;
+  justify-content: center;
 `;
 
-const _RuleTitle= styled.div`
-  line-height  : 10rem;
-  width        : 100%;
-  border-bottom: 3px solid white;
-  background: transparent;
-
-  > span {
-    display  : block;
-    width    : 20rem;
-    text-align: center;
-    font-size: 3rem;
-    font-weight: 600;
-    color     : ${ colors.bgLighter };
-    background: black;
-  }
+const _GameRuleSettings= styled.div`
+  padding: 5px 40px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 `;
-
-type GameRulesDescriptionsProps= {
-
-};
 
 export const GameRulesDescriptions= () => {
   return (
@@ -42,9 +29,11 @@ export const GameRulesDescriptions= () => {
       <GameRuleContentWrapper
         ruleTitle={ '制限時間' }
       />
-      <> アタックフェーズ</>
-      <> ディフェンスフェーズ </>
-      <> バトルフェーズ </>
+      <_GameRuleSettings>
+        <GameRuleSettingWrapper phase={ PHASE.ATTACK_PHASE } role={ 'HOST' } />
+        <GameRuleSettingWrapper phase={ PHASE.DEFENCE_PHASE } role={ 'HOST' } />
+        <GameRuleSettingWrapper phase={ PHASE.BATTLE_PHASE }  role={ 'HOST' } />        
+      </_GameRuleSettings>
     </_GameRulesDescriptionsWrapper>
   );
 };

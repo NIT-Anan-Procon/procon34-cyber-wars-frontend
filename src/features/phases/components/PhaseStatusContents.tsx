@@ -4,6 +4,8 @@ import { USER_NAME_KEY, useAuthenticatedUserQuery } from '@/features/auth';
 import { CharacterScoreBoard } from '@/features/character';
 import { Timer, TimerWrapper } from '@/features/gameTimer';
 import { IS_HOST_KEY, OPPONENT_NAME_KEY, useFetchRoomInfoQuery } from '@/features/room';
+import { useRecoilValue } from 'recoil';
+import { settingTimeState } from '@/features/gameRules';
 
 const _PhaseStatusContentsLayout= styled.div`
   height: 18vh;
@@ -13,17 +15,17 @@ const _PhaseStatusContentsLayout= styled.div`
 
 type PhaseHeadContentsProps= {
   phase      : string;
-  targetTime : number;
   redirectUrl: string;
 };
 
 export const PhaseStatusContents= (
   { 
     phase,
-    targetTime,
     redirectUrl
   }: PhaseHeadContentsProps 
 ) => {
+  const targetTime= useRecoilValue( settingTimeState );
+
   const authUserQuery  = useAuthenticatedUserQuery({});
   const roomMemberQuery= useFetchRoomInfoQuery({});
 
@@ -46,7 +48,7 @@ export const PhaseStatusContents= (
 
       <TimerWrapper phase={ phase } >
         <Timer 
-          targetTime = { targetTime }
+          targetTime = { targetTime[ phase ] * 60 }
           redirectUrl= { redirectUrl }
         />
       </TimerWrapper>

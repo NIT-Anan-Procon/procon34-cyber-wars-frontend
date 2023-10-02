@@ -1,32 +1,31 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled   from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+
 
 import { Head } from "@/components/Head";
 import { SelectionCard } from "../components";
 import { Button, Header, IconButton } from "@/components/Elements";
-import { CARD_DESCRIPTION, MATCH_MODE_PATH, SETTINGS_PATH, TRAIN_MODE_PATH } from "..";
+import { CARD_DESCRIPTION, SETTINGS_PATH, TRAIN_MODE_PATH } from "..";
 import userIcon from '@/assets/images/user.svg';
 import { useModal } from '@/hooks/useModal';
 import { RoomSelectForm } from '@/features/room';
+import { colors } from '@/assets/styles';
+import trainigIcon from '@/assets/images/trainingIcon.png';
+import vsIcon from '@/assets/images/vsIcon.png';
 
 const SelectionGrid= styled.div`
   height : 100%;
   width  : 100%;
   padding: 3rem 20%;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows   : 10rem 1fr;
-  column-gap: 5rem;
-  row-gap   : 5rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 const HeaderContainer= styled.div`
   position       : relative;
-  grid-row       : 1;
-  grid-column    : 1 / span 2;
   width          : 100%;
-  height         : 100%;
+  height         : 18vh;
   display        : flex;
   justify-content: center;
   align-items    : center;
@@ -62,9 +61,11 @@ const NavItem= styled(Link)`
 `;
 
 const SelectionContainer= styled.div`
-height: 100%;
-  width: 100%;
+  height : 82vh;
+  width  : 100%;
   display: flex;
+  flex-direction : column;
+  align-items    : center;
   justify-content: center;
 `;
 
@@ -80,9 +81,9 @@ const MatchSelectionCard= styled(SelectionCard)`
 
 const DialogLayout=styled.dialog`
   padding: 0;
-  width  : 100vw;
+  height : 100vh;
+  width  : 60rem;
   border: none;
-  background: transparent;
   color: #000;
   height: fit-content;
   position: absolute;
@@ -91,21 +92,26 @@ const DialogLayout=styled.dialog`
   transform: translate(-50%, -50%);
 
   &::backdrop {
-    
     background-color: #000;
     opacity: 0.3;
   }
 `;
 
 const DialogContent= styled.div`
-  height: 100%;
-  width: 100%;
+  height: 40rem;
+  width : 60rem;
+  background: ${ colors.bgDarker };
+`;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 2rem;
+const $StartButton= styled(Button)`
+  height  : 8rem;
+  width   : 25rem;
+  position: absolute;
+  right   : 10%;
+  bottom  : -20px;
+  border-radius: 0;
+  font-size: 2.75rem;
+  clip-path: polygon(2% 6%, 96% 1%, 93% 100%, 5% 96%);
 `;
 
 export const ModeSelection= () => {
@@ -137,7 +143,7 @@ export const ModeSelection= () => {
               />
               { isNavOpen 
                 ? <NavList>
-                    <NavItem to={SETTINGS_PATH}>ユーザ設定</NavItem>
+                    <NavItem to={ SETTINGS_PATH }>ユーザ設定</NavItem>
                     <NavItem to='..' onClick={()=> console.log() } >Sign Out</NavItem>
                   </NavList>
                 : undefined
@@ -150,12 +156,12 @@ export const ModeSelection= () => {
           <TrainSelectionCard 
             id= {'train_mode'}
             title='訓練モード'
-            imgPath=''
+            imgPath={ trainigIcon }
             description={ CARD_DESCRIPTION.TRAIN_DESCRIPTION}
           >
-            <Button onClick={() => navigate(TRAIN_MODE_PATH)} >
+            <$StartButton onClick={() => navigate(TRAIN_MODE_PATH)} >
               Start Tutorial
-            </Button>
+            </$StartButton>
           </TrainSelectionCard>
         </SelectionContainer>  
 
@@ -163,12 +169,12 @@ export const ModeSelection= () => {
           <MatchSelectionCard 
             id={'match_mode'}
             title='対戦モード' 
-            imgPath=''
+            imgPath={ vsIcon }
             description={ CARD_DESCRIPTION.MATCH_DESCRIPTION }
           >
-            <Button type='button' onClick={ showModal }>
+            <$StartButton type='button' onClick={ showModal }>
               Start Game
-            </Button>
+            </$StartButton>
             <DialogLayout onClick={ closeModal } ref={ref}>
               <DialogContent onClick={stopPropagation}>
                 <RoomSelectForm onSuccess={() => navigate('games/standby')} />

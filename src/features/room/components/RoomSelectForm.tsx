@@ -1,23 +1,71 @@
 import styled from "styled-components";
 
-import { Form, FormTitle, InputField } from "@/components/Form"
+import { Form, InputField } from "@/components/Form"
 import { RoomIdSchema } from "../types";
 import { Button, RadioButton } from "@/components/Elements";
 import { useAtomValueChange } from "@/hooks/useAtomValueChange";
 import { ROOM_MODES } from "../types";
-import { CreateRoomResponseType, JoinRoomRequestType, JoinRoomResponseType, useCreateRoomMutation, useJoinRoomMutation } from "../api";
-import { useRecoilValue } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { JoinRoomRequestType, useCreateRoomMutation, useJoinRoomMutation } from "../api";
 import { roomModeState } from "../states";
+import { colors } from "@/assets/styles";
+
+const _RoomSelectForm= styled.div`
+  height : 100%;
+  width  : 100%;
+  padding: 4rem;
+  position: relative;
+  background: ${ colors.bgDarker };
+  display   : flex;
+  flex-direction: column;
+`;
+
+const _RoomSelectFormTitle= styled.div`
+  height: 8rem;
+  width : 100%;
+  text-align: center;
+  > h1 {
+    font-size: 4rem;
+    color    : ${  colors.bgLighter };
+  };
+`;
+
+const _RoomSelectFormContents= styled.div`
+  height: 100%;
+  width : 100%;
+  display: flex;
+  margin-top: 15%;
+`;
 
 const InputStyle= styled.div`
+  height: 100%;
+  width : 100%;
   position: relative;
 `;
 
-const InputFieldStyle= styled.div`
-  position: absolute;
-  width   : 30rem;
-  bottom  : -45px;
+const $StartButton= styled(Button)`
+  height  : 6rem;
+  width   : 20rem;
+  position: fixed;
+  right   : 10px;
+  bottom  : 10px;
+  border-radius: 0;
+  font-size: 2.75rem;
+  clip-path: polygon(2% 6%, 96% 1%, 93% 100%, 5% 96%);
+`;
+
+const RoomIdFormStyle= `
+  height: 5rem;
+  width : 100%;
+  background: transparent;
+  position:relative;
+`;
+
+const InputRoomIdStyle= `
+  position : absolute;
+  top      : 0%;
+  right    : 10px;
+  height   : 5rem;
+  width    : 30rem;
 `;
 
 type RoomSelectFormProps = {
@@ -30,8 +78,11 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
   const joinRoomMutation  = useJoinRoomMutation({});
 
   return (    
-    <>
-      <FormTitle title={ 'ルーム選択' } />
+    <_RoomSelectForm>
+      <_RoomSelectFormTitle>
+        <h1>{ 'ルーム選択' }</h1>
+      </_RoomSelectFormTitle>
+      <_RoomSelectFormContents >
         <RadioButton 
           id='create_room'
           label=' ルーム作成' 
@@ -56,22 +107,24 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
                   onSuccess()
                 }}
                 schema={RoomIdSchema}
+                styles={RoomIdFormStyle}
               >
                 {({ register, formState: { errors }}) => (
-                  <InputFieldStyle>
+                  <>
                     <InputField
                       id='roomId'
                       type='text'
                       size='medium'
                       error= {errors.roomId}
                       placeholder='ルームIDを入力してください。'
-                      registration= {register('roomId')} 
+                      registration= {register('roomId')}
+                      styles={ InputRoomIdStyle } 
                     />          
-                    <Button type='submit'>START</Button>
-                  </InputFieldStyle>
+                    <$StartButton type='submit'>START</$StartButton>
+                  </>
                 )}
               </Form>
-            : <Button 
+            : <$StartButton 
                 type='button' 
                 onClick={ async() => (
                   await createRoomMutation.mutateAsync(false),
@@ -79,9 +132,10 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
                 )} 
               > 
                 START
-              </Button>
+              </$StartButton>
           }         
-        </InputStyle>
-    </>
+        </InputStyle>        
+      </_RoomSelectFormContents>
+    </_RoomSelectForm>
   );
 };
