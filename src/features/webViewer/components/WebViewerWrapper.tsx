@@ -14,11 +14,11 @@ const _WebViewerWrapper= styled.div<{ phase: string }>`
     position: absolute;
     height: 100%;
     width: 100%;
-    background: 
-      ${(props) => props.phase === PHASE.DEFENCE_PHASE
+    background: black;
+      /* ${(props) => props.phase === PHASE.DEFENCE_PHASE
           ? `${ colors.blueAccent }`
           : `${ colors.danger }`
-      };
+      }; */
     clip-path: polygon(2% 3%, 98% 0, 96% 98%, 4% 98%);
     z-index  : 1;
   };
@@ -34,11 +34,11 @@ const _WebViewerHead= styled.div<{ phase: string }>`
   align-items: center;
   justify-content: center;
   transform: translateX(-50%);
-  background:
-    ${(props) => props.phase === PHASE.DEFENCE_PHASE
+  background: black;
+    /* ${(props) => props.phase === PHASE.DEFENCE_PHASE
       ? `${ colors.blueAccent }`
       : `${ colors.danger }`
-    };
+    }; */
   clip-path: polygon(3% 0, 100% 4%, 98% 97%, 5% 100%);
   z-index: 10;
 
