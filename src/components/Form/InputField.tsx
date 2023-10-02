@@ -31,6 +31,7 @@ type InputFieldProps = FieldWrapperPassThroughProps & {
 	styles?: string;
 	placeholder ?: string;
 	registration?: Partial<UseFormRegisterReturn>;
+	defaultValue?: string | number;
 };
 
 export const InputField = (
@@ -43,7 +44,8 @@ export const InputField = (
 		value,
 		placeholder,
 		error,
-		registration
+		registration,
+		defaultValue
 	}: InputFieldProps
 ) => {
 	return (
@@ -59,6 +61,7 @@ export const InputField = (
 				size  = { size }
 				styles= { styles }
 				placeholder={ placeholder}
+				defaultValue={ defaultValue }
 				{...registration}
 			/>
 		</FieldWrapper>
