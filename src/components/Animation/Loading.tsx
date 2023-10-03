@@ -2,18 +2,21 @@ import { colors } from "@/assets/styles";
 import styled from "styled-components";
 
 const _FullScreen= styled.div`
-  height: 100vh;
-  width : 100vw;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-width : 100vw;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: transparent;
 `;
 
 const _Loader= styled.div`
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
 
   &::before,
@@ -50,6 +53,7 @@ export const Loading= () => {
   return (
     <_FullScreen>
       <_Loader />
+      <h1>Now Loading...</h1>
     </_FullScreen>
   );
 };
