@@ -26,7 +26,8 @@ import {
   OPPONENT_NAME_KEY, 
   SCORES_KEY, 
   START_TIME_KEY, 
-  VULNERABILITIES_KEY 
+  VULNERABILITIES_KEY, 
+  GOAL_KEY
 } from '@/constants/responseKeys';
 
 export const gameHandlers= [
@@ -110,11 +111,13 @@ export const attackPhaseHandler= [
           [ CODE_PATH_KEY ]: 1,
           [ VULNERABILITIES_KEY ]: [
             {
+              [ GOAL_KEY ]      : "ログインしよう!!",
               [ CHOICES_KEY ]   : [ "'", "or", "1", "=", "1" ],
               [ HINT_KEY ]      : "4行目の",
               [ HINT_SCORE_KEY ]: -10
             },
             {
+              [ GOAL_KEY ]      : "ログインしてみよう!!",
               [ CHOICES_KEY ]   : [ "a", "b", "c", "c", "b" ],
               [ HINT_KEY ]      : "5行目の",
               [ HINT_SCORE_KEY ]: -20
