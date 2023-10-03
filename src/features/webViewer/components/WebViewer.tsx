@@ -4,12 +4,13 @@ import styled from 'styled-components';
 
 import { viewerRefState } from '../states/atom';
 
-const _PreviewBox= styled.div<{ styles?: string }>`
+const _Preview= styled.iframe<{ styles?: string }>`
   width      : 100%;
   height     : 100%;
+  z-index    : 9999;
   border     : none;
   outline    : none;
-  position   : absolute;
+  position   : relative;
   display    : flex;
   align-items: center;
   justify-content: center;
@@ -17,14 +18,6 @@ const _PreviewBox= styled.div<{ styles?: string }>`
   z-index    : 2;
 
   ${(props) => props.styles};
-`;
-
-const _Preview= styled.iframe`
-  width      : 100%;
-  height     : 100%;
-  z-index    : 9999;
-  clip-path: polygon(6% 6%, 94% 6%, 94% 94%, 6% 94%);
-
 `;
 
 type PreviewProps= {
@@ -46,10 +39,10 @@ export const WebViewer= (
   }, []);
 
   return (
-    <_PreviewBox styles={ styles } >
-      <_Preview
-        ref= { iframeRef } 
-        srcDoc={`<html>
+    <_Preview
+      ref= { iframeRef }
+      styles={ styles } 
+      srcDoc={`<html>
         <head>
           <style>
             /* CSSでページの見た目を整える */
@@ -60,7 +53,7 @@ export const WebViewer= (
         
             .container {
               width: 500px;
-              margin: 0 auto;
+              margin: 100px auto;
               padding: 20px;
               border: 1px solid black;
               background-color: white;
@@ -98,7 +91,6 @@ export const WebViewer= (
         </body>
         </html>`}
         // src= { getCodePath } 
-      /> 
-    </_PreviewBox>
+    /> 
   );
 };
