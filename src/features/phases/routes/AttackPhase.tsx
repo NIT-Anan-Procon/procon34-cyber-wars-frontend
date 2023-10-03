@@ -10,10 +10,7 @@ import {
 import { PHASE, REDIRECT_PATHS } from '../types';
 import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
 import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/vulnerabilities';
-import { useRecoilValue } from 'recoil';
-import { isHintDrawerState } from '@/features/hint/states/atom';
 import { ATTACK_SEND_KEY_URL } from '@/features/sendFlag';
-
 
 const _PhaseContents= styled.div`
   height : 70vh;
@@ -23,20 +20,16 @@ const _PhaseContents= styled.div`
 `;
 
 export const AttackPhase= () => {
-  const isDrawerHint= useRecoilValue( isHintDrawerState );
-  const [ text, setText ]= React.useState();
-
   return (
     <PhaseLayout title='アタックフェーズ'>
       <PhaseStatusContents 
         phase      = { PHASE.ATTACK_PHASE }
-        targetTime = { 100000 }
         redirectUrl= { REDIRECT_PATHS.ATTACK_TO_DEFENCE }
       />
       <PhaseContentsWrapper
         body={
           <>
-            <WebViewerWrapper >
+            <WebViewerWrapper phase={ PHASE.ATTACK_PHASE } >
               <WebViewer phase={ PHASE.ATTACK_PHASE } />
             </WebViewerWrapper>
             <VulnerabilitiesLayout >

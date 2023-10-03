@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { SCORES_KEY, useFetchScoresQuery } from '@/features/scores';
 import { colors } from '@/assets/styles';
+import { Loading } from '@/components/Animation';
 
 const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
   height     : 100%;
@@ -189,7 +190,7 @@ export const CharacterScoreBoard= (
   const scoresQuery= useFetchScoresQuery({});
 
   if( scoresQuery.isLoading ) {
-    return <>Loading</>
+    return <Loading />
   };
 
   if( !scoresQuery.data ) return null; 
