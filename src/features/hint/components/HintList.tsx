@@ -26,6 +26,13 @@ const _HintList= styled.ul`
   row-gap: 10px;
 `;
 
+const _HintListItem= styled.li`
+  height: 5rem;
+  width:100%;
+  display: flex;
+  align-items: center;
+  background: white;
+`;
 
 const $HintButton= styled(Button)`
   &:hover {

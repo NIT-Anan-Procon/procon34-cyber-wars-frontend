@@ -8,6 +8,7 @@ const _PhaseContentsLayout= styled.div`
   padding       : 10px 20px;
   display       : flex;
   flex-direction: column;
+  justify-content: center;
   row-gap       : 2rem;
   background    : ${ colors.bgDarker };
   font-size     : 1.5rem;
@@ -90,10 +91,10 @@ export const PhaseContentsWrapper= (
 ) => {
   return (
     <_PhaseContentsLayout>
-      <_PhaseContentHead>
+      {/* <_PhaseContentHead>
         <_HeadDescription>{ 'SQLインジェクションを使って、ログイン情報を抜き出そう!!'}</_HeadDescription>
       </_PhaseContentHead>
-      
+       */}
       <_PhaseContentBody >
         { body }
         {/* <HintLayout >

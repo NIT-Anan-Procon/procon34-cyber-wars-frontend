@@ -1,15 +1,16 @@
 import styled from 'styled-components';
-import { Lock } from '@mui/icons-material';
 
-import { Button } from '@/components/Elements';
 import { VULNERABILITIES_KEY, useFetchChallengeQuery } from '@/features/challenge';
+import { HintDrawerButton } from '.';
 
 const _HintButtonList= styled.ul`
+  margin : 20px;
   height : 100%;
-  width  : 100%;
+  width  : 5rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  column-gap: 10px;
+  row-gap: 20px;
   list-style: none;
 `;
 
@@ -30,9 +31,9 @@ export const HintButtonList= () => {
   return (
     <_HintButtonList>
       { 
-        vulnerabilities?.[ VULNERABILITIES_KEY ].map(( item, index ) => (
+        vulnerabilities?.[ VULNERABILITIES_KEY ].map(( item, index: number ) => (
           <_HintButtonListItem key={ index } >
-            <Button><Lock/></Button>
+            <HintDisplayDrawer id={ index } />
           </_HintButtonListItem>
         ))
       }

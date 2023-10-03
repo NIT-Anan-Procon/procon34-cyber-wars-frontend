@@ -82,7 +82,7 @@ const MatchSelectionCard= styled(SelectionCard)`
 const DialogLayout=styled.dialog`
   padding: 0;
   height : 100vh;
-  width  : 60rem;
+  width  : 40rem;
   border: none;
   color: #000;
   height: fit-content;
@@ -99,7 +99,7 @@ const DialogLayout=styled.dialog`
 
 const DialogContent= styled.div`
   height: 40rem;
-  width : 60rem;
+  width : 40rem;
   background: ${ colors.bgDarker };
 `;
 

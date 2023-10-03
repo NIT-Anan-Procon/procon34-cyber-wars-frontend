@@ -2,7 +2,7 @@ import { colors } from '@/assets/styles';
 import styled from 'styled-components';
 
 const _CharacterStandbyCard= styled.div<{status: 'HOST' | 'GUEST'}>`
-  height: 25rem;
+  height: 10rem;
   width : 40rem;
   position  : relative;
   display   : flex;
@@ -13,7 +13,7 @@ const _CharacterStandbyCard= styled.div<{status: 'HOST' | 'GUEST'}>`
     position : absolute;
     height   : 100%;
     width    : 100%;
-    clip-path: polygon(5% 3%, 96% 10%, 98% 89%, 1% 96%);
+    clip-path: polygon(2% 7%, 98% 5%, 95% 95%, 5% 97%);
     background: 
     ${(props) => props.status === 'HOST'
       ? `${ colors.blueAccent }`
@@ -23,7 +23,7 @@ const _CharacterStandbyCard= styled.div<{status: 'HOST' | 'GUEST'}>`
 `;
 
 const _StandbyStatus= styled.div<{status: 'HOST' | 'GUEST'}>`
-  height         : 8rem;
+  height         : 4rem;
   width          : 20rem;
   position       : absolute;
   top            : -15px;
@@ -31,7 +31,7 @@ const _StandbyStatus= styled.div<{status: 'HOST' | 'GUEST'}>`
   display        : flex;
   align-items    : center;
   justify-content: center;
-  clip-path      : polygon(0 0, 100% 15%, 98% 100%, 3% 100%);
+  //clip-path      : polygon(0 0, 100% 15%, 98% 100%, 3% 100%);
   background: 
     ${(props) => props.status === 'HOST'
       ? `${ colors.blueAccent }`
@@ -49,7 +49,7 @@ const _StandbyStatus= styled.div<{status: 'HOST' | 'GUEST'}>`
   };
 
   > span {
-    font-size: 3.75rem;
+    font-size: 2.75rem;
     color: ${ colors.bgLighter };
     transform : rotate(-3deg);
   };
@@ -72,15 +72,15 @@ const _StandbyUserName= styled.div<{status: 'HOST' | 'GUEST'}>`
     height    : 100%;
     width     : 100%;
     background: black;
-    clip-path : polygon(10% 5%, 95% 10%, 94% 90%, 2% 98%);
+    clip-path: polygon(2% 3%, 96% 7%, 97% 98%, 6% 97%);
     z-index   : 1;
   };
 
   > h1 {
-    line-height: 10rem;
-    font-size  : 5.5rem;
-    color      : ${ colors.bgLighter };
-    z-index    : 10;
+    height   : 5rem;
+    font-size: 5.5rem;
+    color    : ${ colors.bgLighter };
+    z-index  : 10;
   }
 `;
 

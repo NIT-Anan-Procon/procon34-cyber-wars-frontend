@@ -3,32 +3,22 @@ import styled from 'styled-components';
 import { colors } from '@/assets/styles';
 import { ContentHeader } from '@/components/Elements';
 import { PHASE } from '@/features/phases';
+import { GoalList, GoalListWrapper } from '@/features/goals';
 
 const _WebViewerWrapper= styled.div<{ phase: string }>`
-  height  : calc( 100% + 5rem );
+  height  : 73vh;
   width   : 50vw;
   position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background: black;
-      /* ${(props) => props.phase === PHASE.DEFENCE_PHASE
-          ? `${ colors.blueAccent }`
-          : `${ colors.danger }`
-      }; */
-    clip-path: polygon(2% 3%, 98% 0, 96% 98%, 4% 98%);
-    z-index  : 1;
-  };
+  display : flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const _WebViewerHead= styled.div<{ phase: string }>`
   height: 7rem;
   width: 40rem;
   position: absolute;
-  top: -20px;
+  top: -25px;
   left: 50%;
   display: flex;
   align-items: center;
@@ -60,6 +50,27 @@ const _WebViewerHead= styled.div<{ phase: string }>`
   };
 `;
 
+const _WebViewerContents= styled.div`
+  height  : 100%;
+  width   : 100%;
+  padding : 20px;
+  position: relative;
+  display : flex;
+  flex-direction : column;
+  align-items    : center;
+  justify-content: center;
+  row-gap: 25px;
+
+  &::before {
+    content : '';
+    position: absolute;
+    height  : 100%;
+    width   : 100%;
+    background: #000000;
+    z-index  : 1;
+  };
+`;
+
 type WebViewerWrapperProps= {
   phase   : string;
   children: React.ReactNode;
@@ -78,7 +89,12 @@ export const WebViewerWrapper= (
       <_WebViewerHead phase={ phase } >
         <span>{ webSite }</span>
       </_WebViewerHead>
-      { children }
+      <_WebViewerContents >
+        { children }
+        <GoalListWrapper>
+          <GoalList />
+        </GoalListWrapper>
+      </_WebViewerContents>
     </_WebViewerWrapper>
   );
 };

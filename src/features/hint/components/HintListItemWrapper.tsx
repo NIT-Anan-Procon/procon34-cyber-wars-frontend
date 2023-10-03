@@ -4,10 +4,10 @@ import { Lock } from '@mui/icons-material';
 
 
 const _HintListItemWrapper= styled.div`
-  width     : auto;
-  max-width : 40%;
-  height    : 5rem;
+  width     : 100%;
+  height    : 100%;
   display   : flex;
+  flex-direction: column;
   align-items    : center;
   justify-content: center;
   background: ${ colors.bgLighter };

@@ -2,14 +2,37 @@ import { colors } from '@/assets/styles';
 import styled from 'styled-components';
 
 const _GameRulesWrapper= styled.div`
-  height  : 100%;
-  width   : 100%;
-  padding : 10rem 10%;
-  position: relative; 
-  display : flex;
+  margin-left: 10%;
+  height     : 50rem;
+  width      : 80%;
+  min-width  : 60rem;
+  padding    : 5% 5%;
+  position   : relative; 
+  display    : flex;
   flex-direction: column;
-  align-items: center;
-  background: ${ colors.bgDarker };
+  align-items   : center;
+  
+  &::before {
+    content : '';
+    position: absolute;
+    top     : 0px;
+    height  : 100%;
+    width   : 100%;
+    background: ${ colors.bgLighter };
+    clip-path: polygon(0 0, 100% 3%, 98% 96%, 1% 100%);
+    z-index: 1;
+  };
+
+  &::after {
+    content : '';
+    position: absolute;
+    top     : 0px;
+    height  : 100%;
+    width   : 100%;
+    background: black;
+    clip-path: polygon(2% 7%, 98% 5%, 95% 95%, 5% 97%);
+    z-index: 1;
+  };
 `;
 
 const _RulesHead= styled.div`
