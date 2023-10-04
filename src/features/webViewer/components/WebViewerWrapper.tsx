@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import { colors } from '@/assets/styles';
-import { ContentHeader } from '@/components/Elements';
 import { PHASE } from '@/features/phases';
 import { GoalList, GoalListWrapper } from '@/features/goals';
 
@@ -25,10 +24,6 @@ const _WebViewerHead= styled.div<{ phase: string }>`
   justify-content: center;
   transform: translateX(-50%);
   background: black;
-    /* ${(props) => props.phase === PHASE.DEFENCE_PHASE
-      ? `${ colors.blueAccent }`
-      : `${ colors.danger }`
-    }; */
   clip-path: polygon(3% 0, 100% 4%, 98% 97%, 5% 100%);
   z-index: 10;
 
@@ -38,7 +33,11 @@ const _WebViewerHead= styled.div<{ phase: string }>`
     height: 5rem;
     width: 80%;
     z-index: 1;
-    background: black;
+    background: 
+      ${(props) => props.phase === PHASE.DEFENCE_PHASE
+        ? `#2F1FF6`
+        : `${ colors.redAccent }`
+      };
     clip-path: polygon(2% 76%, 97% 36%, 100% 97%, 0% 100%);
   };
 
