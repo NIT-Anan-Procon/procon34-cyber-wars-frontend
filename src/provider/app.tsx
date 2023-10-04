@@ -23,7 +23,7 @@ export const AppProvider= ({children}: AppProviderProps) => {
     <React.Suspense fallback={<Loading />} >
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
-          {/* {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />} */}
+          { process.env.NODE_ENV === 'development' && <ReactQueryDevtools /> }
           <RecoilRoot>
             <Suspense fallback={<Loading />}>
               <Router>{children}</Router>            
