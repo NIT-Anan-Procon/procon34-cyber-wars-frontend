@@ -19,20 +19,16 @@ const _PhaseContents= styled.div`
 `;
 
 export const BattlePhase= () => {
-
   return (
     <PhaseLayout title='バトルフェーズ'>
-      <PhaseStatusContents
+      <PhaseStatusContents 
         phase      = { PHASE.BATTLE_PHASE }
-        targetTime = { 30 }
         redirectUrl= { REDIRECT_PATHS.BATTLE_TO_RESULT }
       />
       <PhaseContentsWrapper
+        phase= { PHASE.BATTLE_PHASE }
         body={
           <>
-            <WebViewerWrapper >
-              <WebViewer phase={ PHASE.BATTLE_PHASE } />
-            </WebViewerWrapper>
             <EditorWrapper >
               <EditArea phase={PHASE.BATTLE_PHASE }/>
             </EditorWrapper>

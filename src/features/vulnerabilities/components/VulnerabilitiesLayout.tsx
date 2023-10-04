@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { VulnerabilitySelectedFeild, VulnerabilitySubmitButton } from '.';
 
 const _VulnerabilitiesLayout= styled.div`
-  height         : 100%;
+  padding-top: 10px;
+  height         : calc(100% - 8rem);
   width          : 50vw;
   display        : flex;
   flex-direction : column;
@@ -28,8 +29,8 @@ const _VulnerabilitiesBody= styled.div`
   padding        : 20px;
   justify-content: center;
   position       : relative;
-  background     : #01000a;
-  border-radius  : 10px;
+  background     : black;
+  border-radius  : 5px;
   overflow-y     : auto;
 `;
 

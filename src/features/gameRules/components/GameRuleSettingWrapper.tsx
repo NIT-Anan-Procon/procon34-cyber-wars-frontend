@@ -96,7 +96,7 @@ export const GameRuleSettingWrapper= (
         </_SettingIconWrapper>
         <_SettingTitle >{ phaseTitle }</_SettingTitle>        
       </_GameRuleContents>
-      <GameRuleEditForm phase={ phase } />
+      { children }
     </_GameRuleSettingsWrapper>
   );
 };

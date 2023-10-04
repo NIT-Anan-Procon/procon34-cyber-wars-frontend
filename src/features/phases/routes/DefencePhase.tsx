@@ -24,15 +24,11 @@ export const DefencePhase= () => {
         redirectUrl= { REDIRECT_PATHS.DEFENCE_TO_BATTLE }
       />
       <PhaseContentsWrapper
+        phase= { PHASE.DEFENCE_PHASE }
         body={
-          <>
-            <WebViewerWrapper phase={ PHASE.DEFENCE_PHASE } >
-              <WebViewer phase={ PHASE.DEFENCE_PHASE } />
-            </WebViewerWrapper>
-            <EditorWrapper >
-              <EditArea phase={PHASE.DEFENCE_PHASE}/>
-            </EditorWrapper>
-          </>
+          <EditorWrapper >
+            <EditArea phase={PHASE.DEFENCE_PHASE}/>
+          </EditorWrapper>
         }
         foot= {
           <_SendCodeButton>Send</_SendCodeButton>

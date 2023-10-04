@@ -27,11 +27,9 @@ export const AttackPhase= () => {
         redirectUrl= { REDIRECT_PATHS.ATTACK_TO_DEFENCE }
       />
       <PhaseContentsWrapper
+        phase= { PHASE.ATTACK_PHASE }
         body={
           <>
-            <WebViewerWrapper phase={ PHASE.ATTACK_PHASE } >
-              <WebViewer phase={ PHASE.ATTACK_PHASE } />
-            </WebViewerWrapper>
             <VulnerabilitiesLayout >
               <VulnerabilityCheckList />
             </VulnerabilitiesLayout>                
