@@ -1,6 +1,6 @@
 import { colors } from '@/assets/styles';
 import styled from 'styled-components';
-import { GameRuleContentWrapper, GameRuleSettingWrapper } from '.';
+import { GameRuleContentWrapper, GameRuleEditForm, GameRuleSettingWrapper } from '.';
 import { RULES } from '../types/ruleDescriptions';
 import { PHASE } from '@/features/phases';
 
@@ -30,9 +30,15 @@ export const GameRulesDescriptions= () => {
         ruleTitle={ '制限時間' }
       />
       <_GameRuleSettings>
-        <GameRuleSettingWrapper phase={ PHASE.ATTACK_PHASE } role={ 'HOST' } />
-        <GameRuleSettingWrapper phase={ PHASE.DEFENCE_PHASE } role={ 'HOST' } />
-        <GameRuleSettingWrapper phase={ PHASE.BATTLE_PHASE }  role={ 'HOST' } />        
+        <GameRuleSettingWrapper phase={ PHASE.ATTACK_PHASE } >
+          <GameRuleEditForm phase={ PHASE.ATTACK_PHASE } />
+        </GameRuleSettingWrapper>
+        <GameRuleSettingWrapper phase={ PHASE.DEFENCE_PHASE } >
+          <GameRuleEditForm phase={ PHASE.DEFENCE_PHASE } />
+        </GameRuleSettingWrapper>
+        <GameRuleSettingWrapper phase={ PHASE.BATTLE_PHASE } >
+          <GameRuleEditForm phase={ PHASE.BATTLE_PHASE } />
+        </GameRuleSettingWrapper>        
       </_GameRuleSettings>
     </_GameRulesDescriptionsWrapper>
   );
