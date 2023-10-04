@@ -6,6 +6,7 @@ import { colors } from '@/assets/styles/colors';
 import { cautionText } from '../types/description';
 
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import cautionIcon from '@/assets/images/cautionIcon.svg';
 
 type AuthLayoutProps= {
   title   : string,
@@ -21,22 +22,25 @@ const GridLayout= styled.div`
 
 const ImageContents= styled.div`
   grid-column    : 1;
-  padding        : 5rem 0rem 5rem 5rem;
+  padding        : 10rem;
   height         : 100%;
-  width          : 100%;  
+  width          : 100%;
+
+  > img {
+    height: 100px;
+    width: 100px;
+  } 
 `;
 
 const ContentsWrapper= styled.div`
   width          : 100%;
   height         : 100%;
-  padding        : 10rem 10rem;
   display        : flex;
   flex-direction : column;
   align-items    : center;
+  justify-content: center;
   row-gap        : 6rem;
-  background     : ${ colors.bgLighter };
-  border-radius  : 1rem;
-  box-shadow     : 0px 0px 10px 3px #3a3a3a inset;
+  background     : transparent;
 `;
 
 const _CautionTitle= styled.h1`
@@ -49,7 +53,7 @@ const _CautionTitle= styled.h1`
 
 const _CautionText= styled.p`
   font-size: 2rem;
-  color    : #616161;
+  color    : ${ colors.bgLighter };
   font-weight: 500;
 `;
 
@@ -61,16 +65,7 @@ const FormContainer= styled.div`
   display       : flex;
   flex-direction: column;
   align-items   : center;
-  row-gap       : 2rem;
-`;
-
-const LogoArea= styled.div` 
-  width          : 50%;
-  height         : 10%;
-  display        : flex;
   justify-content: center;
-  align-items    : center;
-  background     : grey;
 `;
 
 export const AuthPageLayout= ({ title, children }: AuthPageLayoutProps) => {
@@ -88,15 +83,10 @@ export const AuthPageLayout= ({ title, children }: AuthPageLayoutProps) => {
                 <_CautionText key={index} >{ text }</_CautionText>
               ))
             }
-          <div>
-            image
-          </div>
+            <img src={ cautionIcon } style={{ width:'30rem' }}/>
           </ContentsWrapper>
         </ImageContents>
         <FormContainer>
-          <LogoArea>
-            logo
-          </LogoArea>
           {children}
         </FormContainer>
       </GridLayout>    

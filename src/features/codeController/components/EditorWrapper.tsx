@@ -2,29 +2,31 @@ import { colors } from '@/assets/styles';
 import styled from 'styled-components';
 
 const _EditorWrapper= styled.div`
-  height: 100%;
+  height: calc(100% - 8rem);
   width : 50vw;
+  padding: 10px;
   display        : flex;
   flex-direction : column;
   align-items    : center;
   justify-content: center;
-  background     : transparent;
-  overflow: auto;
+  background     :  transparent; 
+  border         : 1px solid grey;
+  overflow       : auto;
 `;
 
 const _EditorHead= styled.div`
-  line-height: 3rem;
+  line-height: 5rem;
   width      : 100%;
   background : transparent;
 
   > span {
     display    : block;
-    line-height: 3rem;
+    line-height: 4rem;
     width      : 10rem;
     font-size  : 1.75rem;
     color      : ${ colors.bgLighter };
     text-align : center;
-    background : ${ colors.blueAccent };
+    background : black;
     clip-path: polygon(0 0, 100% 5%, 99% 100%, 2% 100%);
   }
 `;

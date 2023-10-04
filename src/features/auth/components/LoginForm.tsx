@@ -12,7 +12,8 @@ const ContentAreaWrapper= styled.div`
   display       : flex;
   flex-direction: column;
   align-items   : center;
-  row-gap       : 2.75rem;
+  justify-content: center;
+  row-gap       : 3.75rem;
 `;
 
 const NavDiscription= styled.p`
@@ -22,6 +23,10 @@ const NavDiscription= styled.p`
   font-size   : 1.5rem;
   color       : ${colors.secondary};
   word-spacing: 0.35rem;
+`;
+
+const $SubmitButton= styled(Button)`
+  margin-top: 3rem;
 `;
 
 type LoginFormProps = {
@@ -60,7 +65,7 @@ export const LoginForm = ({onSuccess}: LoginFormProps) => {
                 error= { errors.password }
                 registration= { register('password') }
               />
-              <Button type="submit">Login</Button>        
+              <$SubmitButton type="submit">Sign In</$SubmitButton>        
             </ContentAreaWrapper>         
           </>
         )}

@@ -15,7 +15,7 @@ const ContentAreaWrapper= styled.div`
   display       : flex;
   flex-direction: column;
   align-items   : center;
-  row-gap       : 2.75rem;
+  row-gap       : 3.75rem;
 `;
 
 const NavDiscription= styled.p`
@@ -25,6 +25,10 @@ const NavDiscription= styled.p`
   font-size   : 1.5rem;
   color       : ${colors.secondary};
   word-spacing: 0.35rem;
+`;
+
+const $SubmitButton= styled(Button)`
+  margin-top: 3rem;
 `;
 
 export const RegisterForm = ({onSuccess}: RegisterFormProps) => {
@@ -41,7 +45,7 @@ export const RegisterForm = ({onSuccess}: RegisterFormProps) => {
     >
       {({ register, formState:{errors} }) => (
         <>
-          <FormTitle title={ 'Create Account' } />
+          <FormTitle title={ 'Sign Up' } />
           <ContentAreaWrapper>
             <InputField
               id   = { 'userName' }        
@@ -59,13 +63,13 @@ export const RegisterForm = ({onSuccess}: RegisterFormProps) => {
               error= { errors.password }
               registration= { register('password') }
             />
-            <Button type="submit">Create Account</Button>        
+            <$SubmitButton type="submit">Sign Up</$SubmitButton>        
           </ContentAreaWrapper>         
         </>
       )}</Form>
       <NavDiscription >
         Already have an account? 
-        <Link to='../login'>Create Account</Link>
+        <Link to='../login'>Sign In</Link>
       </NavDiscription>
     </>
   );

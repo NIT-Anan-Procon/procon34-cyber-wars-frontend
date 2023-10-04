@@ -2,7 +2,7 @@ import { colors } from '@/assets/styles';
 import styled from 'styled-components';
 
 const _CharacterStandbyCard= styled.div<{status: 'HOST' | 'GUEST'}>`
-  height: 10rem;
+  height: 12rem;
   width : 40rem;
   position  : relative;
   display   : flex;
@@ -16,17 +16,17 @@ const _CharacterStandbyCard= styled.div<{status: 'HOST' | 'GUEST'}>`
     clip-path: polygon(2% 7%, 98% 5%, 95% 95%, 5% 97%);
     background: 
     ${(props) => props.status === 'HOST'
-      ? `${ colors.blueAccent }`
-      : `${ colors.danger }`
+      ? `#2F1FF6`
+      : `${ colors.redAccent }`
     };
   };
 `;
 
 const _StandbyStatus= styled.div<{status: 'HOST' | 'GUEST'}>`
-  height         : 4rem;
-  width          : 20rem;
+  height         : 6rem;
+  width          : 15rem;
   position       : absolute;
-  top            : -15px;
+  top            : -30px;
   left           : 0px;
   display        : flex;
   align-items    : center;
@@ -34,8 +34,8 @@ const _StandbyStatus= styled.div<{status: 'HOST' | 'GUEST'}>`
   //clip-path      : polygon(0 0, 100% 15%, 98% 100%, 3% 100%);
   background: 
     ${(props) => props.status === 'HOST'
-      ? `${ colors.blueAccent }`
-      : `${ colors.danger }`
+      ? `#2F1FF6`
+      : `${ colors.redAccent }`
     };
   z-index: 10;
 
@@ -77,8 +77,8 @@ const _StandbyUserName= styled.div<{status: 'HOST' | 'GUEST'}>`
   };
 
   > h1 {
-    height   : 5rem;
-    font-size: 5.5rem;
+    height   : calc( 100% - 6rem);
+    font-size: 4.5rem;
     color    : ${ colors.bgLighter };
     z-index  : 10;
   }

@@ -40,7 +40,7 @@ const _CheckBox= styled.input`
           background: ${ colors.primary };
         `
       : css`
-        background: #4a4a4a;
+        background: ${ colors.bgLighter };
         `
     }    
   }
