@@ -1,62 +1,44 @@
-import React from 'react';
+import { colors } from '@/assets/styles';
 import styled from 'styled-components';
 
-import { colors } from '@/assets/styles';
-import { useDisclosure } from '@/hooks/useDisclosure';
-import { Button } from '@/components/Elements';
-import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
-
 const _HintLayout= styled.div`
-  height    : 100%;
-  width     : 10rem;
-  background: transparent;
-  position  : relative;
-  z-index   : 999;
+  height: calc( 100% - 8rem );
+  width : 50%;
+
 `;
 
-const _HintHead= styled.div`
-  height  : 10rem;
-  width   : 18rem;
+const _HintLayoutTitle= styled.div`
+  height  : 4rem;
+  width   : 100%;
   display : flex;
-  align-items: center;
   justify-content: center;
-  position  : fixed;
-  background: ${ colors.primary };
-  color     :black;
-  top       : 18vh;
-  right     : 0;
-  font-size : 2.6rem;
-  clip-path : polygon(0 0, 100% 0, 100% 100%, 11% 92%);
+
+  > h1 {
+    font-size: 2rem;
+    color    : ${ colors.bgLighter };
+    z-index  : 100;
+  }
 `;
 
 const _HintLayoutBody= styled.div`
-  height    : auto;
-  width     : 12rem;
-  background: black;
-  position  : relative;
-  display   : flex;
-  justify-content: center;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 97%);
-  z-index  : -1;
+  height: 100%;
+  width : 100%;
+  border: 3px solid ${ colors.primary };
+  border-radius: 5px;
 `;
 
 type HintLayoutProps= {
-  children: React.ReactNode;
+  title: string;
+  body : React.ReactNode;
 };
 
-export const HintLayout= (
-  {
-    children
-  }: HintLayoutProps
-) => {
-
+export const HintLayout= ({ title, body }: HintLayoutProps) => {
   return (
     <_HintLayout>
-      <_HintHead>
-        <PriorityHighIcon style={{ fontSize: '2.6rem' }} />
-        HINT
-      </_HintHead>
-      <_HintLayoutBody >{ children }</_HintLayoutBody>
+      {/* <_HintLayoutTitle>
+        <h1>{ title }</h1>
+      </_HintLayoutTitle> */}
+      <_HintLayoutBody>{ body }</_HintLayoutBody>
     </_HintLayout>
   );
 };

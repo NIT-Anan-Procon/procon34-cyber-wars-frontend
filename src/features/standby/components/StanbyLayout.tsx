@@ -17,10 +17,12 @@ const _StandbyLayout= styled.div`
 const _StandbyContents= styled.div`
   height : 100%;
   width  : 100%;
+  padding: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${ colors.bgDarker };
+  background: transparent;
+  column-gap: 40px;
 `; 
 
 type StandByLayoutProps= {

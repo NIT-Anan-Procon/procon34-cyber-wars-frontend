@@ -24,17 +24,6 @@ const _RuleTitle= styled.div`
     font-weight: 600;
     color     : ${ colors.bgLighter };
     z-index   : 100;
-    
-    &::before{
-      content   : '';
-      position  : absolute;
-      left      : -20px;
-      width     : calc( 100% + 40px );
-      height    : 100%;
-      background: #4d4d4d;
-      clip-path : polygon(15% 5%, 98% 18%, 97% 100%, 0 100%);
-      z-index   : -1;
-    }
   }
 `; 
 

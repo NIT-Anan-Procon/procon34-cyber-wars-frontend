@@ -11,8 +11,9 @@ import userIcon from '@/assets/images/user.svg';
 import { useModal } from '@/hooks/useModal';
 import { RoomSelectForm } from '@/features/room';
 import { colors } from '@/assets/styles';
-import trainigIcon from '@/assets/images/trainingIcon.png';
-import vsIcon from '@/assets/images/vsIcon.png';
+import trainigIcon from '@/assets/images/trainingIcon.svg';
+import vsIcon from '@/assets/images/vsIcon.svg';
+import { Person } from '@mui/icons-material';
 
 const SelectionGrid= styled.div`
   height : 100%;
@@ -103,7 +104,12 @@ const DialogContent= styled.div`
   background: ${ colors.bgDarker };
 `;
 
-const $StartButton= styled(Button)`
+const $IconButton= styled(Button)`
+  height: 60px;
+  width: 60px;
+`;
+
+const $StartButton= styled(Button)<{ mode?: string }>`
   height  : 8rem;
   width   : 25rem;
   position: absolute;
@@ -112,6 +118,20 @@ const $StartButton= styled(Button)`
   border-radius: 0;
   font-size: 2.75rem;
   clip-path: polygon(2% 6%, 96% 1%, 93% 100%, 5% 96%);
+  color: white;
+  background:
+      ${(props) => props.mode==='train'
+        ? `${colors.primary}`
+        : `${colors.danger}`
+      };
+  &:hover{
+    transform: scale(1.2);
+    background:
+      ${(props) => props.mode==='train'
+        ? `${colors.primary}`
+        : `${colors.danger}`
+      };
+  }
 `;
 
 export const ModeSelection= () => {
@@ -137,10 +157,9 @@ export const ModeSelection= () => {
           <Header title='モード選択'/>
           <IconButtonWrapper>
             <div style={{position: 'relative'}}>
-              <IconButton 
-                icon={ userIcon }
+              <$IconButton 
                 onClick={ handleNavOpen }
-              />
+              > <Person style={{ fontSize: '1.8rem' }} /></$IconButton>
               { isNavOpen 
                 ? <NavList>
                     <NavItem to={ SETTINGS_PATH }>ユーザ設定</NavItem>
@@ -154,12 +173,15 @@ export const ModeSelection= () => {
 
         <SelectionContainer>
           <TrainSelectionCard 
-            id= {'train_mode'}
+            id= {'train'}
             title='訓練モード'
             imgPath={ trainigIcon }
             description={ CARD_DESCRIPTION.TRAIN_DESCRIPTION}
           >
-            <$StartButton onClick={() => navigate(TRAIN_MODE_PATH)} >
+            <$StartButton
+              mode={'train'}
+              onClick={() => navigate(TRAIN_MODE_PATH)}
+            >
               Start Tutorial
             </$StartButton>
           </TrainSelectionCard>
@@ -167,12 +189,16 @@ export const ModeSelection= () => {
 
         <SelectionContainer>
           <MatchSelectionCard 
-            id={'match_mode'}
+            id={'match'}
             title='対戦モード' 
             imgPath={ vsIcon }
             description={ CARD_DESCRIPTION.MATCH_DESCRIPTION }
           >
-            <$StartButton type='button' onClick={ showModal }>
+            <$StartButton 
+              type='button' 
+              mode={ 'match' }
+              onClick={ showModal }
+            >
               Start Game
             </$StartButton>
             <DialogLayout onClick={ closeModal } ref={ref}>

@@ -1,64 +1,23 @@
 import styled     from 'styled-components';
 import { colors } from '@/assets/styles';
-import { HintButtonList, HintLayout } from '@/features/hint';
+import { HintButtonList, HintDisplayDrawer, HintLayout, HintList } from '@/features/hint';
+import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
 
 const _PhaseContentsLayout= styled.div`
-  height        : 82vh;
-  width         : 100%;
-  padding       : 10px 20px;
-  display       : flex;
-  flex-direction: column;
+  height         : 82vh;
+  width          : 100%;
+  padding        : 20px 20px;
+  display        : flex;
   justify-content: center;
-  row-gap       : 2rem;
-  background    : ${ colors.bgDarker };
-  font-size     : 1.5rem;
-`;
-
-const _PhaseContentHead= styled.div`
-  height     : 6.5rem;
-  width      : 100%;
-  position   : relative;
-  display    : flex;
-  align-items: center;
-  justify-content: center;
-
-  &::before,
-  &::after {
-    content : '';
-    position: absolute;
-    width   : 100rem;
-    height  : 100%;
-  };
-
-  &::before {
-    background: black;
-    clip-path : polygon(0 0, 100% 3%, 99% 100%, 1% 97%);
-    z-index   : 2;
-  };
-`;
-
-const _HeadDescription= styled.h1`
-  position   : relative;
-  font-size  : 2.1rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color      : ${ colors.bgLighter };
-  z-index    : 100;
-
-  &::before {
-    content   : '';
-    position  : absolute;
-    bottom    : -3px;
-    height    : 2rem;
-    width     : 100%;
-    background: ${ colors.primary };
-    clip-path : polygon(0 71%, 100% 6%, 98% 100%, 2% 100%);
-    z-index   : -1;
-  };
+  align-items    : center;
+  column-gap     : 2rem;
+  background     : ${ colors.bgDarker };
+  font-size      : 1.5rem;
 `;
 
 const _PhaseContentBody= styled.div`
-  height       : calc( 100% - 20rem );
-  width        : 100%;
+  height       : 100%;
+  width        : 50vw;
   position     : relative;
   display      : flex;
   column-gap   : 10px;
@@ -67,41 +26,47 @@ const _PhaseContentBody= styled.div`
 `;
 
 const _PhaseContentFoot= styled.div`
-  height     : 8rem;
+  height     : 10rem;
   width      : 100%;
-  position   : relative;
+  position   : absolute;
   bottom     : 0;
+  right      : 20px;
   display    : flex;
   align-items: center;
-  background : ${ colors.bgDarker };
+  background : transparent;
+  clip-path: polygon(0 0, 100% 11%, 100% 97%, 0 100%);
 `;
 
 type PhaseContentsLayoutProps= {
-  header?: string;
+  phase : string;
   body  : React.ReactNode;
   foot  : React.ReactNode;
 };
 
 export const PhaseContentsWrapper= (
   { 
-    header,
+    phase,
     body,
     foot
   }: PhaseContentsLayoutProps
 ) => {
   return (
     <_PhaseContentsLayout>
-      {/* <_PhaseContentHead>
-        <_HeadDescription>{ 'SQLインジェクションを使って、ログイン情報を抜き出そう!!'}</_HeadDescription>
-      </_PhaseContentHead>
-       */}
+      <WebViewerWrapper phase={ phase } >
+        <WebViewer phase={ phase } />
+      </WebViewerWrapper>
       <_PhaseContentBody >
         { body }
-        {/* <HintLayout >
-          <HintButtonList />
-        </HintLayout>           */}
+        <HintDisplayDrawer >
+          <HintLayout
+            title= {'ポイントを消費して、ヒントを閲覧'}
+            body= {
+              <HintList />
+            }
+          />
+        </HintDisplayDrawer>          
       </_PhaseContentBody>
-      <_PhaseContentFoot>{ foot }</_PhaseContentFoot>
+      <_PhaseContentFoot >{ foot }</_PhaseContentFoot>
     </_PhaseContentsLayout>
   );
 };  

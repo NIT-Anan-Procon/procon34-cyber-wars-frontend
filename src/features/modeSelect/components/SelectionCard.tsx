@@ -1,9 +1,8 @@
-import { Button } from '@/components/Elements';
 import { colors } from '@/assets/styles';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const _SelectionCard= styled.div`
+const _SelectionCard= styled.div<{ mode?: string }>`
   width : 100%;
   height: 30vh;
   position: relative;
@@ -30,7 +29,11 @@ const _SelectionCard= styled.div`
   };
 
   &::after {
-    background: ${ colors.bgLighter };
+    background:
+      ${(props) => props.mode==='train'
+        ? `${colors.primary}`
+        : `${colors.danger}`
+      };
     z-index   : -2;
     clip-path: polygon(0 10%, 100% 3%, 97% 100%, 4% 96%);
   };
@@ -42,7 +45,7 @@ const _SelectionCardContainer= styled.div`
   display: flex;
 `;
 
-const _SelectionCardTitle= styled.div`
+const _SelectionCardTitle= styled.div<{ mode?: string }>`
   height         : 8rem;
   width          : 30rem;
   position       : absolute;
@@ -60,21 +63,25 @@ const _SelectionCardTitle= styled.div`
     position: absolute;
   };
 
-  &::before {
-    background: ${ colors.bgLighter };
+  &::before { 
+    background: black;
     clip-path : polygon(5% 8%, 93% 14%, 95% 88%, 10% 90%);
     z-index: 2;
   };
 
   &::after{
-    background: black;
+    background:
+      ${(props) => props.mode==='train'
+        ? `${colors.primary}`
+        : `${colors.danger}`
+      };
     clip-path: polygon(3% 5%, 100% 0%, 97% 100%, 6% 95%);
     z-index  : 1;
   }
 
   > h1 {
     font-size: 3rem;
-    color    : ${ colors.bgDarker };
+    color    : ${ colors.bgLighter };
     z-index  : 10;
   }
 `;
@@ -107,18 +114,6 @@ const _SelectionCardDescription= styled.div`
     height  : 100%;
     width   : 100%;
   };
-/* 
-  &::before {
-    background: #000000;
-    clip-path: polygon(4% 0, 97% 7%, 100% 92%, 0 95%);
-    z-index: -2;
-  };
-
-  &::after {
-    background: #ffffff;
-    clip-path: polygon(0 0, 100% 6%, 99% 92%, 2% 90%);
-    z-index: -1;
-  }; */
 
   > p {
     font-size   : 1.8rem;
@@ -139,6 +134,7 @@ type SelectionCardProps= {
 
 export const SelectionCard= (
   { 
+    id,
     title, 
     imgPath, 
     description,
@@ -148,9 +144,9 @@ export const SelectionCard= (
   const navigate= useNavigate();
 
   return (
-    <_SelectionCard >
+    <_SelectionCard mode={id} >
       <_SelectionCardContainer>
-        <_SelectionCardTitle>
+        <_SelectionCardTitle mode={id} >
           <h1>{title}</h1>
         </_SelectionCardTitle>
         <_ImageContainer>
