@@ -12,7 +12,7 @@ import { colors } from "@/assets/styles";
 const _RoomSelectForm= styled.div`
   height : 100%;
   width  : 100%;
-  padding: 4rem;
+  padding: 4rem 10%;
   position: relative;
   background: ${ colors.bgDarker };
   display   : flex;
@@ -33,7 +33,7 @@ const _RoomSelectFormContents= styled.div`
   height: 100%;
   width : 100%;
   display: flex;
-  margin-top: 15%;
+  margin-top: 20%;
 `;
 
 const InputStyle= styled.div`
@@ -43,13 +43,13 @@ const InputStyle= styled.div`
 `;
 
 const $StartButton= styled(Button)`
-  height  : 6rem;
+  height  : 5rem;
   width   : 20rem;
   position: fixed;
   right   : 10px;
   bottom  : 10px;
   border-radius: 0;
-  font-size: 2.75rem;
+  font-size: 2rem;
   clip-path: polygon(2% 6%, 96% 1%, 93% 100%, 5% 96%);
 `;
 
