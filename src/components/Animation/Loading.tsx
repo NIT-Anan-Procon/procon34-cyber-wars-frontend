@@ -10,7 +10,17 @@ const _FullScreen= styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: transparent;
+
+  z-index: 9999;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width : 100%;
+    background: ${ colors.bgDarker };
+    opacity: 0.6;
+  }
 `;
 
 const _Loader= styled.div`
@@ -49,11 +59,20 @@ const _Loader= styled.div`
   }
 `;
 
+const _LoaderText= styled.h1`
+  position : absolute;
+  top      : calc(50% + 100px);
+  left     : 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color    : ${ colors.primary };
+`;
+
 export const Loading= () => {
   return (
     <_FullScreen>
       <_Loader />
-      <h1>Now Loading...</h1>
+      <_LoaderText>Now Loading...</_LoaderText>
     </_FullScreen>
   );
 };
