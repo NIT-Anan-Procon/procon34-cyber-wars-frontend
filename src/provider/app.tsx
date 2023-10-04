@@ -8,6 +8,7 @@ import { worker } from '@/mocks/browser';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { queryClient } from '@/lib/react-query';
+import { Loading } from '@/components/Animation';
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -19,12 +20,12 @@ export const AppProvider= ({children}: AppProviderProps) => {
   }
 
   return(
-    <React.Suspense fallback={<div>...loading</div>} >
+    <React.Suspense fallback={<Loading />} >
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           {/* {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />} */}
           <RecoilRoot>
-            <Suspense fallback={<div>loading</div>}>
+            <Suspense fallback={<Loading />}>
               <Router>{children}</Router>            
             </Suspense>        
           </RecoilRoot>          
