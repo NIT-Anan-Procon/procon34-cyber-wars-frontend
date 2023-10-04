@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { VULNERABILITIES_KEY, useFetchChallengeQuery } from '@/features/challenge';
+import { Loading } from '@/components/Animation';
 
 const _GoalList= styled.ul`
   height  : 100%;
@@ -30,7 +31,7 @@ export const GoalList= () => {
   
   if( isLoading ){
     return (
-      <>loading</>
+      <Loading />
     )
   }
 

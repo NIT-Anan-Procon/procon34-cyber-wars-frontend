@@ -66,7 +66,7 @@ const _CharacterName= styled.h1<CharacterScoreBoardTransTypes>`
           transform: skew( 3deg );
         `
       : css`
-          color: #CA1C1C;
+          color: ${ colors.redAccent };
           transform: skew( -3deg );
       `
   };

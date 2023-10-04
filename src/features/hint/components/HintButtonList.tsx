@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { VULNERABILITIES_KEY, useFetchChallengeQuery } from '@/features/challenge';
 import { HintDrawerButton } from '.';
+import { Loading } from '@/components/Animation';
 
 const _HintButtonList= styled.ul`
   margin : 20px;
@@ -26,7 +27,7 @@ export const HintButtonList= () => {
   const { data: vulnerabilities, isLoading }= useFetchChallengeQuery({});
 
   if( isLoading ) {
-    return <>loading</>
+    return <Loading />
   };
   return (
     <_HintButtonList>

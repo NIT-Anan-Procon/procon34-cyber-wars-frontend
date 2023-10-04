@@ -7,6 +7,7 @@ import { IS_HOST_KEY, useFetchRoomInfoQuery } from '@/features/room';
 import styled from 'styled-components';
 import { colors } from '@/assets/styles';
 import { settingRuleSchema } from '../types';
+import { Loading } from '@/components/Animation';
 
 const _GameRuleEditFormWrapper= styled.div`
   height  : 100%;
@@ -71,7 +72,7 @@ export const GameRuleEditForm= ({ phase }: GameRuleEditFormProps ) => {
   const roomInfoQuery= useFetchRoomInfoQuery({});
 
   if( roomInfoQuery.isLoading ) {
-    return <></>
+    return <Loading />
   };
 
   if( !roomInfoQuery?.data ) return null;

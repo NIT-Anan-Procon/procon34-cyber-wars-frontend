@@ -9,6 +9,7 @@ import { useFetchRoomInfoQuery } from '@/features/room';
 import { useAuthenticatedUserQuery } from '@/features/auth';
 import { OPPONENT_NAME_KEY, SCORES_KEY, USER_NAME_KEY } from '@/constants/responseKeys';
 import { colors } from '@/assets/styles';
+import { Loading } from '@/components/Animation';
 
 const _ResultWrapper= styled.div`
   height     : 100%;
@@ -53,8 +54,8 @@ export const Result= () => {
   const scoresQuery= useFetchScoresQuery({});
 
   if( authUserQuery.isLoading || roomInfoQuery.isLoading || scoresQuery.isLoading ) {
-    return <>Loading</>
-  }
+    return <Loading />
+  };
 
   if( !authUserQuery.data || !roomInfoQuery.data || !scoresQuery.data ) return null;
 

@@ -7,6 +7,7 @@ import { php }            from '@codemirror/lang-php';
 import { EditorSetup } from '../config';
 import { codeState }   from '../states';
 import { CODE_KEY, useFetchCodeQuery } from '../api';
+import { Loading } from '@/components/Animation';
 
 type EditAreaProps= {
   phase: string;
@@ -19,7 +20,9 @@ export const EditArea= ({ phase }: EditAreaProps) => {
   const handleCode= (value: string) => {
     setCode(value);
   };
-  if( codeQuery.isLoading ) return <>loading</>
+  if( codeQuery.isLoading ) {
+    return <Loading />
+  };
 
   if( !codeQuery?.data ) return null;
   

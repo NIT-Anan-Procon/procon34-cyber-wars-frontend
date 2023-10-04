@@ -6,6 +6,7 @@ import { Timer, TimerWrapper } from '@/features/gameTimer';
 import { IS_HOST_KEY, OPPONENT_NAME_KEY, useFetchRoomInfoQuery } from '@/features/room';
 import { useRecoilValue } from 'recoil';
 import { settingTimeState } from '@/features/gameRules';
+import { Loading } from '@/components/Animation';
 
 const _PhaseStatusContentsLayout= styled.div`
   height: 18vh;
@@ -30,7 +31,7 @@ export const PhaseStatusContents= (
   const roomMemberQuery= useFetchRoomInfoQuery({});
 
   if( authUserQuery.isLoading && roomMemberQuery.isLoading ) {
-    return <>loadings</>
+    return <Loading />
   };
 
   if ( !authUserQuery.data || !roomMemberQuery.data ) return null;
