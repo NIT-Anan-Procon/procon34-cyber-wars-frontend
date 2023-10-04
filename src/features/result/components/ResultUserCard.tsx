@@ -1,4 +1,4 @@
-import styled     from 'styled-components';
+import styled, { css }     from 'styled-components';
 
 import { colors } from '@/assets/styles';
 
@@ -10,47 +10,67 @@ const _ResultUserCard= styled.div<{usertype: 'MYUSER' | 'OPPONENTUSER'}>`
   background: transparent;
 `;
 
-const _UserNameWrapper= styled.div<{usertype: 'MYUSER' | 'OPPONENTUSER'}>`
-  height     : 10rem;
-  width      : 40rem;
-  position   : absolute;
-  bottom     : 15px;
-  right      : 0px;
-  display    : flex;
+const _CharacterNameWrapper= styled.div<CharacterScoreBoardTransTypes>`
+  margin    : 0 20px;
+  height    : calc( 50% - 10px );
+  width     : 60%;
+  display   : flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(100%);
-  z-index  : 10;
+  background: ${ colors.bgLighter };
+  clip-path: 
+    ${(props) => props.status === 'HOST' 
+        ? `polygon(0 0, 100% 16%, 97% 100%, 4% 100%)`
+        : `polygon(0 12%, 100% 0, 97% 100%, 3% 100%)`
+    };
+  z-index   : 100;
+`;
 
-  &::before,
-  &::after {
-    content : '';
-    position: absolute;
-    height  : 100%;
-    width   : 100%;
-  }
-
-  &::before {
-    background: ${ colors.bgDarker };
-    clip-path : polygon(2% 6%, 98% 14%, 95% 91%, 5% 96%);
-    z-index: 2;
-  }
-
-  &::after {
-    background: ${ colors.bgLighter };
-    clip-path : polygon(0 0, 99% 0, 100% 100%, 3% 100%);
-    z-index: 1;
-  }
+const _CharacterName= styled.h1<CharacterScoreBoardTransTypes>`
+  font-size: 3.8rem;
+  z-index  : 999;
+    
+  ${(props) => props.status === 'HOST'
+      ? css`
+          color: #2F1FF6;
+          transform: skew( 3deg );
+        `
+      : css`
+          color: ${ colors.redAccent };
+          transform: skew( -3deg );
+      `
+  };
+`;
+const _UserNameWrapper= styled.div<{usertype: 'MYUSER' | 'OPPONENTUSER'}>`
+  margin    : 0 20px;
+  height    : calc( 50% - 10px );
+  width     : 60%;
+  display   : flex;
+  align-items: center;
+  justify-content: center;
+  background: ${ colors.bgLighter };
+  clip-path: 
+    ${(props) => props.status === 'HOST' 
+        ? `polygon(0 0, 100% 16%, 97% 100%, 4% 100%)`
+        : `polygon(0 12%, 100% 0, 97% 100%, 3% 100%)`
+    };
+  z-index   : 100;
 `;
 
 const _UserName= styled.h1`
-  width      : 6rem;
-  display    : flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.35em;
-  color    : ${ colors.bgLighter };
-  z-index  : 10;
+  font-size: 3.8rem;
+  z-index  : 999;
+    
+  ${(props) => props.status === 'HOST'
+      ? css`
+          color: #2F1FF6;
+          transform: skew( 3deg );
+        `
+      : css`
+          color: ${ colors.redAccent };
+          transform: skew( -3deg );
+      `
+  };
 `;
 
 const _ResultScore= styled.div`

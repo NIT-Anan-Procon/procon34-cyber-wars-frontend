@@ -24,14 +24,15 @@ const _ResultWrapper= styled.div`
   column-gap: 10%;
 `;
 
-const _Result= styled.h1`
-  font-size: 12rem;
+const _Result= styled.h1<{ result: string }>`
+  font-size: 10rem;
   position : absolute;
+  top      : 20%;
   left     : 50%;
   transform: translateX(-50%);
   color: 
     ${(props) => props.result === 'YOU WIN'
-        ? `${ colors.info }`
+        ? `${ colors.primary }`
         : `${ colors.danger }`
     };
 `;

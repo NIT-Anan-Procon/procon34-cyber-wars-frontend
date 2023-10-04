@@ -2,9 +2,8 @@ import { colors } from '@/assets/styles';
 import styled from 'styled-components';
 
 const _GameRulesWrapper= styled.div`
-  margin-left: 10%;
   height     : 50rem;
-  width      : 80%;
+  width      : 100%;
   min-width  : 60rem;
   padding    : 5% 5%;
   position   : relative; 
@@ -19,7 +18,7 @@ const _GameRulesWrapper= styled.div`
     height  : 100%;
     width   : 100%;
     background: ${ colors.bgLighter };
-    clip-path: polygon(0 0, 100% 3%, 98% 96%, 1% 100%);
+    clip-path: polygon(0 0, 100% 3%, 100% 96%, 1% 100%);
     z-index: 1;
   };
 

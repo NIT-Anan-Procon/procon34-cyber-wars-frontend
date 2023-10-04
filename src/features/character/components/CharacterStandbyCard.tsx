@@ -14,7 +14,7 @@ const _CharacterStandbyCard= styled.div<{status: 'HOST' | 'GUEST'}>`
     height   : 100%;
     width    : 100%;
     clip-path: polygon(2% 7%, 98% 5%, 95% 95%, 5% 97%);
-    background: 
+    background:
     ${(props) => props.status === 'HOST'
       ? `#2F1FF6`
       : `${ colors.redAccent }`

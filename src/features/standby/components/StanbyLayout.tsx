@@ -7,7 +7,7 @@ import { colors } from '@/assets/styles';
 const _StandbyLayout= styled.div`
   height : 100vh;
   width  : 100vw;
-  padding: 10px ;
+  padding: 10px 10%;
   display: flex;
   flex-direction: column;
   align-items   : center;
@@ -22,7 +22,6 @@ const _StandbyContents= styled.div`
   align-items: center;
   justify-content: center;
   background: transparent;
-  column-gap: 40px;
 `; 
 
 type StandByLayoutProps= {

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { colors }        from '@/assets/styles';
 import { StandbyLayout } from '../components';
@@ -6,7 +6,7 @@ import { CharacterStandbyCard } from '@/features/character';
 import { GameRulesDescriptions, GameRulesLayout } from '@/features/gameRules';
 import { USER_NAME_KEY, useAuthenticatedUserQuery } from '@/features/auth';
 import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY, useExitRoomMutation, useFetchRoomInfoQuery } from '@/features/room';
-import { Button } from '@/components/Elements';
+import { Button, Spinner } from '@/components/Elements';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '@/components/Animation';
 
@@ -19,21 +19,43 @@ const _StandbyUsers= styled.div`
   align-items: center;
   justify-content: center;
   row-gap: 40px;
-  background: ${ colors.bgDarker };
-  
+  z-index: 10;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: ${ colors.bgDarker };
+    clip-path: polygon(0 3%, 100% 0, 100% 100%, 0 97%);
+    z-index: -1;
+  };
 `;
 
-const StandbyUserHead= styled.div`
+const _StandbyUserHead= styled.div<{ canStarted?: boolean }>`
   position : absolute;
-  height   : 5rem;
-  width    : 100%;
+  height   : 10rem;
+  width    : 20rem;
   top      : -20px;
   height   : 5rem;
-  font-size: 3rem;
-  color    : ${ colors.primary };
+  font-size: 2.75rem;
+  font-weight: bold;
   display  : flex;
   justify-content: center;
   align-items: center;
+  column-gap: 40px;
+  clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 97%);
+  ${(props) => props.canStarted
+    ? css`
+        color:${ colors.bgLighter };
+        background: ${ colors.primary };
+  
+      `
+    : css`
+        color: ${ colors.primary };
+        background: ${ colors.bgDarker };
+      `
+  };
 `;
 
 const _FightText= styled.span`
@@ -52,6 +74,11 @@ const $StartButton= styled(Button)`
   clip-path: polygon(2% 6%, 96% 1%, 93% 100%, 5% 96%);
 `;
 
+const $OpponentLoader= styled(Spinner)`
+  width: 100%;
+  height: 100%;
+`;
+
 export const StandBy= () => {
   const navigate= useNavigate();
   const authUserQuery   = useAuthenticatedUserQuery({});
@@ -66,6 +93,7 @@ export const StandBy= () => {
 
   const hostUser = roomInfoQuery.data[ IS_HOST_KEY ]  ? authUserQuery.data[ USER_NAME_KEY ] : roomInfoQuery.data[  OPPONENT_NAME_KEY ];
   const guestUser= !roomInfoQuery.data[ IS_HOST_KEY ] ? authUserQuery.data[ USER_NAME_KEY ] : roomInfoQuery.data[  OPPONENT_NAME_KEY ];
+  const canStarted= roomInfoQuery.data[ IS_STARTED_KEY ];
 
   return (
     <StandbyLayout>
@@ -73,19 +101,22 @@ export const StandBy= () => {
         <GameRulesDescriptions />
       </GameRulesLayout>
       <_StandbyUsers>
-          { roomInfoQuery.data[ IS_STARTED_KEY ]
-            ? undefined
-            : <StandbyUserHead>対戦相手を待っています...</StandbyUserHead>
+          { canStarted
+            ? <_StandbyUserHead canStarted={ canStarted } >準備完了！！</_StandbyUserHead>
+            : <_StandbyUserHead canStarted={ canStarted } >対戦相手を待っています...</_StandbyUserHead>
           }
         <CharacterStandbyCard
           userName= { hostUser }
           status  = { 'HOST' }
         />
         <_FightText>VS</_FightText>
-        {/* <CharacterStandbyCard
-          userName= { guestUser }
-          status  = { 'GUEST' }
-        /> */}
+        { canStarted
+            ? <CharacterStandbyCard
+                userName= { guestUser }
+                status  = { 'GUEST' }
+              />
+            : <$OpponentLoader />
+          }
         { roomInfoQuery.data[ IS_STARTED_KEY ] && roomInfoQuery.data[ IS_HOST_KEY ]
           ? <$StartButton type='button' onClick={() => navigate('../phase/attack-phase')}> START </$StartButton>
           : undefined
