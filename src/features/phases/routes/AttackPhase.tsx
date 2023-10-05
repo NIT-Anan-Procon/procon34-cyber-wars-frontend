@@ -5,12 +5,17 @@ import {
   PhaseStatusContents,
   PhaseLayout,
   PhaseContentsWrapper,
-  PhaseContentForm, 
+  PhaseContentForm,
+  PhaseHeadContents, 
 } from '../components';
 import { PHASE, REDIRECT_PATHS } from '../types';
 import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
 import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/vulnerabilities';
 import { ATTACK_SEND_KEY_URL } from '@/features/sendFlag';
+import { Button } from '@/components/Elements';
+import { EditArea, EditorWrapper } from '@/features/codeController';
+import { useRecoilValue } from 'recoil';
+import { isShowCodeState } from '@/features/codeController/states';
 
 const _PhaseContents= styled.div`
   height : 70vh;
@@ -20,28 +25,33 @@ const _PhaseContents= styled.div`
 `;
 
 export const AttackPhase= () => {
+  const isShowCode= useRecoilValue( isShowCodeState );
+
   return (
-    <PhaseLayout title='アタックフェーズ'>
-      <PhaseStatusContents 
-        phase      = { PHASE.ATTACK_PHASE }
-        redirectUrl= { REDIRECT_PATHS.ATTACK_TO_DEFENCE }
-      />
+    <PhaseLayout
+      title='アタックフェーズ'
+      phase={ PHASE.ATTACK_PHASE }
+      redirectUrl={ REDIRECT_PATHS.ATTACK_TO_DEFENCE }
+    >
       <PhaseContentsWrapper
-        phase= { PHASE.ATTACK_PHASE }
-        body={
-          <>
-            <VulnerabilitiesLayout >
-              <VulnerabilityCheckList />
-            </VulnerabilitiesLayout>                
-          </>
+        head={ 
+          <PhaseHeadContents 
+            phase={ PHASE.ATTACK_PHASE }
+            title={'選択肢から攻撃文を作成してください。'}
+          />
         }
-        foot= {
+        body={
+          isShowCode
+          ? <EditorWrapper><EditArea phase={ PHASE.DEFENCE_PHASE } /></EditorWrapper>
+          : <VulnerabilitiesLayout><VulnerabilityCheckList /></VulnerabilitiesLayout>
+        }
+        foot={
           <PhaseContentForm
-            id={ 'sendFlag' }
+            id={ 'attack-phase' }
             submitFnEndpoint={ ATTACK_SEND_KEY_URL }
           />
         }
-      />
+      /> 
     </PhaseLayout>
   );
 };

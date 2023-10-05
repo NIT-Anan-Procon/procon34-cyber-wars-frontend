@@ -4,7 +4,8 @@ import {
   PhaseStatusContents,
   PhaseLayout,
   PhaseContentsWrapper,
-  PhaseContentForm,  
+  PhaseContentForm,
+  PhaseHeadContents,  
 } from '../components';
 import { PHASE, REDIRECT_PATHS } from '../types';
 import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
@@ -20,27 +21,21 @@ const _PhaseContents= styled.div`
 
 export const BattlePhase= () => {
   return (
-    <PhaseLayout title='バトルフェーズ'>
-      <PhaseStatusContents 
-        phase      = { PHASE.BATTLE_PHASE }
-        redirectUrl= { REDIRECT_PATHS.BATTLE_TO_RESULT }
-      />
+    <PhaseLayout
+      title='バトルフェーズ'
+      phase={ PHASE.BATTLE_PHASE }
+      redirectUrl={ REDIRECT_PATHS.BATTLE_TO_RESULT }
+    >
       <PhaseContentsWrapper
-        phase= { PHASE.BATTLE_PHASE }
-        body={
-          <>
-            <EditorWrapper >
-              <EditArea phase={PHASE.BATTLE_PHASE }/>
-            </EditorWrapper>
-          </>
-        }
-        foot= {
+        head={ <PhaseHeadContents title={'選択肢から攻撃文を作成してください。'} /> }
+        body={ <EditorWrapper><EditArea phase={ PHASE.BATTLE_PHASE } /></EditorWrapper> }
+        foot={
           <PhaseContentForm
-            id={ 'sendFlag' }
+            id={ 'attack-phase' }
             submitFnEndpoint={ BATTLE_SEND_KEY_URL }
           />
         }
-      />
+      /> 
     </PhaseLayout>
   );
 };
