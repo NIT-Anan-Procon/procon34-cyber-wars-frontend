@@ -1,2 +1,2 @@
-export * from './isHintDrawerState';
+export * from './isHintDrawState';
 export * from './hintIndexListState';
