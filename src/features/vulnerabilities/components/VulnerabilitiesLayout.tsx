@@ -27,7 +27,6 @@ const _VulnerabilitiesBody= styled.div`
   height         : calc( 100% - 5rem);
   width          : 100%;
   padding        : 20px;
-  justify-content: center;
   position       : relative;
   background     : black;
   border-radius  : 5px;

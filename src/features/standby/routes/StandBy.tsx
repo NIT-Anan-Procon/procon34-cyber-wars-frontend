@@ -17,7 +17,6 @@ const _StandbyUsers= styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   row-gap: 40px;
   z-index: 10;
 
@@ -32,13 +31,35 @@ const _StandbyUsers= styled.div`
   };
 `;
 
+const _StandbyInviteId= styled.h1`
+  margin-top: 5rem;
+  height: 6rem;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  color: ${ colors.primary };
+  border-bottom: 3px solid ${ colors.primary };
+  > span {
+    margin-left: 20px;
+    font-size: 4rem;
+    color: ${ colors.bgLighter };
+  };
+`;
+
+const _StandbyState= styled.div`
+  width : 100%;
+`;
+
 const _StandbyUserHead= styled.div<{ canStarted?: boolean }>`
   position : absolute;
   height   : 10rem;
-  width    : 20rem;
+  padding  : 10px;
+  width    : auto;
   top      : -20px;
+  left     : 20px;
   height   : 5rem;
-  font-size: 2.75rem;
+  font-size: 2rem;
   font-weight: bold;
   display  : flex;
   justify-content: center;
@@ -93,7 +114,7 @@ export const StandBy= () => {
 
   const hostUser = roomInfoQuery.data[ IS_HOST_KEY ]  ? authUserQuery.data[ USER_NAME_KEY ] : roomInfoQuery.data[  OPPONENT_NAME_KEY ];
   const guestUser= !roomInfoQuery.data[ IS_HOST_KEY ] ? authUserQuery.data[ USER_NAME_KEY ] : roomInfoQuery.data[  OPPONENT_NAME_KEY ];
-  const canStarted= roomInfoQuery.data[ IS_STARTED_KEY ];
+  const canStarted= !roomInfoQuery.data[ IS_STARTED_KEY ];
 
   return (
     <StandbyLayout>
@@ -101,10 +122,16 @@ export const StandBy= () => {
         <GameRulesDescriptions />
       </GameRulesLayout>
       <_StandbyUsers>
+        <_StandbyInviteId>
+          {'ルームID'}
+          <span>{'1234'}</span>
+        </_StandbyInviteId>
+        <_StandbyState >
           { canStarted
             ? <_StandbyUserHead canStarted={ canStarted } >準備完了！！</_StandbyUserHead>
             : <_StandbyUserHead canStarted={ canStarted } >対戦相手を待っています...</_StandbyUserHead>
-          }
+          }          
+        </_StandbyState>
         <CharacterStandbyCard
           userName= { hostUser }
           status  = { 'HOST' }

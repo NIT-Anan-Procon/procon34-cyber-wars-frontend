@@ -4,7 +4,7 @@ import { Head } from '../Head';
 import { Header } from '../Elements';
 
 const _ContentLayout= styled.div`
-  height : 20vh;
+  height : 100%;
   width  : 100vw;
   display: flex;
   flex-direction: column;

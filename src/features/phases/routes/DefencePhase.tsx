@@ -4,36 +4,37 @@ import { useRecoilValue } from 'recoil';
 import { 
   PhaseStatusContents,
   PhaseLayout,
-  PhaseContentsWrapper,  
+  PhaseContentsWrapper,
+  PhaseHeadContents,  
 } from "../components";
 import { PHASE, REDIRECT_PATHS } from '../types';
 import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
 import { EditArea, EditorWrapper } from '@/features/codeController';
 import { Button } from '@/components/Elements';
-const _SendCodeButton= styled(Button)`
-  width   : 15rem;
+
+const $SendCodeButton= styled(Button)`
   position: absolute;
-  right   : 30px;
+  right   : 0;
+  height  : 6rem;
+  width   : 15rem;
+  font-size: 2.6rem;
+  clip-path: polygon(2% 6%, 96% 1%, 93% 100%, 5% 96%);
 `;
 
 export const DefencePhase= () => {
   return (
-    <PhaseLayout title='ディフェンスフェーズ'>
-      <PhaseStatusContents 
-        phase      = { PHASE.DEFENCE_PHASE }
-        redirectUrl= { REDIRECT_PATHS.DEFENCE_TO_BATTLE }
-      />
+    <PhaseLayout
+      title='ディフェンスフェーズ'
+      phase={ PHASE.DEFENCE_PHASE }
+      redirectUrl={ REDIRECT_PATHS.DEFENCE_TO_BATTLE }
+    >
       <PhaseContentsWrapper
-        phase= { PHASE.DEFENCE_PHASE }
-        body={
-          <EditorWrapper >
-            <EditArea phase={PHASE.DEFENCE_PHASE}/>
-          </EditorWrapper>
+        head={ <PhaseHeadContents title={'ソースコードを書き換えて脆弱性を修正してください。'} /> }
+        body={ <EditorWrapper><EditArea phase={ PHASE.DEFENCE_PHASE } /></EditorWrapper> }
+        foot={
+          <$SendCodeButton>Send</$SendCodeButton>
         }
-        foot= {
-          <_SendCodeButton>Send</_SendCodeButton>
-        }
-      />
+      /> 
     </PhaseLayout>
   );
 };

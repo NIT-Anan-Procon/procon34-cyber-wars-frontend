@@ -22,21 +22,11 @@ const _GameRuleContents= styled.div`
   position: relative;
   display : flex;
   align-items: center;
+  column-gap: 20px;
   z-index: 100;
-
-  &::before {
-    content : '';
-    position: absolute;
-    height  : 100%;
-    width   : 100%;  
-    background : #000000;
-    clip-path: polygon(5% 8%, 100% 0, 100% 100%, 2% 97%);
-    z-index: -1;
-  };
 `;
 
 const _SettingIconWrapper= styled.div<{ phase: string }>`
-  margin-right: 20px;
   height : 5rem;
   width  : 5rem;
   display: flex;
@@ -58,7 +48,7 @@ const _SettingIcon= styled.img`
 `;
 
 const _SettingTitle= styled.h1`
-  font-size  : 1.8rem;
+  font-size  : 1.6rem;
   color      : ${ colors.bgLighter };
 `;
 

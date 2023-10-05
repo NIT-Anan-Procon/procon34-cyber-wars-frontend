@@ -1,70 +1,94 @@
-import styled     from 'styled-components';
+import styled from 'styled-components';
+import React  from 'react';
+import { useRecoilValue } from 'recoil';
+import { HintDrawerContent, isHintDrawState } from '@/features/hint';
+import { GoalDrawerContent, isDrawGoalState } from '@/features/goals';
 import { colors } from '@/assets/styles';
-import { HintButtonList, HintDisplayDrawer, HintLayout, HintList } from '@/features/hint';
-import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
 
 const _PhaseContentsLayout= styled.div`
-  height         : 82vh;
-  width          : 100%;
-  padding        : 20px 20px;
-  display        : flex;
-  justify-content: center;
-  align-items    : center;
-  column-gap     : 2rem;
-  background     : ${ colors.bgDarker };
-  font-size      : 1.5rem;
+  height        : 100%;
+  width         : 100%;
+  padding       : 20px;
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+  row-gap       : 1rem;
+  font-size     : 1.5rem;
+  background: black;
+  border-radius: 5px;
+`;
+
+const _PhaseContentHead= styled.div`
+  height: 5rem;
+  width : 100%;
+  display: flex;
+  align-items: center;
+
 `;
 
 const _PhaseContentBody= styled.div`
   height       : 100%;
-  width        : 50vw;
+  width        : 100%;
+  padding      : 20px;
   position     : relative;
   display      : flex;
-  column-gap   : 10px;
+  align-items  : center;
+  justify-content: center;
   background   : ${ colors.bgDarker };
   border-radius: 5px;
+  column-gap   : 10px;
+`;
+
+const _DrawContent= styled.div`
+  height: 100%;
+  width : 100%;
+  max-width: 40%;
+  border-radius: 5px;
+  border: 3px solid ${ colors.primary };
+  background: ${ colors.bgDarker };
+  color:white;
 `;
 
 const _PhaseContentFoot= styled.div`
   height     : 10rem;
   width      : 100%;
-  position   : absolute;
-  bottom     : 0;
-  right      : 20px;
+  padding-right: 20px;
+  position   : relative;
   display    : flex;
   align-items: center;
-  background : transparent;
-  clip-path: polygon(0 0, 100% 11%, 100% 97%, 0 100%);
+  background : black;
 `;
 
 type PhaseContentsLayoutProps= {
-  phase : string;
-  body  : React.ReactNode;
-  foot  : React.ReactNode;
+  head: React.ReactNode;
+  body: React.ReactNode;
+  foot: React.ReactNode;
 };
 
 export const PhaseContentsWrapper= (
   { 
-    phase,
+    head,
     body,
-    foot
+    foot 
   }: PhaseContentsLayoutProps
 ) => {
+  const isDrawGoal= useRecoilValue( isDrawGoalState );
+  const isDrawHint= useRecoilValue( isHintDrawState );
+
   return (
-    <_PhaseContentsLayout>
-      <WebViewerWrapper phase={ phase } >
-        <WebViewer phase={ phase } />
-      </WebViewerWrapper>
+    <_PhaseContentsLayout >
+      <_PhaseContentHead >{ head }</_PhaseContentHead>
       <_PhaseContentBody >
         { body }
-        <HintDisplayDrawer >
-          <HintLayout
-            title= {'ポイントを消費して、ヒントを閲覧'}
-            body= {
-              <HintList />
-            }
-          />
-        </HintDisplayDrawer>          
+
+        { isDrawGoal
+          ? < _DrawContent><GoalDrawerContent /></_DrawContent>
+          : undefined
+        }
+        { isDrawHint
+          ? < _DrawContent><HintDrawerContent /></_DrawContent>
+          : undefined
+        }
       </_PhaseContentBody>
       <_PhaseContentFoot >{ foot }</_PhaseContentFoot>
     </_PhaseContentsLayout>

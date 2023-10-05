@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { viewerRefState } from '../states/atom';
 
 const _Preview= styled.iframe<{ styles?: string }>`
-  width      : 100%;
-  height     : 100%;
+  width      : calc( 100% - 40px);
+  height     : calc( 100% - 40px);
   z-index    : 9999;
   border     : none;
   outline    : none;
@@ -33,9 +33,21 @@ export const WebViewer= (
 ) => {
   const iframeRef= useRef(null);
   const [ viewerRefValue, setViewerRefValue ]= useRecoilState( viewerRefState );
-
+  
   useEffect(() => {
-    setViewerRefValue( iframeRef );
+    // レンダリング時にiframe内のinput要素を取得する関数を呼び出す
+    function getInputsFromIframe() {
+      const iframe = iframeRef.current;
+      if (!iframe) return;
+
+      const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+      const inputElements = iframeDocument.querySelectorAll('input');
+      const inputsArray = Array.from(inputElements);
+      console.log(inputsArray); // input要素の配列をコンソールに表示
+    }
+
+    // コンポーネントがマウントされたときにgetInputsFromIframeを呼び出す
+    getInputsFromIframe();
   }, []);
 
   return (
@@ -87,7 +99,7 @@ export const WebViewer= (
               <input type="password" name="pass" placeholder="パスワード" required>
               <button type="submit">ログイン</button>
             </form>
-          </div>
+
         </body>
         </html>`}
         // src= { getCodePath } 

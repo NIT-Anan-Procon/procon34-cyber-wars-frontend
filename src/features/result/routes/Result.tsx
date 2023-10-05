@@ -25,9 +25,9 @@ const _ResultWrapper= styled.div`
 `;
 
 const _Result= styled.h1<{ result: string }>`
-  font-size: 10rem;
+  font-size: 12rem;
   position : absolute;
-  top      : 20%;
+  top      : 10%;
   left     : 50%;
   transform: translateX(-50%);
   color: 
@@ -38,13 +38,13 @@ const _Result= styled.h1<{ result: string }>`
 `;
 
 const _NextButton= styled(Button)`
-  height  : 10rem;
-  width   : 20rem;
+  height  : 8rem;
+  width   : 25rem;
   position: absolute;
   right   : 20px;
   bottom  : 20px;
   border-radius: 0;
-  font-size: 4rem;
+  font-size: 3rem;
   clip-path: polygon(2% 6%, 96% 1%, 93% 100%, 5% 96%);
 `;
 
@@ -60,29 +60,26 @@ export const Result= () => {
 
   if( !authUserQuery.data || !roomInfoQuery.data || !scoresQuery.data ) return null;
 
-  const result= scoresQuery.data[ SCORES_KEY ][0] > scoresQuery.data[ SCORES_KEY ][1] ? 'YOU WIN' : 'YOU LOSE'
+  const result= scoresQuery.data[ SCORES_KEY ][0] < scoresQuery.data[ SCORES_KEY ][1] ? 'YOU WIN' : 'YOU LOSE'
 
   return (
-    <ContentLayout
-      headTitle={ 'リザルト画面' }
-      header   ={ 'RESULT' }
-    >        
+<>
       <_Result result={ result } >{ result }</_Result>
       <_ResultWrapper>
         <ResultUserCard
           name    ={ authUserQuery.data[ USER_NAME_KEY ] }
-          score   ={ scoresQuery.data[ SCORES_KEY ][0] } 
+          score   ={ scoresQuery.data[ SCORES_KEY ][1] } 
           result  ={ 'WIN' }
           usertype={ 'MYUSER' } 
         />
         <ResultUserCard 
           name    ={ roomInfoQuery.data[ OPPONENT_NAME_KEY ] }
-          score   ={ scoresQuery.data[ SCORES_KEY ][1] } 
+          score   ={ scoresQuery.data[ SCORES_KEY ][0] } 
           result  ={ 'LOSE' }
           usertype={ 'OPPONENTUSER' } 
         />      
       </_ResultWrapper>
       <_NextButton type='button' onClick={() => navigate('../explanation')}>Next</_NextButton>
-    </ContentLayout>
+</>
   );
 };

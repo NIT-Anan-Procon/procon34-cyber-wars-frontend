@@ -14,9 +14,9 @@ import { VULNERABILITIES_KEY, useFetchChallengeQuery } from "@/features/challeng
 import { Loading } from "@/components/Animation";
 
 const _HintList= styled.ul`
-  height: 100%;
+  height: auto;
   width: 100%;
-  padding: 20px;
+
   position: relative;
   display: flex;
   flex-direction: column;
@@ -27,11 +27,10 @@ const _HintList= styled.ul`
 const _HintListItem= styled.li`
   height : 6rem;
   width  : 100%;
-  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background: #ffffff;
+  /* background: #ffffff; */
   
   > h1 {
     width: 50%;
@@ -40,11 +39,12 @@ const _HintListItem= styled.li`
 `;
 
 const _HintDisplayBox= styled.div`
-
+  font-size: 1.4rem;
+  font-weight: bolder;
 `;
 
 const $HintButton= styled(Button)`
-  width: 15rem;
+  width: 100%;
   background: ${ colors.danger };
 `;
 
@@ -66,25 +66,23 @@ export const HintList= () => {
 
   return (
     <_HintList>
-      { vulnerabilities?.map(( props, index ) => (
-          <_HintListItem key={index}>
-            <h1>{`hint ${index + 1}`}</h1>
+      
+          <_HintListItem>
             {
-              showHintIndex.includes( index )
+              !showHintIndex.includes( 0 )
               ? <_HintDisplayBox>
-                  <p>{ props.hint }</p>
+                  <p>{ vulnerabilities[0].hint }</p>
                 </_HintDisplayBox>
               : <$HintButton
                   startIcon={<LockIcon style={{ fontSize: '2rem' }} />}
                   type='button'
-                  onClick={ async() => await showHintMutation.mutateAsync(index) }
+                  onClick={ async() => await showHintMutation.mutateAsync(0) }
                 >
-                  { props.hintScore }pt
+                  { vulnerabilities[0].hintScore }pt
                 </$HintButton>
             }
           </_HintListItem>
-        )) 
-      }
+
     </_HintList>
   );
 };

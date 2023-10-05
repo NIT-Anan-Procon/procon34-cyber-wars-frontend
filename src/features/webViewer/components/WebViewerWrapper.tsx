@@ -2,22 +2,23 @@ import styled from 'styled-components';
 
 import { colors } from '@/assets/styles';
 import { PHASE } from '@/features/phases';
-import { GoalList, GoalListWrapper } from '@/features/goals';
 
-const _WebViewerWrapper= styled.div<{ phase: string }>`
-  height  : 73vh;
-  width   : 50vw;
+const _WebViewerWrapper= styled.div<{ styles?: string }>`
+  height  : 100%;
+  width   : 100%;
   position: relative;
   display : flex;
   flex-direction: column;
   align-items: center;
+
+  ${(props) => props.styles }
 `;
 
 const _WebViewerHead= styled.div<{ phase: string }>`
   height: 7rem;
   width: 40rem;
   position: absolute;
-  top: -25px;
+  top: 10px;
   left: 50%;
   display: flex;
   align-items: center;
@@ -66,33 +67,33 @@ const _WebViewerContents= styled.div`
     height  : 100%;
     width   : 100%;
     background: #000000;
+    clip-path: polygon(0 0, 100% 3%, 97% 98%, 0% 100%);
     z-index  : 1;
   };
 `;
 
 type WebViewerWrapperProps= {
   phase   : string;
+  styles ?: string;
   children: React.ReactNode;
 };
 
 export const WebViewerWrapper= (
   { 
     phase,
+    styles,
     children
   }: WebViewerWrapperProps 
 ) => {
   const webSite= phase === PHASE.DEFENCE_PHASE ? 'MY Website' : 'OPPONENT Website';
 
   return (
-    <_WebViewerWrapper phase={ phase } >
+    <_WebViewerWrapper styles={ styles } >
       <_WebViewerHead phase={ phase } >
         <span>{ webSite }</span>
       </_WebViewerHead>
       <_WebViewerContents >
         { children }
-        <GoalListWrapper>
-          <GoalList />
-        </GoalListWrapper>
       </_WebViewerContents>
     </_WebViewerWrapper>
   );

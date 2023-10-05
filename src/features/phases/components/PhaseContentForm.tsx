@@ -8,6 +8,7 @@ import { useSendFlagMutation } from '@/features/sendFlag';
 const _PhaseContentForm= styled.div`
   height    : 100%;
   width     : 100%;
+  
   background: transparent;
   display   : flex;
   align-items: center;
@@ -20,8 +21,10 @@ const $InputKeyFeild= `
 `;
 
 const $SendKeyButton= styled(Button)`
-  width: 20rem;
-  margin: 0;
+  height  : 6rem;
+  width   : 15rem;
+  font-size: 2.6rem;
+  clip-path: polygon(2% 6%, 96% 1%, 93% 100%, 5% 96%);
 `;
 
 type PhaseContentFormProps= {

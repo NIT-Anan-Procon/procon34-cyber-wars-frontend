@@ -2,20 +2,18 @@ import { colors } from '@/assets/styles';
 import styled from 'styled-components';
 
 const _EditorWrapper= styled.div`
-  height: calc(100% - 8rem);
+  height: calc( 82vh - 25rem );
   width : 50vw;
-  padding: 10px;
   display        : flex;
   flex-direction : column;
   align-items    : center;
   justify-content: center;
   background     :  transparent; 
-  border         : 1px solid grey;
   overflow       : auto;
 `;
 
 const _EditorHead= styled.div`
-  line-height: 5rem;
+  margin-bottom : 10px;
   width      : 100%;
   background : transparent;
 
@@ -26,7 +24,7 @@ const _EditorHead= styled.div`
     font-size  : 1.75rem;
     color      : ${ colors.bgLighter };
     text-align : center;
-    background : black;
+    background : ${ colors.blueAccent };
     clip-path: polygon(0 0, 100% 5%, 99% 100%, 2% 100%);
   }
 `;
@@ -35,7 +33,7 @@ const _EditArea= styled.div`
   height: calc( 100% - 3rem );
   width : 100%;
   overflow: auto;
-  background   : #1e1e1e;
+  background   : black;
   border-radius: 5px;
   font-size    : 1.5rem;
 `;

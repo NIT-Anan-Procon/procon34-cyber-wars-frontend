@@ -5,27 +5,24 @@ import { Loading } from '@/components/Animation';
 const _GoalList= styled.ul`
   height  : 100%;
   width   : 100%;
+  padding-top: 20%;
   position: relative;
   display : flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  row-gap: 10px;
+  row-gap: 20px;
   z-index: 100;
 `;
 
 const _GoalListItem= styled.li`
-  line-height: 2.4rem;
-  width: 100%;
-  > span {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: bolder;
-  }
 `;
 
 export const GoalList= () => {
   const { data: vulnerabilities, isLoading }= useFetchChallengeQuery({
     config: {
-      select: (data) => data[ VULNERABILITIES_KEY ] 
+      select: (data) => data[ VULNERABILITIES_KEY ]
     }
   });
   
@@ -39,12 +36,11 @@ export const GoalList= () => {
 
   return (
     <_GoalList>
-      { vulnerabilities?.map(( props, index ) => (
-          <_GoalListItem key={ index } >
-            <span>{ props.goal }</span>
+
+          <_GoalListItem  >
+            <span>{ vulnerabilities[0]?.goal }</span>
           </_GoalListItem>
-        ))
-      }
+
     </_GoalList>
   );
 };
