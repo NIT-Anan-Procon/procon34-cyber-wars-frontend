@@ -27,7 +27,7 @@
     "@uiw/codemirror-theme-vscode": "^4.21.19",
     "@uiw/react-codemirror": "^4.21.19",
     "axios": "^1.4.0",
-    "framer-motion": "^10.15.1",
+    "framer-motion": "^10.16.4",
     "jsonwebtoken": "^9.0.2",
     "prettier": "^3.0.3",
     "react": "^18.2.0",
