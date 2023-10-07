@@ -4,11 +4,13 @@ import { StandBy } from "@/features/standby";
 import { PhaseRoutes } from "@/features/phases";
 import { Result } from "@/features/result";
 import { Explanation } from "@/features/explanation";
+import { Training } from "@/features/training";
 
 export const TrainRoutes= () => {
   return (
     <Routes>
-      
+      <Route path={''} element={ <Training /> } />
+      <Route path= { '*' } element={ <Navigate to='' /> } />
     </Routes>
   );
 };
