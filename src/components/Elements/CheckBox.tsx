@@ -61,7 +61,7 @@ const _CheckBoxLabel= styled.label`
 `;
 
 type CheckBoxProps= {
-  index   : string;
+  id      : string;
   value  ?: string;
   label   : string;
   checked : boolean;
@@ -70,7 +70,7 @@ type CheckBoxProps= {
 
 export const CheckBox= (
   {     
-    index,
+    id,
     value,
     label, 
     checked, 
@@ -81,14 +81,14 @@ export const CheckBox= (
   return (
     <_CheckBoxItem {...props} >
       <_CheckBox 
-        id      = { index }
+        id      = { id }
         type    = 'checkbox'
         value   = { value }
         checked = { checked }
         onChange= { onChange }
         {...props} 
       />        
-      <_CheckBoxLabel htmlFor={ index } >
+      <_CheckBoxLabel htmlFor={ id } >
         { label }        
       </_CheckBoxLabel>
     </_CheckBoxItem>
