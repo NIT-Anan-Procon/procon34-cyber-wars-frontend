@@ -47,7 +47,7 @@ const _CheckBox= styled.input`
 `;
 
 const _CheckBoxLabel= styled.label`
-  font-size: 2rem;
+  font-size: auto;
   z-index  : 10;
   position: absolute;
   top:50%;
@@ -62,7 +62,7 @@ const _CheckBoxLabel= styled.label`
 
 type CheckBoxProps= {
   index   : string;
-  value   : string;
+  value  ?: string;
   label   : string;
   checked : boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
