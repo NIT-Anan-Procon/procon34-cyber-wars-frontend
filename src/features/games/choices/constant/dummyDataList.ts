@@ -35,10 +35,4 @@ export const dummyDataList=[
   'ANY',
   'ALL',
   'SOME',
-  '\n',
-  '\r',
-  '\t',
-  '\0',
-  '\x0A',
-  '\x0D',
 ];
