@@ -2,26 +2,21 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { Button } from '@/components/Elements';
-import { focusedInputElementState, viewerRefState } from '@/features/games/webViewer';
-import { vulnerabiliesFormatSelector } from "@/features/games/vulnerabilities/states/selector/vulnerabilitiesFormatSelector";
+import { focusedInputElementState } from '@/features/games/webViewer';
+import { checkedChoiceValuesSelector } from '../states/selector';
 
 const $VulnerabilitySubmitButton= styled(Button)`
   height : 5rem;
-  width  : 10rem;
+  width  : 15rem;
 `;
 
-export const EnterChoicesButton= () => {
-  const previewRef= useRecoilValue( viewerRefState );
-  const value= useRecoilValue( vulnerabiliesFormatSelector );
+export const ChoicesEnterButton= () => {
+  const value= useRecoilValue( checkedChoiceValuesSelector );
   const focusedInputElement= useRecoilValue( focusedInputElementState );
 
   
   function handleClick() {
-    const input = previewRef?.current.contentDocument.querySelector('input');
-    const button = previewRef?.current.contentDocument.querySelector('button');
     focusedInputElement.value =value;
-
-    button.click()
   }
   return (
     <$VulnerabilitySubmitButton onClick={handleClick}>
