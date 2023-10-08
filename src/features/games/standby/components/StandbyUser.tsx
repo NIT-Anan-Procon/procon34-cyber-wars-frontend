@@ -1,5 +1,6 @@
-import { ContentHeader } from '@/components/Elements';
 import styled, { css } from 'styled-components';
+
+import { ContentHeader } from '@/components/Elements';
 
 const _UserInfoCard= styled.div<{ ishost: boolean }>`
   height : 60rem;

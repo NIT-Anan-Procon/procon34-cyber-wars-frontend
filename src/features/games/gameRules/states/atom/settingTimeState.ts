@@ -1,4 +1,4 @@
-import { PHASE } from '@/features/phases';
+import { PHASE } from '@/features/games/phases';
 import { atom } from 'recoil';
 
 export const settingTimeState= atom({

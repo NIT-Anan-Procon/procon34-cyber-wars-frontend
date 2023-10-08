@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { CHALLENGE_HINT_SCORE_KEY, useFetchChallengeQuery } from '@/features/challenge';
+import { CHALLENGE_HINT_SCORE_KEY, useFetchChallengeQuery } from '@/features/games/challenge';
 
 import { Loading } from '@/components/Animation';
 import { useShowHintMutation } from '..';

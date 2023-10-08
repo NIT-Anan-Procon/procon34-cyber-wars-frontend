@@ -2,8 +2,8 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { Button } from '@/components/Elements';
-import { focusedInputElementState, viewerRefState } from '@/features/webViewer';
-import { vulnerabiliesFormatSelector } from "@/features/vulnerabilities/states/selector/vulnerabilitiesFormatSelector";
+import { focusedInputElementState, viewerRefState } from '@/features/games/webViewer';
+import { vulnerabiliesFormatSelector } from "@/features/games/vulnerabilities/states/selector/vulnerabilitiesFormatSelector";
 
 const $VulnerabilitySubmitButton= styled(Button)`
   height : 5rem;

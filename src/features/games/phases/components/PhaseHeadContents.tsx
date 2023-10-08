@@ -7,9 +7,9 @@ import CodeIcon from '@mui/icons-material/Code';
 import { colors } from '@/assets/styles';
 import { Button } from '@/components/Elements';
 import { useRecoilState } from 'recoil';
-import { isDrawGoalState } from '@/features/goals';
-import { isHintDrawState } from '@/features/hint/states';
-import { isShowCodeState } from '@/features/codeController/states';
+import { isDrawGoalState } from '@/features/games/goals';
+import { isHintDrawState } from '@/features/games/hint/states/atom';
+import { isShowCodeState } from '@/features/games/codeController/states';
 import { PHASE } from '..';
 
 const _PhaseHeadContentsWrapper= styled.div`

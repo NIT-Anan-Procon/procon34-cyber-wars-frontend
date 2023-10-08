@@ -8,9 +8,9 @@ import {
   PhaseHeadContents,  
 } from '../components';
 import { PHASE, REDIRECT_PATHS } from '../types';
-import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
-import { EditArea, EditorWrapper } from '@/features/codeController';
-import { BATTLE_SEND_KEY_URL } from '@/features/sendFlag';
+import { WebViewer, WebViewerWrapper } from '@/features/games/webViewer';
+import { EditArea, EditorWrapper } from '@/features/games/codeController';
+import { BATTLE_SEND_KEY_URL } from '@/features/games/sendFlag';
 
 const _PhaseContents= styled.div`
   height : 70vh;

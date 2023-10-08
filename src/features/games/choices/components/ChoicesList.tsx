@@ -1,9 +1,9 @@
 import { useRecoilState } from 'recoil';
 
-import { CHALLENGE_CHOICES_KEY, useFetchChallengeQuery } from '@/features/challenge';
+import { CHALLENGE_CHOICES_KEY, useFetchChallengeQuery } from '@/features/games/challenge';
 import { Loading } from '@/components/Animation';
 import { isCheckedChoicesState }  from '../states/atom';
-import { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { CheckBox, Spinner } from '@/components/Elements';
 import { useTransChoicesData } from '../hook/useTransChoicesData';
 
@@ -18,46 +18,49 @@ const transformData = (data) => {
 
 
 export const ChoiceList= () => {
-  const [isCheckedChoices, setIsCheckedChoices] = useRecoilState(isCheckedChoicesState);
   const [ isChoiceChecked, setIsChoiceChecked ]= useRecoilState( isCheckedChoicesState );
   const transChoicesData= useTransChoicesData();
 
   const { data: choices, isLoading }= useFetchChallengeQuery({
     config: {
-      select: useCallback(( challnge ) => 
-        transChoicesData( challnge[ CHALLENGE_CHOICES_KEY ] 
-      ),[transChoicesData])
+      select: ( challenge ) => transChoicesData( challenge[ CHALLENGE_CHOICES_KEY ])
     }
-  });  
+  });
 
   if( isLoading ) {
     return <Spinner />
   };
 
-  if( !choices ) return null;
+  if( !choices ) { return null };
 
-  const handleCheckboxChange = (id) => {console.log(isCheckedChoices)
-    setIsCheckedChoices((prevChoices) =>
-      prevChoices.map((choice) =>
-        choice.id === id ? { ...choice, checked: !choice.checked } : choice
-      )
-    );
+  const handleCheckboxChange = (id) => {
+    const updatedChoices = isCheckedChoices.map((choice) => {
+      if (choice.id === id) {
+        return {
+          ...choice,
+          checked: !choice.checked,
+        };
+      }
+      return choice;
+    });
+    console.log('w');
+    setIsCheckedChoices(updatedChoices);
   };
 
   return (
     <div>
-      {        
-        choices?.map(( item, index ) => (
-          <CheckBox 
-            key     = { `vulItem_${index}` }
-            index   = { index }
-            value   = { item.value }
-            label   = { item.value }
-            checked = { isCheckedChoices.includes( item.value ) }
-            onChange= { handleCheckboxChange }
+      { isCheckedChoices?.map((item, index) => (
+        <div key={item.id}>
+          <CheckBox
+            index={index}
+            value={item.value}
+            label={ item.value }
+            checked={item.checked}
+            onChange={() => handleCheckboxChange(item.id)}
           />
-        ))
-      }
+          {item.value}
+        </div>
+      ))}
     </div>
   );
-};
+}

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 import { USER_NAME_KEY, useAuthenticatedUserQuery } from '@/features/auth';
-import { CharacterScoreBoard } from '@/features/character';
-import { Timer, TimerWrapper } from '@/features/gameTimer';
-import { IS_HOST_KEY, OPPONENT_NAME_KEY, useFetchRoomInfoQuery } from '@/features/room';
+import { CharacterScoreBoard } from '@/features/games/character';
+import { Timer, TimerWrapper } from '@/features/games/gameTimer';
+import { IS_HOST_KEY, OPPONENT_NAME_KEY, useFetchRoomInfoQuery } from '@/features/games/room';
 import { useRecoilValue } from 'recoil';
-import { settingTimeState } from '@/features/gameRules';
+import { settingTimeState } from '@/features/games/gameRules';
 import { Loading } from '@/components/Animation';
 
 const _PhaseStatusContentsLayout= styled.div`

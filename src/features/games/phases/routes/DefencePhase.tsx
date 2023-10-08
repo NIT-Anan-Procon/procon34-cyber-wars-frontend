@@ -8,8 +8,8 @@ import {
   PhaseHeadContents,  
 } from "../components";
 import { PHASE, REDIRECT_PATHS } from '../types';
-import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
-import { EditArea, EditorWrapper } from '@/features/codeController';
+import { WebViewer, WebViewerWrapper } from '@/features/games/webViewer';
+import { EditArea, EditorWrapper } from '@/features/games/codeController';
 import { Button } from '@/components/Elements';
 
 const $SendCodeButton= styled(Button)`

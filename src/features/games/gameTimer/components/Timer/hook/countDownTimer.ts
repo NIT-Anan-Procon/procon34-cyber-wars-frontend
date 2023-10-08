@@ -1,5 +1,5 @@
-import { useFetchStartTimeQuery } from "@/features/gameTimer";
-import { START_TIME_KEY } from "@/features/gameTimer/api";
+import { useFetchStartTimeQuery } from "@/features/games/gameTimer";
+import { START_TIME_KEY } from "@/features/games/gameTimer/api";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 

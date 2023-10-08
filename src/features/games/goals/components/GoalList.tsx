@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CHALLENGE_GOAL_KEY, useFetchChallengeQuery } from '@/features/challenge';
+import { CHALLENGE_GOAL_KEY, useFetchChallengeQuery } from '@/features/games/challenge';
 import { Loading } from '@/components/Animation';
 
 const _GoalList= styled.ul`

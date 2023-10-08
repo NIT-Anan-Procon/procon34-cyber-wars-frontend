@@ -9,14 +9,14 @@ import {
   PhaseHeadContents, 
 } from '../components';
 import { PHASE, REDIRECT_PATHS } from '../types';
-import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
-import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/vulnerabilities';
-import { ATTACK_SEND_KEY_URL } from '@/features/sendFlag';
+import { WebViewer, WebViewerWrapper } from '@/features/games/webViewer';
+import { VulnerabilitiesLayout, VulnerabilityCheckList } from '@/features/games/vulnerabilities';
+import { ATTACK_SEND_KEY_URL } from '@/features/games/sendFlag';
 import { Button } from '@/components/Elements';
-import { EditArea, EditorWrapper } from '@/features/codeController';
+import { EditArea, EditorWrapper } from '@/features/games/codeController';
 import { useRecoilValue } from 'recoil';
-import { isShowCodeState } from '@/features/codeController/states';
-import { ChoiceList, ChoicesInputFieldWrapper } from '@/features/choices';
+import { isShowCodeState } from '@/features/games/codeController/states';
+import { ChoiceList, ChoicesInputFieldWrapper } from '@/features/games/choices';
 
 const _PhaseContents= styled.div`
   height : 70vh;
@@ -44,7 +44,7 @@ export const AttackPhase= () => {
         body={
           isShowCode
           ? <EditorWrapper><EditArea phase={ PHASE.DEFENCE_PHASE } /></EditorWrapper>
-          : <VulnerabilitiesLayout><ChoicesInputFieldWrapper/><VulnerabilityCheckList/></VulnerabilitiesLayout>
+          : <VulnerabilitiesLayout><ChoicesInputFieldWrapper/><ChoiceList/></VulnerabilitiesLayout>
         }
         foot={
           <PhaseContentForm

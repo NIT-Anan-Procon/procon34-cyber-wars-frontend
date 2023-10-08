@@ -1,6 +1,6 @@
 import { colors } from "@/assets/styles";
 import { Loading } from "@/components/Animation";
-import { CHALLENGE_CHOICES_KEY, CHOICES_KEY, VULNERABILITIES_KEY, useFetchChallengeQuery } from "@/features/challenge";
+import { CHALLENGE_CHOICES_KEY, CHOICES_KEY, VULNERABILITIES_KEY, useFetchChallengeQuery } from "@/features/games/challenge";
 import styled from "styled-components";
 
 const _ExplanationAnswerWrapper= styled.div`

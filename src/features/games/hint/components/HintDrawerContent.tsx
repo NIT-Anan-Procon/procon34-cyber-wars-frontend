@@ -1,7 +1,7 @@
 import { Button } from "@/components/Elements";
 import { useRecoilState } from "recoil";
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
-import { isHintDrawState } from "../states";
+import { isHintDrawState } from "../states/atom";
 import { Lock } from '@mui/icons-material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import styled, { css } from "styled-components";

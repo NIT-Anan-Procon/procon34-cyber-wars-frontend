@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { InputField } from '@/components/Form';
-import { targetInputNameState } from '@/features/webViewer';
+import { targetInputNameState } from '@/features/games/webViewer';
 import { colors } from '@/assets/styles';
 
 const _ChoicesInputFieldWrapper= styled.div`

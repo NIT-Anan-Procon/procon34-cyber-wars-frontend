@@ -1,14 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { colors }        from '@/assets/styles';
-import { StandbyLayout } from '../components';
-import { CharacterStandbyCard } from '@/features/character';
-import { GameRulesDescriptions, GameRulesLayout } from '@/features/gameRules';
-import { USER_NAME_KEY, useAuthenticatedUserQuery } from '@/features/auth';
-import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY, useExitRoomMutation, useFetchRoomInfoQuery } from '@/features/room';
 import { Button, Spinner } from '@/components/Elements';
-import { useNavigate } from 'react-router-dom';
-import { Loading } from '@/components/Animation';
+import { USER_NAME_KEY, useAuthenticatedUserQuery } from '@/features/auth';
+import { Loading }      from '@/components/Animation';
+import { colors }       from '@/assets/styles';
+import { StandbyLayout } from '../components';
+import { CharacterStandbyCard } from '@/features/games/character';
+import { GameRulesDescriptions, GameRulesLayout } from '@/features/games/gameRules';
+
+import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY, useExitRoomMutation, useFetchRoomInfoQuery } from '@/features/games/room';
+
 
 const _StandbyUsers= styled.div`
   height: calc( 100% - 5rem );

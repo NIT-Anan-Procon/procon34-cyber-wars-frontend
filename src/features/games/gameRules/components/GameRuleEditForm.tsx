@@ -3,7 +3,7 @@ import { settingTimeState } from '../states/atom/settingTimeState';
 import { useState } from 'react';
 import { Button } from '@/components/Elements';
 import { Form, InputField } from '@/components/Form';
-import { IS_HOST_KEY, useFetchRoomInfoQuery } from '@/features/room';
+import { IS_HOST_KEY, useFetchRoomInfoQuery } from '@/features/games/room';
 import styled from 'styled-components';
 import { colors } from '@/assets/styles';
 import { settingRuleSchema } from '../types';

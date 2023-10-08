@@ -1,6 +1,4 @@
 import { rest } from 'msw';
-import { db } from '../db';
-import { mockChallenge } from '../challengeData/mock_challenge';
 import { 
   FETCH_GAME_START_TIME_URL, 
   START_GAME_URL, 
@@ -29,8 +27,8 @@ import {
   VULNERABILITIES_KEY, 
   GOAL_KEY
 } from '@/constants/responseKeys';
-import { EXPLANATION_KEY, EXPLANATION_URL } from '@/features/explanation/api';
-import { CHALLENGE_CODE_KEY } from '@/features/challenge';
+import { EXPLANATION_KEY, EXPLANATION_URL } from '@/features/games/explanation/api';
+import { CHALLENGE_CODE_KEY } from '@/features/games/challenge';
 
 export const gameHandlers= [
   rest.patch( START_GAME_URL, ( req, res, ctx ) => {

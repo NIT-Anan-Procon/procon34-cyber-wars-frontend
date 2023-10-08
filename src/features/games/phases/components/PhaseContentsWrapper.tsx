@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import React  from 'react';
 import { useRecoilValue } from 'recoil';
-import { HintDrawerContent, isHintDrawState } from '@/features/hint';
-import { GoalDrawerContent, isDrawGoalState } from '@/features/goals';
+import { HintDrawerContent, isHintDrawState } from '@/features/games/hint';
+import { GoalDrawerContent, isDrawGoalState } from '@/features/games/goals';
 import { colors } from '@/assets/styles';
 
 const _PhaseContentsLayout= styled.div`

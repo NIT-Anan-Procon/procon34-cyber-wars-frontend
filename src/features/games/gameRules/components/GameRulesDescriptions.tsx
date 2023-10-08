@@ -2,7 +2,7 @@ import { colors } from '@/assets/styles';
 import styled from 'styled-components';
 import { GameRuleContentWrapper, GameRuleEditForm, GameRuleSettingWrapper } from '.';
 import { RULES } from '../types/ruleDescriptions';
-import { PHASE } from '@/features/phases';
+import { PHASE } from '@/features/games/phases';
 
 const _GameRulesDescriptionsWrapper= styled.div`
   height: 100%;

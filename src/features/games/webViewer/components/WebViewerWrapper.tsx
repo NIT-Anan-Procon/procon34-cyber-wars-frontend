@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { colors } from '@/assets/styles';
-import { PHASE } from '@/features/phases';
+import { PHASE } from '@/features/games/phases';
 
 const _WebViewerWrapper= styled.div<{ styles?: string }>`
   height  : 100%;

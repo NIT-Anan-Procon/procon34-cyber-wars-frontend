@@ -5,7 +5,7 @@ import {
   HINT_SCORE_KEY, 
   VULNERABILITIES_KEY 
 } from "@/constants/responseKeys";
-import { useFetchChallengeQuery } from "@/features/challenge";
+import { useFetchChallengeQuery } from "@/features/games/challenge";
 
 export const useChallengeDataTranslator= () => {
   const { data: challengeData, ...options } = useFetchChallengeQuery({

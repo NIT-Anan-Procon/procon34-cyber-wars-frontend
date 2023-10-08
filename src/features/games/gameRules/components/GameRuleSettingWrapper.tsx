@@ -1,4 +1,4 @@
-import { PHASE } from '@/features/phases';
+import { PHASE } from '@/features/games/phases';
 import styled from 'styled-components';
 
 import attackPhaseIcon  from '@/assets/images/attack_phase.svg';

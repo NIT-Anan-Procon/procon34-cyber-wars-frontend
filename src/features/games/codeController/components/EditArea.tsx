@@ -8,7 +8,7 @@ import { EditorSetup } from '../config';
 import { codeState }   from '../states';
 import { CODE_KEY }    from '../api';
 import { Loading }     from '@/components/Animation';
-import { useFetchChallengeQuery } from '@/features/challenge';
+import { useFetchChallengeQuery } from '@/features/games/challenge';
 
 type EditAreaProps= {
   phase: string;

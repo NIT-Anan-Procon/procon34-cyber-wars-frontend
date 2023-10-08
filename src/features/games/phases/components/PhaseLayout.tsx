@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Head } from '@/components/Head';
-import { WebViewer, WebViewerWrapper } from '@/features/webViewer';
+import { WebViewer, WebViewerWrapper } from '@/features/games/webViewer';
 import { PhaseStatusContents } from '.';
 import { colors } from '@/assets/styles';
 

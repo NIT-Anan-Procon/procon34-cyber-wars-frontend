@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { SCORES_KEY, useFetchScoresQuery } from '@/features/scores';
+import { SCORES_KEY, useFetchScoresQuery } from '@/features/games/scores';
 import { colors } from '@/assets/styles';
 import { Loading } from '@/components/Animation';
 
