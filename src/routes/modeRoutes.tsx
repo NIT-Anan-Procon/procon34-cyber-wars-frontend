@@ -1,15 +1,15 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { StandBy } from "@/features/standby";
-import { PhaseRoutes } from "@/features/phases";
-import { Result } from "@/features/result";
-import { Explanation } from "@/features/explanation";
-import { Training } from "@/features/training";
+import { StandBy }     from '@/features/games/standby';
+import { PhaseRoutes } from '@/features/games/phases';
+import { Result }      from '@/features/games/result';
+import { Explanation } from '@/features/games/explanation';
+import { Training }    from '@/features/training';
 
 export const TrainRoutes= () => {
   return (
     <Routes>
-      <Route path={''} element={ <Training /> } />
+      <Route path= { '' }  element={ <Training /> } />
       <Route path= { '*' } element={ <Navigate to='' /> } />
     </Routes>
   );

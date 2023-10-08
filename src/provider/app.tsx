@@ -1,32 +1,31 @@
-import * as React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { RecoilRoot } from "recoil";
-import { Suspense } from 'react';
-import { HelmetProvider } from 'react-helmet-async';
-
-import { worker } from '@/mocks/browser';
+import React, { Suspense }     from 'react';
+import { RecoilRoot }          from 'recoil';
+import { BrowserRouter }       from 'react-router-dom';
+import { HelmetProvider }      from 'react-helmet-async';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ReactQueryDevtools }  from '@tanstack/react-query-devtools';
+
+import { worker }      from '@/mocks/browser';
 import { queryClient } from '@/lib/react-query';
-import { Loading } from '@/components/Animation';
+import { Loading }     from '@/components/Animation';
 
-type AppProviderProps = {
+type AppProviderProps= {
   children: React.ReactNode;
-}
+};
 
-export const AppProvider= ({children}: AppProviderProps) => {
-  if (process.env.NODE_ENV === 'development') {
+export const AppProvider= ({ children }: AppProviderProps) => {
+  if ( process.env.NODE_ENV === 'development' ) {
     worker.start();
-  }
+  };
 
   return(
     <React.Suspense fallback={<Loading />} >
-      <HelmetProvider>
-        <QueryClientProvider client={queryClient}>
+      <HelmetProvider >
+        <QueryClientProvider client={ queryClient } >
           { process.env.NODE_ENV === 'development' && <ReactQueryDevtools /> }
-          <RecoilRoot>
-            <Suspense fallback={<Loading />}>
-              <Router>{children}</Router>            
+          <RecoilRoot >
+            <Suspense fallback={<Loading />} >
+              <BrowserRouter >{ children }</BrowserRouter>            
             </Suspense>        
           </RecoilRoot>          
         </QueryClientProvider>

@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 import { lazyImport } from '@/utils/lazyImport';
-import { Loading } from '@/components/Animation';
+import { Loading }    from '@/components/Animation';
 
 const { TrainRoutes }  = lazyImport(() => import('./modeRoutes'), 'TrainRoutes');
 const { GamesRoutes }  = lazyImport(() => import('./modeRoutes'), 'GamesRoutes');
@@ -24,7 +24,7 @@ export const authorizedRoutes = [
       { path: '',        element: <ModeSelection /> },
       { path: 'train/*', element: <TrainRoutes /> },
       { path: 'games/*', element: <GamesRoutes /> },
-      { path: '*',       element: <Navigate to="." /> },
+      { path: '*',       element: <Navigate to='.' /> },
     ],
   },
 ];

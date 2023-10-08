@@ -2,14 +2,13 @@ import { useCallback, useState } from 'react';
 import styled   from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 
-
 import { Head } from "@/components/Head";
 import { SelectionCard } from "../components";
 import { Button, Header, IconButton } from "@/components/Elements";
 import { CARD_DESCRIPTION, SETTINGS_PATH, TRAIN_MODE_PATH } from "..";
 import userIcon from '@/assets/images/user.svg';
 import { useModal } from '@/hooks/useModal';
-import { RoomSelectForm } from '@/features/room';
+import { RoomSelectForm } from '@/features/games/room';
 import { colors } from '@/assets/styles';
 import trainigIcon from '@/assets/images/trainingIcon.svg';
 import vsIcon from '@/assets/images/vsIcon.svg';
