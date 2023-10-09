@@ -2,7 +2,7 @@ import { colors } from '@/assets/styles';
 import styled from 'styled-components';
 
 const _CharacterStandbyCard= styled.div<{status: 'HOST' | 'GUEST'}>`
-  height: 12rem;
+  height: 10rem;
   width : 40rem;
   position  : relative;
   display   : flex;
@@ -23,7 +23,7 @@ const _CharacterStandbyCard= styled.div<{status: 'HOST' | 'GUEST'}>`
 `;
 
 const _StandbyStatus= styled.div<{status: 'HOST' | 'GUEST'}>`
-  height         : 6rem;
+  height         : 5rem;
   width          : 15rem;
   position       : absolute;
   top            : -30px;
@@ -77,7 +77,11 @@ const _StandbyUserName= styled.div<{status: 'HOST' | 'GUEST'}>`
   };
 
   > h1 {
-    height   : calc( 100% - 6rem);
+    height         : 100%;
+    width          :100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 4.5rem;
     color    : ${ colors.bgLighter };
     z-index  : 10;

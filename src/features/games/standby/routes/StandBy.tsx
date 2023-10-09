@@ -10,6 +10,8 @@ import { USER_NAME_KEY, useAuthenticatedUserQuery } from '@/features/auth';
 import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY, useExitRoomMutation, useFetchRoomInfoQuery } from '@/features/games/room';
 
 import { usePatchStartGameMutation } from '../../matching';
+import { useRecoilValue } from 'recoil';
+import { inviteIdState } from '../../room/states/atoms';
 
 
 const _StandbyUsers= styled.div`
@@ -19,7 +21,7 @@ const _StandbyUsers= styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 40px;
+  row-gap: 5%;
   z-index: 10;
 
   &::before {
@@ -103,6 +105,7 @@ const $OpponentLoader= styled(Spinner)`
 
 export const StandBy= () => {
   const navigate= useNavigate();
+  const inviteId= useRecoilValue( inviteIdState );
   
   const authUserQuery    = useAuthenticatedUserQuery({});
   const startGameMutation= usePatchStartGameMutation();
@@ -137,7 +140,7 @@ export const StandBy= () => {
       <_StandbyUsers>
         <_StandbyInviteId>
           {'ルームID'}
-          <span>{'1234'}</span>
+          <span>{ inviteId }</span>
         </_StandbyInviteId>
         <_StandbyState >
           { canStarted
@@ -157,7 +160,7 @@ export const StandBy= () => {
               />
             : <$OpponentLoader />
           }
-        { roomInfoQuery.data[ IS_STARTED_KEY ] && roomInfoQuery.data[ IS_HOST_KEY ]
+        { roomInfoQuery?.data[ IS_STARTED_KEY ] && roomInfoQuery?.data[ IS_HOST_KEY ]
           ? <$StartButton 
               type='button'
               onClick={() => {
