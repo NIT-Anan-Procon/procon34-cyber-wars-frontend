@@ -19,7 +19,7 @@ const _InputField = styled.input<InputFieldProps>`
 
 	&:focus {
 		border-color: ${colors.primary};
-		transition: 0.5s;
+		transition  : 0.5s;
 	}
 `;
 
@@ -30,6 +30,7 @@ type InputFieldProps = FieldWrapperPassThroughProps & {
 	size  ?: InputSizeProps;
 	styles?: string;
 	placeholder ?: string;
+	onChange    ?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	registration?: Partial<UseFormRegisterReturn>;
 	defaultValue?: string | number;
 };
@@ -44,8 +45,9 @@ export const InputField = (
 		value,
 		placeholder,
 		error,
+		onChange,
 		registration,
-		defaultValue
+		defaultValue,
 	}: InputFieldProps
 ) => {
 	return (
@@ -55,14 +57,15 @@ export const InputField = (
 			styles= { styles }
 		>
 			<_InputField
-				id  = { id }
-				type= { type }
-				value ={ value }
+				id    = { id }
+				type  = { type }
+				value = { value }
 				size  = { size }
 				styles= { styles }
-				placeholder={ placeholder}
-				defaultValue={ defaultValue }
-				{...registration}
+				placeholder = { placeholder}
+				defaultValue= { defaultValue }
+				onChange={ onChange }
+				{ ...registration }
 			/>
 		</FieldWrapper>
 	);
