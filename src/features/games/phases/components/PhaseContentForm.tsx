@@ -37,10 +37,9 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
   const sendFlagMutation= useSendFlagMutation();
   
 
-  const handleChange= () => {
-    setFlagValue( flagValue );
+  const handleChange= (e) => {
+    setFlagValue(e.target.value );
   };
-
 
   return (
     <_PhaseContentForm >
@@ -51,9 +50,16 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
         styles={ $InputKeyFeild }
         value= { flagValue }
         placeholder= { 'キーを入力してください' } 
-        onChange   = { handleChange }
+        onChange= { handleChange }
       />
-      <$SendKeyButton type={'button'} onClick={ async() => await sendFlagMutation.mutateAsync( submitFnEndpoint, flagValue )}> Send </$SendKeyButton>
+      <$SendKeyButton 
+        type={'button'}
+        onClick={ async() => {
+          await sendFlagMutation.mutateAsync({ endpoint: submitFnEndpoint,  flag: flagValue })
+        }}
+      >
+        Send
+      </$SendKeyButton>
     </_PhaseContentForm>
   );
 };
