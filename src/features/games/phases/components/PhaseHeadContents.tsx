@@ -65,20 +65,16 @@ export const PhaseHeadContents= (
 
   const handleShowCode= () => {
     setIsShowCode( ! isShowCode );
-    setIsDrawHint( false );
-    setIsDrawGoal( false ); 
   };
 
   const handleDrawGoal= () => {
     setIsDrawGoal( !isDrawGoal );
     setIsDrawHint( false );
-    setIsShowCode( false );
   };
 
   const handleDrawHint= () => {
     setIsDrawHint( !isDrawHint );
     setIsDrawGoal( false );
-    setIsShowCode( false );
   };
 
   return (
