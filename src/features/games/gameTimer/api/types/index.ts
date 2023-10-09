@@ -1,1 +1,1 @@
-export * from './timerType';
+export * from './gameTimer.responseType';

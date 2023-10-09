@@ -1,2 +1,2 @@
-export * from './endpoints';
-export * from './timerKey';
+export * from './endpoint';
+export * from './gameTimer.responseKey';
