@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { axios } from '@/lib/axios';
-import { JoinRoomResponseType }    from '../types/roomTypes';
+import { JoinRoomResponseType }    from '../types';
 import { INVITE_ID_KEY, ROOM_URL } from '../constants';
 
 export const joinRoomFn= async( inviteId: number ): Promise<AxiosResponse<JoinRoomResponseType>> => {
