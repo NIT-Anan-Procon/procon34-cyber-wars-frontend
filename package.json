@@ -22,7 +22,6 @@
     "@tanstack/react-query": "^4.33.0",
     "@tanstack/react-query-devtools": "^4.33.0",
     "@types/jest": "^29.5.4",
-    "@types/jsonwebtoken": "^9.0.2",
     "@types/react-syntax-highlighter": "^15.5.7",
     "@uiw/codemirror-extensions-basic-setup": "^4.21.18",
     "@uiw/codemirror-extensions-color": "^4.21.13",
@@ -40,6 +39,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "recoil": "^0.7.7",
     "styled-components": "^6.0.7",
+    "swiper": "^10.3.1",
     "ts-jest": "^29.1.1",
     "zod": "^3.21.4"
   },
