@@ -1,11 +1,13 @@
 import { colors } from "@/assets/styles";
 import styled from "styled-components";
 
-const _Spinner= styled.div`
+const _Spinner= styled.div<{ styles?: string }>`
   position: relative;
   width: 100px;
   height: 100px;
   border-radius: 50%;
+
+  ${(props) => props.styles }
 
   &::before,
   &::after {
@@ -37,8 +39,12 @@ const _Spinner= styled.div`
   }
 `;
 
-export const Spinner= () => {
+type SpinnerProps= {
+  styles?: string;
+};
+
+export const Spinner= ({ styles }: SpinnerProps ) => {
   return (
-    <_Spinner />
+    <_Spinner styles={ styles } />
   );
 };

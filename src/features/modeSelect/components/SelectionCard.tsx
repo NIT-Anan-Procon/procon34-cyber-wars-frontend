@@ -1,5 +1,4 @@
 import { colors } from '@/assets/styles';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const _SelectionCard= styled.div<{ mode?: string }>`
@@ -141,8 +140,6 @@ export const SelectionCard= (
     children
   }: SelectionCardProps
 ) => {
-  const navigate= useNavigate();
-
   return (
     <_SelectionCard mode={id} >
       <_SelectionCardContainer>

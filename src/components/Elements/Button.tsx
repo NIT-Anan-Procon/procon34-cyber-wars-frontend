@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import styled         from 'styled-components';
 
 import { colors } from '@/assets/styles';
-import { Loading } from '../Animation';
+import { Spinner } from '.';
 
 const _Button= styled.button`
   width        : 100%;
@@ -48,7 +48,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         {...props}
       >
-        {isLoading && <Loading />}
+        {isLoading && <Spinner />}
         {!isLoading && startIcon}
         <span>{props.children}</span> {!isLoading && endIcon}
       </_Button>

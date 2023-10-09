@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-
-import { Button, Spinner } from '@/components/Elements';
-import { USER_NAME_KEY, useAuthenticatedUserQuery } from '@/features/auth';
-import { Loading }      from '@/components/Animation';
 import { colors }       from '@/assets/styles';
+import { Loading }      from '@/components/Animation';
+import { Button, Spinner } from '@/components/Elements';
 import { StandbyLayout } from '../components';
 import { CharacterStandbyCard } from '@/features/games/character';
 import { GameRulesDescriptions, GameRulesLayout } from '@/features/games/gameRules';
-
+import { USER_NAME_KEY, useAuthenticatedUserQuery } from '@/features/auth';
 import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY, useExitRoomMutation, useFetchRoomInfoQuery } from '@/features/games/room';
+
+import { usePatchStartGameMutation } from '../../matching';
 
 
 const _StandbyUsers= styled.div`
@@ -72,7 +72,6 @@ const _StandbyUserHead= styled.div<{ canStarted?: boolean }>`
     ? css`
         color:${ colors.bgLighter };
         background: ${ colors.primary };
-  
       `
     : css`
         color: ${ colors.primary };
@@ -104,9 +103,16 @@ const $OpponentLoader= styled(Spinner)`
 
 export const StandBy= () => {
   const navigate= useNavigate();
-  const authUserQuery   = useAuthenticatedUserQuery({});
-  const roomInfoQuery   = useFetchRoomInfoQuery({});
-  const exitRoomMutation= useExitRoomMutation();
+  
+  const authUserQuery    = useAuthenticatedUserQuery({});
+  const startGameMutation= usePatchStartGameMutation();
+  const exitRoomMutation = useExitRoomMutation();
+
+  const roomInfoQuery= useFetchRoomInfoQuery({
+    config: {
+      refetchInterval: ( data ) =>  !data ? 1000: false 
+    }
+  });
 
   if( authUserQuery.isLoading || roomInfoQuery.isLoading ) {
     return <Loading />
@@ -114,9 +120,14 @@ export const StandBy= () => {
 
   if( !authUserQuery.data || !roomInfoQuery.data ) return null;
 
+  if( roomInfoQuery.data[ OPPONENT_NAME_KEY ] === null ) {
+    exitRoomMutation.mutateAsync();
+    navigate('../../');
+  };
+
   const hostUser = roomInfoQuery.data[ IS_HOST_KEY ]  ? authUserQuery.data[ USER_NAME_KEY ] : roomInfoQuery.data[  OPPONENT_NAME_KEY ];
   const guestUser= !roomInfoQuery.data[ IS_HOST_KEY ] ? authUserQuery.data[ USER_NAME_KEY ] : roomInfoQuery.data[  OPPONENT_NAME_KEY ];
-  const canStarted= !roomInfoQuery.data[ IS_STARTED_KEY ];
+  const canStarted= roomInfoQuery.data[ IS_STARTED_KEY ];
 
   return (
     <StandbyLayout>
@@ -147,7 +158,15 @@ export const StandBy= () => {
             : <$OpponentLoader />
           }
         { roomInfoQuery.data[ IS_STARTED_KEY ] && roomInfoQuery.data[ IS_HOST_KEY ]
-          ? <$StartButton type='button' onClick={() => navigate('../phase/attack-phase')}> START </$StartButton>
+          ? <$StartButton 
+              type='button'
+              onClick={() => {
+                startGameMutation.mutateAsync()
+                navigate('../phase/attack-phase')
+              }}
+            >
+              START
+            </$StartButton>
           : undefined
         }
       </_StandbyUsers>
