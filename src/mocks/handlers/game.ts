@@ -67,7 +67,7 @@ export const gameHandlers= [
 
   rest.get( GAME_SCORES_URL, ( req, res, ctx ) => {
     try {
-      const scores= [ 100, 100 ];
+      const scores= [ 100, 200 ];
 
       return res(
         ctx.status(200),
@@ -100,6 +100,20 @@ export const gameHandlers= [
       )
     }
   }),
+  rest.delete( START_GAME_URL, ( req, res, ctx ) => {
+    try {
+      return res(
+        ctx.status(200),
+        ctx.delay(1000)
+      )
+
+    } catch(error) {
+      return res(
+        ctx.status(400),
+        ctx.delay(1000)
+      )
+    }
+  })
 ];
 
 export const attackPhaseHandler= [

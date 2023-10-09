@@ -19,7 +19,7 @@ export const roomHandlers= [
       const inviteId= randomNum(4);
 
       return res(
-        ctx.json({ inviteId: inviteId}),
+        ctx.json({ inviteId:1234}),
         ctx.status(200),
         ctx.delay(1000),
       );
