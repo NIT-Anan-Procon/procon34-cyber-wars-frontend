@@ -102,7 +102,7 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
             roomSelected === ROOM_MODES.JOIN_ROOM
             ?
               <Form<JoinRoomRequestType, typeof RoomIdSchema>
-                onSubmit={ async( roomId: JoinRoomRequestType ) => {
+                onSubmit={ async( roomId: number ) => {
                   await joinRoomMutation.mutateAsync(roomId);
                   onSuccess()
                 }}
@@ -112,12 +112,12 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
                 {({ register, formState: { errors }}) => (
                   <>
                     <InputField
-                      id='roomId'
+                      id='inviteId'
                       type='text'
                       size='medium'
-                      error= {errors.roomId}
+                      error= {errors.inviteId}
                       placeholder='ルームIDを入力してください。'
-                      registration= {register('roomId')}
+                      registration= {register('inviteId')}
                       styles={ InputRoomIdStyle } 
                     />          
                     <$StartButton type='submit'>START</$StartButton>
@@ -125,9 +125,9 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
                 )}
               </Form>
             : <$StartButton 
-                type='button' 
+                type='button'
                 onClick={ async() => (
-                  await createRoomMutation.mutateAsync(false),
+                  await createRoomMutation.mutateAsync(),
                   onSuccess()
                 )} 
               > 
