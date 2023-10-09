@@ -9,7 +9,7 @@ body,
 #root {
   width: 100%;
   height: 100%;
-  background: #1e1e1e;
+  background: #303841;
   font-size: 62.5%;
   font-family: 'Black Ops One', cursive;
 }
@@ -22,26 +22,26 @@ body,
 
 @media ( min-width: 1440px ) {
   html {
-    font-size: 11px;
+    font-size: 9px;
   }
 }
 
 @media ( min-width: 1920px ) {
   html {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 
 @media ( min-width: 2048px ) {
   html {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
 
 @media ( min-width: 2560px ) {
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 

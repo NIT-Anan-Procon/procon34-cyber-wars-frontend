@@ -1,0 +1,1 @@
+export const GAME_OPPONENT_KEY= "opponentName";

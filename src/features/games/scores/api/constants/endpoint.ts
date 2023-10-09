@@ -1,0 +1,1 @@
+export const GAME_SCORES_URL= `/game/scores`;

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const _ContentHeader= styled.div`
   height : 8rem;
-  width  : 20rem;
+  width  : 100%;
   display : flex;
   justify-content: center;
   align-items    : center;

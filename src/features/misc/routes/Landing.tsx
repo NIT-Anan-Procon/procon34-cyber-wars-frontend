@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { isAuthState } from "@/atoms";
 import { Head } from "@/components/Head";
 import { colors } from "@/assets/styles";
 import { APP_ROUTE, AUTH_ROUTE } from "../types/authenticatedRoute";
+import { IS_LOGGED_IN_KEY, useAuthenticatedUserQuery } from "@/features/auth";
 
 const LandingContainer= styled.div`
   width: 100%;
@@ -69,13 +68,17 @@ const StartButtonStyle= styled.button`
 
 export const Landing = () => {
   const navigate= useNavigate();
-  const isAuthenticated= useRecoilValue<boolean>(isAuthState);
+  const { data: isAuthenticated }= useAuthenticatedUserQuery({
+    config: {
+      select: ( authUser ) => authUser[ IS_LOGGED_IN_KEY ]
+    }
+  });
 
   const handleStart= () => {
-    if(isAuthenticated) {
-      navigate(APP_ROUTE);
+    if( isAuthenticated ) {
+      navigate( APP_ROUTE );
     } else {
-      navigate(AUTH_ROUTE);
+      navigate( AUTH_ROUTE );
     }
   }
 
