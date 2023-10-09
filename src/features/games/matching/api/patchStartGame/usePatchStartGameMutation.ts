@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { startGameFn } from './patchStartGameFn';
 
-export const useStartGameMutation= () => {
+export const usePatchStartGameMutation= () => {
   return useMutation({
     mutationFn: startGameFn
   });
