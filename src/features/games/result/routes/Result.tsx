@@ -1,7 +1,6 @@
 import styled, { css }          from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import { ContentLayout }  from '@/components/Layout';
 import { Button }         from '@/components/Elements';
 import { ResultUserCard } from '../components';
 import { useFetchScoresQuery } from '@/features/games/scores';
@@ -60,7 +59,7 @@ export const Result= () => {
 
   if( !authUserQuery.data || !roomInfoQuery.data || !scoresQuery.data ) return null;
 
-  const result= scoresQuery.data[ SCORES_KEY ][0] < scoresQuery.data[ SCORES_KEY ][1] ? 'YOU WIN' : 'YOU LOSE'
+  const result= scoresQuery.data[ SCORES_KEY ][0] > scoresQuery.data[ SCORES_KEY ][1] ? 'YOU WIN' : 'YOU LOSE'
 
   return (
 <>
@@ -68,15 +67,15 @@ export const Result= () => {
       <_ResultWrapper>
         <ResultUserCard
           name    ={ authUserQuery.data[ USER_NAME_KEY ] }
-          score   ={ scoresQuery.data[ SCORES_KEY ][1] } 
+          score   ={ scoresQuery.data[ SCORES_KEY ][0] } 
           result  ={ 'WIN' }
-          usertype={ 'MYUSER' } 
+          status={ 'HOST' } 
         />
         <ResultUserCard 
           name    ={ roomInfoQuery.data[ OPPONENT_NAME_KEY ] }
-          score   ={ scoresQuery.data[ SCORES_KEY ][0] } 
+          score   ={ scoresQuery.data[ SCORES_KEY ][1] } 
           result  ={ 'LOSE' }
-          usertype={ 'OPPONENTUSER' } 
+          status={ 'GUEST' } 
         />      
       </_ResultWrapper>
       <_NextButton type='button' onClick={() => navigate('../explanation')}>Next</_NextButton>

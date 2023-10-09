@@ -6,7 +6,7 @@ import { Button, RadioButton } from "@/components/Elements";
 import { useAtomValueChange } from "@/hooks/useAtomValueChange";
 import { ROOM_MODES } from "../types";
 import { JoinRoomRequestType, useCreateRoomMutation, useJoinRoomMutation } from "../api";
-import { roomModeState } from "../states";
+import { roomModeState } from "../states/atoms";
 import { colors } from "@/assets/styles";
 
 const _RoomSelectForm= styled.div`
@@ -74,7 +74,7 @@ type RoomSelectFormProps = {
 
 export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
   const [ roomSelected, updateRoomSelected ]= useAtomValueChange(roomModeState);
-  const createRoomMutation= useCreateRoomMutation();
+  const createRoomMutation= useCreateRoomMutation({});
   const joinRoomMutation  = useJoinRoomMutation({});
 
   return (    

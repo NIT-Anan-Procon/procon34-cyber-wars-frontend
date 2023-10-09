@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { SCORES_KEY, useFetchScoresQuery } from '@/features/games/scores';
 import { colors } from '@/assets/styles';
 import { Loading } from '@/components/Animation';
+import { IS_HOST_KEY, useFetchRoomInfoQuery } from '../../room';
 
 const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
   height     : 100%;
@@ -193,23 +194,27 @@ export const CharacterScoreBoard= (
     }
   });
 
-  if( scoresQuery.isLoading ) {
+  const roomInfoQuery= useFetchRoomInfoQuery({});
+
+  if( scoresQuery.isLoading || roomInfoQuery.isLoading ) {
     return <Loading />
   };
 
-  if( !scoresQuery.data ) return null; 
+  if( !scoresQuery.data || !roomInfoQuery.data ) return null; 
+
+  const myUserStatus= roomInfoQuery?.data[ IS_HOST_KEY ] ? 'HOST': 'GUEST';
 
   return (
     <_CharacterScoreBoardWrapper status={ status } styles={ styles } >
       <_CharacterNameWrapper status={ status } >
         <_CharacterName status={ status } >{ userName }</_CharacterName>
       </_CharacterNameWrapper>
-      <_AddScore status={ status } >
+      {/* <_AddScore status={ status } >
         <span>{ '+20pt' }</span>
-      </_AddScore>
+      </_AddScore>] */}
       <_ScoreWrapper status={ status } >
         <_Score>
-          { status === 'HOST'
+          { status === myUserStatus
             ? scoresQuery.data[ SCORES_KEY ][0]
             : scoresQuery.data[ SCORES_KEY ][1]
           }

@@ -8,6 +8,7 @@ import { PHASE } from '@/features/games/phases';
 import styled from 'styled-components';
 import { colors } from '@/assets/styles';
 import { ExplanationAnswer } from '../components/ExplanationAnswer';
+import { useDeleteGameMutation } from '../../matching';
 
 const _ExplanationContents= styled.div`
   height: 80vh;
@@ -51,6 +52,8 @@ const $ReturnToModeButton= styled(Button)`
 export const Explanation= () => {
   const navigate= useNavigate();
 
+  const endGameMutation= useDeleteGameMutation();
+
   return (
     <ContentLayout
       headTitle= { '解説画面' }
@@ -68,8 +71,24 @@ export const Explanation= () => {
         </_ExplanationsWrapper>
       </_ExplanationContents>
       <_RedirectButtons>
-        <$ReturnToModeButton type='button' onClick={() => navigate('../standby')}>対戦を続ける</$ReturnToModeButton>
-        <$ReturnToModeButton type='button' onClick={() => navigate('../../')}>モード選択へ戻る</$ReturnToModeButton>      
+        <$ReturnToModeButton 
+          type='button'
+          onClick={() => {
+            endGameMutation.mutateAsync( true )
+            navigate('../standby')
+          }}
+        >
+          対戦を続ける
+        </$ReturnToModeButton>
+        <$ReturnToModeButton
+          type='button'
+          onClick={() => {
+            endGameMutation.mutateAsync( false )
+            navigate('../../')  
+          }}
+        >
+          モード選択へ戻る
+        </$ReturnToModeButton>      
       </_RedirectButtons>
     </ContentLayout>
   );

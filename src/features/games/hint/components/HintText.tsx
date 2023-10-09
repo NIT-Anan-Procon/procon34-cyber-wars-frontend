@@ -5,7 +5,7 @@ import { colors }  from '@/assets/styles';
 import { 
   CHALLENGE_HINT_KEY,
   useFetchChallengeQuery
-} from '@/features/challenge';
+} from '@/features/games/challenge';
 
 const _HintContent= styled.div`
   height         : 100%;

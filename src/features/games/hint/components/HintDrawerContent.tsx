@@ -1,13 +1,11 @@
 import { Button } from "@/components/Elements";
-import { useRecoilState } from "recoil";
-import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
-import { isHintDrawState } from "../states/atom";
-import { Lock } from '@mui/icons-material';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { useRecoilValue } from "recoil";
+import { isShowHintState } from "../states/atom";
 import styled, { css } from "styled-components";
 import { colors } from '@/assets/styles/colors';
 import { HintContentWrapper } from "./HintContentWrapper";
 import { HintPointButton } from ".";
+import { HintText } from "./HintText";
 
 const _HintDrawerContent= styled.div`
   height : 100%;
@@ -29,21 +27,17 @@ const $HintButton= styled(Button)`
 
 
 export const HintDrawerContent= () => {
-  const [ isShowHint, setIsShowHint ]= useRecoilState( isHintDrawState );
-  
-  const handleShowHint= () => {
-    setIsShowHint((prev: boolean) => !prev );
-  };
+  const isShowHint= useRecoilValue( isShowHintState );
 
   return (
     <_HintDrawerContent >
       <HintContentWrapper>
-        { isShowHint
+        { !isShowHint
           ? <>
               {'ポイントを消費してヒントを閲覧することができます'}
               <HintPointButton />
             </>
-          : <></>
+          : <HintText />
         }        
       </HintContentWrapper>
     </_HintDrawerContent>
