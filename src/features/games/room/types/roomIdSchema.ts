@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const RoomIdSchema= z.object({
-  roomId: 
+  inviteId: 
     z
     .string()
     .nonempty('入力は必須です。')
