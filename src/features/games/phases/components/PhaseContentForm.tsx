@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { Button } from '@/components/Elements';
@@ -37,7 +37,7 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
   const sendFlagMutation= useSendFlagMutation();
   
 
-  const handleChange= (e) => {
+  const handleChange= ( e: React.ChangeEvent<HTMLInputElement> ) => {
     setFlagValue(e.target.value );
   };
 

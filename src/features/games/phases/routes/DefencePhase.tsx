@@ -1,14 +1,11 @@
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 
 import { 
-  PhaseStatusContents,
   PhaseLayout,
   PhaseContentsWrapper,
   PhaseHeadContents,  
 } from "../components";
 import { PHASE, REDIRECT_PATHS } from '../types';
-import { WebViewer, WebViewerWrapper } from '@/features/games/webViewer';
 import { EditArea, EditorWrapper } from '@/features/games/codeController';
 import { Button } from '@/components/Elements';
 
