@@ -4,11 +4,11 @@ import { QueryConfig } from '@/lib/react-query';
 import { fetchAuthenticatedUserFn }  from './fetchAuthenticatedUserFn';
 import { AuthenticatedUserQueryKey } from './fetchAuthenticatedUserQueryKey';
 
-type UserAuthenticatedUserQueryOtptions={
+type UserAuthenticatedUserQueryOptions={
   config?: QueryConfig<typeof fetchAuthenticatedUserFn>
 };
 
-export const useAuthenticatedUserQuery= ({ config }: UserAuthenticatedUserQueryOtptions) => {
+export const useAuthenticatedUserQuery= ({ config }: UserAuthenticatedUserQueryOptions) => {
   return useQuery({
     queryKey: AuthenticatedUserQueryKey,
     queryFn : fetchAuthenticatedUserFn,

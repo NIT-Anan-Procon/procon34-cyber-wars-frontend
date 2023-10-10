@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 import { CHALLENGE_HINT_SCORE_KEY, useFetchChallengeQuery } from '@/features/games/challenge';
-
-import { Loading } from '@/components/Animation';
 import { useShowHintMutation } from '..';
 import LockIcon from '@mui/icons-material/Lock';
 import { Button } from '@/components/Elements';
@@ -39,7 +37,7 @@ const HintButtonIconStyle= {
 
 export const HintPointButton= () => {
   const showHintMutation= useShowHintMutation();
-  const { data: hintScore, isLoading }= useFetchChallengeQuery({
+  const { data: hintScore }= useFetchChallengeQuery({
     config: {
       select: ( data ) => data[ CHALLENGE_HINT_SCORE_KEY ], 
     }

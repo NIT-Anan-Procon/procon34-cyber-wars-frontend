@@ -9,15 +9,6 @@ type UseJoinRoomMutationOptions= {
 
 export const useJoinRoomMutation= ({ config }: UseJoinRoomMutationOptions ) => {
   return useMutation({
-    onMutate: {
-      
-    },
-    onSuccess: {
-      
-    },
-    onError: {
-
-    },
     ...config,
     mutationFn: joinRoomFn
   });

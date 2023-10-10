@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { ROOM_MODES } from '../types/roomModes';
+import { ROOM_MODES } from '../../types/roomModes';
 
 export const roomModeState= atom({
   key: 'atom_roomMode',

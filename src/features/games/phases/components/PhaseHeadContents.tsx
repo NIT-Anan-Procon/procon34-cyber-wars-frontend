@@ -65,20 +65,16 @@ export const PhaseHeadContents= (
 
   const handleShowCode= () => {
     setIsShowCode( ! isShowCode );
-    setIsDrawHint( false );
-    setIsDrawGoal( false ); 
   };
 
   const handleDrawGoal= () => {
     setIsDrawGoal( !isDrawGoal );
     setIsDrawHint( false );
-    setIsShowCode( false );
   };
 
   const handleDrawHint= () => {
     setIsDrawHint( !isDrawHint );
     setIsDrawGoal( false );
-    setIsShowCode( false );
   };
 
   return (
@@ -86,15 +82,15 @@ export const PhaseHeadContents= (
       <_PhaseHeadContentsHeader >{ title }</_PhaseHeadContentsHeader>
       <_PhaseHeadContents >
         { phase === PHASE.ATTACK_PHASE
-          ? <$PhaseContentButton onClick={ handleShowCode } >
+          ? <$PhaseContentButton active={ isShowCode } onClick={ handleShowCode } >
               <CodeIcon style={ IconStyle } />
             </$PhaseContentButton>
           : undefined
         }
-        <$PhaseContentButton onClick={ handleDrawGoal } >
+        <$PhaseContentButton active={ isDrawGoal } onClick={ handleDrawGoal } >
           <FlagIcon style={ IconStyle } />
         </$PhaseContentButton>
-        <$PhaseContentButton onClick={ handleDrawHint } >
+        <$PhaseContentButton active={ isDrawHint } onClick={ handleDrawHint } >
           <LightbulbIcon style={ IconStyle } />
         </$PhaseContentButton>
       </_PhaseHeadContents>

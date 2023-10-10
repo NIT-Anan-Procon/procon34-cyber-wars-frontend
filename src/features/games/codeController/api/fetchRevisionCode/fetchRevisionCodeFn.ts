@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
 
 import { axios } from '@/lib/axios';
-import { BATTLE_REVISION_URL, RevisionCodeResponseType } from '..';
+import { BATTLE_REVISION_URL, RevisionResponseType } from '..';
 
-export const fetchRevisionCodeFn= async(): Promise<AxiosResponse<RevisionCodeResponseType>> => {
+export const fetchRevisionCodeFn= async(): Promise<AxiosResponse<RevisionResponseType>> => {
   return await axios.get( BATTLE_REVISION_URL );
 };

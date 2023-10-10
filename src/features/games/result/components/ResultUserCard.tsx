@@ -1,8 +1,10 @@
 import styled, { css }     from 'styled-components';
 
 import { colors } from '@/assets/styles';
+import { IS_HOST_KEY, useFetchRoomInfoQuery } from '../../room';
+import { SCORES_KEY, useFetchScoresQuery } from '../../scores';
 
-const _ResultUserCard= styled.div<{usertype: 'MYUSER' | 'OPPONENTUSER'}>`
+const _ResultUserCard= styled.div<{status: 'HOST' | 'GUEST'}>`
   height    : 20rem;
   width     : 60rem;
   font-size : 3rem;
@@ -41,7 +43,7 @@ const _CharacterName= styled.h1<CharacterScoreBoardTransTypes>`
       `
   };
 `;
-const _UserNameWrapper= styled.div<{usertype: 'MYUSER' | 'OPPONENTUSER'}>`
+const _UserNameWrapper= styled.div<{status: 'HOST' | 'GUEST'}>`
   margin    : 0 20px;
   height    : 10rem;
   width     : 30rem;
@@ -52,7 +54,7 @@ const _UserNameWrapper= styled.div<{usertype: 'MYUSER' | 'OPPONENTUSER'}>`
   align-items: center;
   justify-content: center;
   transform: skew( 3deg );
-  ${(props) => props.usertype === 'MYUSER'
+  ${(props) => props.status === 'HOST'
       ? css`
           background: #2F1FF6;
           clip-path: polygon(0 0, 100% 16%, 97% 100%, 4% 100%);
@@ -96,7 +98,7 @@ const _ResultScore= styled.div`
 
   &::after {
     background:
-      ${(props) => props.usertype === 'MYUSER'
+      ${(props) => props.status === 'HOST'
         ? '#2F1FF6'
         : `${ colors.redAccent }`
       };
@@ -128,26 +130,38 @@ const _ResultScore= styled.div`
 `;
 
 type ResultUserCardProps= {
-  name    : string;
-  score   : number;
-  usertype: 'MYUSER' | 'OPPONENTUSER';
+  name  : string;
+  score : number;
+  status: 'HOST' | 'GUEST';
 };
 
 export const ResultUserCard= (
   { 
-    name, 
-    score, 
-    usertype
+    name,  
+    status
   }: ResultUserCardProps
 ) => {
+  const roomInfoQuery= useFetchRoomInfoQuery({});
+  const myUserStatus= roomInfoQuery?.data[ IS_HOST_KEY ] ? 'HOST': 'GUEST';
+  const scoresQuery= useFetchScoresQuery({
+    config: {
+      refetchInterval: 3000
+    }
+  });
   return (
-    <_ResultUserCard usertype={usertype} >
-      <_UserNameWrapper usertype={usertype} >
-        <_UserName usertype={usertype} >{ name }</_UserName>        
+    <_ResultUserCard status={status} >
+      <_UserNameWrapper status={status} >
+        <_UserName status={status} >{ name }</_UserName>        
       </_UserNameWrapper>
-      <_ResultScore usertype={usertype}>
+      <_ResultScore status={status}>
         <span>Score</span>
-        <h1>{ score }</h1>
+        <h1>
+          { 
+            status === myUserStatus
+              ? scoresQuery.data[ SCORES_KEY ][0]
+              : scoresQuery.data[ SCORES_KEY ][1]
+          }
+        </h1>
         <p>pt</p>
       </_ResultScore>
     </_ResultUserCard>

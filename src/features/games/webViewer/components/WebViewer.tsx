@@ -1,8 +1,12 @@
 import { useRef, useEffect } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import {  useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { focusedInputElementState, targetInputNameState, viewerRefState } from '../states/atoms';
+import { focusedInputElementState, targetInputNameState } from '../states/atoms';
+import { TARGET_CODE_PATH_KEY, useFetchChallengeQuery } from '../../challenge';
+import { REVISION_PATH_KEY, useFetchRevisionCodeQuery } from '../../codeController/api';
+import { PHASE } from '../../phases';
+import { PHP_URL } from '../config';
 
 const _Preview= styled.iframe<{ styles?: string }>`
   width      : calc( 100% - 40px);
@@ -32,9 +36,10 @@ export const WebViewer= (
   }: PreviewProps
 ) => {
   const iframeRef= useRef(null);
-  const [ viewerRefValue, setViewerRefValue ]= useRecoilState( viewerRefState );
   const setFocusedInputElement= useSetRecoilState( focusedInputElementState );
   const setTargetInputName= useSetRecoilState( targetInputNameState );
+  const challengeQuery= useFetchChallengeQuery({});
+  const revisionQuery = useFetchRevisionCodeQuery();
 
   useEffect(() => {
     function getInputsFromIframe() { 
@@ -56,59 +61,63 @@ export const WebViewer= (
 
   }, [ iframeRef, setFocusedInputElement ]);
 
+  const mergeAbsolutePath= phase !== PHASE.BATTLE_PHASE
+    ? `${ PHP_URL + challengeQuery?.data?.[ TARGET_CODE_PATH_KEY ] + '/target.php' }`
+    : `${ PHP_URL + challengeQuery?.data?.[ TARGET_CODE_PATH_KEY ] + '/revision/' + revisionQuery?.data?.[ REVISION_PATH_KEY ] + '.php' }`
+
   return (
     <_Preview
       ref= { iframeRef }
-      styles={ styles } 
-      srcDoc={`<html>
-        <head>
-          <style>
-            /* CSSでページの見た目を整える */
-            body {
-              font-family: Arial, sans-serif;
-              background-color: lightblue;
-            }
+      styles={ styles }
+      src={ mergeAbsolutePath }
+      // srcDoc={`<html>
+      //   <head>
+      //     <style>
+      //       /* CSSでページの見た目を整える */
+      //       body {
+      //         font-family: Arial, sans-serif;
+      //         background-color: lightblue;
+      //       }
         
-            .container {
-              width: 500px;
-              margin: 100px auto;
-              padding: 20px;
-              border: 1px solid black;
-              background-color: white;
-            }
+      //       .container {
+      //         width: 500px;
+      //         margin: 100px auto;
+      //         padding: 20px;
+      //         border: 1px solid black;
+      //         background-color: white;
+      //       }
         
-            h1 {
-              text-align: center;
-            }
+      //       h1 {
+      //         text-align: center;
+      //       }
         
-            form {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-            }
+      //       form {
+      //         display: flex;
+      //         flex-direction: column;
+      //         align-items: center;
+      //       }
         
-            input {
-              margin: 10px;
-            }
+      //       input {
+      //         margin: 10px;
+      //       }
         
-            button {
-              width: 100px;
-              height: 40px;o9
-            }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <h1>ログインページ</h1>
-            <form action="login.php" method="post">
-              <input type="text" name="user" placeholder="ユーザー名" required>
-              <input type="password" name="pass" placeholder="パスワード" required>
-              <button type="submit">ログイン</button>
-            </form>
+      //       button {
+      //         width: 100px;
+      //         height: 40px;o9
+      //       }
+      //     </style>
+      //   </head>
+      //   <body>
+      //     <div class="container">
+      //       <h1>ログインページ</h1>
+      //       <form action="login.php" method="post">
+      //         <input type="text" name="user" placeholder="ユーザー名" required>
+      //         <input type="password" name="pass" placeholder="パスワード" required>
+      //         <button type="submit">ログイン</button>
+      //       </form>
 
-        </body>
-        </html>`}
-        // src= { getCodePath } 
+      //   </body>
+      //   </html>`}
     /> 
   );
 };

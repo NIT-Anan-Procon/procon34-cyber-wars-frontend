@@ -1,10 +1,10 @@
 import { forwardRef } from 'react';
-import styled         from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { colors } from '@/assets/styles';
 import { Spinner } from '.';
 
-const _Button= styled.button`
+const _Button= styled.button<{ active?: boolean }>`
   width        : 100%;
   height       : 4.75rem;
   font-size    : 1.75rem;
@@ -20,6 +20,17 @@ const _Button= styled.button`
     background: ${colors.primary};
     transition: 0.5s;
   }
+
+  ${(props) => props.active
+    ? css`
+        background: ${ colors.primary };
+        color     : ${colors.bgLighter}; 
+      `
+    : css`
+        background: ${colors.secondary};
+        color     : black; 
+      `
+  };
 `;
 
 type IconProps =
@@ -29,6 +40,7 @@ type IconProps =
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   isLoading?: boolean;
+  active   ?: boolean;
 } & IconProps;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -36,6 +48,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       type = 'button',
       isLoading = false,
+      active= false,
       startIcon,
       endIcon,
       ...props
@@ -46,6 +59,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <_Button
         ref={ref}
         type={type}
+        active={active}
         {...props}
       >
         {isLoading && <Spinner />}

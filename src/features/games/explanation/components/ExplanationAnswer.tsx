@@ -1,6 +1,6 @@
 import { colors } from "@/assets/styles";
 import { Loading } from "@/components/Animation";
-import { CHALLENGE_CHOICES_KEY, CHOICES_KEY, VULNERABILITIES_KEY, useFetchChallengeQuery } from "@/features/games/challenge";
+import { CHALLENGE_CHOICES_KEY, useFetchChallengeQuery } from "@/features/games/challenge";
 import styled from "styled-components";
 
 const _ExplanationAnswerWrapper= styled.div`
@@ -58,7 +58,10 @@ export const ExplanationAnswer= () => {
     <_ExplanationAnswerWrapper>
       <_ExplanationAnswerHead >攻撃例</_ExplanationAnswerHead>
       <_ExplanationAnswerText>
-        <_AnswerBox>{ challengeQuery?.data[ CHALLENGE_CHOICES_KEY ] }</_AnswerBox>
+        { challengeQuery?.data[ CHALLENGE_CHOICES_KEY ].map(( value ) => (
+            <_AnswerBox>{ value }</_AnswerBox>
+          ))
+        }
       </_ExplanationAnswerText>
     </_ExplanationAnswerWrapper>
   );
