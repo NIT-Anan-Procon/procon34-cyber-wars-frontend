@@ -1,9 +1,9 @@
-import styled          from "styled-components";
+import styled from 'styled-components';
 
-import { Form, FormTitle, InputField } from "@/components/Form";
-import { Button, Link }          from "@/components/Elements";
-import { AuthUser, FormSchema }  from "..";
-import { colors }                from "@/assets/styles";
+import { Form, FormTitle, InputField } from '@/components/Form';
+import { Button, Link }          from '@/components/Elements';
+import { AuthUser, FormSchema }  from '..';
+import { colors }                from '@/assets/styles';
 import { useLoginMutation } from '../api/login/useLoginMutation';
 
 const ContentAreaWrapper= styled.div`

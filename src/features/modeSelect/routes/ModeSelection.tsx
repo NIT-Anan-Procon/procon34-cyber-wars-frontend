@@ -4,9 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Head } from "@/components/Head";
 import { SelectionCard } from "../components";
-import { Button, Header, IconButton } from "@/components/Elements";
+import { Button, Header } from "@/components/Elements";
 import { CARD_DESCRIPTION, SETTINGS_PATH, TRAIN_MODE_PATH } from "..";
-import userIcon from '@/assets/images/user.svg';
 import { useModal } from '@/hooks/useModal';
 import { RoomSelectForm, useExitRoomMutation } from '@/features/games/room';
 import { colors } from '@/assets/styles';

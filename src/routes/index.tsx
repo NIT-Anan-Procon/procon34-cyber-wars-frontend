@@ -1,4 +1,4 @@
-import { useRoutes }      from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 
 import { authorizedRoutes } from './authorizedRoutes';
 import { publicRoutes }     from './publicRoutes';
@@ -8,8 +8,6 @@ import {
   IS_LOGGED_IN_KEY,
   useAuthenticatedUserQuery
 } from '@/features/auth';
-
-
 
 export const AppRoutes = () => {
   const { data: isAuthenticated, isLoading }= useAuthenticatedUserQuery({
