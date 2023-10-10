@@ -27,7 +27,7 @@ export const BattlePhase= () => {
       redirectUrl={ REDIRECT_PATHS.BATTLE_TO_RESULT }
     >
       <PhaseContentsWrapper
-        head={ <PhaseHeadContents title={'選択肢から攻撃文を作成してください。'} /> }
+        head={ <PhaseHeadContents phase={ PHASE.BATTLE_PHASE } title={'脆弱性を見つけ出して攻撃してください。'} /> }
         body={ <EditorWrapper><EditArea phase={ PHASE.BATTLE_PHASE } /></EditorWrapper> }
         foot={
           <PhaseContentForm
