@@ -18,7 +18,7 @@ const queryConfig: DefaultOptions= {
 export const queryClient: QueryClient = new QueryClient({ defaultOptions: queryConfig });
 
 export type QueryConfig<QueryFnType extends (...args: any) => any> = Omit<
-  UseQueryOptions<QueryFnType>,
+  UseQueryOptions<ReturnType<QueryFnType>, unknown, ReturnType<QueryFnType>, string[] >,
   'queryKey' | 'queryFn'
 >;
 
