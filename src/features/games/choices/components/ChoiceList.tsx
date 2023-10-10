@@ -20,7 +20,7 @@ const _ChoiceList= styled.ul`
   );
 `;
 
-export const ChoiceList= ( item : choicesType ) => {
+export const ChoiceList= ({ item }: choicesType ) => {
   const [ isChoiceChecked, setIsChoiceChecked ]= useRecoilState( isCheckedChoicesState );
   const [ checkedList, setCheckedList ]= useRecoilState( checkedChoiceListState );
 

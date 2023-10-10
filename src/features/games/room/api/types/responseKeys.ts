@@ -15,7 +15,7 @@ export type JoinRoomResponseType= {
 };
 
 export type RoomInfoResponseType= {
-  [ IS_HOST_KEY ]      : boolean;
-  [ OPPONENT_NAME_KEY ]: string;
-  [ IS_STARTED_KEY ]   : boolean;
+  host: boolean;
+  opponentName: string;
+  started: boolean;
 };

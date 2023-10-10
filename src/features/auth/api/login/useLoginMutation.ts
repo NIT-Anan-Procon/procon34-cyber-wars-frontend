@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { loginFn } from './loginFn';
 import { queryClient } from '@/lib/react-query';
-import { AuthResponseType, AuthenticatedUserQueryKey, IS_LOGGED_IN_KEY } from '..';
+import { AuthResponseType, AuthenticatedUserQueryKey } from '..';
 
 export const useLoginMutation= () => {
   return useMutation({
@@ -12,7 +12,7 @@ export const useLoginMutation= () => {
       if( prevIsAuthenticated && isSuccess ) {
         queryClient.setQueryData( AuthenticatedUserQueryKey, {
           ...prevIsAuthenticated,
-          [ IS_LOGGED_IN_KEY ]: isSuccess,
+          loggedIn: isSuccess,
         });
       }
     },

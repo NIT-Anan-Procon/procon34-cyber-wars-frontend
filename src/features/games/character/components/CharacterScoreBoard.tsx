@@ -151,7 +151,7 @@ export const CharacterScoreBoard= (
 
   if( !scoresQuery?.data || !roomInfoQuery?.data ) return null; 
 
-  const myUserStatus= roomInfoQuery?.data[ IS_HOST_KEY ] ? 'HOST': 'GUEST';
+  const myUserStatus= roomInfoQuery.data?.host ? 'HOST': 'GUEST';
 
   return (
     <_CharacterScoreBoardWrapper status={ status } styles={ styles } >

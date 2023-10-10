@@ -52,13 +52,13 @@ export const ExplanationAnswer= () => {
     return <Loading />
   }
   
-  if( !challengeQuery?.data ) return null;
+  if( !challengeQuery.data ) return null;
 
   return (
     <_ExplanationAnswerWrapper>
       <_ExplanationAnswerHead >攻撃例</_ExplanationAnswerHead>
       <_ExplanationAnswerText>
-        { challengeQuery?.data[ CHALLENGE_CHOICES_KEY ].map(( value: string ) => (
+        { challengeQuery.data?.choices.map(( value: string ) => (
             <_AnswerBox>{ value }</_AnswerBox>
           ))
         }
