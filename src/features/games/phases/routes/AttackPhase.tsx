@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 import { 
@@ -39,7 +38,7 @@ export const AttackPhase= () => {
         }
         body={
           isShowCode
-          ? <EditorWrapper><EditArea phase={ PHASE.DEFENCE_PHASE } /></EditorWrapper>
+          ? <EditorWrapper><EditArea phase={ PHASE.ATTACK_PHASE } /></EditorWrapper>
           : <ChoicesWrapper />
         }
         foot={
