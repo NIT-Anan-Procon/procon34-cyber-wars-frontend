@@ -9,7 +9,7 @@ import {
   SIGNUP_USER_URL, 
   UPDATE_USER_NAME_URL,
   UPDATE_USER_PASSWORD_URL
-} from '@/config/apiUrls';
+} from '@/constants/apiUrls';
 
 import { db } from '../db';
 import { authenticate } from '../utils';

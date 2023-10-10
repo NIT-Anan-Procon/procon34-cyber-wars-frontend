@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react"
+import { useRef, useCallback } from 'react';
 
 export const useModal= () => {
   const ref: React.MutableRefObject<HTMLDialogElement | null>= useRef(null);

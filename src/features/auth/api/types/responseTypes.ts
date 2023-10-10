@@ -1,10 +1,14 @@
-import { ISSUCCESS_KEY, IS_SIGNEDIN, USER_NAME_KEY } from '@/config/responseKeys';
+import { 
+  USER_NAME_KEY, 
+  IS_SUCCESSFUL_KEY,
+  IS_LOGGED_IN_KEY,
+} from "../constants";
 
-export type IsSuccessType= {
-  [ ISSUCCESS_KEY ]: boolean;
+export type AuthResponseType= {
+  [ IS_SUCCESSFUL_KEY ]: boolean;
 };
 
-export type IsSignedInType= {
-  [ IS_SIGNEDIN ]  : boolean;
-  [ USER_NAME_KEY ]: string;
+export type AuthenticatedResponseType= {
+  [ IS_LOGGED_IN_KEY ]: boolean;
+  [ USER_NAME_KEY ]   : string;
 };

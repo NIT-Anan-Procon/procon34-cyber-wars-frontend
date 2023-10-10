@@ -8,7 +8,7 @@ type CardContentProps= {
   children: React.ReactNode;
 };
 
-type CardProps= { 
+type CardProps= {
   children: React.ReactNode;
 };
 
@@ -37,12 +37,6 @@ export const CardContent= ({ children }: CardContentProps) => {
     <_CardContentWrapper>{ children }</_CardContentWrapper>
   );
 };
-
-// export const CardActions= ({ children }) => {
-//   return (
-//     <></>
-//   )
-// }
 
 const _Card= styled.div`
   border-radius: 2rem;

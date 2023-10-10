@@ -1,1 +1,0 @@
-export const choices= [ "'","or","1","=","1" ];

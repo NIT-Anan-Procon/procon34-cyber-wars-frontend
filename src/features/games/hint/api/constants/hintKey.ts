@@ -1,0 +1,1 @@
+export const VULNERABILITY_ID_KEY= "vulnerabilityId";

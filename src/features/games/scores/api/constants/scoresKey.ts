@@ -1,0 +1,1 @@
+export const SCORES_KEY= "scores";

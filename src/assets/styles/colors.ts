@@ -1,6 +1,6 @@
 export const colors= {
-  bgDarker    : '#1E1E1E',
-  bgLighter   : '#FEFEFE',
+  bgDarker    : '#171717',
+  bgLighter   : '#EEEEEE',
   primary     : '#2DE7D0',
   secondary   : '#D9D9D9',
   greyAccent  : '#8E8E8E',
