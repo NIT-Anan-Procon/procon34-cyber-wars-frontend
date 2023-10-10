@@ -1,10 +1,12 @@
 import styled, { css } from 'styled-components';
 
-import { SCORES_KEY, useFetchScoresQuery } from '@/features/games/scores';
+import { SCORES_KEY, ScoresQueryKey, fetchScoresFn } from '@/features/games/scores';
 import { colors } from '@/assets/styles';
 import { Loading } from '@/components/Animation';
-import { IS_HOST_KEY, useFetchRoomInfoQuery } from '../../room';
+import { fetchRoomInfoFn, fetchRoomInfoQueryKey } from '../../room';
 import { ScoreHistory } from '../../scores/components/ScoreHistory';
+import { useQuery } from '@tanstack/react-query';
+
 const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
   height     : 100%;
   width      : 100vw;
@@ -137,13 +139,13 @@ export const CharacterScoreBoard= (
     styles
   }: CharacterScoreBoardProps
 ) => {
-  const scoresQuery= useFetchScoresQuery({
-    config: {
+  const scoresQuery= useQuery( ScoresQueryKey, fetchScoresFn,
+    {
       refetchInterval: 3000
     }
-  });
+  );
 
-  const roomInfoQuery= useFetchRoomInfoQuery({});
+  const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
 
   if( scoresQuery.isLoading || roomInfoQuery.isLoading ) {
     return <Loading />

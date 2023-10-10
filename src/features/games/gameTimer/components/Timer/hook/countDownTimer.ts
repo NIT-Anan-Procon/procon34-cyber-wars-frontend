@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-import { useFetchStartTimeQuery } from "@/features/games/gameTimer";
+import { StartTimeQueryKey, fetchStartTimeFn } from "@/features/games/gameTimer";
+import { useQuery } from "@tanstack/react-query";
 
 export const useCountDownTimer= ( targetTime: number, redirectUrl: string ) => {
   const [ countdown, setCountdown ]= useState<number | undefined>(0);
   const navigate= useNavigate();
-  const { data: startTime }= useFetchStartTimeQuery({
-    config: {
+  const startTimeQuery= useQuery( StartTimeQueryKey, fetchStartTimeFn, 
+    {
       refetchOnMount: true
     }
-  });
+  );
+
+  if( !startTimeQuery?.data ) return null
 
   const  SECONDS_IN_MINUTE= 60;
 
-  const gameStartTime: Date = new Date( startTime?.startTime );
+  const gameStartTime: Date = new Date( startTimeQuery?.data?.startTime );
   const milliseconds: number= gameStartTime.getTime();
   const endTime: Date= new Date(new Date(milliseconds + targetTime * 1000))
 
@@ -45,10 +48,10 @@ export const useCountDownTimer= ( targetTime: number, redirectUrl: string ) => {
     else {
       setCountdown(0);
     }
-  }, [ navigate, redirectUrl, startTime ] )
+  }, [ navigate, redirectUrl, startTimeQuery ] )
 
-  const formatCountdown = (): string | undefined => {
-    if (countdown !== undefined) {  
+  const formatCountdown = (): string | undefined | null => {
+    if (countdown !== undefined ) {  
       let minutes: string | number = Math.floor(countdown / SECONDS_IN_MINUTE);
       let seconds: string | number = countdown % SECONDS_IN_MINUTE;
       minutes = minutes < 10 ? '0' + minutes : minutes;
@@ -58,5 +61,5 @@ export const useCountDownTimer= ( targetTime: number, redirectUrl: string ) => {
     }
   }
   
-  return { formatCountdown } 
+  return { formatCountdown } as { formatCountdown: () => string | undefined | null } 
 };

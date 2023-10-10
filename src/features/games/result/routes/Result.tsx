@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button }         from '@/components/Elements';
 import { ResultUserCard } from '../components';
-import { useFetchScoresQuery } from '@/features/games/scores';
-import { useFetchRoomInfoQuery } from '@/features/games/room';
-import { useAuthenticatedUserQuery } from '@/features/auth';
+import { ScoresQueryKey, fetchScoresFn } from '@/features/games/scores';
+import { fetchRoomInfoFn } from '@/features/games/room';
+import { AuthenticatedUserQueryKey, fetchAuthenticatedUserFn } from '@/features/auth';
 import { colors } from '@/assets/styles';
 import { Loading } from '@/components/Animation';
+import { useQuery } from '@tanstack/react-query';
+import { fetchRoomInfoQueryKey } from '../../room/api/fetchRoomInfo/fetchRoomInfoQueryKey';
 
 const _ResultWrapper= styled.div`
   height     : 100%;
@@ -48,17 +50,15 @@ const _NextButton= styled(Button)`
 
 export const Result= () => {
   const navigate= useNavigate();
-  const authUserQuery=useAuthenticatedUserQuery({});
-  const roomInfoQuery= useFetchRoomInfoQuery({});
-  const scoresQuery= useFetchScoresQuery({});
+  const authUserQuery=useQuery( AuthenticatedUserQueryKey, fetchAuthenticatedUserFn );
+  const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
+  const scoresQuery= useQuery( ScoresQueryKey, fetchScoresFn );
 
   if( authUserQuery.isLoading || roomInfoQuery.isLoading || scoresQuery.isLoading ) {
     return <Loading />
   };
 
   if( !authUserQuery.data || !roomInfoQuery.data || !scoresQuery.data ) return null;
-
-
 
   const result= scoresQuery.data?.scores[0] > scoresQuery.data?.scores[1] ? 'YOU WIN' : 'YOU LOSE'
 
@@ -72,6 +72,7 @@ export const Result= () => {
             ? authUserQuery?.data?.name
             : roomInfoQuery?.data?.opponentName
           }
+          
           status={ 'HOST' } 
         />
         <ResultUserCard 

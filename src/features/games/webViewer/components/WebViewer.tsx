@@ -3,10 +3,11 @@ import {  useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { focusedInputElementState, targetInputNameState } from '../states/atoms';
-import { TARGET_CODE_PATH_KEY, useFetchChallengeQuery } from '../../challenge';
-import { REVISION_PATH_KEY, useFetchRevisionCodeQuery } from '../../codeController/api';
+import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
+import { RevisionCodeQueryKey, fetchRevisionCodeFn } from '../../codeController/api';
 import { PHASE } from '../../phases';
 import { PHP_URL } from '../config';
+import { useQuery } from '@tanstack/react-query';
 
 const _Preview= styled.iframe<{ styles?: string }>`
   width      : calc( 100% - 40px);
@@ -38,8 +39,8 @@ export const WebViewer= (
   const iframeRef= useRef<HTMLIFrameElement | null>(null);
   const setFocusedInputElement= useSetRecoilState( focusedInputElementState );
   const setTargetInputName= useSetRecoilState( targetInputNameState );
-  const challengeQuery= useFetchChallengeQuery({});
-  const revisionQuery = useFetchRevisionCodeQuery();
+  const challengeQuery= useQuery( ChallengeQueryKey, fetchChallengeFn );
+  const revisionQuery = useQuery( RevisionCodeQueryKey, fetchRevisionCodeFn );
 
   useEffect(() => {
     function getInputsFromIframe() {
@@ -63,7 +64,7 @@ export const WebViewer= (
 
   const mergeAbsolutePath= phase !== PHASE.BATTLE_PHASE
     ? `${ PHP_URL + challengeQuery?.data?.targetPath + '/target.php' }`
-    : `${ PHP_URL + challengeQuery?.data?.targetPath + '/revision/' + revisionQuery?.data?.[ REVISION_PATH_KEY ] + '.php' }`
+    : `${ PHP_URL + challengeQuery?.data?.targetPath + '/revision/' + revisionQuery?.data?.revisionPath + '.php' }`
 
   return (
     <_Preview

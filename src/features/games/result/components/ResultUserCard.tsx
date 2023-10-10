@@ -1,8 +1,9 @@
 import styled, { css }     from 'styled-components';
 
 import { colors } from '@/assets/styles';
-import { IS_HOST_KEY, useFetchRoomInfoQuery } from '../../room';
-import { SCORES_KEY, useFetchScoresQuery } from '../../scores';
+import { fetchRoomInfoFn, fetchRoomInfoQueryKey } from '../../room';
+import { ScoresQueryKey, fetchScoresFn } from '../../scores';
+import { useQuery } from '@tanstack/react-query';
 
 const _ResultUserCard= styled.div<{status: 'HOST' | 'GUEST'}>`
   height    : 20rem;
@@ -100,7 +101,6 @@ const _ResultScore= styled.div<{status: 'HOST' | 'GUEST'}>`
 
 type ResultUserCardProps= {
   name  : string;
-  score : number;
   status: 'HOST' | 'GUEST';
 };
 
@@ -110,13 +110,17 @@ export const ResultUserCard= (
     status
   }: ResultUserCardProps
 ) => {
-  const roomInfoQuery= useFetchRoomInfoQuery({});
-  const myUserStatus= roomInfoQuery.data?.loggedIn ? 'HOST': 'GUEST';
-  const scoresQuery= useFetchScoresQuery({
-    config: {
+  const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
+  const scoresQuery= useQuery( ScoresQueryKey, fetchScoresFn,
+    {
       refetchInterval: 3000
     }
-  });
+  );
+
+  if( !roomInfoQuery?.data || !scoresQuery?.data ) return null;
+
+  const myUserStatus= roomInfoQuery?.data?.host ? 'HOST': 'GUEST';
+
   return (
     <_ResultUserCard status={status} >
       <_UserNameWrapper status={status} >

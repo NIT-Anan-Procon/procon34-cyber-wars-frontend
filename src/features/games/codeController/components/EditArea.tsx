@@ -6,19 +6,21 @@ import { php }            from '@codemirror/lang-php';
 
 import { EditorSetup } from '../config';
 import { codeState }   from '../states';
-import { CODE_KEY, REVISION_CODE_KEY, useFetchRevisionCodeQuery }    from '../api';
+import { RevisionCodeQueryKey, fetchRevisionCodeFn }    from '../api';
 import { Loading }     from '@/components/Animation';
-import { CHALLENGE_CODE_KEY, useFetchChallengeQuery } from '@/features/games/challenge';
+import { ChallengeQueryKey, fetchChallengeFn } from '@/features/games/challenge';
 import { PHASE } from '../../phases';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 type EditAreaProps= {
   phase: string;
 };
 
 export const EditArea= ({ phase }: EditAreaProps) => {
-  const [ code, setCode ] =useRecoilState(codeState );
-  const challengeQuery= useFetchChallengeQuery({});
-  const revisionCodeQuery= useFetchRevisionCodeQuery();
+  const [ code, setCode ] =useRecoilState( codeState );
+  const challengeQuery= useQuery(ChallengeQueryKey, fetchChallengeFn);
+  const revisionCodeQuery= useQuery( RevisionCodeQueryKey, fetchRevisionCodeFn );
 
   if( challengeQuery.isLoading || revisionCodeQuery.isLoading ) {
     return <Loading />
@@ -26,9 +28,13 @@ export const EditArea= ({ phase }: EditAreaProps) => {
 
   if( !challengeQuery?.data || !revisionCodeQuery?.data ) return null;
 
+  useEffect(() => {
     const phaseCode= phase === PHASE.BATTLE_PHASE 
-      ? revisionCodeQuery?.data[ REVISION_CODE_KEY ]
-      : challengeQuery?.data[ CHALLENGE_CODE_KEY ]
+      ? revisionCodeQuery?.data.code
+      : challengeQuery?.data.code
+    
+    setCode( phaseCode );
+  },[challengeQuery, revisionCodeQuery, setCode]);
 
   const handleCode= ( value: string ) => {
     setCode(value);
@@ -36,7 +42,7 @@ export const EditArea= ({ phase }: EditAreaProps) => {
   
   return (
       <CodeMirror
-        value     = { phaseCode }
+        value     = { code }
         onChange  = { handleCode }
         theme     = { vscodeDark }
         basicSetup= { EditorSetup }

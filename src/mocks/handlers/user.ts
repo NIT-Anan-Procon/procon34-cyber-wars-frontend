@@ -10,40 +10,15 @@ import {
   UPDATE_USER_PASSWORD_URL
 } from '@/constants/apiUrls';
 
-import { db } from '../db';
-import { authenticate } from '../utils';
-
 export type AuthUserBody= AuthUser & {
   user_id: number;
 }
 
 export const userHandlers= [
-  rest.post<AuthUserBody>( SIGNUP_USER_URL, (req, res, ctx) => {
+  rest.post<AuthUserBody>( SIGNUP_USER_URL, (_, res, ctx) => {
     try {
-      const  userObject= req.body;
-
-      const existingUser= db.user.findFirst({
-        where: {
-          name: {
-            equals: userObject.name,
-          }
-        }
-      });
-
-      if(existingUser) {
-        throw new Error('すでにそのユーザは存在しています。');
-      }
-
-      db.user.create({
-        ...userObject,
-        userId : Math.floor(Math.random() * 1000000),
-        password: userObject.password, 
-      });
-
-      const result= authenticate(userObject);
       return res(
         ctx.status(200),
-        ctx.json(result),
         ctx.delay(1000)
       );
 
@@ -56,15 +31,10 @@ export const userHandlers= [
     }
   }),
 
-  rest.post<AuthUserBody>( SIGNIN_USER_URL, (req, res, ctx) => { 
+  rest.post<AuthUserBody>( SIGNIN_USER_URL, (_, res, ctx) => { 
     try {
-      const credential= req.body;
-
-      const result= authenticate(credential);
-
       return res(
         ctx.status(200),
-        ctx.json(result)
       );
 
     } catch (error) {
@@ -132,22 +102,17 @@ export const userHandlers= [
     }
   }),
 
-  rest.delete( SIGNOUT_USER_URL, ( _, res ) => {
-      const user = db.user.findFirst({
-        where: { 
-          loggedIn: { 
-            equals: true 
-          } 
-        }
-      });
+  rest.delete( SIGNOUT_USER_URL, ( _, res, ctx ) => {
+    try {
 
-    if (user) {
-      db.user.update({
-        where: { name: user.name },
-        data:  { loggedIn: false }
-      })
+      return res(
+        ctx.status(200),
+      );
     }
-
-    return res();
+    catch(error) {
+      return res(
+        ctx.status(400),
+      );
+    }
   })
 ];

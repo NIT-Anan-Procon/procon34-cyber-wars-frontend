@@ -1,8 +1,9 @@
 import ReactMarkdown from 'react-markdown';
 
-import { EXPLANATION_KEY, useFetchExplanationQuery } from '../api';
+import { FetchExplanationQueryKey, fetchExplanationFn } from '../api';
 import styled from 'styled-components';
 import { colors } from '@/assets/styles';
+import { useQuery } from '@tanstack/react-query';
 
 const _ExplanationMarkdown= styled.div`
   color: ${ colors.bgLighter };
@@ -31,7 +32,7 @@ const _ExplanationMarkdown= styled.div`
 `;
 
 export const ExplanationMarkdown= () => {
-  const explanationQuery= useFetchExplanationQuery({});
+  const explanationQuery= useQuery( FetchExplanationQueryKey, fetchExplanationFn );
   
   if( explanationQuery.isLoading ) {
     return <>loading</>;
@@ -41,7 +42,7 @@ export const ExplanationMarkdown= () => {
 
   return (
     <_ExplanationMarkdown>
-      <ReactMarkdown >{ explanationQuery?.data?.[ EXPLANATION_KEY ] }</ReactMarkdown>
+      <ReactMarkdown >{ explanationQuery?.data?.explanation }</ReactMarkdown>
     </_ExplanationMarkdown>
   );
 };
