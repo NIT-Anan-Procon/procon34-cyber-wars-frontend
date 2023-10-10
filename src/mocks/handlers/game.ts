@@ -2,7 +2,6 @@ import { rest } from 'msw';
 import { 
   FETCH_GAME_START_TIME_URL, 
   START_GAME_URL, 
-  GAME_OPPONENT_NAME_URL, 
   GAME_SCORES_URL, 
   ATTACK_CHALLENGE_URL,
   ATTACK_HINT_URL,
@@ -15,16 +14,13 @@ import {
 import { 
   CHOICES_KEY, 
   CODE_KEY, 
-  CODE_PATH_KEY, 
   IS_CORRECT_KEY, 
   GAME_SCORE_KEY, 
   HINT_KEY, 
   HINT_SCORE_KEY, 
   IS_VALID_KEY, 
-  OPPONENT_NAME_KEY, 
   SCORES_KEY, 
   START_TIME_KEY, 
-  VULNERABILITIES_KEY, 
   GOAL_KEY
 } from '@/constants/responseKeys';
 import { EXPLANATION_KEY, EXPLANATION_URL } from '@/features/games/explanation/api';
@@ -32,7 +28,7 @@ import { CHALLENGE_CODE_KEY, TARGET_CODE_PATH_KEY } from '@/features/games/chall
 import { REVISION_PATH_KEY } from '@/features/games/codeController/api';
 
 export const gameHandlers= [
-  rest.patch( START_GAME_URL, ( req, res, ctx ) => {
+  rest.patch( START_GAME_URL, ( _, res, ctx ) => {
     try {
       return res(
         ctx.status(200),
@@ -47,7 +43,7 @@ export const gameHandlers= [
     }
   }),
 
-  rest.get( FETCH_GAME_START_TIME_URL, ( req, res, ctx ) => {
+  rest.get( FETCH_GAME_START_TIME_URL, ( _, res, ctx ) => {
     try {
       const date = new Date();
       const utcTime= date.toUTCString();
@@ -66,7 +62,7 @@ export const gameHandlers= [
     }
   }),
 
-  rest.get( GAME_SCORES_URL, ( req, res, ctx ) => {
+  rest.get( GAME_SCORES_URL, ( _, res, ctx ) => {
     try {
       const scores= [ 100, 120 ];
 
@@ -83,7 +79,7 @@ export const gameHandlers= [
       )
     }
   }),
-  rest.get( EXPLANATION_URL, ( req, res, ctx ) => {
+  rest.get( EXPLANATION_URL, ( _, res, ctx ) => {
     try {
 
       return res(
@@ -101,7 +97,7 @@ export const gameHandlers= [
       )
     }
   }),
-  rest.delete( START_GAME_URL, ( req, res, ctx ) => {
+  rest.delete( START_GAME_URL, ( _, res, ctx ) => {
     try {
       return res(
         ctx.status(200),
@@ -118,7 +114,7 @@ export const gameHandlers= [
 ];
 
 export const attackPhaseHandler= [
-  rest.get( ATTACK_CHALLENGE_URL, ( req, res, ctx ) => {
+  rest.get( ATTACK_CHALLENGE_URL, ( _, res, ctx ) => {
     try {
       return res(
         ctx.status(200),
@@ -126,7 +122,7 @@ export const attackPhaseHandler= [
           [ TARGET_CODE_PATH_KEY ]: 1,
           [ CHALLENGE_CODE_KEY ] : 
 `<?php
-require './vendor/autoload.php';
+_uire './vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
@@ -183,7 +179,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
       );
     }
   }),
-  rest.post( ATTACK_HINT_URL, ( req, res, ctx ) => {
+  rest.post( ATTACK_HINT_URL, ( _, res, ctx ) => {
     try {
       return res(
         ctx.status(200),
@@ -198,7 +194,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     }
   }),
 
-  rest.post( ATTACK_SEND_KEY_URL, ( req, res, ctx ) => {
+  rest.post( ATTACK_SEND_KEY_URL, ( _, res, ctx ) => {
     try {
       return res(
         ctx.status(200),
@@ -221,10 +217,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 ];
 
 export const defencePhaseHandler= [
-  rest.put( DEFENCE_CODE_URL, ( req, res, ctx ) => {
+  rest.put( DEFENCE_CODE_URL, ( _, res, ctx ) => {
     try {
-      const code= req.body;
-
       return res(
         ctx.status(200),
         ctx.json({ [ IS_VALID_KEY ]: true }),
@@ -240,7 +234,7 @@ export const defencePhaseHandler= [
 ];
 
 export const battlePhaseHandler= [
-  rest.get( BATTLE_REVISION_URL, ( req, res, ctx ) => {
+  rest.get( BATTLE_REVISION_URL, ( _, res, ctx ) => {
     try {
       return res(
         ctx.status(200),
@@ -249,7 +243,7 @@ export const battlePhaseHandler= [
             [ REVISION_PATH_KEY ]: 1,
             [ CODE_KEY ]     : 
 `<?php
-require './vendor/autoload.php';
+_uire './vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
@@ -304,10 +298,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     }
   }),
 
-  rest.post( BATTLE_SEND_KEY_URL, ( req, res, ctx ) => {
+  rest.post( BATTLE_SEND_KEY_URL, ( _, res, ctx ) => {
     try {
-      const flag= req.body;
-
       return res(
         ctx.status(200),
         ctx.json(

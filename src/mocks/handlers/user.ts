@@ -1,5 +1,4 @@
 import { rest } from 'msw';
-import jwt from 'jsonwebtoken';
 
 import { AuthUser } from '@/features/auth';
 import { 
@@ -38,7 +37,7 @@ export const userHandlers= [
       db.user.create({
         ...userObject,
         userId : Math.floor(Math.random() * 1000000),
-        password: userObject.password, //あとでハッシュする
+        password: userObject.password, 
       });
 
       const result= authenticate(userObject);
@@ -76,56 +75,8 @@ export const userHandlers= [
     } 
   }),
 
-  rest.patch( UPDATE_USER_NAME_URL, (req, res, ctx) => {
+  rest.patch( UPDATE_USER_NAME_URL, (_, res, ctx) => {
     try {
-      const update_userName= req.body;
-
-      const user = db.user.findFirst({ 
-        where: { 
-          loggedIn: {
-            equals: true 
-          } 
-        }
-      });
-
-      if (user) {
-        db.user.update({
-          where: { name: user.name },
-          data: { update_userName }
-        })
-      }
-      
-      return res(
-        ctx.status(200),
-        ctx.json(({ success: true}))
-      );
-    }
-    catch(error) {
-      return res(
-        ctx.status(400),
-        ctx.json({success :false})
-      );
-    }
-  }),
-
-  rest.patch( UPDATE_USER_PASSWORD_URL, (req, res, ctx) => {
-    try {
-      const update_password= req.body;
-
-      const user = db.user.findFirst({ 
-        where: { 
-          loggedIn: {
-            equals: true 
-          } 
-        }
-      });
-    
-      if (user) {
-        db.user.update({
-          where: { password: user.password },
-          data: { update_password }
-        })
-      }
 
       return res(
         ctx.status(200),
@@ -140,21 +91,24 @@ export const userHandlers= [
     }
   }),
 
-  rest.get( IS_SIGNEDIN_URL, (req, res, ctx) => {
+  rest.patch( UPDATE_USER_PASSWORD_URL, (_, res, ctx) => {
     try {
-      // const user= db.user.findFirst(
-      //   { 
-      //     where: {
-      //       loggedIn: {
-      //         equals: true
-      //       } 
-      //     }
-      //   }
-      // );
-      // if(!user) {
-      //   throw Error('ユーザは存在していません。');
-      // }
-      
+
+      return res(
+        ctx.status(200),
+        ctx.json(({ success: true}))
+      );
+    }
+    catch(error) {
+      return res(
+        ctx.status(400),
+        ctx.json({success :false})
+      );
+    }
+  }),
+
+  rest.get( IS_SIGNEDIN_URL, (_, res, ctx) => {
+    try {
       return res(
         ctx.status(200),
         ctx.json(
@@ -178,7 +132,7 @@ export const userHandlers= [
     }
   }),
 
-  rest.delete( SIGNOUT_USER_URL, ( req, res, ctx ) => {
+  rest.delete( SIGNOUT_USER_URL, ( _, res ) => {
       const user = db.user.findFirst({
         where: { 
           loggedIn: { 
