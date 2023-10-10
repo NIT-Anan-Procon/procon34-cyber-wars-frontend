@@ -210,10 +210,10 @@ export const CharacterScoreBoard= (
       <_CharacterNameWrapper status={ status } >
         <_CharacterName status={ status } >{ userName }</_CharacterName>
       </_CharacterNameWrapper>
-      { myUserStatus === status
+      {/* { myUserStatus === status
         ? <ScoreHistory />
         : undefined
-      }
+      } */}
       <_ScoreWrapper status={ status } >
         <_Score>
           { status === myUserStatus
