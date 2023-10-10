@@ -1,5 +1,4 @@
 import { useRecoilValue } from "recoil";
-import CancelIcon from '@mui/icons-material/Cancel';
 
 import { CHALLENGE_HINT_SCORE_KEY, useFetchChallengeQuery } from "../../challenge";
 import { addScoreState } from "../states/atoms/addScoreState";
@@ -70,10 +69,10 @@ export const ScoreHistory=() => {
 
   const myUserStatus= roomInfoQuery?.data[ IS_HOST_KEY ] ? 'HOST': 'GUEST';
 
-  const point= isCorrect && !isShowHint
+  const point= isCorrect
     ? `+${ addScore }pt`
-    : isShowHint
-    ? `${challengeQuery?.data?.[ CHALLENGE_HINT_SCORE_KEY ]}pt`
+    : isShowHint 
+    ? `${ challengeQuery?.data?.[ CHALLENGE_HINT_SCORE_KEY ]}pt`
     : undefined
 
   return (
