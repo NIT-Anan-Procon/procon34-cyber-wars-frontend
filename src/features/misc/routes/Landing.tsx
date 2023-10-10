@@ -68,14 +68,10 @@ const StartButtonStyle= styled.button`
 
 export const Landing = () => {
   const navigate= useNavigate();
-  const { data: isAuthenticated }= useAuthenticatedUserQuery({
-    config: {
-      select: ( authUser ) => authUser[ IS_LOGGED_IN_KEY ]
-    }
-  });
+  const { data }= useAuthenticatedUserQuery({});
 
-  const handleStart= () => {
-    if( isAuthenticated ) {
+  const handleStart= async() => {
+    if( (await data)?.[ IS_LOGGED_IN_KEY ] ) {
       navigate( APP_ROUTE );
     } else {
       navigate( AUTH_ROUTE );
