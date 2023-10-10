@@ -4,7 +4,6 @@ import { SCORES_KEY, ScoresQueryKey, fetchScoresFn } from '@/features/games/scor
 import { colors } from '@/assets/styles';
 import { Loading } from '@/components/Animation';
 import { fetchRoomInfoFn, fetchRoomInfoQueryKey } from '../../room';
-import { ScoreHistory } from '../../scores/components/ScoreHistory';
 import { useQuery } from '@tanstack/react-query';
 
 const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
@@ -160,10 +159,7 @@ export const CharacterScoreBoard= (
       <_CharacterNameWrapper status={ status } >
         <_CharacterName status={ status } >{ userName }</_CharacterName>
       </_CharacterNameWrapper>
-      { myUserStatus === status
-        ? <ScoreHistory />
-        : undefined
-      }
+
       <_ScoreWrapper status={ status } >
         <_Score>
           { status === myUserStatus
