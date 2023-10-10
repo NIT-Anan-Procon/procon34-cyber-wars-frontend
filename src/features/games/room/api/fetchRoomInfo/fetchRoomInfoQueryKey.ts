@@ -1,0 +1,1 @@
+export const fetchRoomInfoQueryKey= [ 'query_fetchRoomInfo' ];

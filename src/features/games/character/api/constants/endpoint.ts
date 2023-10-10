@@ -1,0 +1,1 @@
+export const GAME_OPPONENT_NAME_URL= `/game/opponent-name`;

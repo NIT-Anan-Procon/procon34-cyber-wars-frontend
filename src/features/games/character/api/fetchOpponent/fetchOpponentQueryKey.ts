@@ -1,0 +1,1 @@
+export const OpponentQueryKey= [ 'query_opponent' ];

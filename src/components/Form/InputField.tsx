@@ -5,14 +5,6 @@ import { FieldWrapper, FieldWrapperPassThroughProps } from './FieldWrapper';
 import { InputSizeProps } from '@/assets/styles/dimensions';
 import { colors }         from '@/assets/styles';
 
-type InputFieldProps = FieldWrapperPassThroughProps & {
-	id    : string;
-	type ?: 'text' | 'password';
-	value?: string;
-	size  : InputSizeProps;
-	placeholder ?: string;
-	registration?: Partial<UseFormRegisterReturn>;
-};
 
 const _InputField = styled.input<InputFieldProps>`
   width        : 100%;
@@ -27,9 +19,21 @@ const _InputField = styled.input<InputFieldProps>`
 
 	&:focus {
 		border-color: ${colors.primary};
-		transition: 0.5s;
+		transition  : 0.5s;
 	}
 `;
+
+type InputFieldProps = FieldWrapperPassThroughProps & {
+	id     : string;
+	type  ?: 'text' | 'password';
+	value ?: string;
+	size  ?: InputSizeProps;
+	styles?: string;
+	placeholder ?: string;
+	onChange    ?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	registration?: Partial<UseFormRegisterReturn>;
+	defaultValue?: string | number;
+};
 
 export const InputField = (
 	{ 
@@ -37,24 +41,31 @@ export const InputField = (
 		type, 
 		label,
 		size,
+		styles,
 		value,
 		placeholder,
-		error, 
-		registration
+		error,
+		onChange,
+		registration,
+		defaultValue,
 	}: InputFieldProps
 ) => {
 	return (
 		<FieldWrapper
 			label= { label }
 			error= { error }
+			styles= { styles }
 		>
 			<_InputField
-				id  = { id }
-				type= { type }
-				value={ value }
-				size= { size }
-				placeholder={ placeholder}
-				{...registration}
+				id    = { id }
+				type  = { type }
+				value = { value }
+				size  = { size }
+				styles= { styles }
+				placeholder = { placeholder}
+				defaultValue= { defaultValue }
+				onChange={ onChange }
+				{ ...registration }
 			/>
 		</FieldWrapper>
 	);

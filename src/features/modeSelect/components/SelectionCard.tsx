@@ -1,50 +1,125 @@
-import { Button } from '@/components/Elements';
 import { colors } from '@/assets/styles';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const StyledCard= styled.div`
-  width: clamp(50rem, 50vw, 60rem);
-  height: clamp(50rem, 60vh, 65rem);
-  padding: 5rem;
-  background: grey;
-  box-sizing: border-box;
-  background: ${colors.bgLighter};
-  border: 3px solid white;
-  box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+const _SelectionCard= styled.div<{ mode?: string }>`
+  width : 100%;
+  height: 30vh;
+  position: relative;
+  padding : 2rem 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
   backdrop-filter: blur(6px);
-  border-radius: 17px;
   transition: all 0.5s;
+
+  &::before,
+  &::after {
+    content : '';
+    position: absolute;
+    height  : 100%;
+    width   : 100%;    
+  };
+
+  &::before {
+    background: black;
+    z-index   : -1;
+    clip-path: polygon(1% 15%, 98% 5%, 94% 98%, 6% 94%);
+  };
+
+  &::after {
+    background:
+      ${(props) => props.mode==='train'
+        ? `${colors.primary}`
+        : `${colors.danger}`
+      };
+    z-index   : -2;
+    clip-path: polygon(0 10%, 100% 3%, 97% 100%, 4% 96%);
+  };
 `;
 
-const CardContainer= styled.div`
+const _SelectionCardContainer= styled.div`
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-rows: 10% 1fr 20% 15%;
-`;
-
-const CardTitle= styled.h1`
-  grid-row: 1;
-  font-size: 3rem;
-  font-weight: 600;
-  text-align : center;
-`;
-
-const ImageContainer= styled.div`
-  grid-row: 2;
-  width: 100%;
-  height: 10rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
-const CardDescription= styled.p`
-  grid-row: 3;
-  font-size  : 1.5rem;
-  font-weight: 500;
-  color      : #808080;
+const _SelectionCardTitle= styled.div<{ mode?: string }>`
+  height         : 8rem;
+  width          : 30rem;
+  position       : absolute;
+  top            : -20px;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+
+  &::before,
+  &::after
+  {
+    content: '';
+    width : 100%;
+    height: 100%;
+    position: absolute;
+  };
+
+  &::before { 
+    background: black;
+    clip-path : polygon(5% 8%, 93% 14%, 95% 88%, 10% 90%);
+    z-index: 2;
+  };
+
+  &::after{
+    background:
+      ${(props) => props.mode==='train'
+        ? `${colors.primary}`
+        : `${colors.danger}`
+      };
+    clip-path: polygon(3% 5%, 100% 0%, 97% 100%, 6% 95%);
+    z-index  : 1;
+  }
+
+  > h1 {
+    font-size: 3rem;
+    color    : ${ colors.bgLighter };
+    z-index  : 10;
+  }
+`;
+
+const _ImageContainer= styled.div`
+  margin: 20px 0 20px 20px;
+  width : 40%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > img {
+    width: 150px;
+  };
+`;
+
+const _SelectionCardDescription= styled.div`
+  margin : 10px 40px;
+  height : 100%;
+  width  : calc(100% - 100px);
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &::before,
+  &::after {
+    content : '';
+    position: absolute;
+    height  : 100%;
+    width   : 100%;
+  };
+
+  > p {
+    font-size   : 1.8rem;
+    font-weight : 600;
+    color       : ${ colors.bgLighter };
+    word-spacing: 10px;  
+  }
 `;
 
 
@@ -58,25 +133,27 @@ type SelectionCardProps= {
 
 export const SelectionCard= (
   { 
+    id,
     title, 
     imgPath, 
     description,
     children
   }: SelectionCardProps
 ) => {
-  const navigate= useNavigate();
-
   return (
-    <StyledCard >
-      <CardContainer>
-        <CardTitle>{title}</CardTitle>
-        <ImageContainer>
-          image
+    <_SelectionCard mode={id} >
+      <_SelectionCardContainer>
+        <_SelectionCardTitle mode={id} >
+          <h1>{title}</h1>
+        </_SelectionCardTitle>
+        <_ImageContainer>
           <img src={imgPath} />
-        </ImageContainer>
-        <CardDescription>{description}</CardDescription>
+        </_ImageContainer>
+        <_SelectionCardDescription>
+          <p>{description}</p>
+        </_SelectionCardDescription>
         {children}
-      </CardContainer>
-    </StyledCard>
+      </_SelectionCardContainer>
+    </_SelectionCard>
   );
 }

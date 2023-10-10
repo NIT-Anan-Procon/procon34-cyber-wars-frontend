@@ -7,3 +7,4 @@ export * from './Dialog';
 export * from './ContentHeader';
 export * from './CheckBox';
 export * from './IconButton';
+export * from './Spinner';

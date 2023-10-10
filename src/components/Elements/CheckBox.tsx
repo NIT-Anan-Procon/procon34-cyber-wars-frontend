@@ -40,14 +40,14 @@ const _CheckBox= styled.input`
           background: ${ colors.primary };
         `
       : css`
-        background: #4a4a4a;
+        background: ${ colors.bgLighter };
         `
     }    
   }
 `;
 
 const _CheckBoxLabel= styled.label`
-  font-size: 2rem;
+  font-size: auto;
   z-index  : 10;
   position: absolute;
   top:50%;
@@ -61,8 +61,8 @@ const _CheckBoxLabel= styled.label`
 `;
 
 type CheckBoxProps= {
-  index   : string;
-  value   : string;
+  id      : string;
+  value  ?: string;
   label   : string;
   checked : boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -70,7 +70,7 @@ type CheckBoxProps= {
 
 export const CheckBox= (
   {     
-    index,
+    id,
     value,
     label, 
     checked, 
@@ -81,14 +81,14 @@ export const CheckBox= (
   return (
     <_CheckBoxItem {...props} >
       <_CheckBox 
-        id      = { index }
+        id      = { id }
         type    = 'checkbox'
         value   = { value }
         checked = { checked }
         onChange= { onChange }
         {...props} 
       />        
-      <_CheckBoxLabel htmlFor={ index } >
+      <_CheckBoxLabel htmlFor={ id } >
         { label }        
       </_CheckBoxLabel>
     </_CheckBoxItem>

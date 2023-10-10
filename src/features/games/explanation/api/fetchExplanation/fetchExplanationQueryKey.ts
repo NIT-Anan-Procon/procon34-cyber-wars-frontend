@@ -1,0 +1,1 @@
+export const FetchExplanationQueryKey= [ 'query_explanation' ];
