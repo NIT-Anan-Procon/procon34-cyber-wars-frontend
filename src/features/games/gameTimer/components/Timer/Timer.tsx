@@ -57,7 +57,7 @@ export const Timer = ({ targetTime, redirectUrl }: TimerProps) => {
     else {
       setCountdown(0);
     }
-  }, [ navigate, redirectUrl, startTimeQuery ] )
+  }, [ navigate, redirectUrl, startTimeQuery?.data?.startTime ] )
 
   const  SECONDS_IN_MINUTE= 60;
   const formatCountdown = (): string | undefined => {
