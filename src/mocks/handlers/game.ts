@@ -28,7 +28,8 @@ import {
   GOAL_KEY
 } from '@/constants/responseKeys';
 import { EXPLANATION_KEY, EXPLANATION_URL } from '@/features/games/explanation/api';
-import { CHALLENGE_CODE_KEY } from '@/features/games/challenge';
+import { CHALLENGE_CODE_KEY, TARGET_CODE_PATH_KEY } from '@/features/games/challenge';
+import { REVISION_PATH_KEY } from '@/features/games/codeController/api';
 
 export const gameHandlers= [
   rest.patch( START_GAME_URL, ( req, res, ctx ) => {
@@ -67,7 +68,7 @@ export const gameHandlers= [
 
   rest.get( GAME_SCORES_URL, ( req, res, ctx ) => {
     try {
-      const scores= [ 100, 200 ];
+      const scores= [ 100, 120 ];
 
       return res(
         ctx.status(200),
@@ -122,7 +123,7 @@ export const attackPhaseHandler= [
       return res(
         ctx.status(200),
         ctx.json({
-          [ CODE_PATH_KEY ]: 1,
+          [ TARGET_CODE_PATH_KEY ]: 1,
           [ CHALLENGE_CODE_KEY ] : 
 `<?php
 require './vendor/autoload.php';
@@ -245,7 +246,7 @@ export const battlePhaseHandler= [
         ctx.status(200),
         ctx.json(
           {
-            [ CODE_PATH_KEY ]: 1,
+            [ REVISION_PATH_KEY ]: 1,
             [ CODE_KEY ]     : 
 `<?php
 require './vendor/autoload.php';
