@@ -1,9 +1,9 @@
-import styled          from "styled-components";
+import styled from "styled-components";
 
 import { Form, FormTitle, InputField } from "@/components/Form";
-import { Button, Link }          from "@/components/Elements";
+import { Button, Link } from "@/components/Elements";
 import { AuthUser, FormSchema, useRegisterMutation }  from "..";
-import { colors }                from "@/assets/styles";
+import { colors } from "@/assets/styles";
 
 type RegisterFormProps = {
 	onSuccess: () => void;
@@ -32,7 +32,7 @@ const $SubmitButton= styled(Button)`
 `;
 
 export const RegisterForm = ({onSuccess}: RegisterFormProps) => {
-  const registerMutation= useRegisterMutation({});
+  const registerMutation= useRegisterMutation();
 
   return (
     <>

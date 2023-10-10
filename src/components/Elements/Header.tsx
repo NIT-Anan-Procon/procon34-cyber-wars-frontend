@@ -43,7 +43,7 @@ const _Header= styled.div`
 `;
 
 type HeaderProps= {
-  title: string
+  title?: string
 }
 
 export const Header= ({ title }: HeaderProps) => {

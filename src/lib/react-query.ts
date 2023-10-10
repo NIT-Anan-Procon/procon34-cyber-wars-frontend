@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { 
   QueryClient,
   DefaultOptions,
@@ -18,12 +18,15 @@ const queryConfig: DefaultOptions= {
 export const queryClient: QueryClient = new QueryClient({ defaultOptions: queryConfig });
 
 export type QueryConfig<QueryFnType extends (...args: any) => any> = Omit<
-  UseQueryOptions<QueryFnType>,
+  UseQueryOptions<ReturnType<QueryFnType>, unknown, ReturnType<QueryFnType>, string[] >,
   'queryKey' | 'queryFn'
 >;
 
-export type MutationConfig<MutationFnType extends (...args: any) => any> = UseMutationOptions<
-  MutationFnType,
-  AxiosError,
-  Parameters<MutationFnType>[0]
+export type MutationConfig<MutationFnType extends (...args: any) => any> = Omit<
+  UseMutationOptions<
+    AxiosResponse<ReturnType<MutationFnType>>,
+    AxiosError,
+    Parameters<MutationFnType>[0]
+  >,
+  "mutationFn"
 >;

@@ -1,8 +1,6 @@
 import { rest } from 'msw';
 
 import { ROOM_URL } from '@/constants/apiUrls';
-import { db } from '../db';
-import { randomNum } from '../utils';
 import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY } from '@/constants/responseKeys';
 
 type RoomHandlersType= {
@@ -14,10 +12,8 @@ type RoomHandlersType= {
 }
 
 export const roomHandlers= [
-  rest.post<RoomHandlersType>( ROOM_URL, (req, res, ctx) => {
+  rest.post<RoomHandlersType>( ROOM_URL, (_, res, ctx) => {
     try {
-      const inviteId= randomNum(4);
-
       return res(
         ctx.json({ inviteId:1234}),
         ctx.status(200),
@@ -32,7 +28,7 @@ export const roomHandlers= [
     }
   }),
   
-  rest.put<RoomHandlersType>( ROOM_URL, (req, res, ctx) => {
+  rest.put<RoomHandlersType>( ROOM_URL, (_, res, ctx) => {
     try {
       return res(
         ctx.status(200),
@@ -45,7 +41,7 @@ export const roomHandlers= [
     }
   }),
 
-  rest.get(ROOM_URL, (req ,res, ctx) => {
+  rest.get(ROOM_URL, (_ ,res, ctx) => {
     try {
       return res(
         ctx.status(200),
@@ -63,7 +59,7 @@ export const roomHandlers= [
     }
   }),
 
-  rest.delete(ROOM_URL, ( req, res, ctx ) => {
+  rest.delete(ROOM_URL, ( _, res, ctx ) => {
     try {
       return res(
         ctx.status(200),

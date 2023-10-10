@@ -19,15 +19,15 @@ const _ChoiceList= styled.ul`
   );
 `;
 
-export const ChoiceList= ({ item }) => {
+export const ChoiceList= ({ item }: any ) => {
   const [ isChoiceChecked, setIsChoiceChecked ]= useRecoilState( isCheckedChoicesState );
   const [ checkedList, setCheckedList ]= useRecoilState( checkedChoiceListState );
 
   useEffect(() => {
-    setIsChoiceChecked(item)
+    setIsChoiceChecked(item);
   },[])
 
-  const handleCheckboxChange = (id) => {
+  const handleCheckboxChange = ( id: number ) => {
     const updatedChoices = isChoiceChecked.map((choice) => {
       if (choice.id === id) {
         return {
@@ -41,16 +41,16 @@ export const ChoiceList= ({ item }) => {
 
     const checkedItem = updatedChoices.find((item) => item.id === id);
 
-    if (checkedItem.checked) {
-      setCheckedList([...checkedList, checkedItem.value]);
+    if (checkedItem?.checked) {
+      setCheckedList([...checkedList, checkedItem?.value]);
     } else {
-      setCheckedList(checkedList.filter((value) => value !== checkedItem.value));
+      setCheckedList(checkedList.filter((value) => value !== checkedItem?.value));
     }
   };
   
   return (
     <_ChoiceList>
-      { isChoiceChecked?.map((item, index) => (
+      { isChoiceChecked?.map((item, index: number) => (
           <CheckBox
             key={index}
             id={`checkbox_+${index}`}

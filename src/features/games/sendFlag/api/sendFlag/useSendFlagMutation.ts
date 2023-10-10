@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { sendFlagFn } from '.';
-import { GAME_SCORE_KEY, IS_CORRECT_KEY, IS_VALID_KEY } from '..';
+import { SendFlagResponseType } from '..';
 import { useSetRecoilState } from 'recoil';
 import { addScoreState } from '@/features/games/scores/states/atoms/addScoreState';
 import { isCorrectState } from '@/features/games/scores/states/atoms';
@@ -10,10 +10,10 @@ export const useSendFlagMutation= () => {
   const setAddScore= useSetRecoilState( addScoreState );
 
   return useMutation({
-    onSuccess: ( data ) => {
-      if( data[ IS_VALID_KEY ] && data[ IS_CORRECT_KEY ] ) {
+    onSuccess: ( data: SendFlagResponseType ) => {
+      if( data?.valid && data?.correct ) {
         setIsCorrect( true );
-        setAddScore( data[ GAME_SCORE_KEY ] );
+        setAddScore( data?.score );
       } else {
         setIsCorrect( false );
       };

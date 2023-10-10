@@ -1,5 +1,4 @@
 import { rest } from 'msw';
-import jwt from 'jsonwebtoken';
 
 import { AuthUser } from '@/features/auth';
 import { 
@@ -11,40 +10,15 @@ import {
   UPDATE_USER_PASSWORD_URL
 } from '@/constants/apiUrls';
 
-import { db } from '../db';
-import { authenticate } from '../utils';
-
 export type AuthUserBody= AuthUser & {
   user_id: number;
 }
 
 export const userHandlers= [
-  rest.post<AuthUserBody>( SIGNUP_USER_URL, (req, res, ctx) => {
+  rest.post<AuthUserBody>( SIGNUP_USER_URL, (_, res, ctx) => {
     try {
-      const  userObject= req.body;
-
-      const existingUser= db.user.findFirst({
-        where: {
-          name: {
-            equals: userObject.name,
-          }
-        }
-      });
-
-      if(existingUser) {
-        throw new Error('すでにそのユーザは存在しています。');
-      }
-
-      db.user.create({
-        ...userObject,
-        userId : Math.floor(Math.random() * 1000000),
-        password: userObject.password, //あとでハッシュする
-      });
-
-      const result= authenticate(userObject);
       return res(
         ctx.status(200),
-        ctx.json(result),
         ctx.delay(1000)
       );
 
@@ -57,15 +31,10 @@ export const userHandlers= [
     }
   }),
 
-  rest.post<AuthUserBody>( SIGNIN_USER_URL, (req, res, ctx) => { 
+  rest.post<AuthUserBody>( SIGNIN_USER_URL, (_, res, ctx) => { 
     try {
-      const credential= req.body;
-
-      const result= authenticate(credential);
-
       return res(
         ctx.status(200),
-        ctx.json(result)
       );
 
     } catch (error) {
@@ -76,56 +45,8 @@ export const userHandlers= [
     } 
   }),
 
-  rest.patch( UPDATE_USER_NAME_URL, (req, res, ctx) => {
+  rest.patch( UPDATE_USER_NAME_URL, (_, res, ctx) => {
     try {
-      const update_userName= req.body;
-
-      const user = db.user.findFirst({ 
-        where: { 
-          loggedIn: {
-            equals: true 
-          } 
-        }
-      });
-
-      if (user) {
-        db.user.update({
-          where: { name: user.name },
-          data: { update_userName }
-        })
-      }
-      
-      return res(
-        ctx.status(200),
-        ctx.json(({ success: true}))
-      );
-    }
-    catch(error) {
-      return res(
-        ctx.status(400),
-        ctx.json({success :false})
-      );
-    }
-  }),
-
-  rest.patch( UPDATE_USER_PASSWORD_URL, (req, res, ctx) => {
-    try {
-      const update_password= req.body;
-
-      const user = db.user.findFirst({ 
-        where: { 
-          loggedIn: {
-            equals: true 
-          } 
-        }
-      });
-    
-      if (user) {
-        db.user.update({
-          where: { password: user.password },
-          data: { update_password }
-        })
-      }
 
       return res(
         ctx.status(200),
@@ -140,21 +61,24 @@ export const userHandlers= [
     }
   }),
 
-  rest.get( IS_SIGNEDIN_URL, (req, res, ctx) => {
+  rest.patch( UPDATE_USER_PASSWORD_URL, (_, res, ctx) => {
     try {
-      // const user= db.user.findFirst(
-      //   { 
-      //     where: {
-      //       loggedIn: {
-      //         equals: true
-      //       } 
-      //     }
-      //   }
-      // );
-      // if(!user) {
-      //   throw Error('ユーザは存在していません。');
-      // }
-      
+
+      return res(
+        ctx.status(200),
+        ctx.json(({ success: true}))
+      );
+    }
+    catch(error) {
+      return res(
+        ctx.status(400),
+        ctx.json({success :false})
+      );
+    }
+  }),
+
+  rest.get( IS_SIGNEDIN_URL, (_, res, ctx) => {
+    try {
       return res(
         ctx.status(200),
         ctx.json(
@@ -178,22 +102,17 @@ export const userHandlers= [
     }
   }),
 
-  rest.delete( SIGNOUT_USER_URL, ( req, res, ctx ) => {
-      const user = db.user.findFirst({
-        where: { 
-          loggedIn: { 
-            equals: true 
-          } 
-        }
-      });
+  rest.delete( SIGNOUT_USER_URL, ( _, res, ctx ) => {
+    try {
 
-    if (user) {
-      db.user.update({
-        where: { name: user.name },
-        data:  { loggedIn: false }
-      })
+      return res(
+        ctx.status(200),
+      );
     }
-
-    return res();
+    catch(error) {
+      return res(
+        ctx.status(400),
+      );
+    }
   })
 ];

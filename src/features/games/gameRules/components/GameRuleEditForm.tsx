@@ -3,11 +3,13 @@ import { settingTimeState } from '../states/atom/settingTimeState';
 import { useState } from 'react';
 import { Button } from '@/components/Elements';
 import { Form, InputField } from '@/components/Form';
-import { IS_HOST_KEY, useFetchRoomInfoQuery } from '@/features/games/room';
+import { fetchRoomInfoFn } from '@/features/games/room';
 import styled from 'styled-components';
 import { colors } from '@/assets/styles';
 import { settingRuleSchema } from '../types';
 import { Loading } from '@/components/Animation';
+import { useQuery } from '@tanstack/react-query';
+import { fetchRoomInfoQueryKey } from '../../room/api/fetchRoomInfo/fetchRoomInfoQueryKey';
 
 const _GameRuleEditFormWrapper= styled.div`
   height  : 100%;
@@ -69,7 +71,7 @@ export const GameRuleEditForm= ({ phase }: GameRuleEditFormProps ) => {
   const [ phaseSetting, setPhaseSetting ]= useRecoilState( settingTimeState );
   const [ isEdit, setIsEdit ]= useState( false );
 
-  const roomInfoQuery= useFetchRoomInfoQuery({});
+  const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
 
   if( roomInfoQuery.isLoading ) {
     return <Loading />
@@ -122,7 +124,7 @@ export const GameRuleEditForm= ({ phase }: GameRuleEditFormProps ) => {
         : <_GameRuleEditFormWrapper>
             <h1>{ phaseSetting[ phase ] }</h1>
             <_UnitLabel>分</_UnitLabel> 
-            { roomInfoQuery?.data[ IS_HOST_KEY ]
+            { roomInfoQuery?.data.host
               ? <$EditButton type='button' onClick={ handleEdit } >Edit</$EditButton>
               : undefined
             }

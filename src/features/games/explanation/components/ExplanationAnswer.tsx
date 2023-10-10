@@ -1,6 +1,7 @@
 import { colors } from "@/assets/styles";
 import { Loading } from "@/components/Animation";
-import { CHALLENGE_CHOICES_KEY, useFetchChallengeQuery } from "@/features/games/challenge";
+import { ChallengeQueryKey, fetchChallengeFn } from "@/features/games/challenge";
+import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 
 const _ExplanationAnswerWrapper= styled.div`
@@ -46,19 +47,19 @@ const _AnswerBox= styled.div`
 `;
 
 export const ExplanationAnswer= () => {
-  const challengeQuery= useFetchChallengeQuery({});
+  const challengeQuery= useQuery( ChallengeQueryKey, fetchChallengeFn );
 
   if( challengeQuery.isLoading ) {
     return <Loading />
   }
   
-  if( !challengeQuery?.data ) return null;
+  if( !challengeQuery.data ) return null;
 
   return (
     <_ExplanationAnswerWrapper>
       <_ExplanationAnswerHead >攻撃例</_ExplanationAnswerHead>
       <_ExplanationAnswerText>
-        { challengeQuery?.data[ CHALLENGE_CHOICES_KEY ].map(( value ) => (
+        { challengeQuery.data?.choices.map(( value: string ) => (
             <_AnswerBox>{ value }</_AnswerBox>
           ))
         }

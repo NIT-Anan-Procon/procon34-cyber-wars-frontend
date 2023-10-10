@@ -1,28 +1,19 @@
-import { useRoutes }      from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 
 import { authorizedRoutes } from './authorizedRoutes';
 import { publicRoutes }     from './publicRoutes';
 import { Loading }          from '@/components/Animation';
-import { 
-  AuthenticatedResponseType,
-  IS_LOGGED_IN_KEY,
-  useAuthenticatedUserQuery
-} from '@/features/auth';
-
-
+import { AuthenticatedUserQueryKey, fetchAuthenticatedUserFn } from '@/features/auth';
+import { useQuery } from '@tanstack/react-query';
 
 export const AppRoutes = () => {
-  const { data: isAuthenticated, isLoading }= useAuthenticatedUserQuery({
-    config: {
-      select: ( authUser: AuthenticatedResponseType ) => authUser[ IS_LOGGED_IN_KEY ]
-    }
-  });
+  const { data, isLoading }= useQuery( AuthenticatedUserQueryKey, fetchAuthenticatedUserFn )
 
   if( isLoading ) {
     return <Loading />
   };
 
-  const routes = isAuthenticated ? authorizedRoutes : publicRoutes;
+  const routes = data?.loggedIn ? authorizedRoutes : publicRoutes;
 
   const element = useRoutes([...routes]);
 

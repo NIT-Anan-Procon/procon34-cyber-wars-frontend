@@ -16,6 +16,7 @@ export const ChoicesEnterButton= () => {
 
   
   function handleClick() {
+    if(!focusedInputElement) return undefined;
     focusedInputElement.value =value;
   }
   return (

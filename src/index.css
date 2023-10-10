@@ -12,6 +12,7 @@ body,
   background: #303841;
   font-size: 62.5%;
   font-family: 'Black Ops One', cursive;
+  --swiper-theme-color: #2DE7D0;
 }
 
 @media ( min-width: 1024px ) {

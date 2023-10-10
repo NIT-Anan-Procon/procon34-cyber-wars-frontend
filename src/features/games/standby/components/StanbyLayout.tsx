@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { Head }      from '@/components/Head';
 import { Header } from '@/components/Elements';
-import { colors } from '@/assets/styles';
 
 const _StandbyLayout= styled.div`
   height : 100vh;

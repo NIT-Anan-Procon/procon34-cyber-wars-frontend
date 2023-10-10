@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-
 import { 
   PhaseLayout,
   PhaseContentsWrapper,
@@ -12,13 +10,6 @@ import { EditArea, EditorWrapper } from '@/features/games/codeController';
 import { useRecoilValue } from 'recoil';
 import { isShowCodeState } from '@/features/games/codeController/states';
 import { ChoicesWrapper } from '../../choices/components/ChoicesWrapper';
-
-const _PhaseContents= styled.div`
-  height : 70vh;
-  width  : 100%;
-  display: flex;
-  justify-content: center;
-`;
 
 export const AttackPhase= () => {
   const isShowCode= useRecoilValue( isShowCodeState );

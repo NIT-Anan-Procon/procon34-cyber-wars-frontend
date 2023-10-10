@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Head } from "@/components/Head";
 import { colors } from "@/assets/styles";
 import { APP_ROUTE, AUTH_ROUTE } from "../types/authenticatedRoute";
-import { IS_LOGGED_IN_KEY, useAuthenticatedUserQuery } from "@/features/auth";
+import { AuthenticatedUserQueryKey, fetchAuthenticatedUserFn } from "@/features/auth";
+import { useQuery } from "@tanstack/react-query";
 
 const LandingContainer= styled.div`
   width: 100%;
@@ -68,14 +69,10 @@ const StartButtonStyle= styled.button`
 
 export const Landing = () => {
   const navigate= useNavigate();
-  const { data: isAuthenticated }= useAuthenticatedUserQuery({
-    config: {
-      select: ( authUser ) => authUser[ IS_LOGGED_IN_KEY ]
-    }
-  });
+  const { data }= useQuery( AuthenticatedUserQueryKey, fetchAuthenticatedUserFn );
 
-  const handleStart= () => {
-    if( isAuthenticated ) {
+  const handleStart= async() => {
+    if( data?.loggedIn ) {
       navigate( APP_ROUTE );
     } else {
       navigate( AUTH_ROUTE );
