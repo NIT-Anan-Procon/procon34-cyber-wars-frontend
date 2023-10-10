@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 
-import { USER_NAME_KEY, useAuthenticatedUserQuery } from '@/features/auth';
+import { AuthenticatedUserQueryKey, fetchAuthenticatedUserFn } from '@/features/auth';
 import { CharacterScoreBoard } from '@/features/games/character';
 import { Timer, TimerWrapper } from '@/features/games/gameTimer';
-import { IS_HOST_KEY, OPPONENT_NAME_KEY, useFetchRoomInfoQuery } from '@/features/games/room';
+import { fetchRoomInfoFn } from '@/features/games/room';
 import { useRecoilValue } from 'recoil';
 import { settingTimeState } from '@/features/games/gameRules';
 import { Loading } from '@/components/Animation';
+import { useQuery } from '@tanstack/react-query';
+import { fetchRoomInfoQueryKey } from '../../room/api/fetchRoomInfo/fetchRoomInfoQueryKey';
 
 const _PhaseStatusContentsLayout= styled.div`
   height: 18vh;
@@ -27,8 +29,8 @@ export const PhaseStatusContents= (
 ) => {
   const targetTime= useRecoilValue( settingTimeState );
 
-  const authUserQuery  = useAuthenticatedUserQuery({});
-  const roomMemberQuery= useFetchRoomInfoQuery({});
+  const authUserQuery  = useQuery( AuthenticatedUserQueryKey, fetchAuthenticatedUserFn );
+  const roomMemberQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
 
   if( authUserQuery.isLoading && roomMemberQuery.isLoading ) {
     return <Loading />
@@ -40,9 +42,9 @@ export const PhaseStatusContents= (
     <_PhaseStatusContentsLayout>
       <CharacterScoreBoard
         userName= { 
-          roomMemberQuery.data[ IS_HOST_KEY ]
-          ? authUserQuery.data[ USER_NAME_KEY ]
-          : roomMemberQuery.data[ OPPONENT_NAME_KEY ]
+          roomMemberQuery.data.host
+          ? authUserQuery.data.name
+          : roomMemberQuery.data.opponentName
         }
         status  = { 'HOST' }
       />
@@ -56,9 +58,9 @@ export const PhaseStatusContents= (
       
       <CharacterScoreBoard
         userName= {
-          !roomMemberQuery.data[ IS_HOST_KEY ]
-          ? authUserQuery.data[ USER_NAME_KEY ]
-          : roomMemberQuery.data[ OPPONENT_NAME_KEY ]
+          !roomMemberQuery.data.host
+          ? authUserQuery.data.name
+          : roomMemberQuery.data.opponentName
         }
         status  = { 'GUEST' }
       />          

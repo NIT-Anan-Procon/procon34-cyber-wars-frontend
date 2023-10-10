@@ -45,18 +45,12 @@ const _HintLayoutBody= styled.div`
   align-items: center;
 `;
 
-const _HintDescription= styled.p`
-  font-size: 1.4rem;
-  font-weight: bolder;
-
-`;
-
 type HintLayoutProps= {
   description: string;
   body : React.ReactNode;
 };
 
-export const HintLayout= ({ description, body }: HintLayoutProps) => {
+export const HintLayout= ({ body }: HintLayoutProps) => {
   return (
     <_HintLayout>
       <_HintLayoutTitle>
@@ -64,7 +58,6 @@ export const HintLayout= ({ description, body }: HintLayoutProps) => {
       </_HintLayoutTitle>
       
       <_HintLayoutBody>
-        {/* <_HintDescription>{ description }</_HintDescription> */}
         { body }
       </_HintLayoutBody>
     </_HintLayout>

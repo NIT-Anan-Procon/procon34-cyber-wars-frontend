@@ -2,18 +2,11 @@ import styled from 'styled-components';
 
 import { Loading } from '@/components/Animation';
 import { colors }  from '@/assets/styles';
-import { 
-  CHALLENGE_HINT_KEY,
-  useFetchChallengeQuery
+import {
+  ChallengeQueryKey,
+  fetchChallengeFn
 } from '@/features/games/challenge';
-
-const _HintContent= styled.div`
-  height         : 100%;
-  width          : 100%;
-  display        : flex;
-  align-items    : center;
-  justify-content: center;
-`;
+import { useQuery } from '@tanstack/react-query';
 
 const _HintText= styled.p`
   line-height: 2.2rem;
@@ -22,7 +15,7 @@ const _HintText= styled.p`
 `;
 
 export const HintText= () => {
-  const challengeQuery= useFetchChallengeQuery({});
+  const challengeQuery= useQuery(ChallengeQueryKey, fetchChallengeFn);
 
   if( challengeQuery.isLoading ) {
     return <Loading />
@@ -30,5 +23,5 @@ export const HintText= () => {
 
   if( !challengeQuery?.data ) return null;
 
-  return ( <_HintText>{ challengeQuery?.data[ CHALLENGE_HINT_KEY ] }</_HintText> );
+  return ( <_HintText>{ challengeQuery?.data.hint }</_HintText> );
 };

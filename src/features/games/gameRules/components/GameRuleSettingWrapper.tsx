@@ -4,9 +4,7 @@ import styled from 'styled-components';
 import attackPhaseIcon  from '@/assets/images/attack_phase.svg';
 import defencePhaseIcon from '@/assets/images/defence_phase.svg';
 import battlePhaseIcon  from '@/assets/images/battle_phas.svg'
-import { GameRuleEditForm } from '.';
 import { colors } from '@/assets/styles';
-import { Button } from '@/components/Elements';
 
 const _GameRuleSettingsWrapper= styled.div`
   height : 5rem;

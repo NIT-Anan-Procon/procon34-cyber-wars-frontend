@@ -1,14 +1,11 @@
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 
 import { 
-  PhaseStatusContents,
   PhaseLayout,
   PhaseContentsWrapper,
   PhaseHeadContents,  
 } from "../components";
 import { PHASE, REDIRECT_PATHS } from '../types';
-import { WebViewer, WebViewerWrapper } from '@/features/games/webViewer';
 import { EditArea, EditorWrapper } from '@/features/games/codeController';
 import { Button } from '@/components/Elements';
 
@@ -29,7 +26,7 @@ export const DefencePhase= () => {
       redirectUrl={ REDIRECT_PATHS.DEFENCE_TO_BATTLE }
     >
       <PhaseContentsWrapper
-        head={ <PhaseHeadContents title={'ソースコードを書き換えて脆弱性を修正してください。'} /> }
+        head={ <PhaseHeadContents phase={ PHASE.DEFENCE_PHASE } title={'ソースコードを書き換えて脆弱性を修正してください。'} /> }
         body={ <EditorWrapper><EditArea phase={ PHASE.DEFENCE_PHASE } /></EditorWrapper> }
         foot={
           <$SendCodeButton>Send</$SendCodeButton>

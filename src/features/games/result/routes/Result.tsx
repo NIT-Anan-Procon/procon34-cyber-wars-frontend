@@ -1,14 +1,15 @@
-import styled, { css }          from 'styled-components';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import { Button }         from '@/components/Elements';
 import { ResultUserCard } from '../components';
-import { useFetchScoresQuery } from '@/features/games/scores';
-import { IS_HOST_KEY, useFetchRoomInfoQuery } from '@/features/games/room';
-import { useAuthenticatedUserQuery } from '@/features/auth';
-import { OPPONENT_NAME_KEY, SCORES_KEY, USER_NAME_KEY } from '@/constants/responseKeys';
+import { ScoresQueryKey, fetchScoresFn } from '@/features/games/scores';
+import { fetchRoomInfoFn } from '@/features/games/room';
+import { AuthenticatedUserQueryKey, fetchAuthenticatedUserFn } from '@/features/auth';
 import { colors } from '@/assets/styles';
 import { Loading } from '@/components/Animation';
+import { useQuery } from '@tanstack/react-query';
+import { fetchRoomInfoQueryKey } from '../../room/api/fetchRoomInfo/fetchRoomInfoQueryKey';
 
 const _ResultWrapper= styled.div`
   height     : 100%;
@@ -49,9 +50,9 @@ const _NextButton= styled(Button)`
 
 export const Result= () => {
   const navigate= useNavigate();
-  const authUserQuery=useAuthenticatedUserQuery({});
-  const roomInfoQuery= useFetchRoomInfoQuery({});
-  const scoresQuery= useFetchScoresQuery({});
+  const authUserQuery=useQuery( AuthenticatedUserQueryKey, fetchAuthenticatedUserFn );
+  const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
+  const scoresQuery= useQuery( ScoresQueryKey, fetchScoresFn );
 
   if( authUserQuery.isLoading || roomInfoQuery.isLoading || scoresQuery.isLoading ) {
     return <Loading />
@@ -59,9 +60,7 @@ export const Result= () => {
 
   if( !authUserQuery.data || !roomInfoQuery.data || !scoresQuery.data ) return null;
 
-
-
-  const result= scoresQuery.data[ SCORES_KEY ][0] > scoresQuery.data[ SCORES_KEY ][1] ? 'YOU WIN' : 'YOU LOSE'
+  const result= scoresQuery.data?.scores[0] > scoresQuery.data?.scores[1] ? 'YOU WIN' : 'YOU LOSE'
 
   return (
     <>
@@ -69,17 +68,18 @@ export const Result= () => {
       <_ResultWrapper>
         <ResultUserCard
           name={
-            roomInfoQuery?.data?.[ IS_HOST_KEY ]
-            ? authUserQuery?.data?.[ USER_NAME_KEY ]
-            : roomInfoQuery?.data?.[ OPPONENT_NAME_KEY ]
+            roomInfoQuery?.data?.host
+            ? authUserQuery?.data?.name
+            : roomInfoQuery?.data?.opponentName
           }
+          
           status={ 'HOST' } 
         />
         <ResultUserCard 
           name={             
-            !roomInfoQuery?.data?.[ IS_HOST_KEY ]
-            ? authUserQuery?.data?.[ USER_NAME_KEY ]
-            : roomInfoQuery?.data?.[ OPPONENT_NAME_KEY ]
+            !roomInfoQuery?.data?.host
+            ? authUserQuery?.data?.name
+            : roomInfoQuery?.data?.opponentName
           }
           status={ 'GUEST' } 
         />      

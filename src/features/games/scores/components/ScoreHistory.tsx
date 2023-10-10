@@ -1,12 +1,14 @@
 import { useRecoilValue } from "recoil";
 
-import { CHALLENGE_HINT_SCORE_KEY, useFetchChallengeQuery } from "../../challenge";
+import { CHALLENGE_HINT_SCORE_KEY, ChallengeQueryKey, fetchChallengeFn } from "../../challenge";
 import { addScoreState } from "../states/atoms/addScoreState";
 import { isCorrectState } from "../states/atoms";
 import { isShowHintState } from "../../hint";
 import { colors } from "@/assets/styles";
-import { IS_HOST_KEY, useFetchRoomInfoQuery } from "../../room";
+import { fetchRoomInfoFn } from "../../room";
 import styled, { css } from "styled-components";
+import { useQuery } from "@tanstack/react-query";
+import { fetchRoomInfoQueryKey } from '../../room/api/fetchRoomInfo/fetchRoomInfoQueryKey';
 
 const _ScoreHistory= styled.div<{status: string}>`
   height: 8rem;
@@ -64,10 +66,10 @@ export const ScoreHistory=() => {
   const isCorrect= useRecoilValue( isCorrectState );
   const isShowHint= useRecoilValue( isShowHintState );
 
-  const roomInfoQuery= useFetchRoomInfoQuery({});
-  const challengeQuery= useFetchChallengeQuery({});
+  const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
+  const challengeQuery= useQuery( ChallengeQueryKey, fetchChallengeFn );
 
-  const myUserStatus= roomInfoQuery?.data[ IS_HOST_KEY ] ? 'HOST': 'GUEST';
+  const myUserStatus= roomInfoQuery?.data?.host ? 'HOST': 'GUEST';
 
   const point= isCorrect
     ? `+${ addScore }pt`

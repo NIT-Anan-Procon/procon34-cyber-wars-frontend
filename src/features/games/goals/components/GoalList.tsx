@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { CHALLENGE_GOAL_KEY, useFetchChallengeQuery } from '@/features/games/challenge';
+import { ChallengeQueryKey, fetchChallengeFn } from '@/features/games/challenge';
 import { Loading } from '@/components/Animation';
+import { useQuery } from '@tanstack/react-query';
 
 const _GoalList= styled.ul`
   height  : 100%;
@@ -20,7 +21,7 @@ const _GoalListItem= styled.li`
 `;
 
 export const GoalList= () => {
-  const challengeQuery= useFetchChallengeQuery({});
+  const challengeQuery= useQuery( ChallengeQueryKey, fetchChallengeFn );
   
   if( challengeQuery.isLoading ){
     return (
@@ -32,11 +33,9 @@ export const GoalList= () => {
 
   return (
     <_GoalList>
-
-          <_GoalListItem  >
-            <span>{ challengeQuery?.data[ CHALLENGE_GOAL_KEY ] }</span>
-          </_GoalListItem>
-
+      <_GoalListItem  >
+        <span>{ challengeQuery?.data?.goal }</span>
+      </_GoalListItem>
     </_GoalList>
   );
 };

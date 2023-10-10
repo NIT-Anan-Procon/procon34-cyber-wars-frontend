@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 
-import { SCORES_KEY, useFetchScoresQuery } from '@/features/games/scores';
+import { SCORES_KEY, ScoresQueryKey, fetchScoresFn } from '@/features/games/scores';
 import { colors } from '@/assets/styles';
 import { Loading } from '@/components/Animation';
-import { IS_HOST_KEY, useFetchRoomInfoQuery } from '../../room';
-import { ScoreHistory } from '../../scores/components/ScoreHistory';
+import { fetchRoomInfoFn, fetchRoomInfoQueryKey } from '../../room';
+import { useQuery } from '@tanstack/react-query';
 
 const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
   height     : 100%;
@@ -74,57 +74,6 @@ const _CharacterName= styled.h1<CharacterScoreBoardTransTypes>`
   };
 `;
 
-const _AddScore= styled.div<CharacterScoreBoardTransTypes>`
-  height: 8rem;
-  width : 15rem;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width : 100%;
-  };
-  ${(props) => props.status === 'HOST'
-    ? css`
-        right: 10%;
-        &::before {
-          background: black;
-          clip-path: polygon(10% 15%, 96% 4%, 90% 88%, 44% 78%, 28% 96%, 36% 73%, 4% 71%);
-          z-index: 200;
-        };
-        &::after {
-          background: ${ colors.bgLighter };
-          clip-path: polygon(6% 11%, 100% 0%, 94% 96%, 48% 82%, 24% 100%, 32% 77%, 0 75%);
-          z-index: 199;
-        };
-      `
-    : css`
-        left: 10%;
-        &::before {
-          background: black;
-          clip-path: polygon(4% 4%, 90% 15%, 96% 71%, 64% 73%, 72% 96%, 44% 78%, 10% 88%);
-          z-index: 200;
-        };
-        &::after {
-          background: ${ colors.bgLighter };
-          clip-path: polygon(0% 0%, 94% 11%, 100% 75%, 68% 77%, 76% 100%, 48% 82%, 6% 92%);
-          z-index: 199;
-        };
-      `
-  };
-
-  > span {
-    font-size: 2.75rem;
-    color: ${ colors.primary };
-    z-index: 1000;
-  };
-`;
-
 const _ScoreWrapper= styled.div<CharacterScoreBoardTransTypes>`
   height     : 50%;
   width      : 55%;
@@ -189,36 +138,33 @@ export const CharacterScoreBoard= (
     styles
   }: CharacterScoreBoardProps
 ) => {
-  const scoresQuery= useFetchScoresQuery({
-    config: {
+  const scoresQuery= useQuery( ScoresQueryKey, fetchScoresFn,
+    {
       refetchInterval: 3000
     }
-  });
+  );
 
-  const roomInfoQuery= useFetchRoomInfoQuery({});
+  const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
 
   if( scoresQuery.isLoading || roomInfoQuery.isLoading ) {
     return <Loading />
   };
 
-  if( !scoresQuery.data || !roomInfoQuery.data ) return null; 
+  if( !scoresQuery?.data || !roomInfoQuery?.data ) return null; 
 
-  const myUserStatus= roomInfoQuery?.data[ IS_HOST_KEY ] ? 'HOST': 'GUEST';
+  const myUserStatus= roomInfoQuery.data?.host ? 'HOST': 'GUEST';
 
   return (
     <_CharacterScoreBoardWrapper status={ status } styles={ styles } >
       <_CharacterNameWrapper status={ status } >
         <_CharacterName status={ status } >{ userName }</_CharacterName>
       </_CharacterNameWrapper>
-      {/* { myUserStatus === status
-        ? <ScoreHistory />
-        : undefined
-      } */}
+
       <_ScoreWrapper status={ status } >
         <_Score>
           { status === myUserStatus
-            ? scoresQuery.data[ SCORES_KEY ][0]
-            : scoresQuery.data[ SCORES_KEY ][1]
+            ? scoresQuery?.data[ SCORES_KEY ][0]
+            : scoresQuery?.data[ SCORES_KEY ][1]
           }
           <span>pt</span>
         </_Score>

@@ -1,9 +1,10 @@
 import { Spinner } from '@/components/Elements';
-import { CHALLENGE_CHOICES_KEY, useFetchChallengeQuery } from '../../challenge';
+import { CHALLENGE_CHOICES_KEY, ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
 import { useTransChoicesData } from '../hook/useTransChoicesData';
 import { ChoicesInputFieldWrapper } from '.';
 import styled from 'styled-components';
 import { ChoiceList } from './ChoiceList';
+import { useQuery } from '@tanstack/react-query';
 
 const _ChoicesWrapper= styled.div`
   padding-top: 10px;
@@ -37,18 +38,14 @@ const _ChoicesWrapperBody= styled.div`
   overflow-y     : auto;
 `;
 
-type ChoicesWrapperProps= {
-  children?: React.ReactNode;
-};
-
-export const ChoicesWrapper= ({ children }: ChoicesWrapperProps ) => {
+export const ChoicesWrapper= () => {
   const transChoicesData= useTransChoicesData();
 
-  const { data: choices, isLoading }= useFetchChallengeQuery({
-    config: {
+  const { data: choices, isLoading }= useQuery( ChallengeQueryKey, fetchChallengeFn,
+    {
       select: ( challenge ) => transChoicesData( challenge[ CHALLENGE_CHOICES_KEY ])
     }
-  });
+  );
 
   if( isLoading ) {
     return <Spinner />
@@ -61,7 +58,7 @@ export const ChoicesWrapper= ({ children }: ChoicesWrapperProps ) => {
       <_ChoicesWrapperHead >
         <ChoicesInputFieldWrapper />
       </_ChoicesWrapperHead>
-      <_ChoicesWrapperBody ><ChoiceList item={choices} /></_ChoicesWrapperBody>
+      <_ChoicesWrapperBody ><ChoiceList item={ choices } /></_ChoicesWrapperBody>
     </_ChoicesWrapper>
   );
 };

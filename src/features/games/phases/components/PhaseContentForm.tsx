@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { Button } from '@/components/Elements';
@@ -33,11 +33,11 @@ type PhaseContentFormProps= {
 };
 
 export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps) => {
-  const [ flagValue, setFlagValue ]= React.useState();
+  const [ flagValue, setFlagValue ]= React.useState<string>('');
   const sendFlagMutation= useSendFlagMutation();
   
 
-  const handleChange= (e) => {
+  const handleChange= ( e: React.ChangeEvent<HTMLInputElement> ) => {
     setFlagValue(e.target.value );
   };
 
@@ -55,7 +55,7 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
       <$SendKeyButton 
         type={'button'}
         onClick={ async() => {
-          await sendFlagMutation.mutateAsync({ endpoint: submitFnEndpoint,  flag: flagValue })
+          await sendFlagMutation.mutateAsync({ endpoint: submitFnEndpoint, flag: flagValue })
         }}
       >
         Send
