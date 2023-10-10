@@ -1,14 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { registerFn } from './registerFn';
-import { MutationConfig, queryClient } from '@/lib/react-query';
+import { queryClient } from '@/lib/react-query';
 import { AuthResponseType, AuthenticatedUserQueryKey, IS_LOGGED_IN_KEY } from '..';
 
-type UseRegisterMutationOptions= {
-  config?: MutationConfig<typeof registerFn>;
-};
-
-export const useRegisterMutation= ({ config }: UseRegisterMutationOptions ) => {
+export const useRegisterMutation= () => {
   return useMutation({
     onSuccess: ( isSuccess: AuthResponseType ) => {
       const prevIsAuthenticated= queryClient.getQueryData( AuthenticatedUserQueryKey );
@@ -20,10 +16,6 @@ export const useRegisterMutation= ({ config }: UseRegisterMutationOptions ) => {
         });
       }
     },
-    onError: ( isSuccess: AuthResponseType ) => {
-      alert('ユーザ登録に失敗しました')
-    },
-    ...config,
     mutationFn: registerFn
   });
 };
