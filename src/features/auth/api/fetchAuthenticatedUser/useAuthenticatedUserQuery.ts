@@ -8,7 +8,7 @@ type UserAuthenticatedUserQueryOptions={
   config?: QueryConfig<typeof fetchAuthenticatedUserFn>
 };
 
-export const useAuthenticatedUserQuery= ({ config }: UserAuthenticatedUserQueryOptions) => {
+export const useAuthenticatedUserQuery= ({ config }: UserAuthenticatedUserQueryOptions ) => {
   return useQuery({
     queryKey: AuthenticatedUserQueryKey,
     queryFn : fetchAuthenticatedUserFn,
