@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import CodeMirror         from '@uiw/react-codemirror';
 import { vscodeDark }     from '@uiw/codemirror-theme-vscode';
 import { color }          from '@uiw/codemirror-extensions-color';
@@ -11,14 +11,13 @@ import { Loading }     from '@/components/Animation';
 import { ChallengeQueryKey, fetchChallengeFn } from '@/features/games/challenge';
 import { PHASE } from '../../phases';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
 
 type EditAreaProps= {
   phase: string;
 };
 
 export const EditArea= ({ phase }: EditAreaProps) => {
-  const [ code, setCode ] =useRecoilState( codeState );
+  const setCode =useSetRecoilState( codeState );
   const challengeQuery= useQuery(ChallengeQueryKey, fetchChallengeFn);
   const revisionCodeQuery= useQuery( RevisionCodeQueryKey, fetchRevisionCodeFn );
 
@@ -28,13 +27,9 @@ export const EditArea= ({ phase }: EditAreaProps) => {
 
   if( !challengeQuery?.data || !revisionCodeQuery?.data ) return null;
 
-  useEffect(() => {
-    const phaseCode= phase === PHASE.BATTLE_PHASE 
-      ? revisionCodeQuery?.data.code
-      : challengeQuery?.data.code
-    
-    setCode( phaseCode );
-  },[challengeQuery, revisionCodeQuery, setCode]);
+  const phaseCode= phase === PHASE.BATTLE_PHASE 
+    ? revisionCodeQuery?.data.code
+    : challengeQuery?.data.code
 
   const handleCode= ( value: string ) => {
     setCode(value);
@@ -42,7 +37,7 @@ export const EditArea= ({ phase }: EditAreaProps) => {
   
   return (
       <CodeMirror
-        value     = { code }
+        value     = { phaseCode }
         onChange  = { handleCode }
         theme     = { vscodeDark }
         basicSetup= { EditorSetup }
