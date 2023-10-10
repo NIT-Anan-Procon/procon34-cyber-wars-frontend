@@ -24,17 +24,13 @@ export const Timer = ({ targetTime, redirectUrl }: TimerProps) => {
     }
   );
 
-  if(!startTimeQuery?.data) {
-    return null
-  };  
-
-  const  SECONDS_IN_MINUTE= 60;
-
+  useEffect(() => {
+    
+  if(!startTimeQuery?.data) return;  
   const gameStartTime: Date = new Date( startTimeQuery?.data?.startTime );
   const milliseconds: number= gameStartTime.getTime();
   const endTime: Date= new Date(new Date(milliseconds + targetTime * 1000))
 
-  useEffect(() => {
     const nowTime: Date = new Date();
     const diffTime= endTime.getTime() - nowTime.getTime();
 
@@ -63,6 +59,7 @@ export const Timer = ({ targetTime, redirectUrl }: TimerProps) => {
     }
   }, [ navigate, redirectUrl, startTimeQuery ] )
 
+  const  SECONDS_IN_MINUTE= 60;
   const formatCountdown = (): string | undefined => {
     if (countdown !== undefined ) {  
       let minutes: string | number = Math.floor(countdown / SECONDS_IN_MINUTE);
