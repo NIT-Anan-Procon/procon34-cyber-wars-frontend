@@ -35,35 +35,35 @@ export const WebViewer= (
     styles,  
   }: PreviewProps
 ) => {
-  const iframeRef= useRef(null);
+  const iframeRef= useRef<HTMLIFrameElement | null>(null);
   const setFocusedInputElement= useSetRecoilState( focusedInputElementState );
   const setTargetInputName= useSetRecoilState( targetInputNameState );
   const challengeQuery= useFetchChallengeQuery({});
   const revisionQuery = useFetchRevisionCodeQuery();
 
   useEffect(() => {
-    function getInputsFromIframe() { 
-        const iframe = iframeRef.current; if (!iframe) return;
+    function getInputsFromIframe() {
+      const iframe = iframeRef.current;
+      if (!iframe) return;
 
-      const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-      const inputElements = iframeDocument.querySelectorAll('input');
-      const inputsArray = Array.from(inputElements);
+      const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
+      const inputElements = iframeDocument?.querySelectorAll('input');
+      const inputsArray = Array.from(inputElements || []);
 
       for (let input of inputsArray) {
         input?.addEventListener('focus', () => {
-          setFocusedInputElement( input );
-          setTargetInputName( input.name );
+          setFocusedInputElement(input);
+          setTargetInputName(input?.name || '');
         });
       }
     }
+    iframeRef.current?.addEventListener('load', getInputsFromIframe);
 
-    iframeRef.current.addEventListener('load', getInputsFromIframe);
-
-  }, [ iframeRef, setFocusedInputElement ]);
+  }, [iframeRef, setFocusedInputElement, setTargetInputName]);
 
   const mergeAbsolutePath= phase !== PHASE.BATTLE_PHASE
-    ? `${ PHP_URL + challengeQuery?.data?.[ TARGET_CODE_PATH_KEY ] + '/target.php' }`
-    : `${ PHP_URL + challengeQuery?.data?.[ TARGET_CODE_PATH_KEY ] + '/revision/' + revisionQuery?.data?.[ REVISION_PATH_KEY ] + '.php' }`
+    ? `${ PHP_URL + challengeQuery?.data?.targetPath + '/target.php' }`
+    : `${ PHP_URL + challengeQuery?.data?.targetPath + '/revision/' + revisionQuery?.data?.[ REVISION_PATH_KEY ] + '.php' }`
 
   return (
     <_Preview
