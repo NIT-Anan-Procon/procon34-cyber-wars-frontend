@@ -4,8 +4,6 @@ import { SCORES_KEY, useFetchScoresQuery } from '@/features/games/scores';
 import { colors } from '@/assets/styles';
 import { Loading } from '@/components/Animation';
 import { IS_HOST_KEY, useFetchRoomInfoQuery } from '../../room';
-import { ScoreHistory } from '../../scores/components/ScoreHistory';
-
 const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
   height     : 100%;
   width      : 100vw;
@@ -201,7 +199,7 @@ export const CharacterScoreBoard= (
     return <Loading />
   };
 
-  if( !scoresQuery.data || !roomInfoQuery.data ) return null; 
+  if( !scoresQuery?.data || !roomInfoQuery?.data ) return null; 
 
   const myUserStatus= roomInfoQuery?.data[ IS_HOST_KEY ] ? 'HOST': 'GUEST';
 
@@ -217,8 +215,8 @@ export const CharacterScoreBoard= (
       <_ScoreWrapper status={ status } >
         <_Score>
           { status === myUserStatus
-            ? scoresQuery.data[ SCORES_KEY ][0]
-            : scoresQuery.data[ SCORES_KEY ][1]
+            ? scoresQuery?.data[ SCORES_KEY ][0]
+            : scoresQuery?.data[ SCORES_KEY ][1]
           }
           <span>pt</span>
         </_Score>
