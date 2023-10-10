@@ -29,8 +29,9 @@ const _ChallengeCodePosition= styled.div`
 `;
 
 const _ExplanationsWrapper= styled.div`
-  height: 100%;
+  height: calc(100% - 5rem);
   width: 100%;
+  overflow: auto;
 `;
 
 const _RedirectButtons= styled.div`
