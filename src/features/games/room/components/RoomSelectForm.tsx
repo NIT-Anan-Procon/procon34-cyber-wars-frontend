@@ -74,8 +74,8 @@ type RoomSelectFormProps = {
 
 export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
   const [ roomSelected, updateRoomSelected ]= useAtomValueChange(roomModeState);
-  const createRoomMutation= useCreateRoomMutation({});
-  const joinRoomMutation  = useJoinRoomMutation({});
+  const createRoomMutation= useCreateRoomMutation();
+  const joinRoomMutation  = useJoinRoomMutation();
 
   return (    
     <_RoomSelectForm>
@@ -102,8 +102,8 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
             roomSelected === ROOM_MODES.JOIN_ROOM
             ?
               <Form<JoinRoomRequestType, typeof RoomIdSchema>
-                onSubmit={ async( roomId: number ) => {
-                  await joinRoomMutation.mutateAsync(roomId);
+                onSubmit={ async({ inviteId }: JoinRoomRequestType ) => {
+                  await joinRoomMutation.mutateAsync( inviteId )
                   onSuccess()
                 }}
                 schema={RoomIdSchema}
