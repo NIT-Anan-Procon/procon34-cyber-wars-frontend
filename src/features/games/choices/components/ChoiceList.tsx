@@ -20,7 +20,7 @@ const _ChoiceList= styled.ul`
   );
 `;
 
-export const ChoiceList= ({ item }: choicesType ) => {
+export const ChoiceList= ( item : choicesType ) => {
   const [ isChoiceChecked, setIsChoiceChecked ]= useRecoilState( isCheckedChoicesState );
   const [ checkedList, setCheckedList ]= useRecoilState( checkedChoiceListState );
 
@@ -42,16 +42,16 @@ export const ChoiceList= ({ item }: choicesType ) => {
 
     const checkedItem = updatedChoices.find((item) => item.id === id);
 
-    if (checkedItem.checked) {
-      setCheckedList([...checkedList, checkedItem.value]);
+    if (checkedItem?.checked) {
+      setCheckedList([...checkedList, checkedItem?.value]);
     } else {
-      setCheckedList(checkedList.filter((value) => value !== checkedItem.value));
+      setCheckedList(checkedList.filter((value) => value !== checkedItem?.value));
     }
   };
   
   return (
     <_ChoiceList>
-      { isChoiceChecked?.map((item, index) => (
+      { isChoiceChecked?.map((item, index: number) => (
           <CheckBox
             key={index}
             id={`checkbox_+${index}`}

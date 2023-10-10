@@ -34,7 +34,7 @@ type LoginFormProps = {
 };
 
 export const LoginForm = ({onSuccess}: LoginFormProps) => {
-	const loginMutation= useLoginMutation({});
+	const loginMutation= useLoginMutation();
 
   return (
     <>
