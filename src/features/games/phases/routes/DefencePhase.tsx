@@ -29,7 +29,7 @@ export const DefencePhase= () => {
       redirectUrl={ REDIRECT_PATHS.DEFENCE_TO_BATTLE }
     >
       <PhaseContentsWrapper
-        head={ <PhaseHeadContents title={'ソースコードを書き換えて脆弱性を修正してください。'} /> }
+        head={ <PhaseHeadContents phase={ PHASE.DEFENCE_PHASE } title={'ソースコードを書き換えて脆弱性を修正してください。'} /> }
         body={ <EditorWrapper><EditArea phase={ PHASE.DEFENCE_PHASE } /></EditorWrapper> }
         foot={
           <$SendCodeButton>Send</$SendCodeButton>
