@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { 
   QueryClient,
   DefaultOptions,
@@ -22,8 +22,11 @@ export type QueryConfig<QueryFnType extends (...args: any) => any> = Omit<
   'queryKey' | 'queryFn'
 >;
 
-export type MutationConfig<MutationFnType extends (...args: any) => any> = UseMutationOptions<
-  MutationFnType,
-  AxiosError,
-  Parameters<MutationFnType>[0]
+export type MutationConfig<MutationFnType extends (...args: any) => any> = Omit<
+  UseMutationOptions<
+    AxiosResponse<ReturnType<MutationFnType>>,
+    AxiosError,
+    Parameters<MutationFnType>[0]
+  >,
+  "mutationFn"
 >;
