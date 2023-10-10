@@ -1,5 +1,5 @@
 export type choicesType= Array<{
   id     : number;
-  value  : string | number;
+  value  : string;
   checked: boolean;
 }>;

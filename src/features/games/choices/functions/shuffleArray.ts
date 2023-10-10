@@ -1,4 +1,4 @@
-export function shuffleArray( initialArray: Array<string | number> ) {
+export function shuffleArray( initialArray: Array<string> ) {
   const shuffledArray= initialArray.slice();
 
   let currentIndex   = shuffledArray.length;
