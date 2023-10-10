@@ -33,7 +33,7 @@ type PhaseContentFormProps= {
 };
 
 export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps) => {
-  const [ flagValue, setFlagValue ]= React.useState();
+  const [ flagValue, setFlagValue ]= React.useState<string>('');
   const sendFlagMutation= useSendFlagMutation();
   
 
@@ -55,7 +55,7 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
       <$SendKeyButton 
         type={'button'}
         onClick={ async() => {
-          await sendFlagMutation.mutateAsync({ endpoint: submitFnEndpoint,  flag: flagValue })
+          await sendFlagMutation.mutateAsync({ endpoint: submitFnEndpoint, flag: flagValue })
         }}
       >
         Send
