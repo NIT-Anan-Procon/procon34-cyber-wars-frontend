@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 
 import { checkedChoiceListState, isCheckedChoicesState }  from '../states/atom';
 import { CheckBox } from '@/components/Elements';
+import { choicesType } from '../types/choicesType';
 
 const _ChoiceList= styled.ul`
   height: 100%;
@@ -19,15 +20,15 @@ const _ChoiceList= styled.ul`
   );
 `;
 
-export const ChoiceList= ({ item }) => {
+export const ChoiceList= ({ item }: choicesType ) => {
   const [ isChoiceChecked, setIsChoiceChecked ]= useRecoilState( isCheckedChoicesState );
   const [ checkedList, setCheckedList ]= useRecoilState( checkedChoiceListState );
 
   useEffect(() => {
-    setIsChoiceChecked(item)
+    setIsChoiceChecked(item);
   },[])
 
-  const handleCheckboxChange = (id) => {
+  const handleCheckboxChange = ( id: number ) => {
     const updatedChoices = isChoiceChecked.map((choice) => {
       if (choice.id === id) {
         return {
