@@ -58,7 +58,7 @@ export const ExplanationAnswer= () => {
     <_ExplanationAnswerWrapper>
       <_ExplanationAnswerHead >攻撃例</_ExplanationAnswerHead>
       <_ExplanationAnswerText>
-        { challengeQuery?.data[ CHALLENGE_CHOICES_KEY ].map(( value ) => (
+        { challengeQuery?.data[ CHALLENGE_CHOICES_KEY ].map(( value: string ) => (
             <_AnswerBox>{ value }</_AnswerBox>
           ))
         }
