@@ -48,7 +48,7 @@ const _CautionTitle= styled.h1`
   display: flex;
   align-items: center;
   column-gap: 20px;
-  color: ${ colors.danger }
+  color: ${ colors.danger };
 `;
 
 const _CautionText= styled.p`
@@ -68,7 +68,7 @@ const FormContainer= styled.div`
   justify-content: center;
 `;
 
-export const AuthPageLayout= ({ title, children }: AuthPageLayoutProps) => {
+export const AuthPageLayout= ({ title, children }: AuthLayoutProps ) => {
   return (
     <>
       <Head title= {title} />
