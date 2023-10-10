@@ -1,17 +1,9 @@
-import { 
-  INVITE_ID_KEY, 
-  IS_HOST_KEY, 
-  IS_STARTED_KEY, 
-  IS_SUCCESSFUL_KEY, 
-  OPPONENT_NAME_KEY 
-} from "../constants";
-
 export type CreateRoomResponseType= {
-  [ INVITE_ID_KEY ]: number;
+  inviteId: number;
 };
 
 export type JoinRoomResponseType= {
-  [ IS_SUCCESSFUL_KEY ]: boolean;
+  success: boolean;
 };
 
 export type RoomInfoResponseType= {
