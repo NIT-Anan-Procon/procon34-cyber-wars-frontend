@@ -6,9 +6,10 @@ import { php }            from '@codemirror/lang-php';
 
 import { EditorSetup } from '../config';
 import { codeState }   from '../states';
-import { CODE_KEY }    from '../api';
+import { CODE_KEY, REVISION_CODE_KEY, useFetchRevisionCodeQuery }    from '../api';
 import { Loading }     from '@/components/Animation';
-import { useFetchChallengeQuery } from '@/features/games/challenge';
+import { CHALLENGE_CODE_KEY, useFetchChallengeQuery } from '@/features/games/challenge';
+import { PHASE } from '../../phases';
 
 type EditAreaProps= {
   phase: string;
@@ -17,12 +18,17 @@ type EditAreaProps= {
 export const EditArea= ({ phase }: EditAreaProps) => {
   const [ code, setCode ] =useRecoilState(codeState );
   const challengeQuery= useFetchChallengeQuery({});
+  const revisionCodeQuery= useFetchRevisionCodeQuery();
 
-  if( challengeQuery.isLoading ) {
+  if( challengeQuery.isLoading || revisionCodeQuery.isLoading ) {
     return <Loading />
   };
 
-  if( !challengeQuery?.data ) return null;
+  if( !challengeQuery?.data || !revisionCodeQuery?.data ) return null;
+
+    const phaseCode= phase === PHASE.BATTLE_PHASE 
+      ? revisionCodeQuery?.data[ REVISION_CODE_KEY ]
+      : challengeQuery?.data[ CHALLENGE_CODE_KEY ]
 
   const handleCode= ( value: string ) => {
     setCode(value);
@@ -30,7 +36,7 @@ export const EditArea= ({ phase }: EditAreaProps) => {
   
   return (
       <CodeMirror
-        value     = { challengeQuery?.data[ CODE_KEY ] }
+        value     = { phaseCode }
         onChange  = { handleCode }
         theme     = { vscodeDark }
         basicSetup= { EditorSetup }

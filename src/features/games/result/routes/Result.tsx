@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button }         from '@/components/Elements';
 import { ResultUserCard } from '../components';
 import { useFetchScoresQuery } from '@/features/games/scores';
-import { useFetchRoomInfoQuery } from '@/features/games/room';
+import { IS_HOST_KEY, useFetchRoomInfoQuery } from '@/features/games/room';
 import { useAuthenticatedUserQuery } from '@/features/auth';
 import { OPPONENT_NAME_KEY, SCORES_KEY, USER_NAME_KEY } from '@/constants/responseKeys';
 import { colors } from '@/assets/styles';
@@ -59,26 +59,32 @@ export const Result= () => {
 
   if( !authUserQuery.data || !roomInfoQuery.data || !scoresQuery.data ) return null;
 
+
+
   const result= scoresQuery.data[ SCORES_KEY ][0] > scoresQuery.data[ SCORES_KEY ][1] ? 'YOU WIN' : 'YOU LOSE'
 
   return (
-<>
+    <>
       <_Result result={ result } >{ result }</_Result>
       <_ResultWrapper>
         <ResultUserCard
-          name    ={ authUserQuery.data[ USER_NAME_KEY ] }
-          score   ={ scoresQuery.data[ SCORES_KEY ][0] } 
-          result  ={ 'WIN' }
+          name    ={
+            roomInfoQuery?.data?.[ IS_HOST_KEY ]
+            ? authUserQUery?.data?.[ USER_NAME_KEY ]
+            : roomInfoQuery?.data?.[ OPPONENT_NAME_KEY ]
+          }
           status={ 'HOST' } 
         />
         <ResultUserCard 
-          name    ={ roomInfoQuery.data[ OPPONENT_NAME_KEY ] }
-          score   ={ scoresQuery.data[ SCORES_KEY ][1] } 
-          result  ={ 'LOSE' }
+          name    ={             
+            !roomInfoQuery?.data?.[ IS_HOST_KEY ]
+            ? authUserQuery?.data?.[ USER_NAME_KEY ]
+            : roomInfoQuery?.data?.[ OPPONENT_NAME_KEY ]
+          }
           status={ 'GUEST' } 
         />      
       </_ResultWrapper>
       <_NextButton type='button' onClick={() => navigate('../explanation')}>Next</_NextButton>
-</>
+    </>
   );
 };
