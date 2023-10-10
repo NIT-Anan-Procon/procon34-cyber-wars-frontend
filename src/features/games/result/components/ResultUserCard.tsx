@@ -12,37 +12,6 @@ const _ResultUserCard= styled.div<{status: 'HOST' | 'GUEST'}>`
   background: transparent;
 `;
 
-const _CharacterNameWrapper= styled.div<CharacterScoreBoardTransTypes>`
-  margin    : 0 20px;
-  height    : calc( 50% - 10px );
-  width     : 60%;
-  display   : flex;
-  align-items: center;
-  justify-content: center;
-  background: ${ colors.bgLighter };
-  clip-path: 
-    ${(props) => props.status === 'HOST' 
-        ? `polygon(0 0, 100% 16%, 97% 100%, 4% 100%)`
-        : `polygon(0 12%, 100% 0, 97% 100%, 3% 100%)`
-    };
-  z-index   : 100;
-`;
-
-const _CharacterName= styled.h1<CharacterScoreBoardTransTypes>`
-  font-size: 3.8rem;
-  z-index  : 999;
-    
-  ${(props) => props.status === 'HOST'
-      ? css`
-          color: #2F1FF6;
-          transform: skew( 3deg );
-        `
-      : css`
-          color: ${ colors.redAccent };
-          transform: skew( -3deg );
-      `
-  };
-`;
 const _UserNameWrapper= styled.div<{status: 'HOST' | 'GUEST'}>`
   margin    : 0 20px;
   height    : 10rem;
@@ -67,13 +36,13 @@ const _UserNameWrapper= styled.div<{status: 'HOST' | 'GUEST'}>`
   z-index   : 100;
 `;
 
-const _UserName= styled.h1`
+const _UserName= styled.h1<{status: 'HOST' | 'GUEST'}>`
   font-size: 4.8rem;
   z-index  : 999;
   color: ${ colors.bgLighter };
 `;
 
-const _ResultScore= styled.div`
+const _ResultScore= styled.div<{status: 'HOST' | 'GUEST'}>`
   height: 100%;
   width : 100%;
   position: relative;
@@ -142,7 +111,7 @@ export const ResultUserCard= (
   }: ResultUserCardProps
 ) => {
   const roomInfoQuery= useFetchRoomInfoQuery({});
-  const myUserStatus= roomInfoQuery?.data[ IS_HOST_KEY ] ? 'HOST': 'GUEST';
+  const myUserStatus= roomInfoQuery.data?.loggedIn ? 'HOST': 'GUEST';
   const scoresQuery= useFetchScoresQuery({
     config: {
       refetchInterval: 3000
@@ -158,8 +127,8 @@ export const ResultUserCard= (
         <h1>
           { 
             status === myUserStatus
-              ? scoresQuery.data[ SCORES_KEY ][0]
-              : scoresQuery.data[ SCORES_KEY ][1]
+              ? scoresQuery.data?.scores[0]
+              : scoresQuery.data?.scores[1]
           }
         </h1>
         <p>pt</p>
