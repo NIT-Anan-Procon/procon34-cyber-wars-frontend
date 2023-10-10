@@ -68,15 +68,15 @@ export const Result= () => {
       <_Result result={ result } >{ result }</_Result>
       <_ResultWrapper>
         <ResultUserCard
-          name    ={
+          name={
             roomInfoQuery?.data?.[ IS_HOST_KEY ]
-            ? authUserQUery?.data?.[ USER_NAME_KEY ]
+            ? authUserQuery?.data?.[ USER_NAME_KEY ]
             : roomInfoQuery?.data?.[ OPPONENT_NAME_KEY ]
           }
           status={ 'HOST' } 
         />
         <ResultUserCard 
-          name    ={             
+          name={             
             !roomInfoQuery?.data?.[ IS_HOST_KEY ]
             ? authUserQuery?.data?.[ USER_NAME_KEY ]
             : roomInfoQuery?.data?.[ OPPONENT_NAME_KEY ]
