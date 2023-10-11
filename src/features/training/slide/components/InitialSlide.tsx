@@ -7,22 +7,40 @@ import { DESCRIPTIONS } from '../constants';
 import { Button } from '@/components/Elements';
 import { colors } from '@/assets/styles';
 
+import attackPhaseIcon  from '@/assets/images/attack_phase.svg';
+import defencePhaseIcon from '@/assets/images/defence_phase.svg';
+import battlePhaseIcon  from '@/assets/images/battle_phas.svg';
+
 const _PhaseIcons= styled.div`
 
 `;
 
 const _PhaseIconWrapper= styled.div`
-
+  height: 10rem;
+  width : 100%;
+  display: flex;
+  align-items: center;
+  column-gap: 25px;
 `;
 
 const _PhaseIcon= styled.div`
-  height: 5rem;
-  width : 5rem;
+  height: 10rem;
+  width : 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: ${ colors.bgDarker };
+  border-radius: 50%;
+  border: 5px solid ${ colors.primary };
 
   > img {
-    width: 75%;
+    width: 50%;
   }
+`;
+
+const _PhaseText= styled.div`
+  font-size: 2.75rem;
+  font-weight: bolder;
 `;
 
 const $ReturnButton= styled(Button)`
@@ -51,9 +69,18 @@ export  const InitialSlide= () => {
       <Description description={ DESCRIPTIONS.INITIAL } />
 
       <_PhaseIcons >
-        <_PhaseIcon><img></_PhaseIcon>
-        <_PhaseIcon></_PhaseIcon>
-        <_PhaseIcon></_PhaseIcon>
+        <_PhaseIconWrapper >
+          <_PhaseIcon><img src={ attackPhaseIcon } /></_PhaseIcon>
+          <_PhaseText >{ 'アタックフェーズ' }</_PhaseText>
+        </_PhaseIconWrapper>
+        <_PhaseIconWrapper >
+          <_PhaseIcon><img src={ defencePhaseIcon } /></_PhaseIcon>
+          <_PhaseText >{ 'ディフェンスフェーズ' }</_PhaseText>
+        </_PhaseIconWrapper>
+        <_PhaseIconWrapper >
+          <_PhaseIcon><img src={ battlePhaseIcon } /></_PhaseIcon>
+          <_PhaseText >{ 'バトルフェーズ' }</_PhaseText>
+        </_PhaseIconWrapper>
       </_PhaseIcons>
 
       <$ReturnButton onClick={ () => navigate('../') } >
