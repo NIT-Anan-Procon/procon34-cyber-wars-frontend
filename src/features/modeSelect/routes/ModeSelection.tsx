@@ -7,7 +7,7 @@ import { SelectionCard } from "../components";
 import { Button, Header } from "@/components/Elements";
 import { CARD_DESCRIPTION, SETTINGS_PATH, TRAIN_MODE_PATH } from "..";
 import { useModal } from '@/hooks/useModal';
-import { RoomSelectForm, useExitRoomMutation } from '@/features/games/room';
+import { RoomSelectForm } from '@/features/games/room';
 import { colors } from '@/assets/styles';
 import trainigIcon from '@/assets/images/trainingIcon.svg';
 import vsIcon from '@/assets/images/vsIcon.svg';
@@ -136,7 +136,7 @@ export const ModeSelection= () => {
   const navigate= useNavigate();
   const [ isNavOpen, setIsNavOpen ]= useState<boolean>(false);
   const { ref, showModal, closeModal }= useModal();
-  const exitRoomMutation= useExitRoomMutation();
+  // const exitRoomMutation= useExitRoomMutation();
 
   const stopPropagation = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -148,7 +148,8 @@ export const ModeSelection= () => {
     setIsNavOpen(!isNavOpen)
   }
   const handleSignOut =() => {
-    exitRoomMutation.mutateAsync();
+    // exitRoomMutation.mutateAsync();
+    console.log('signOut')
   };
 
   return (
