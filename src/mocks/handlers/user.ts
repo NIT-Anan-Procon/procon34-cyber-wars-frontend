@@ -19,6 +19,7 @@ export const userHandlers= [
     try {
       return res(
         ctx.status(200),
+        ctx.json({ success :true }),
         ctx.delay(1000)
       );
 
@@ -35,6 +36,7 @@ export const userHandlers= [
     try {
       return res(
         ctx.status(200),
+        ctx.json({ success :true }),
       );
 
     } catch (error) {
@@ -83,7 +85,7 @@ export const userHandlers= [
         ctx.status(200),
         ctx.json(
           {
-            loggedIn: true,
+            loggedIn: false,
             name    : 'kusaka'
           }
         )
