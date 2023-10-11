@@ -127,6 +127,7 @@ export const StandBy= () => {
 
   if( !roomInfoQuery?.data?.host && roomInfoQuery.data.opponentName === null ) {
     async() => await exitRoomMutation.mutateAsync();
+    console.log(roomInfoQuery?.data?.host);
   };
 
   const hostUser = roomInfoQuery.data.host  ? authUserQuery.data.name : roomInfoQuery.data.opponentName;
