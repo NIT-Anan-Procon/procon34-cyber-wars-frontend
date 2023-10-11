@@ -1,8 +1,6 @@
-import { AxiosResponse } from 'axios';
-
 import { axios } from '@/lib/axios';
 import { LOGOUT_URL } from '../constants';
 
-export const logoutFn= async(): Promise<AxiosResponse<void>> => {
-  return await axios.post( LOGOUT_URL );
+export const logoutFn= async(): Promise<void> => {
+  return await axios.delete( LOGOUT_URL );
 };
