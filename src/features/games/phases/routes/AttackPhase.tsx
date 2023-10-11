@@ -29,8 +29,8 @@ export const AttackPhase= () => {
       title='アタックフェーズ'
       phase={ PHASE.ATTACK_PHASE }
       redirectUrl={ REDIRECT_PATHS.ATTACK_TO_DEFENCE }
-    >a
-{/*       <PhaseContentsWrapper
+    >
+      <PhaseContentsWrapper
         head={ 
           <PhaseHeadContents 
             phase={ PHASE.ATTACK_PHASE }
@@ -48,7 +48,7 @@ export const AttackPhase= () => {
             submitFnEndpoint={ ATTACK_SEND_KEY_URL }
           />
         }
-      />  */}
+      />
     </PhaseLayout>
   );
 };
