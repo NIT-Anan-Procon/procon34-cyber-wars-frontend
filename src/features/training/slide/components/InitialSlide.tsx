@@ -10,17 +10,36 @@ import { colors } from '@/assets/styles';
 import attackPhaseIcon  from '@/assets/images/attack_phase.svg';
 import defencePhaseIcon from '@/assets/images/defence_phase.svg';
 import battlePhaseIcon  from '@/assets/images/battle_phas.svg';
+import { PHASE } from '@/features/games/phases';
 
 const _PhaseIcons= styled.div`
-
+  height: auto;
+  width : auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;  
+  
+  &::before {
+    content : '';
+    height: 100%;
+    width : 10px;
+    position: absolute;
+    left: 4.5rem;
+    background: ${ colors.primary };
+    z-index: -1;
+  }
 `;
 
 const _PhaseIconWrapper= styled.div`
   height: 10rem;
   width : 100%;
   display: flex;
+  position: relative;
   align-items: center;
   column-gap: 25px;
+
 `;
 
 const _PhaseIcon= styled.div`
@@ -38,9 +57,16 @@ const _PhaseIcon= styled.div`
   }
 `;
 
-const _PhaseText= styled.div`
+const _PhaseText= styled.div<{ phase?:string }>`
   font-size: 2.75rem;
   font-weight: bolder;
+  color:
+    ${(props) => props.phase === PHASE.ATTACK_PHASE
+      ? `${ colors.redAccent }`
+      : props.phase === PHASE.DEFENCE_PHASE
+      ? `${ colors.blueAccent }`
+      : `${ colors.yellowAccent }`
+    };
 `;
 
 const $ReturnButton= styled(Button)`
@@ -71,18 +97,17 @@ export  const InitialSlide= () => {
       <_PhaseIcons >
         <_PhaseIconWrapper >
           <_PhaseIcon><img src={ attackPhaseIcon } /></_PhaseIcon>
-          <_PhaseText >{ 'アタックフェーズ' }</_PhaseText>
+          <_PhaseText phase={ PHASE.ATTACK_PHASE } >{ 'アタックフェーズ' }</_PhaseText>
         </_PhaseIconWrapper>
         <_PhaseIconWrapper >
           <_PhaseIcon><img src={ defencePhaseIcon } /></_PhaseIcon>
-          <_PhaseText >{ 'ディフェンスフェーズ' }</_PhaseText>
+          <_PhaseText phase={ PHASE.DEFENCE_PHASE } >{ 'ディフェンスフェーズ' }</_PhaseText>
         </_PhaseIconWrapper>
         <_PhaseIconWrapper >
           <_PhaseIcon><img src={ battlePhaseIcon } /></_PhaseIcon>
-          <_PhaseText >{ 'バトルフェーズ' }</_PhaseText>
+          <_PhaseText phase={ PHASE.BATTLE_PHASE } >{ 'バトルフェーズ' }</_PhaseText>
         </_PhaseIconWrapper>
       </_PhaseIcons>
-
       <$ReturnButton onClick={ () => navigate('../') } >
         <SubdirectoryArrowLeftIcon style={ ReturnIconStyle } />
       </$ReturnButton>

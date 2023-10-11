@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { colors } from '@/assets/styles';
 
 const _Description= styled.div`
-  height: 40vh;
-  width : 75%;
+  height: 30vh;
+  width : 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   > p {
     font-size: 2.5rem;
