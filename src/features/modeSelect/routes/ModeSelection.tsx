@@ -7,11 +7,12 @@ import { SelectionCard } from "../components";
 import { Button, Header } from "@/components/Elements";
 import { CARD_DESCRIPTION, SETTINGS_PATH, TRAIN_MODE_PATH } from "..";
 import { useModal } from '@/hooks/useModal';
-import { RoomSelectForm, useExitRoomMutation } from '@/features/games/room';
+import { RoomSelectForm } from '@/features/games/room';
 import { colors } from '@/assets/styles';
 import trainigIcon from '@/assets/images/trainingIcon.svg';
 import vsIcon from '@/assets/images/vsIcon.svg';
 import { Person } from '@mui/icons-material';
+import { fetchAuthenticatedUserFn } from '@/features/auth';
 
 const SelectionGrid= styled.div`
   height : 100%;
@@ -136,7 +137,7 @@ export const ModeSelection= () => {
   const navigate= useNavigate();
   const [ isNavOpen, setIsNavOpen ]= useState<boolean>(false);
   const { ref, showModal, closeModal }= useModal();
-  const exitRoomMutation= useExitRoomMutation();
+  // const exitRoomMutation= useExitRoomMutation();
 
   const stopPropagation = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -147,6 +148,9 @@ export const ModeSelection= () => {
   const handleNavOpen= () => {
     setIsNavOpen(!isNavOpen)
   }
+  const handleSignOut =async () => {
+    
+  };
 
   return (
     <>
@@ -164,7 +168,9 @@ export const ModeSelection= () => {
                     <NavItem to={ SETTINGS_PATH }>ユーザ設定</NavItem>
                     <NavItem 
                       to='..' 
-                      onClick={ async()=> await exitRoomMutation.mutateAsync() } >Sign Out</NavItem>
+                      onClick={ handleSignOut } 
+                      
+                    > Sign Out</NavItem>
                   </NavList>
                 : undefined
               }                          
@@ -187,7 +193,11 @@ export const ModeSelection= () => {
             </$StartButton>
           </TrainSelectionCard>
         </SelectionContainer>  
-
+        <Button type='button' onClick={
+          async () => 
+            console.log(await fetchAuthenticatedUserFn())
+          }
+        >test</Button>
         <SelectionContainer>
           <MatchSelectionCard 
             id={'match'}

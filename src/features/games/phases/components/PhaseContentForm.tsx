@@ -38,7 +38,7 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
   
 
   const handleChange= ( e: React.ChangeEvent<HTMLInputElement> ) => {
-    setFlagValue(e.target.value );
+    setFlagValue( e.target.value );
   };
 
   return (

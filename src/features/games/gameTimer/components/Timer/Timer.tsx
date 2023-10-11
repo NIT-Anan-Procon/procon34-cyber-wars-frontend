@@ -25,11 +25,10 @@ export const Timer = ({ targetTime, redirectUrl }: TimerProps) => {
   );
 
   useEffect(() => {
-    
-  if(!startTimeQuery?.data) return;  
-  const gameStartTime: Date = new Date( startTimeQuery?.data?.startTime );
-  const milliseconds: number= gameStartTime.getTime();
-  const endTime: Date= new Date(new Date(milliseconds + targetTime * 1000))
+    if(!startTimeQuery?.data) return;  
+    const gameStartTime: Date = new Date( startTimeQuery?.data?.startTime );
+    const milliseconds: number= gameStartTime.getTime();
+    const endTime: Date= new Date(new Date(milliseconds + targetTime * 1000));
 
     const nowTime: Date = new Date();
     const diffTime= endTime.getTime() - nowTime.getTime();

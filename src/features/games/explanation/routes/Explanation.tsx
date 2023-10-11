@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { ContentLayout }      from '@/components/Layout';
 import { Button }             from '@/components/Elements';
 import { EditArea, EditorWrapper } from '@/features/games/codeController';
-import { PHASE } from '@/features/games/phases';
 import styled from 'styled-components';
 import { colors } from '@/assets/styles';
 import { ExplanationAnswer } from '../components/ExplanationAnswer';
 import { useDeleteGameMutation } from '../../matching';
 import { ExplanationMarkdown } from '../components/ExplanationMarkdown';
+import { useQuery } from '@tanstack/react-query';
+import { Loading } from '@/components/Animation';
+import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
 
 const _ExplanationContents= styled.div`
   height: 80vh;
@@ -54,6 +56,13 @@ export const Explanation= () => {
   const navigate= useNavigate();
 
   const endGameMutation= useDeleteGameMutation();
+  const challengeQuery= useQuery(ChallengeQueryKey, fetchChallengeFn);
+
+  if( challengeQuery.isLoading ) {
+    return <Loading />
+  };
+
+  if( !challengeQuery?.data ) return null;
 
   return (
     <ContentLayout
@@ -63,7 +72,7 @@ export const Explanation= () => {
       <_ExplanationContents >
         <_ChallengeCodePosition>
           <EditorWrapper >
-            <EditArea phase={ PHASE.DEFENCE_PHASE } />
+            <EditArea code={challengeQuery?.data?.code} />
           </EditorWrapper>          
         </_ChallengeCodePosition>
         <_ExplanationsWrapper >

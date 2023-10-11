@@ -26,7 +26,7 @@ const _InputField = styled.input<InputFieldProps>`
 type InputFieldProps = FieldWrapperPassThroughProps & {
 	id     : string;
 	type  ?: 'text' | 'password';
-	value ?: string;
+	value ?: string | number;
 	size  ?: InputSizeProps;
 	styles?: string;
 	placeholder ?: string;

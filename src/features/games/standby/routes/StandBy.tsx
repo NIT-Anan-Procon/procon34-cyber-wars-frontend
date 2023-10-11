@@ -14,6 +14,7 @@ import { useRecoilValue } from 'recoil';
 import { inviteIdState } from '../../room/states/atoms';
 import { useQuery } from '@tanstack/react-query';
 import { fetchRoomInfoQueryKey } from '../../room/api/fetchRoomInfo/fetchRoomInfoQueryKey';
+import { useEffect } from 'react';
 
 
 const _StandbyUsers= styled.div`
@@ -57,7 +58,7 @@ const _StandbyState= styled.div`
   width : 100%;
 `;
 
-const _StandbyUserHead= styled.div<{ canStarted?: boolean }>`
+const _StandbyUserHead= styled.div<{ canStarted?: string }>`
   position : absolute;
   height   : 10rem;
   padding  : 10px;
@@ -109,15 +110,22 @@ export const StandBy= () => {
   const navigate= useNavigate();
   const inviteId= useRecoilValue( inviteIdState );
   
-  const authUserQuery    = useQuery(AuthenticatedUserQueryKey, fetchAuthenticatedUserFn );
+  const authUserQuery    = useQuery( AuthenticatedUserQueryKey, fetchAuthenticatedUserFn );
   const startGameMutation= usePatchStartGameMutation();
   const exitRoomMutation = useExitRoomMutation();
 
   const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn, 
     {
-      refetchInterval: ( data ) =>  !data ? 1000: false 
+      refetchInterval: 1000
     }
   );
+
+  useEffect(() => {
+    if( !roomInfoQuery?.data ) return;
+    if( roomInfoQuery?.data?.started ) {
+      navigate('../phase/attack-phase');
+    };
+  }, [ navigate, roomInfoQuery?.data?.started ]);
 
   if( authUserQuery.isLoading || roomInfoQuery.isLoading ) {
     return <Loading />
@@ -125,14 +133,14 @@ export const StandBy= () => {
 
   if( !authUserQuery.data || !roomInfoQuery.data ) return null;
 
-  if( roomInfoQuery.data.opponentName === null ) {
+  if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
     exitRoomMutation.mutateAsync();
     navigate('../../');
   };
 
-  const hostUser = roomInfoQuery.data.host  ? authUserQuery.data.name : roomInfoQuery.data.opponentName;
-  const guestUser= !roomInfoQuery.data.host ? authUserQuery.data.name : roomInfoQuery.data.opponentName;
-  const canStarted= roomInfoQuery.data.started;
+  const hostUser = roomInfoQuery?.data?.host  ? authUserQuery?.data.name : roomInfoQuery?.data.opponentName;
+  const guestUser= !roomInfoQuery?.data?.host ? authUserQuery?.data.name : roomInfoQuery?.data.opponentName;
+  const canStarted= roomInfoQuery?.data?.opponentName;
 
   return (
     <StandbyLayout>
@@ -162,13 +170,10 @@ export const StandBy= () => {
               />
             : <$OpponentLoader />
           }
-        { roomInfoQuery?.data.started && roomInfoQuery?.data.host
+        { canStarted !==null && roomInfoQuery?.data.host
           ? <$StartButton 
               type='button'
-              onClick={() => {
-                startGameMutation.mutateAsync()
-                navigate('../phase/attack-phase')
-              }}
+              onClick={ async() => await startGameMutation.mutateAsync() }
             >
               START
             </$StartButton>

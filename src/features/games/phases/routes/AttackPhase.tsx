@@ -10,9 +10,19 @@ import { EditArea, EditorWrapper } from '@/features/games/codeController';
 import { useRecoilValue } from 'recoil';
 import { isShowCodeState } from '@/features/games/codeController/states';
 import { ChoicesWrapper } from '../../choices/components/ChoicesWrapper';
+import { Loading } from '@/components/Animation';
+import { useQuery } from '@tanstack/react-query';
+import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
 
 export const AttackPhase= () => {
   const isShowCode= useRecoilValue( isShowCodeState );
+  const challengeQuery= useQuery(ChallengeQueryKey, fetchChallengeFn);
+
+  if( challengeQuery.isLoading ) {
+    return <Loading />
+  };
+
+  if( !challengeQuery?.data ) return null;
 
   return (    
     <PhaseLayout
@@ -29,7 +39,7 @@ export const AttackPhase= () => {
         }
         body={
           isShowCode
-          ? <EditorWrapper><EditArea phase={ PHASE.ATTACK_PHASE } /></EditorWrapper>
+          ? <EditorWrapper><EditArea code={challengeQuery?.data?.code} /></EditorWrapper>
           : <ChoicesWrapper />
         }
         foot={
@@ -38,7 +48,7 @@ export const AttackPhase= () => {
             submitFnEndpoint={ ATTACK_SEND_KEY_URL }
           />
         }
-      /> 
+      />
     </PhaseLayout>
   );
 };
