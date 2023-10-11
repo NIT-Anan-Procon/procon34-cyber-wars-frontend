@@ -5,10 +5,6 @@ import { Button, Link } from "@/components/Elements";
 import { AuthUser, FormSchema, useRegisterMutation }  from "..";
 import { colors } from "@/assets/styles";
 
-type RegisterFormProps = {
-	onSuccess: () => void;
-};
-
 const ContentAreaWrapper= styled.div`
   width         : 100%;
   margin-top    : 3rem;
@@ -31,15 +27,14 @@ const $SubmitButton= styled(Button)`
   margin-top: 3rem;
 `;
 
-export const RegisterForm = ({onSuccess}: RegisterFormProps) => {
+export const RegisterForm = () => {
   const registerMutation= useRegisterMutation();
 
   return (
     <>
     <Form<AuthUser, typeof FormSchema>
-      onSubmit={async(data:AuthUser) => {
+      onSubmit={ async( data:AuthUser ) => {
         await registerMutation.mutateAsync( data );
-        onSuccess();
       }} 
       schema={FormSchema}
     >

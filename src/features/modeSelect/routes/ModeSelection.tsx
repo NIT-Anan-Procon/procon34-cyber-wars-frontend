@@ -12,7 +12,7 @@ import { colors } from '@/assets/styles';
 import trainigIcon from '@/assets/images/trainingIcon.svg';
 import vsIcon from '@/assets/images/vsIcon.svg';
 import { Person } from '@mui/icons-material';
-import { fetchAuthenticatedUserFn } from '@/features/auth';
+import { useLogoutMutation } from '@/features/auth';
 
 const SelectionGrid= styled.div`
   height : 100%;
@@ -137,7 +137,7 @@ export const ModeSelection= () => {
   const navigate= useNavigate();
   const [ isNavOpen, setIsNavOpen ]= useState<boolean>(false);
   const { ref, showModal, closeModal }= useModal();
-  // const exitRoomMutation= useExitRoomMutation();
+  const logoutMutation= useLogoutMutation();
 
   const stopPropagation = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -148,8 +148,8 @@ export const ModeSelection= () => {
   const handleNavOpen= () => {
     setIsNavOpen(!isNavOpen)
   }
-  const handleSignOut =async () => {
-    
+  const handleSignOut = () => {
+    logoutMutation.mutateAsync();
   };
 
   return (
@@ -167,9 +167,8 @@ export const ModeSelection= () => {
                 ? <NavList>
                     <NavItem to={ SETTINGS_PATH }>ユーザ設定</NavItem>
                     <NavItem 
-                      to='..' 
+                      to='auth/login' 
                       onClick={ handleSignOut } 
-                      
                     > Sign Out</NavItem>
                   </NavList>
                 : undefined
@@ -193,11 +192,7 @@ export const ModeSelection= () => {
             </$StartButton>
           </TrainSelectionCard>
         </SelectionContainer>  
-        <Button type='button' onClick={
-          async () => 
-            console.log(await fetchAuthenticatedUserFn())
-          }
-        >test</Button>
+
         <SelectionContainer>
           <MatchSelectionCard 
             id={'match'}
