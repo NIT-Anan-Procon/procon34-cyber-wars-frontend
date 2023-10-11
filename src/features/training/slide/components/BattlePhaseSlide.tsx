@@ -1,9 +1,10 @@
-import { SlideWrapper } from '.';
+import { Description, SlideWrapper } from '.';
+import { DESCRIPTIONS } from '../constants';
 
 export const BattlePhaseSlide= () => {
   return (
     <SlideWrapper title={'バトルフェーズ'} >
-      BattlePhase
+      <Description description={ DESCRIPTIONS.BATTLE_PHASE } />
     </SlideWrapper>
   );
 };
