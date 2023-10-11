@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { Button } from '@/components/Elements';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+import { Button } from '@/components/Elements';
 import { Description } from '.';
-import { DESCRIPTIONS } from '../constants';
 
 const _EndSlideWrapper= styled.div`
   height: 100vh;
@@ -26,7 +26,11 @@ export const EndSlide= () => {
 
   return (
     <_EndSlideWrapper >
-      <Description description={ DESCRIPTIONS.END } />
+      <Description 
+        description={ 
+          <span>訓練モードは以上です。対戦モードで、実際に対戦してみましょう。</span>
+        }
+      />
       <$RedirectToModeButton onClick={() => navigate('../../') } >モード選択へ戻る</$RedirectToModeButton>
     </_EndSlideWrapper>
   );

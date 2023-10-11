@@ -2,15 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SubdirectoryArrowLeftIcon from '@mui/icons-material/SubdirectoryArrowLeft';
 
+import { PHASE } from '@/features/games/phases';
 import { Description, SlideWrapper } from '.';
-import { DESCRIPTIONS } from '../constants';
 import { Button } from '@/components/Elements';
 import { colors } from '@/assets/styles';
 
 import attackPhaseIcon  from '@/assets/images/attack_phase.svg';
 import defencePhaseIcon from '@/assets/images/defence_phase.svg';
 import battlePhaseIcon  from '@/assets/images/battle_phas.svg';
-import { PHASE } from '@/features/games/phases';
+
 
 const _PhaseIcons= styled.div`
   height: auto;
@@ -92,8 +92,11 @@ export  const InitialSlide= () => {
 
   return (
     <SlideWrapper title={'訓練モード'} >
-      <Description description={ DESCRIPTIONS.INITIAL } />
-
+      <Description
+        description={
+          <span>CYBERWARSは、セキュリティ学習の入り口となるプラットフォームです。対戦形式は1対1。3つのフェーズを通し、より多くのポイントを獲得したプレイヤーの勝利となります。</span>
+        }
+      />
       <_PhaseIcons >
         <_PhaseIconWrapper >
           <_PhaseIcon><img src={ attackPhaseIcon } /></_PhaseIcon>
