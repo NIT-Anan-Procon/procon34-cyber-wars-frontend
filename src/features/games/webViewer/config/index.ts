@@ -1,1 +1,0 @@
-export const PHP_URL= import.meta.env.VITE_APP_PHP_URL;
