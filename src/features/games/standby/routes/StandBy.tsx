@@ -7,7 +7,7 @@ import { StandbyLayout } from '../components';
 import { CharacterStandbyCard } from '@/features/games/character';
 import { GameRulesDescriptions, GameRulesLayout } from '@/features/games/gameRules';
 import { AuthenticatedUserQueryKey, fetchAuthenticatedUserFn } from '@/features/auth';
-import { fetchRoomInfoFn, useExitRoomMutation } from '@/features/games/room';
+import { fetchRoomInfoFn } from '@/features/games/room';
 
 import { usePatchStartGameMutation } from '../../matching';
 import { useRecoilValue } from 'recoil';
@@ -111,7 +111,7 @@ export const StandBy= () => {
   
   const authUserQuery    = useQuery(AuthenticatedUserQueryKey, fetchAuthenticatedUserFn );
   const startGameMutation= usePatchStartGameMutation();
-  const exitRoomMutation = useExitRoomMutation();
+  // const exitRoomMutation = useExitRoomMutation();
 
   const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn, 
     {
@@ -126,7 +126,7 @@ export const StandBy= () => {
   if( !authUserQuery.data || !roomInfoQuery.data ) return null;
 
   if( !roomInfoQuery?.data?.host && roomInfoQuery.data.opponentName === null ) {
-    exitRoomMutation.mutateAsync();
+    // exitRoomMutation.mutateAsync();
     console.log(roomInfoQuery?.data?.host);
   };
 
