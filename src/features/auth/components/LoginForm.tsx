@@ -29,19 +29,14 @@ const $SubmitButton= styled(Button)`
   margin-top: 3rem;
 `;
 
-type LoginFormProps = {
-	onSuccess: () => void;
-};
-
-export const LoginForm = ({onSuccess}: LoginFormProps) => {
+export const LoginForm = () => {
 	const loginMutation= useLoginMutation();
 
   return (
     <>
       <Form<AuthUser, typeof FormSchema>
-        onSubmit={async(data:AuthUser ) => {
+        onSubmit={ async( data:AuthUser ) => {
           await loginMutation.mutateAsync( data );
-          onSuccess();
         }} 
         schema={FormSchema}
       >
