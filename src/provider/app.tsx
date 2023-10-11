@@ -5,7 +5,7 @@ import { HelmetProvider }      from 'react-helmet-async';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools }  from '@tanstack/react-query-devtools';
 
-import { worker }      from '@/mocks/browser';
+// import { worker }      from '@/mocks/browser';
 import { queryClient } from '@/lib/react-query';
 import { Loading }     from '@/components/Animation';
 

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { Form, FormTitle, InputField } from '@/components/Form';
 import { Button, Link }          from '@/components/Elements';
-import { AuthUser, FormSchema, fetchAuthenticatedUserFn }  from '..';
+import { AuthUser, FormSchema }  from '..';
 import { colors }                from '@/assets/styles';
 import { useLoginMutation } from '../api/login/useLoginMutation';
 
@@ -30,7 +30,7 @@ const $SubmitButton= styled(Button)`
 `;
 
 type LoginFormProps = {
-	onSuccess?: () => void;
+	onSuccess: () => void;
 };
 
 export const LoginForm = ({onSuccess}: LoginFormProps) => {

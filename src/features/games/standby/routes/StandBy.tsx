@@ -115,7 +115,7 @@ export const StandBy= () => {
 
   const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn, 
     {
-      refetchInterval: ( data ) => !data ? 1000 : false 
+      refetchInterval: ( data ) =>  !data ? 1000: false 
     }
   );
 
@@ -125,8 +125,9 @@ export const StandBy= () => {
 
   if( !authUserQuery.data || !roomInfoQuery.data ) return null;
 
-  if( !roomInfoQuery.data?.host && roomInfoQuery.data?.opponentName === null ) {
-    return exitRoomMutation.mutateAsync();
+  if( roomInfoQuery.data.opponentName === null ) {
+    exitRoomMutation.mutateAsync();
+    navigate('../../');
   };
 
   const hostUser = roomInfoQuery.data.host  ? authUserQuery.data.name : roomInfoQuery.data.opponentName;
