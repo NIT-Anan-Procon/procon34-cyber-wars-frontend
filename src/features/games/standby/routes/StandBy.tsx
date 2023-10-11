@@ -7,7 +7,7 @@ import { StandbyLayout } from '../components';
 import { CharacterStandbyCard } from '@/features/games/character';
 import { GameRulesDescriptions, GameRulesLayout } from '@/features/games/gameRules';
 import { AuthenticatedUserQueryKey, fetchAuthenticatedUserFn } from '@/features/auth';
-import { fetchRoomInfoFn } from '@/features/games/room';
+import { fetchRoomInfoFn, useExitRoomMutation } from '@/features/games/room';
 
 import { usePatchStartGameMutation } from '../../matching';
 import { useRecoilValue } from 'recoil';
@@ -111,11 +111,11 @@ export const StandBy= () => {
   
   const authUserQuery    = useQuery(AuthenticatedUserQueryKey, fetchAuthenticatedUserFn );
   const startGameMutation= usePatchStartGameMutation();
-  // const exitRoomMutation = useExitRoomMutation();
+  const exitRoomMutation = useExitRoomMutation();
 
   const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn, 
     {
-      refetchInterval: ( data ) =>  !data ? 1000: false 
+      refetchInterval: ( data ) => !data ? 1000 : false 
     }
   );
 
@@ -125,10 +125,8 @@ export const StandBy= () => {
 
   if( !authUserQuery.data || !roomInfoQuery.data ) return null;
 
-  console.log(roomInfoQuery?.data?.host);
-  if( !roomInfoQuery?.data?.host && roomInfoQuery.data.opponentName === null ) {
-    // exitRoomMutation.mutateAsync();
-    console.log(roomInfoQuery?.data?.host);
+  if( !roomInfoQuery.data?.host && roomInfoQuery.data?.opponentName === null ) {
+    return exitRoomMutation.mutateAsync();
   };
 
   const hostUser = roomInfoQuery.data.host  ? authUserQuery.data.name : roomInfoQuery.data.opponentName;

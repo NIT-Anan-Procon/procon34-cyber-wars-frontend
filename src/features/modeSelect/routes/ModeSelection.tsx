@@ -12,6 +12,7 @@ import { colors } from '@/assets/styles';
 import trainigIcon from '@/assets/images/trainingIcon.svg';
 import vsIcon from '@/assets/images/vsIcon.svg';
 import { Person } from '@mui/icons-material';
+import { fetchAuthenticatedUserFn, useAuthenticatedUserQuery } from '@/features/auth';
 
 const SelectionGrid= styled.div`
   height : 100%;
@@ -147,9 +148,8 @@ export const ModeSelection= () => {
   const handleNavOpen= () => {
     setIsNavOpen(!isNavOpen)
   }
-  const handleSignOut =() => {
-    // exitRoomMutation.mutateAsync();
-    console.log('signOut')
+  const handleSignOut =async () => {
+    console.log(await fetchAuthenticatedUserFn())
   };
 
   return (
@@ -193,7 +193,11 @@ export const ModeSelection= () => {
             </$StartButton>
           </TrainSelectionCard>
         </SelectionContainer>  
-
+        <Button type='button' onClick={
+          async () => 
+            console.log(await fetchAuthenticatedUserFn())
+          }
+        >test</Button>
         <SelectionContainer>
           <MatchSelectionCard 
             id={'match'}
