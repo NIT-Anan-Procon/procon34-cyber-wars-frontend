@@ -11,6 +11,7 @@ import { Button } from '@/components/Elements';
 import { useQuery } from '@tanstack/react-query';
 import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
 import { Loading } from '@/components/Animation';
+import { PHP_URL } from '@/features/config';
 
 const $SendCodeButton= styled(Button)`
   position: absolute;
@@ -30,10 +31,13 @@ export const DefencePhase= () => {
 
   if( !challengeQuery?.data ) return null;
 
+  const createAbsolutePath= `${ PHP_URL + challengeQuery.data?.targetPath + '/target' }`;
+
   return (
     <PhaseLayout
       title='ディフェンスフェーズ'
       phase={ PHASE.DEFENCE_PHASE }
+      targetPath={ createAbsolutePath }
       redirectUrl={ REDIRECT_PATHS.DEFENCE_TO_BATTLE }
     >
       <PhaseContentsWrapper
