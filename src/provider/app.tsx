@@ -5,7 +5,7 @@ import { HelmetProvider }      from 'react-helmet-async';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools }  from '@tanstack/react-query-devtools';
 
-// import { worker }      from '@/mocks/browser';
+import { worker }      from '@/mocks/browser';
 import { queryClient } from '@/lib/react-query';
 import { Loading }     from '@/components/Animation';
 
@@ -14,15 +14,15 @@ type AppProviderProps= {
 };
 
 export const AppProvider= ({ children }: AppProviderProps) => {
-  // if ( process.env.NODE_ENV === 'development' ) {
-  //   worker.start();
-  // };
+  if ( process.env.NODE_ENV === 'development' ) {
+    worker.start();
+  };
 
   return(
     <React.Suspense fallback={<Loading />} >
       <HelmetProvider >
         <QueryClientProvider client={ queryClient } >
-          { process.env.NODE_ENV === 'development' && <ReactQueryDevtools /> }
+          { process.env.NODE_ENV !== 'development' && <ReactQueryDevtools /> }
           <RecoilRoot >
             <Suspense fallback={<Loading />} >
               <BrowserRouter >{ children }</BrowserRouter>            
