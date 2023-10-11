@@ -29,4 +29,8 @@ jobs:
         with:
           node-version: "16"
 
-      - run: npm install --save --legacy-peer-deps
+      - name: Package Install
+        run: npm install --save --legacy-peer-deps
+
+      - name: Build
+        run: npm run build
