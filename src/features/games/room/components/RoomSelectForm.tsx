@@ -6,8 +6,9 @@ import { Button, RadioButton } from "@/components/Elements";
 import { useAtomValueChange } from "@/hooks/useAtomValueChange";
 import { ROOM_MODES } from "../types";
 import { JoinRoomRequestType, useCreateRoomMutation, useJoinRoomMutation } from "../api";
-import { roomModeState } from "../states/atoms";
+import { inviteIdState, roomModeState } from "../states/atoms";
 import { colors } from "@/assets/styles";
+import { useRecoilState } from "recoil";
 
 const _RoomSelectForm= styled.div`
   height : 100%;
@@ -77,6 +78,12 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
   const createRoomMutation= useCreateRoomMutation();
   const joinRoomMutation  = useJoinRoomMutation();
 
+  const [ inviteId, setInviteId ]= useRecoilState( inviteIdState );
+
+  const handleInviteId= ( e: React.ChangeEvent<HTMLInputElement> ) => {
+    setInviteId( e.target.value );
+  };
+
   return (    
     <_RoomSelectForm>
       <_RoomSelectFormTitle>
@@ -115,9 +122,11 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
                       id='inviteId'
                       type='text'
                       size='medium'
-                      error= {errors.inviteId}
+                      error= { errors.inviteId }
+                      value={ inviteId }
                       placeholder='ルームIDを入力してください。'
-                      registration= {register('inviteId')}
+                      registration= { register('inviteId') }
+                      onChange={ handleInviteId }
                       styles={ InputRoomIdStyle } 
                     />          
                     <$StartButton type='submit'>START</$StartButton>

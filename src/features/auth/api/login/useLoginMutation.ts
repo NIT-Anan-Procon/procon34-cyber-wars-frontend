@@ -9,10 +9,10 @@ export const useLoginMutation= () => {
     onSuccess: ( isSuccess: AuthResponseType ) => {
       const prevIsAuthenticated= queryClient.getQueryData( AuthenticatedUserQueryKey );
       
-      if( prevIsAuthenticated && isSuccess ) {
+      if( prevIsAuthenticated && isSuccess.success ) {
         queryClient.setQueryData( AuthenticatedUserQueryKey, {
           ...prevIsAuthenticated,
-          loggedIn: isSuccess,
+          loggedIn: isSuccess.success,
         });
       }
     },

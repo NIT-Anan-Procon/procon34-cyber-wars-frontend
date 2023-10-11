@@ -6,38 +6,20 @@ import { php }            from '@codemirror/lang-php';
 
 import { EditorSetup } from '../config';
 import { codeState }   from '../states';
-import { RevisionCodeQueryKey, fetchRevisionCodeFn }    from '../api';
-import { Loading }     from '@/components/Animation';
-import { ChallengeQueryKey, fetchChallengeFn } from '@/features/games/challenge';
-import { PHASE } from '../../phases';
-import { useQuery } from '@tanstack/react-query';
 
 type EditAreaProps= {
-  phase: string;
+  code:string;
 };
 
-export const EditArea= ({ phase }: EditAreaProps) => {
+export const EditArea= ({ code }: EditAreaProps) => {
   const setCode =useSetRecoilState( codeState );
-  const challengeQuery= useQuery(ChallengeQueryKey, fetchChallengeFn);
-  const revisionCodeQuery= useQuery( RevisionCodeQueryKey, fetchRevisionCodeFn );
-
-  if( challengeQuery.isLoading || revisionCodeQuery.isLoading ) {
-    return <Loading />
-  };
-
-  if( !challengeQuery?.data || !revisionCodeQuery?.data ) return null;
-
-  const phaseCode= phase === PHASE.BATTLE_PHASE 
-    ? revisionCodeQuery?.data.code
-    : challengeQuery?.data.code
-
   const handleCode= ( value: string ) => {
     setCode(value);
   };
   
   return (
       <CodeMirror
-        value     = { phaseCode }
+        value     = { code }
         onChange  = { handleCode }
         theme     = { vscodeDark }
         basicSetup= { EditorSetup }

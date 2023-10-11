@@ -1,4 +1,6 @@
 export * from './SlideWrapper';
+export * from './Description';
+export * from './SlideImageContent';
 
 export * from './InitialSlide';
 export * from './AttackPhaseSlide';
