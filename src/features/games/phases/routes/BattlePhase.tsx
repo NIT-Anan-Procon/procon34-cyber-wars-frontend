@@ -10,20 +10,26 @@ import { EditArea, EditorWrapper } from '@/features/games/codeController';
 import { BATTLE_SEND_KEY_URL } from '@/features/games/sendFlag';
 import { RevisionCodeQueryKey, fetchRevisionCodeFn } from '../../codeController/api';
 import { Loading } from '@/components/Animation';
+import { PHP_URL } from '@/features/config';
+import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
 
 export const BattlePhase= () => {
   const revisionCodeQuery= useQuery( RevisionCodeQueryKey, fetchRevisionCodeFn );
+  const challengeQuery= useQuery( ChallengeQueryKey, fetchChallengeFn );
 
-  if( revisionCodeQuery.isLoading ) {
+  if( challengeQuery.isLoading || revisionCodeQuery.isLoading ) {
     return <Loading />
   };
 
-  if( !revisionCodeQuery?.data ) return null;
+  if( !challengeQuery?.data || !revisionCodeQuery?.data ) return null;
+
+  const createAbsoluteRevisionPath= `${ PHP_URL + challengeQuery.data?.targetPath + '/revision/' + revisionCodeQuery.data?.revisionPath + '.php' }`;
 
   return (
     <PhaseLayout
       title='バトルフェーズ'
       phase={ PHASE.BATTLE_PHASE }
+      targetPath={ createAbsoluteRevisionPath }
       redirectUrl={ REDIRECT_PATHS.BATTLE_TO_RESULT }
     >
       <PhaseContentsWrapper

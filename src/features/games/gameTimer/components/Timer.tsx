@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { useQuery } from '@tanstack/react-query';
-import { StartTimeQueryKey, fetchStartTimeFn } from '../..';
+import { StartTimeQueryKey, fetchStartTimeFn } from '..';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

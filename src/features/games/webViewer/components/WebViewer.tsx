@@ -3,13 +3,8 @@ import {  useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { focusedInputElementState, targetInputNameState } from '../states/atoms';
-import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
-import { RevisionCodeQueryKey, fetchRevisionCodeFn } from '../../codeController/api';
-import { PHASE } from '../../phases';
-import { PHP_URL } from '../config';
-import { useQuery } from '@tanstack/react-query';
 
-const _Preview= styled.iframe<{ styles?: string }>`
+const _Preview= styled.iframe`
   width      : calc( 100% - 40px);
   height     : calc( 100% - 40px);
   z-index    : 9999;
@@ -21,26 +16,16 @@ const _Preview= styled.iframe<{ styles?: string }>`
   justify-content: center;
   background : transparent;
   z-index    : 2;
-
-  ${(props) => props.styles};
 `;
 
 type PreviewProps= {
-  phase  : string;
-  styles?: string;
+  targetPath: string;
 };
 
-export const WebViewer= (
-  { 
-    phase,
-    styles,  
-  }: PreviewProps
-) => {
+export const WebViewer= ({ targetPath }: PreviewProps ) => {
   const iframeRef= useRef<HTMLIFrameElement | null>(null);
   const setFocusedInputElement= useSetRecoilState( focusedInputElementState );
   const setTargetInputName= useSetRecoilState( targetInputNameState );
-  const challengeQuery= useQuery( ChallengeQueryKey, fetchChallengeFn );
-  const revisionQuery = useQuery( RevisionCodeQueryKey, fetchRevisionCodeFn );
 
   useEffect(() => {
     function getInputsFromIframe() {
@@ -62,17 +47,10 @@ export const WebViewer= (
 
   }, [iframeRef, setFocusedInputElement, setTargetInputName]);
 
-  if( !challengeQuery?.data ) return null;
-
-  const mergeAbsolutePath= phase !== PHASE.BATTLE_PHASE
-    ? `${ PHP_URL + challengeQuery?.data?.targetPath + '/target' }`
-    : `${ PHP_URL + challengeQuery?.data?.targetPath + '/revision/' + revisionQuery?.data?.revisionPath + '.php' }`
-
   return (
     <_Preview
-      ref   = { iframeRef }
-      styles= { styles }
-      src   = { mergeAbsolutePath }
+      ref= { iframeRef }
+      src= { targetPath }
     /> 
   );
 };

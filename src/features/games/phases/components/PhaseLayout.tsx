@@ -42,6 +42,7 @@ const WebViewerPosition= `
 type PhaseLayoutProps= {
   title: string;
   phase: string;
+  targetPath: string;
   redirectUrl: string;
   children: React.ReactNode;
 };
@@ -50,6 +51,7 @@ export const PhaseLayout= (
   {
     title,
     phase,
+    targetPath,
     redirectUrl,
     children
   }: PhaseLayoutProps
@@ -65,7 +67,7 @@ export const PhaseLayout= (
             phase = { phase }
             styles= { WebViewerPosition }
           >
-            <WebViewer phase={ phase } />
+            <WebViewer targetPath={ targetPath } />
           </WebViewerWrapper>          
         <_PhaseContents >{ children }</_PhaseContents>
       </_PhaseLayout>    

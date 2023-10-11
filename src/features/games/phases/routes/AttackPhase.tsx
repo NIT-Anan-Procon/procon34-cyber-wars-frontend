@@ -13,6 +13,7 @@ import { ChoicesWrapper } from '../../choices/components/ChoicesWrapper';
 import { Loading } from '@/components/Animation';
 import { useQuery } from '@tanstack/react-query';
 import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
+import { PHP_URL } from '@/features/config';
 
 export const AttackPhase= () => {
   const isShowCode= useRecoilValue( isShowCodeState );
@@ -24,10 +25,13 @@ export const AttackPhase= () => {
 
   if( !challengeQuery?.data ) return null;
 
+  const createAbsolutePath= `${ PHP_URL + challengeQuery.data?.targetPath + '/target' }`;
+
   return (    
     <PhaseLayout
       title='アタックフェーズ'
       phase={ PHASE.ATTACK_PHASE }
+      targetPath={ createAbsolutePath }
       redirectUrl={ REDIRECT_PATHS.ATTACK_TO_DEFENCE }
     >
       <PhaseContentsWrapper
