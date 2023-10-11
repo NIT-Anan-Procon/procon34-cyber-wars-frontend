@@ -122,25 +122,23 @@ export const StandBy= () => {
 
   useEffect(() => {
     if( !roomInfoQuery?.data ) return;
+
     if( roomInfoQuery?.data?.started ) {
       navigate('../phase/attack-phase');
+    } else if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
+      exitRoomMutation.mutateAsync();
     };
-  }, [ navigate, roomInfoQuery?.data?.started ]);
+  }, [ navigate, roomInfoQuery?.data ]);
 
   if( authUserQuery.isLoading || roomInfoQuery.isLoading ) {
     return <Loading />
   };
 
-  if( !authUserQuery.data || !roomInfoQuery.data ) return null;
+  if( !authUserQuery?.data || !roomInfoQuery?.data ) return null;
 
-  if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
-    exitRoomMutation.mutateAsync();
-    navigate('../../');
-  };
-
-  const hostUser = roomInfoQuery?.data?.host  ? authUserQuery?.data.name : roomInfoQuery?.data.opponentName;
-  const guestUser= !roomInfoQuery?.data?.host ? authUserQuery?.data.name : roomInfoQuery?.data.opponentName;
-  const canStarted= roomInfoQuery?.data?.opponentName;
+  const hostUser = roomInfoQuery.data?.host  ? authUserQuery.data?.name : roomInfoQuery.data?.opponentName;
+  const guestUser= !roomInfoQuery.data?.host ? authUserQuery.data?.name : roomInfoQuery.data?.opponentName;
+  const canStarted= roomInfoQuery.data?.opponentName;
 
   return (
     <StandbyLayout>
@@ -170,7 +168,7 @@ export const StandBy= () => {
               />
             : <$OpponentLoader />
           }
-        { canStarted !==null && roomInfoQuery?.data.host
+        { canStarted !==null && roomInfoQuery.data?.host
           ? <$StartButton 
               type='button'
               onClick={ async() => await startGameMutation.mutateAsync() }
