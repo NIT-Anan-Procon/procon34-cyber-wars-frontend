@@ -116,7 +116,7 @@ export const StandBy= () => {
 
   const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn, 
     {
-      refetchInterval: 1000 
+      refetchInterval: 1000
     }
   );
 

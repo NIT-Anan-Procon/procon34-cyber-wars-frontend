@@ -49,7 +49,7 @@ export const roomHandlers= [
           {
             [ IS_HOST_KEY ]: true,
             [ OPPONENT_NAME_KEY ]: 'kinoshita',
-            [ IS_STARTED_KEY ]: false
+            [ IS_STARTED_KEY ]: true
           }
         )
       );
