@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colors } from '@/assets/styles';
 
-const _Description= styled.div`
+const _Description= styled.div<{ styles?: string }>`
   height: 30vh;
   width : 100%;
   display: flex;
@@ -10,17 +10,20 @@ const _Description= styled.div`
   justify-content: center;
 
   > p {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color    : ${ colors.bgLighter };    
   }
+
+  ${(props) => props.styles }
 `;
 
 type DescriptionProps= {
-  description: string;
+  description: React.ReactNode;
+  styles    ?: string;
 };
 
-export const Description= ({ description }: DescriptionProps ) => {
+export const Description= ({ description, styles }: DescriptionProps ) => {
   return (
-    <_Description><p>{ description }</p></_Description>
+    <_Description styles={ styles } ><p>{ description }</p></_Description>
   );
 };
