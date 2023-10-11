@@ -147,6 +147,9 @@ export const ModeSelection= () => {
   const handleNavOpen= () => {
     setIsNavOpen(!isNavOpen)
   }
+  const handleSignOut = async () => {
+    await exitRoomMutation.mutateAsync();
+  };
 
   return (
     <>
@@ -164,7 +167,9 @@ export const ModeSelection= () => {
                     <NavItem to={ SETTINGS_PATH }>ユーザ設定</NavItem>
                     <NavItem 
                       to='..' 
-                      onClick={ async()=> await exitRoomMutation.mutateAsync() } >Sign Out</NavItem>
+                      onClick={ handleSignOut } 
+                      
+                    > Sign Out</NavItem>
                   </NavList>
                 : undefined
               }                          
