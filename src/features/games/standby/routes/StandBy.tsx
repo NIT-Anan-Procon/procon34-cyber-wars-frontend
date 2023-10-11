@@ -125,14 +125,14 @@ export const StandBy= () => {
 
   if( !authUserQuery.data || !roomInfoQuery.data ) return null;
 
-  if( roomInfoQuery.data.opponentName === null ) {
+  if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
     exitRoomMutation.mutateAsync();
     navigate('../../');
   };
 
-  const hostUser = roomInfoQuery.data.host  ? authUserQuery.data.name : roomInfoQuery.data.opponentName;
-  const guestUser= !roomInfoQuery.data.host ? authUserQuery.data.name : roomInfoQuery.data.opponentName;
-  const canStarted= roomInfoQuery.data.started;
+  const hostUser = roomInfoQuery?.data?.host  ? authUserQuery?.data.name : roomInfoQuery?.data.opponentName;
+  const guestUser= !roomInfoQuery?.data?.host ? authUserQuery?.data.name : roomInfoQuery?.data.opponentName;
+  const canStarted= roomInfoQuery?.data?.started;
 
   return (
     <StandbyLayout>
