@@ -78,7 +78,7 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
   const createRoomMutation= useCreateRoomMutation();
   const joinRoomMutation  = useJoinRoomMutation();
 
-  const [ inviteId, setInviteId ]= useRecoilState<number>( inviteIdState );
+  const [ inviteId, setInviteId ]= useRecoilState( inviteIdState );
 
   const handleInviteId= ( e: React.ChangeEvent<HTMLInputElement> ) => {
     setInviteId( e.target.value );
