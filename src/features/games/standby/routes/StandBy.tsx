@@ -14,6 +14,7 @@ import { useRecoilValue } from 'recoil';
 import { inviteIdState } from '../../room/states/atoms';
 import { useQuery } from '@tanstack/react-query';
 import { fetchRoomInfoQueryKey } from '../../room/api/fetchRoomInfo/fetchRoomInfoQueryKey';
+import { useEffect } from 'react';
 
 
 const _StandbyUsers= styled.div`
@@ -109,7 +110,7 @@ export const StandBy= () => {
   const navigate= useNavigate();
   const inviteId= useRecoilValue( inviteIdState );
   
-  const authUserQuery    = useQuery(AuthenticatedUserQueryKey, fetchAuthenticatedUserFn );
+  const authUserQuery    = useQuery( AuthenticatedUserQueryKey, fetchAuthenticatedUserFn );
   const startGameMutation= usePatchStartGameMutation();
   const exitRoomMutation = useExitRoomMutation();
 
@@ -118,6 +119,13 @@ export const StandBy= () => {
       refetchInterval: ( data ) =>  !data ? 1000: false 
     }
   );
+
+  useEffect(() => {
+    if( !roomInfoQuery?.data ) return;
+    if( roomInfoQuery?.data?.started ) {
+      navigate('../phase/attack-phase');
+    };
+  }, [ navigate, roomInfoQuery?.data?.started ]);
 
   if( authUserQuery.isLoading || roomInfoQuery.isLoading ) {
     return <Loading />
@@ -162,13 +170,10 @@ export const StandBy= () => {
               />
             : <$OpponentLoader />
           }
-        { roomInfoQuery?.data.started && roomInfoQuery?.data.host
+        { canStarted !==null && roomInfoQuery?.data.host
           ? <$StartButton 
               type='button'
-              onClick={() => {
-                startGameMutation.mutateAsync()
-                navigate('../phase/attack-phase')
-              }}
+              onClick={ async() => await startGameMutation.mutateAsync() }
             >
               START
             </$StartButton>
