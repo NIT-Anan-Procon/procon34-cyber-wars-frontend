@@ -57,7 +57,7 @@ const _StandbyState= styled.div`
   width : 100%;
 `;
 
-const _StandbyUserHead= styled.div<{ canStarted?: boolean }>`
+const _StandbyUserHead= styled.div<{ canStarted?: string }>`
   position : absolute;
   height   : 10rem;
   padding  : 10px;
@@ -132,7 +132,7 @@ export const StandBy= () => {
 
   const hostUser = roomInfoQuery?.data?.host  ? authUserQuery?.data.name : roomInfoQuery?.data.opponentName;
   const guestUser= !roomInfoQuery?.data?.host ? authUserQuery?.data.name : roomInfoQuery?.data.opponentName;
-  const canStarted= roomInfoQuery?.data?.started;
+  const canStarted= roomInfoQuery?.data?.opponentName;
 
   return (
     <StandbyLayout>
