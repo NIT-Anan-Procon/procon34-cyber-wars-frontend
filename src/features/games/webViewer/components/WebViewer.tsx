@@ -62,6 +62,8 @@ export const WebViewer= (
 
   }, [iframeRef, setFocusedInputElement, setTargetInputName]);
 
+  if( !challengeQuery?.data ) return null;
+
   const mergeAbsolutePath= phase !== PHASE.BATTLE_PHASE
     ? `${ PHP_URL + challengeQuery?.data?.targetPath + '/target.php' }`
     : `${ PHP_URL + challengeQuery?.data?.targetPath + '/revision/' + revisionQuery?.data?.revisionPath + '.php' }`
