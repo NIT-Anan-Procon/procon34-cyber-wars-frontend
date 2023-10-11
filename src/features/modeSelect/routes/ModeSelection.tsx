@@ -177,7 +177,7 @@ export const ModeSelection= () => {
             id= {'train'}
             title='訓練モード'
             imgPath={ trainigIcon }
-            description={ CARD_DESCRIPTION.TRAIN_DESCRIPTION}
+            description={ CARD_DESCRIPTION.TRAIN_DESCRIPTION }
           >
             <$StartButton
               mode={'train'}
