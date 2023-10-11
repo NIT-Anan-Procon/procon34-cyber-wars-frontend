@@ -147,8 +147,8 @@ export const ModeSelection= () => {
   const handleNavOpen= () => {
     setIsNavOpen(!isNavOpen)
   }
-  const handleSignOut = async () => {
-    await exitRoomMutation.mutateAsync();
+  const handleSignOut =() => {
+    exitRoomMutation.mutateAsync();
   };
 
   return (
