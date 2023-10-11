@@ -78,7 +78,11 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
   const createRoomMutation= useCreateRoomMutation();
   const joinRoomMutation  = useJoinRoomMutation();
 
-  const [ inviteId, setInviteId ]= useRecoilState( inviteIdState );
+  const [ inviteId, setInviteId ]= useRecoilState<number>( inviteIdState );
+
+  const handleInviteId= ( e: React.ChangeEvent<HTMLInputElement> ) => {
+    setInviteId( e.target.value );
+  };
 
   return (    
     <_RoomSelectForm>
@@ -118,11 +122,11 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
                       id='inviteId'
                       type='text'
                       size='medium'
-                      error= {errors.inviteId}
+                      error= { errors.inviteId }
                       value={ inviteId }
                       placeholder='ルームIDを入力してください。'
-                      registration= {register('inviteId')}
-                      onChange={ () => setInviteId(inviteId) }
+                      registration= { register('inviteId') }
+                      onChange={ handleInviteId }
                       styles={ InputRoomIdStyle } 
                     />          
                     <$StartButton type='submit'>START</$StartButton>
