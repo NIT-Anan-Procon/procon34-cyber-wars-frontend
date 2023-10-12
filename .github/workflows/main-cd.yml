@@ -25,11 +25,11 @@ jobs:
             git reset --hard origin/main
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@main
         with:
           node-version: "18"
 
-      - name: Package install
+      - name: Package Install
         run: npm install --save --legacy-peer-deps
 
       - name: Build
