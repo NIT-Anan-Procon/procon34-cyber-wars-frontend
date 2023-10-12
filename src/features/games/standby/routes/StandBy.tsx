@@ -130,7 +130,7 @@ export const StandBy= () => {
     };
   }, [ navigate, roomInfoQuery?.data ]);
 
-  if( authUserQuery.isLoading || roomInfoQuery.isLoading ) {
+  if( authUserQuery.isLoading && roomInfoQuery.isLoading ) {
     return <Loading />
   };
 
