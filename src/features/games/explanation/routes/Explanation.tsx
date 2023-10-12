@@ -72,7 +72,7 @@ export const Explanation= () => {
       <_ExplanationContents >
         <_ChallengeCodePosition>
           <EditorWrapper >
-            <EditArea code={challengeQuery?.data?.code} />
+            <EditArea fetchedCode={challengeQuery?.data?.code} />
           </EditorWrapper>          
         </_ChallengeCodePosition>
         <_ExplanationsWrapper >

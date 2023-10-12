@@ -12,7 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
 import { Loading } from '@/components/Animation';
 import { PHP_URL } from '@/features/config';
-import { useSendCodeMutation } from '../../codeController/api';
+import { fetchMyRevisionPathFn, myRevisionPathQueryKey, useSendCodeMutation } from '../../codeController/api';
 import { useRecoilValue } from 'recoil';
 import { codeState } from '../../codeController/states';
 
@@ -27,16 +27,17 @@ const $SendCodeButton= styled(Button)`
 
 export const DefencePhase= () => {
   const challengeQuery= useQuery(ChallengeQueryKey, fetchChallengeFn);
+  const myRevisionQuery= useQuery( myRevisionPathQueryKey, fetchMyRevisionPathFn );
   const sendCodeMutation= useSendCodeMutation();
   const codeValue= useRecoilValue( codeState );
 
-  if( challengeQuery.isLoading ) {
+  if( challengeQuery.isLoading && myRevisionQuery.isLoading ) {
     return <Loading />
   };
 
-  if( !challengeQuery?.data ) return null;
+  if( !challengeQuery?.data || !myRevisionQuery?.data ) return null;
 
-  const createAbsolutePath= `${ PHP_URL + challengeQuery.data?.targetPath + '/target' }`;
+  const createAbsolutePath= `${ PHP_URL + challengeQuery.data?.targetPath + '/revision/' + myRevisionQuery.data?.myRevisionPath + '.php' }`;
 
   return (
     <PhaseLayout
@@ -47,7 +48,7 @@ export const DefencePhase= () => {
     >
       <PhaseContentsWrapper
         head={ <PhaseHeadContents phase={ PHASE.DEFENCE_PHASE } title={'ソースコードを書き換えて脆弱性を修正してください。'} /> }
-        body={ <EditorWrapper><EditArea code={challengeQuery?.data?.code} /></EditorWrapper> }
+        body={ <EditorWrapper><EditArea fetchedCode={challengeQuery?.data?.code} /></EditorWrapper> }
         foot={
           <$SendCodeButton 
             type={'button'}
