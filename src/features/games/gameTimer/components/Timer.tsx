@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 import { useQuery } from '@tanstack/react-query';
-import { StartTimeQueryKey, fetchStartTimeFn } from '..';
-import { useEffect, useState } from 'react';
+import { StartTimeQueryKey, endTimeState, fetchStartTimeFn } from '..';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 const _Timer= styled.h1`
   font-size: 4rem;
@@ -17,45 +18,43 @@ type TimerProps= {
 
 export const Timer = ({ targetTime, redirectUrl }: TimerProps) => {
   const [ countdown, setCountdown ]= useState<number | undefined>(0);
+  const [ endCurrentTime, setEndCurrentTime ]= useRecoilState<string>( endTimeState );
   const navigate= useNavigate();
-  const startTimeQuery= useQuery( StartTimeQueryKey, fetchStartTimeFn, 
-    {
-      refetchOnMount: true
-    }
-  );
+  const startTimeQuery= useQuery( StartTimeQueryKey, fetchStartTimeFn );
+
+  const countdownRef = useRef(countdown);
+  countdownRef.current = countdown;
 
   useEffect(() => {
-    if(!startTimeQuery?.data) return;  
-    const gameStartTime: Date = new Date( startTimeQuery?.data?.startTime );
-    const milliseconds: number= gameStartTime.getTime();
-    const endTime: Date= new Date(new Date(milliseconds + targetTime * 1000));
+    if (!startTimeQuery?.data) return;
 
-    const nowTime: Date = new Date();
-    const diffTime= endTime.getTime() - nowTime.getTime();
+    const gameStartTime: Date = new Date(endCurrentTime === '' ? startTimeQuery?.data?.startTime : endCurrentTime);
+    const milliseconds: number = gameStartTime.getTime();
+    const endTime: Date = new Date(new Date(milliseconds + targetTime * 1000));
 
-    if ( diffTime > 0 ) {
-      setCountdown( Math.floor(diffTime / 1000) );
-      const timer = setInterval(() => {
-        if (countdown !== null && countdown !== undefined) {
-          setCountdown(( prevCountdown: number | undefined ) => {
-            if ( prevCountdown !== undefined && prevCountdown >= 1) {
-              return prevCountdown - 1;
-            }
-            else if (prevCountdown === 0) {
-              clearInterval(timer);
-              navigate( redirectUrl );
-              return 0;
-            }
-            else {
-              return prevCountdown;
-            }
-          });
-        }
-      }, 1000);
-    }
-    else {
-      setCountdown(0);
-    }
+    const updateCountdown = () => {
+      const nowTime: Date = new Date();
+      const diffTime = endTime.getTime() - nowTime.getTime() + 5;
+
+      if (diffTime > 0) {
+        setCountdown(Math.floor(diffTime / 1000));
+      } else {
+        setCountdown(0);
+        const date = new Date();
+        const utcTime = date.toUTCString();
+        setEndCurrentTime(utcTime);
+        clearInterval(timer);
+        navigate(redirectUrl);
+      }
+    };
+
+    updateCountdown();
+
+    const timer = setInterval(updateCountdown, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
   }, [ navigate, redirectUrl, startTimeQuery?.data?.startTime ] )
 
   const  SECONDS_IN_MINUTE= 60;
