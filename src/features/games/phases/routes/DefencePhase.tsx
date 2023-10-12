@@ -12,6 +12,9 @@ import { useQuery } from '@tanstack/react-query';
 import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
 import { Loading } from '@/components/Animation';
 import { PHP_URL } from '@/features/config';
+import { useSendCodeMutation } from '../../codeController/api';
+import { useRecoilValue } from 'recoil';
+import { codeState } from '../../codeController/states';
 
 const $SendCodeButton= styled(Button)`
   position: absolute;
@@ -24,6 +27,8 @@ const $SendCodeButton= styled(Button)`
 
 export const DefencePhase= () => {
   const challengeQuery= useQuery(ChallengeQueryKey, fetchChallengeFn);
+  const sendCodeMutation= useSendCodeMutation();
+  const codeValue= useRecoilValue( codeState );
 
   if( challengeQuery.isLoading ) {
     return <Loading />
@@ -44,7 +49,14 @@ export const DefencePhase= () => {
         head={ <PhaseHeadContents phase={ PHASE.DEFENCE_PHASE } title={'ソースコードを書き換えて脆弱性を修正してください。'} /> }
         body={ <EditorWrapper><EditArea code={challengeQuery?.data?.code} /></EditorWrapper> }
         foot={
-          <$SendCodeButton>Send</$SendCodeButton>
+          <$SendCodeButton 
+            type={'button'}
+            onClick={ async() => {
+              await sendCodeMutation.mutateAsync( codeValue );
+            }}
+          >
+            Send
+          </$SendCodeButton>
         }
       /> 
     </PhaseLayout>
