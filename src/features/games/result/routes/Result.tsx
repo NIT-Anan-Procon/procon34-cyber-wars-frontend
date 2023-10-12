@@ -60,7 +60,11 @@ export const Result= () => {
 
   if( !authUserQuery.data || !roomInfoQuery.data || !scoresQuery.data ) return null;
 
-  const result= scoresQuery.data?.scores[0] > scoresQuery.data?.scores[1] ? 'YOU WIN' : 'YOU LOSE'
+  const result= scoresQuery.data?.scores[0] > scoresQuery.data?.scores[1] 
+    ? 'YOU WIN'
+    : scoresQuery.data?.scores[0] === scoresQuery.data?.scores[1]
+    ? 'Draw'
+    : 'YOU LOSE';
 
   return (
     <>
