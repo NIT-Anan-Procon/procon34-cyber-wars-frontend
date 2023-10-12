@@ -34,7 +34,13 @@ export const BattlePhase= () => {
     >
       <PhaseContentsWrapper
         head={ <PhaseHeadContents phase={ PHASE.BATTLE_PHASE } title={'脆弱性を見つけ出して攻撃してください。'} /> }
-        body={ <EditorWrapper><EditArea code={revisionCodeQuery?.data?.code} /></EditorWrapper> }
+        body={ 
+          <EditorWrapper>
+            <EditArea 
+              code={revisionCodeQuery?.data?.code}
+              canWrite={ false }
+            />
+          </EditorWrapper> }
         foot={
           <PhaseContentForm
             id={ 'attack-phase' }

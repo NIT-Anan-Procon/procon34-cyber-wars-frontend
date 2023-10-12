@@ -9,9 +9,10 @@ import { codeState }   from '../states';
 
 type EditAreaProps= {
   code:string;
+  canWrite?: boolean;
 };
 
-export const EditArea= ({ code }: EditAreaProps) => {
+export const EditArea= ({ code, canWrite }: EditAreaProps) => {
   const setCode =useSetRecoilState( codeState );
   const handleCode= ( value: string ) => {
     setCode(value);
@@ -24,6 +25,7 @@ export const EditArea= ({ code }: EditAreaProps) => {
         theme     = { vscodeDark }
         basicSetup= { EditorSetup }
         extensions= {[ color,php() ]}
+        readOnly  = { !canWrite }
       />
   );
 };
