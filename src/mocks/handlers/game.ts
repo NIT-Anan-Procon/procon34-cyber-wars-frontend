@@ -25,7 +25,7 @@ import {
 } from '@/constants/responseKeys';
 import { EXPLANATION_KEY, EXPLANATION_URL } from '@/features/games/explanation/api';
 import { CHALLENGE_CODE_KEY, TARGET_CODE_PATH_KEY } from '@/features/games/challenge';
-import { REVISION_PATH_KEY } from '@/features/games/codeController/api';
+import { DEFENCE_REVISION_URL } from '@/features/games/codeController/api';
 
 export const gameHandlers= [
   rest.patch( START_GAME_URL, ( _, res, ctx ) => {
@@ -231,6 +231,21 @@ export const defencePhaseHandler= [
       );
     }
   }),
+
+  rest.get( DEFENCE_REVISION_URL, ( _, res, ctx ) => {
+    try {
+      return res(
+        ctx.status(200),
+        ctx.json({ myRevisionPath : 1 }),
+        ctx.delay(1000)
+      );
+    } catch(error) {
+      return res(
+        ctx.status(400),
+        ctx.delay(1000)
+      );
+    }
+  })
 ];
 
 export const battlePhaseHandler= [
@@ -240,7 +255,7 @@ export const battlePhaseHandler= [
         ctx.status(200),
         ctx.json(
           {
-            [ REVISION_PATH_KEY ]: 1,
+            opponentRevisionPath: 2,
             [ CODE_KEY ]     : 
 `<?php
 _uire './vendor/autoload.php';
