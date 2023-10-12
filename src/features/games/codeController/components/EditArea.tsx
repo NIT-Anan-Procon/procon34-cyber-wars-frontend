@@ -1,4 +1,4 @@
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import CodeMirror         from '@uiw/react-codemirror';
 import { vscodeDark }     from '@uiw/codemirror-theme-vscode';
 import { color }          from '@uiw/codemirror-extensions-color';
@@ -6,13 +6,19 @@ import { php }            from '@codemirror/lang-php';
 
 import { EditorSetup } from '../config';
 import { codeState }   from '../states';
+import { useEffect } from 'react';
 
 type EditAreaProps= {
-  code:string;
+  fetchedCode:string;
 };
 
-export const EditArea= ({ code }: EditAreaProps) => {
-  const setCode =useSetRecoilState( codeState );
+export const EditArea= ({ fetchedCode }: EditAreaProps) => {
+  const [ code, setCode ] =useRecoilState( codeState );
+
+  useEffect(() => {
+    setCode( fetchedCode );
+  },[ fetchedCode, setCode ]);
+
   const handleCode= ( value: string ) => {
     setCode(value);
   };
