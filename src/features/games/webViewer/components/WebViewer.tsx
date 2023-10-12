@@ -29,6 +29,7 @@ export const WebViewer= ({ targetPath }: PreviewProps ) => {
 
   useEffect(() => {
     function getInputsFromIframe() {
+      
       const iframe = iframeRef.current;
       if (!iframe) return;
 
@@ -41,11 +42,16 @@ export const WebViewer= ({ targetPath }: PreviewProps ) => {
           setFocusedInputElement(input);
           setTargetInputName(input?.name || '');
         });
-      }
-    }
+      };
+    };
+    iframeRef.current?.addEventListener('load', () => {
+      getInputsFromIframe();
+      const frame = iframeRef.current?.contentWindow;
+      frame?.postMessage( targetPath, '*' );
+    });
     iframeRef.current?.addEventListener('load', getInputsFromIframe);
 
-  }, [iframeRef, setFocusedInputElement, setTargetInputName]);
+  }, [iframeRef, targetPath, setFocusedInputElement, setTargetInputName]);
 
   return (
     <_Preview
