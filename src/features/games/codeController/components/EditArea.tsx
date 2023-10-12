@@ -10,9 +10,10 @@ import { useEffect } from 'react';
 
 type EditAreaProps= {
   fetchedCode:string;
+  canWrite?: boolean;
 };
 
-export const EditArea= ({ fetchedCode }: EditAreaProps) => {
+export const EditArea= ({ fetchedCode, canWrite }: EditAreaProps) => {
   const [ code, setCode ] =useRecoilState( codeState );
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export const EditArea= ({ fetchedCode }: EditAreaProps) => {
         theme     = { vscodeDark }
         basicSetup= { EditorSetup }
         extensions= {[ color,php() ]}
+        readOnly  = { !canWrite }
       />
   );
 };
