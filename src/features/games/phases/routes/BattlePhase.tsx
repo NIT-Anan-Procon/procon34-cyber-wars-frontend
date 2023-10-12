@@ -8,22 +8,23 @@ import {
 import { PHASE, REDIRECT_PATHS } from '../types';
 import { EditArea, EditorWrapper } from '@/features/games/codeController';
 import { BATTLE_SEND_KEY_URL } from '@/features/games/sendFlag';
-import { RevisionCodeQueryKey, fetchRevisionCodeFn } from '../../codeController/api';
+import { fetchOpponentRevisionFn } from '../../codeController/api';
 import { Loading } from '@/components/Animation';
 import { PHP_URL } from '@/features/config';
 import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
+import { OpponentQueryKey } from '../../character';
 
 export const BattlePhase= () => {
-  const revisionCodeQuery= useQuery( RevisionCodeQueryKey, fetchRevisionCodeFn );
+  const opponentRevisionQuery= useQuery( OpponentQueryKey, fetchOpponentRevisionFn );
   const challengeQuery= useQuery( ChallengeQueryKey, fetchChallengeFn );
 
-  if( challengeQuery.isLoading || revisionCodeQuery.isLoading ) {
+  if( challengeQuery.isLoading && opponentRevisionQuery.isLoading ) {
     return <Loading />
   };
 
-  if( !challengeQuery?.data || !revisionCodeQuery?.data ) return null;
+  if( !challengeQuery?.data || !opponentRevisionQuery?.data ) return null;
 
-  const createAbsoluteRevisionPath= `${ PHP_URL + challengeQuery.data?.targetPath + '/revision/' + revisionCodeQuery.data?.revisionPath + '.php' }`;
+  const createAbsoluteRevisionPath= `${ PHP_URL + challengeQuery.data?.targetPath + '/revision/' + opponentRevisionQuery.data?.opponentRevisionPath + '.php' }`;
 
   return (
     <PhaseLayout
@@ -34,7 +35,7 @@ export const BattlePhase= () => {
     >
       <PhaseContentsWrapper
         head={ <PhaseHeadContents phase={ PHASE.BATTLE_PHASE } title={'脆弱性を見つけ出して攻撃してください。'} /> }
-        body={ <EditorWrapper><EditArea code={revisionCodeQuery?.data?.code} /></EditorWrapper> }
+        body={ <EditorWrapper><EditArea fetchedCode={opponentRevisionQuery.data?.code} /></EditorWrapper> }
         foot={
           <PhaseContentForm
             id={ 'attack-phase' }
