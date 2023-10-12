@@ -43,7 +43,7 @@ export const AttackPhase= () => {
         }
         body={
           isShowCode
-          ? <EditorWrapper><EditArea code={challengeQuery?.data?.code} /></EditorWrapper>
+          ? <EditorWrapper><EditArea fetchedCode={challengeQuery?.data?.code} /></EditorWrapper>
           : <ChoicesWrapper />
         }
         foot={

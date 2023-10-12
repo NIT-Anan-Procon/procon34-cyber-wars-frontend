@@ -48,7 +48,7 @@ export const DefencePhase= () => {
     >
       <PhaseContentsWrapper
         head={ <PhaseHeadContents phase={ PHASE.DEFENCE_PHASE } title={'ソースコードを書き換えて脆弱性を修正してください。'} /> }
-        body={ <EditorWrapper><EditArea code={challengeQuery?.data?.code} /></EditorWrapper> }
+        body={ <EditorWrapper><EditArea fetchedCode={challengeQuery?.data?.code} /></EditorWrapper> }
         foot={
           <$SendCodeButton 
             type={'button'}
