@@ -45,7 +45,7 @@ export const AttackPhase= () => {
           isShowCode
           ? <EditorWrapper>
               <EditArea 
-                code={ challengeQuery?.data?.code }
+                fetchedCode={ challengeQuery?.data?.code }
                 canWrite={ false }
               />
             </EditorWrapper>
