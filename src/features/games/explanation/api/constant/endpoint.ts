@@ -1,1 +1,1 @@
-export const EXPLANATION_URL= '/explanation';
+export const EXPLANATION_URL= '/game/explanation';
