@@ -6,10 +6,12 @@ import { REMATCH_SUCCESSFUL } from '../types';
 import { queryClient } from '@/lib/react-query';
 import { useSetRecoilState } from 'recoil';
 import { isShowHintState } from '@/features/games/hint';
+import { useExitRoomMutation } from '@/features/games/room';
 
 export const useDeleteGameMutation= () => {
   const navigate= useNavigate();
   const setIsHint= useSetRecoilState( isShowHintState );
+  const exitRoomMutation= useExitRoomMutation();
 
   return useMutation({
     onSuccess: ( data: REMATCH_SUCCESSFUL ) => {
