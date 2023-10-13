@@ -4,6 +4,7 @@ import { colors }   from '@/assets/styles';
 import attackPhase  from '@/assets/images/attack_phase.svg';
 import defencePhase from '@/assets/images/defence_phase.svg';
 import battlePhase  from '@/assets/images/battle_phas.svg';
+import { PHASE } from '../../phases';
 
 const _TimerWrapper= styled.div`
   height  : 100%;
@@ -24,8 +25,8 @@ const _TimeArea= styled.div<{phase: string}>`
   clip-path : polygon(0 0, 100% 0, 90% 100%, 10% 100%);
   background: 
     ${(props) => 
-        props.phase === 'ATTACK' ? colors.redAccent
-        : props.phase === 'DEFENCE' ? colors.blueAccent
+        props.phase === PHASE.ATTACK_PHASE ? colors.redAccent
+        : props.phase === PHASE.DEFENCE_PHASE ? colors.blueAccent
         : colors.yellowAccent
     };
   
@@ -56,8 +57,8 @@ const _TimerIconWrapper= styled.div<{phase: string}>`
   clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
   background: 
     ${(props) => 
-        props.phase === 'ATTACK' ? colors.redAccent
-        : props.phase === 'DEFENCE' ? colors.blueAccent
+        props.phase === PHASE.ATTACK_PHASE ? colors.redAccent
+        : props.phase === PHASE.DEFENCE_PHASE ? colors.blueAccent
         : colors.yellowAccent
     };
 `;
@@ -80,8 +81,8 @@ export const TimerWrapper= ({ children, phase }: TimerWrapperProps) => {
       <_TimerIconWrapper  phase={phase}>
         <_TimerIcon 
           src={ 
-            phase === 'ATTACK' ? attackPhase 
-            : phase === 'DEFENCE' ? defencePhase
+            phase === PHASE.ATTACK_PHASE ? attackPhase 
+            : phase === PHASE.DEFENCE_PHASE ? defencePhase
             : battlePhase
           } 
         />
