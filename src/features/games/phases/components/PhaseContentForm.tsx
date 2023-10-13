@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Button } from '@/components/Elements';
 import { InputField } from '@/components/Form';
 import { useSendFlagMutation } from '@/features/games/sendFlag';
+import { usetRecoilState } from 'recoil';
+import { isDisplayHintState } from '../../scores/states/atoms';
 
 const _PhaseContentForm= styled.div`
   height    : 100%;
@@ -35,7 +37,18 @@ type PhaseContentFormProps= {
 export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps) => {
   const [ flagValue, setFlagValue ]= React.useState<string>('');
   const sendFlagMutation= useSendFlagMutation();
+  const [ isScoreHistory, setIsScoreHistory]= useRecoilState( isDisplayHintState );
   
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsScoreHistory( true );
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+      setIsScoreHistory( false );
+    };
+  }, [ sendFlagMutation ]);
 
   const handleChange= ( e: React.ChangeEvent<HTMLInputElement> ) => {
     setFlagValue( e.target.value );

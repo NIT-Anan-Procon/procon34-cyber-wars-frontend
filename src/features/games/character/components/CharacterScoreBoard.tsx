@@ -5,6 +5,9 @@ import { colors } from '@/assets/styles';
 import { Loading } from '@/components/Animation';
 import { fetchRoomInfoFn, fetchRoomInfoQueryKey } from '../../room';
 import { useQuery } from '@tanstack/react-query';
+import { useRecoilValue } from 'recoil';
+import { isDisplayHintState } from '../../scores/states/atoms';
+import { ScoreHistory } from '../../scores/components/ScoreHistory';
 
 const _CharacterScoreBoardWrapper= styled.div<CharacterScoreBoardTransTypes>`
   height     : 100%;
@@ -138,6 +141,8 @@ export const CharacterScoreBoard= (
     styles
   }: CharacterScoreBoardProps
 ) => {
+  const isDisplayHintHistory= useRecoilValue( isDisplayHintState );
+
   const scoresQuery= useQuery( ScoresQueryKey, fetchScoresFn,
     {
       refetchInterval: 3000
@@ -159,7 +164,7 @@ export const CharacterScoreBoard= (
       <_CharacterNameWrapper status={ status } >
         <_CharacterName status={ status } >{ userName }</_CharacterName>
       </_CharacterNameWrapper>
-
+      { isDisplayHintHistory && <ScoreHistory />}
       <_ScoreWrapper status={ status } >
         <_Score>
           { status === myUserStatus
