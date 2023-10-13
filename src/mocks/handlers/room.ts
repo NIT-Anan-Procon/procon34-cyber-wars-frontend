@@ -63,7 +63,7 @@ export const roomHandlers= [
     }
   }),
 
-  rest.patch( ROOM_URL, ( req, res, ctx ) => {
+  rest.patch( ROOM_URL, ( _, res, ctx ) => {
     try {
       return res(
         ctx.status(200)
