@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { settingTimeState } from '..';
 import { useUpdateTimeLimitMutation } from '../../room/api/updateTimeLimit';
 import { Button } from '@/components/Elements';
+import { colors } from '@/assets/styles';
 
 const _GameRulesDescriptionsWrapper= styled.div`
   height: 100%;
@@ -29,6 +30,7 @@ const $SaveTimeButton= styled(Button)`
   height  : 6rem;
   width   : 12rem;
   font-size: 1.6rem;
+  background: ${ colors.primary };
   clip-path: polygon(2% 6%, 96% 1%, 93% 100%, 5% 96%);
   z-index: 999;
 `;
@@ -36,7 +38,6 @@ const $SaveTimeButton= styled(Button)`
 export const GameRulesDescriptions= () => {
   const timeLimit= useRecoilValue( settingTimeState );
   const updateTimeLimitMutation= useUpdateTimeLimitMutation();
-  
 
   return (
     <_GameRulesDescriptionsWrapper>
@@ -61,7 +62,13 @@ export const GameRulesDescriptions= () => {
       <$SaveTimeButton 
         type='button'
         onClick={
-          async() => await updateTimeLimitMutation.mutateAsync( timeLimit )
+          async() => await updateTimeLimitMutation.mutateAsync(
+            {
+              attackPhase : timeLimit.attackPhase* 60,
+              defencePhase: timeLimit.defencePhase* 60,
+              battlePhase : timeLimit.battlePhase* 60
+            }
+          )
         }
       >
         Save
