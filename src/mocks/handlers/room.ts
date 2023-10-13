@@ -2,6 +2,9 @@ import { rest } from 'msw';
 
 import { ROOM_URL } from '@/constants/apiUrls';
 import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY } from '@/constants/responseKeys';
+import attackPhase from '@/assets/images/attack_phase.svg';
+import battlePhase from '@/assets/images/battle_phas.svg';
+import { PHASE } from '@/features/games/phases';
 
 type RoomHandlersType= {
   difficult: boolean;
@@ -49,9 +52,25 @@ export const roomHandlers= [
           {
             [ IS_HOST_KEY ]: true,
             [ OPPONENT_NAME_KEY ]: 'kinoshita',
-            [ IS_STARTED_KEY ]: true
+            timiLimit: {
+              [PHASE.ATTACK_PHASE]: 300,
+              [PHASE.DEFENCE_PHASE]: 300,
+              [PHASE.BATTLE_PHASE]: 300
+            },
+            [ IS_STARTED_KEY ]: false
           }
         )
+      );
+    }
+    catch(error) {
+      return res(ctx.status(400));
+    }
+  }),
+
+  rest.patch( ROOM_URL, ( req, res, ctx ) => {
+    try {
+      return res(
+        ctx.status(200)
       );
     }
     catch(error) {
