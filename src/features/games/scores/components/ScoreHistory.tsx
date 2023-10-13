@@ -79,15 +79,11 @@ export const ScoreHistory=() => {
 
   return (
     <>
-      { isCorrect || isShowHint
-        ?
-          <_ScoreHistory status={ myUserStatus } >
+      <_ScoreHistory status={ myUserStatus } >
             <span >
-              { point }
+              { 20 }
             </span>
-          </_ScoreHistory>
-        : undefined       
-      }
+      </_ScoreHistory>
     </>
   );
 };
