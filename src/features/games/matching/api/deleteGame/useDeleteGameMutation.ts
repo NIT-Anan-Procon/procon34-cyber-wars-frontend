@@ -4,14 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import { deleteGameFn } from '.';
 import { REMATCH_SUCCESSFUL } from '../types';
 import { queryClient } from '@/lib/react-query';
+import { useSetRecoilState } from 'recoil';
+import { isShowHintState } from '@/features/games/hint';
 
 export const useDeleteGameMutation= () => {
   const navigate= useNavigate();
+  const setIsHint= useSetRecoilState( isShowHintState );
 
   return useMutation({
     onSuccess: ( data: REMATCH_SUCCESSFUL ) => {
       if( data.success ) {
         queryClient.clear()
+        setIsHint( false )
         navigate('../standby');
       } else {
         alert('課題が存在しません');
