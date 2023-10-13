@@ -11,6 +11,19 @@ const _SlideWrapper= styled.div`
   align-items: center;
 `;
 
+const _SlideContent= styled.div`
+  height: 80vh;
+  width : 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > img {
+    height: auto;
+    width: 90%;
+  }
+`;
+
 type SlideWrapperProps= {
   title  ?: string;
   children: React.ReactNode;
@@ -20,7 +33,7 @@ export const SlideWrapper= ({ title, children }: SlideWrapperProps ) => {
   return (
     <_SlideWrapper>
       <Header title={ title } />
-      { children }
+      <_SlideContent >{ children }</_SlideContent>
     </_SlideWrapper>
   );
 };
