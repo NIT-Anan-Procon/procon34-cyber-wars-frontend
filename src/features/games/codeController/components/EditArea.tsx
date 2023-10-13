@@ -13,7 +13,7 @@ type EditAreaProps= {
   canWrite?: boolean;
 };
 
-export const EditArea= ({ fetchedCode, canWrite }: EditAreaProps) => {
+export const EditArea= ({ fetchedCode, canWrite= true }: EditAreaProps) => {
   const [ code, setCode ] =useRecoilState( codeState );
 
   useEffect(() => {
