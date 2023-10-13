@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 import { useQuery } from '@tanstack/react-query';
-import { StartTimeQueryKey, endTimeState, fetchStartTimeFn, useFetchUTCTime } from '..';
+import { StartTimeQueryKey, endTimeState, fetchStartTimeFn } from '..';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { utcTimeState } from '../states/atom/utcTimeState';
+import { useRecoilState } from 'recoil';
 
 const _Timer= styled.h1`
   font-size: 4rem;
@@ -21,7 +20,6 @@ export const Timer = ({ targetTime, redirectUrl }: TimerProps) => {
   const [ countdown, setCountdown ]= useState<number | undefined>(0);
   const [ endCurrentTime, setEndCurrentTime ]= useRecoilState<string>( endTimeState );
   const navigate= useNavigate();
-  const { fetchUTCTime }= useFetchUTCTime();
   const startTimeQuery= useQuery( StartTimeQueryKey, fetchStartTimeFn );
 
   const countdownRef = useRef(countdown);
@@ -42,7 +40,9 @@ export const Timer = ({ targetTime, redirectUrl }: TimerProps) => {
         setCountdown(Math.floor(diffTime / 1000));
       } else {
         setCountdown(0);
-        fetchUTCTime();
+        const date = new Date();
+        const utcTime = date.toUTCString();
+        setEndCurrentTime(utcTime);
         clearInterval(timer);
         navigate(redirectUrl);
       }
