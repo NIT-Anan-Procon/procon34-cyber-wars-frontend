@@ -8,7 +8,8 @@ import { ROOM_MODES } from "../types";
 import { JoinRoomRequestType, useCreateRoomMutation, useJoinRoomMutation } from "../api";
 import { inviteIdState, roomModeState } from "../states/atoms";
 import { colors } from "@/assets/styles";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { settingTimeState } from "../../gameRules";
 
 const _RoomSelectForm= styled.div`
   height : 100%;
@@ -77,7 +78,7 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
   const [ roomSelected, updateRoomSelected ]= useAtomValueChange(roomModeState);
   const createRoomMutation= useCreateRoomMutation();
   const joinRoomMutation  = useJoinRoomMutation();
-
+  const defaultTime= useRecoilValue( settingTimeState );
   const setInviteId= useSetRecoilState( inviteIdState );
 
   return (    
@@ -131,7 +132,13 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
             : <$StartButton 
                 type='button'
                 onClick={ async() => (
-                  await createRoomMutation.mutateAsync(),
+                  await createRoomMutation.mutateAsync(
+                    {
+                      attackPhase: defaultTime.attackPhase,
+                      defencePhase: defaultTime.defencePhase,
+                      battlePhase: defaultTime.battlePhase,
+                    }
+                  ),
                   onSuccess()
                 )} 
               > 

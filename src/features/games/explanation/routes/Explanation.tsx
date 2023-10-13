@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-
 import { ContentLayout }      from '@/components/Layout';
 import { Button }             from '@/components/Elements';
 import { EditArea, EditorWrapper } from '@/features/games/codeController';
@@ -11,6 +9,7 @@ import { ExplanationMarkdown } from '../components/ExplanationMarkdown';
 import { useQuery } from '@tanstack/react-query';
 import { Loading } from '@/components/Animation';
 import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
+import { fetchRoomInfoFn, fetchRoomInfoQueryKey, useExitRoomMutation } from '../../room';
 
 const _ExplanationContents= styled.div`
   height: 80vh;
@@ -53,16 +52,20 @@ const $ReturnToModeButton= styled(Button)`
 `;
 
 export const Explanation= () => {
-  const navigate= useNavigate();
+  const endGameMutation = useDeleteGameMutation();
+  const exitRoomMutation= useExitRoomMutation();
+  const challengeQuery  = useQuery( ChallengeQueryKey, fetchChallengeFn );
+  const roomInfoQuery   = useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn, 
+    {
+      refetchInterval: (data) => data?.host ? false : 1000 
+    }
+  ); 
 
-  const endGameMutation= useDeleteGameMutation();
-  const challengeQuery= useQuery(ChallengeQueryKey, fetchChallengeFn);
-
-  if( challengeQuery.isLoading ) {
+  if( challengeQuery.isLoading && roomInfoQuery.isLoading ) {
     return <Loading />
   };
 
-  if( !challengeQuery?.data ) return null;
+  if( !challengeQuery?.data || !roomInfoQuery?.data ) return null;
 
   return (
     <ContentLayout
@@ -72,7 +75,7 @@ export const Explanation= () => {
       <_ExplanationContents >
         <_ChallengeCodePosition>
           <EditorWrapper >
-            <EditArea code={challengeQuery?.data?.code} />
+            <EditArea fetchedCode={challengeQuery?.data?.code} />
           </EditorWrapper>          
         </_ChallengeCodePosition>
         <_ExplanationsWrapper >
@@ -80,26 +83,30 @@ export const Explanation= () => {
           <ExplanationMarkdown />
         </_ExplanationsWrapper>
       </_ExplanationContents>
-      <_RedirectButtons>
-        <$ReturnToModeButton 
-          type='button'
-          onClick={() => {
-            endGameMutation.mutateAsync( true )
-            navigate('../standby')
-          }}
-        >
-          対戦を続ける
-        </$ReturnToModeButton>
-        <$ReturnToModeButton
-          type='button'
-          onClick={() => {
-            endGameMutation.mutateAsync( false )
-            navigate('../../')  
-          }}
-        >
-          モード選択へ戻る
-        </$ReturnToModeButton>      
-      </_RedirectButtons>
+      {
+        roomInfoQuery.data?.host
+        ?
+          <_RedirectButtons>
+            <$ReturnToModeButton 
+              type='button'
+              onClick={ async() => {
+                await endGameMutation.mutateAsync( true )
+              }}
+            >
+              対戦を続ける
+            </$ReturnToModeButton>
+            <$ReturnToModeButton
+              type='button'
+              onClick={ async() => {
+                await exitRoomMutation.mutateAsync()
+              }}
+            >
+              モード選択へ戻る
+            </$ReturnToModeButton>      
+          </_RedirectButtons>
+        : undefined
+      }
+      
     </ContentLayout>
   );
 };

@@ -1,5 +1,9 @@
-import { INVITE_ID_KEY } from '..';
+export type TimeLimitRequestType= {
+  attackPhase: number;
+  defencePhase: number;
+  battlePhase: number;
+};
 
 export type JoinRoomRequestType= {
-  [ INVITE_ID_KEY ]: number;
+  inviteId: number;
 };  
