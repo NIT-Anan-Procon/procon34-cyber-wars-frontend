@@ -132,7 +132,13 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
             : <$StartButton 
                 type='button'
                 onClick={ async() => (
-                  await createRoomMutation.mutateAsync( defaultTime ),
+                  await createRoomMutation.mutateAsync(
+                    {
+                      attackPhase: defaultTime.attackPhase,
+                      defencePhase: defaultTime.defencePhase,
+                      battlePhase: defaultTime.battlePhase,
+                    }
+                  ),
                   onSuccess()
                 )} 
               > 
