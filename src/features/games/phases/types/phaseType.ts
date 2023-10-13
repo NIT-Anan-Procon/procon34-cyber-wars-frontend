@@ -1,5 +1,5 @@
 export const PHASE= {
-  ATTACK_PHASE : 'ATTACK',
-  DEFENCE_PHASE: 'DEFENCE',
-  BATTLE_PHASE : 'BATTLE'
+  ATTACK_PHASE : 'attackPhase',
+  DEFENCE_PHASE: 'defencePhase',
+  BATTLE_PHASE : 'battlePhase'
 };
