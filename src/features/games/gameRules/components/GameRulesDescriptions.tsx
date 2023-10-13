@@ -7,6 +7,9 @@ import { settingTimeState } from '..';
 import { useUpdateTimeLimitMutation } from '../../room/api/updateTimeLimit';
 import { Button } from '@/components/Elements';
 import { colors } from '@/assets/styles';
+import { fetchRoomInfoFn, fetchRoomInfoQueryKey } from '../../room';
+import { useQuery } from '@tanstack/react-query';
+import { Loading } from '@/components/Animation';
 
 const _GameRulesDescriptionsWrapper= styled.div`
   height: 100%;
@@ -38,6 +41,13 @@ const $SaveTimeButton= styled(Button)`
 export const GameRulesDescriptions= () => {
   const timeLimit= useRecoilValue( settingTimeState );
   const updateTimeLimitMutation= useUpdateTimeLimitMutation();
+  const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
+
+  if( roomInfoQuery .isLoading ) {
+    return <Loading />
+  };
+
+  if( !roomInfoQuery?.data ) return null;
 
   return (
     <_GameRulesDescriptionsWrapper>
@@ -59,20 +69,25 @@ export const GameRulesDescriptions= () => {
           <GameRuleEditForm phase={ PHASE.BATTLE_PHASE } />
         </GameRuleSettingWrapper>        
       </_GameRuleSettings>
-      <$SaveTimeButton 
-        type='button'
-        onClick={
-          async() => await updateTimeLimitMutation.mutateAsync(
-            {
-              attackPhase : timeLimit.attackPhase,
-              defencePhase: timeLimit.defencePhase,
-              battlePhase : timeLimit.battlePhase
+      { roomInfoQuery.data?.host
+        ?
+          <$SaveTimeButton 
+            type='button'
+            onClick={
+              async() => await updateTimeLimitMutation.mutateAsync(
+                {
+                  attackPhase : timeLimit.attackPhase,
+                  defencePhase: timeLimit.defencePhase,
+                  battlePhase : timeLimit.battlePhase
+                }
+              )
             }
-          )
-        }
-      >
-        Save
-      </$SaveTimeButton>
+          >
+            Save
+          </$SaveTimeButton>
+        : undefined
+      }
+
     </_GameRulesDescriptionsWrapper>
   );
 };
