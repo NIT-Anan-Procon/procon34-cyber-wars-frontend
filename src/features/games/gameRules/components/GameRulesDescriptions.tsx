@@ -64,9 +64,9 @@ export const GameRulesDescriptions= () => {
         onClick={
           async() => await updateTimeLimitMutation.mutateAsync(
             {
-              attackPhase : timeLimit.attackPhase* 60,
-              defencePhase: timeLimit.defencePhase* 60,
-              battlePhase : timeLimit.battlePhase* 60
+              attackPhase : timeLimit.attackPhase,
+              defencePhase: timeLimit.defencePhase,
+              battlePhase : timeLimit.battlePhase
             }
           )
         }
