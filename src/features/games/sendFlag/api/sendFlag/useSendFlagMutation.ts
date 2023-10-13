@@ -2,20 +2,37 @@ import { useMutation } from '@tanstack/react-query';
 import { sendFlagFn } from '.';
 import { SendFlagResponseType } from '..';
 import { useSetRecoilState } from 'recoil';
-import { addScoreState } from '@/features/games/scores/states/atoms/addScoreState';
-import { isCorrectState } from '@/features/games/scores/states/atoms';
+import { scoreHistoryState } from '@/features/games/scores/states/atoms';
+import { messageState } from '@/features/games/message';
 
 export const useSendFlagMutation= () => {
-  const setIsCorrect= useSetRecoilState( isCorrectState );
-  const setAddScore= useSetRecoilState( addScoreState );
+  const setScoreHistory= useSetRecoilState( scoreHistoryState );
+  const setMessage= useSetRecoilState( messageState );
 
   return useMutation({
     onSuccess: ( data: SendFlagResponseType ) => {
       if( data?.valid && data?.correct ) {
-        setIsCorrect( true );
-        setAddScore( data?.score );
+        setScoreHistory(
+          {
+            score : data.score,
+            status: 'successful',
+            message: '攻撃に成功しました。'
+          }
+        );
+      } else if( !data?.valid ) {
+        setMessage(
+          {
+            message: '使用済みのキーです。',
+            status : 'error'
+          }
+        );
       } else {
-        setIsCorrect( false );
+        setMessage(
+          {
+            message: '不正解なキーです。',
+            status : 'error'
+          }
+        );
       };
     },
     mutationFn: sendFlagFn
