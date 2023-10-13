@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Button } from '@/components/Elements';
-import { Description } from '.';
+import { colors } from '@/assets/styles';
 
 const _EndSlideWrapper= styled.div`
   height: 100vh;
@@ -12,6 +12,18 @@ const _EndSlideWrapper= styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+const _Description= styled.div`
+  width : 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > p {
+    font-size: 2.8rem;
+    color    : ${ colors.bgLighter };    
+  }
 `;
 
 const $RedirectToModeButton= styled(Button)`
@@ -26,11 +38,9 @@ export const EndSlide= () => {
 
   return (
     <_EndSlideWrapper >
-      <Description 
-        description={ 
-          <span>訓練モードは以上です。対戦モードで、実際に対戦してみましょう。</span>
-        }
-      />
+      <_Description>
+        <p><span>訓練モードは以上です。対戦モードで、実際に対戦してみましょう。</span></p>
+      </_Description>
       <$RedirectToModeButton onClick={() => navigate('../../') } >モード選択へ戻る</$RedirectToModeButton>
     </_EndSlideWrapper>
   );

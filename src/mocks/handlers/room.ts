@@ -2,7 +2,6 @@ import { rest } from 'msw';
 
 import { ROOM_URL } from '@/constants/apiUrls';
 import { IS_HOST_KEY, IS_STARTED_KEY, OPPONENT_NAME_KEY } from '@/constants/responseKeys';
-
 type RoomHandlersType= {
   difficult: boolean;
   success  : boolean;
@@ -49,9 +48,25 @@ export const roomHandlers= [
           {
             [ IS_HOST_KEY ]: true,
             [ OPPONENT_NAME_KEY ]: 'kinoshita',
-            [ IS_STARTED_KEY ]: true
+            timiLimit: {
+              attackPhase: 300,
+              defencePhase: 300,
+              battlePhase: 300
+            },
+            [ IS_STARTED_KEY ]: false
           }
         )
+      );
+    }
+    catch(error) {
+      return res(ctx.status(400));
+    }
+  }),
+
+  rest.patch( ROOM_URL, ( _, res, ctx ) => {
+    try {
+      return res(
+        ctx.status(200)
       );
     }
     catch(error) {
