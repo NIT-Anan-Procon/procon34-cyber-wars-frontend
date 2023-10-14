@@ -108,7 +108,6 @@ export const GameRuleEditForm= ({ phase }: GameRuleEditFormProps ) => {
                     <InputField
                       id='settingTime'
                       type='text'
-                      size='medium'
                       error= {errors.settingTime}
                       defaultValue={ phaseSetting[phase] / 60 }
                       placeholder='制限時間を入力してください'

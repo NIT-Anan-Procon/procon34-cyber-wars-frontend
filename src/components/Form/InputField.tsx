@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 import { FieldWrapper, FieldWrapperPassThroughProps } from './FieldWrapper';
-import { InputSizeProps } from '@/assets/styles/dimensions';
 import { colors }         from '@/assets/styles';
 
 
@@ -27,7 +26,6 @@ type InputFieldProps = FieldWrapperPassThroughProps & {
 	id     : string;
 	type  ?: 'text' | 'password';
 	value ?: string | number;
-	size  ?: InputSizeProps | undefined;
 	styles?: string;
 	placeholder ?: string;
 	onChange    ?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -40,7 +38,6 @@ export const InputField = (
 		id, 
 		type, 
 		label,
-		size,
 		styles,
 		value,
 		placeholder,
@@ -60,7 +57,6 @@ export const InputField = (
 				id    = { id }
 				type  = { type }
 				value = { value }
-				size  = { size }
 				styles= { styles }
 				placeholder = { placeholder}
 				defaultValue= { defaultValue }
