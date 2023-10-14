@@ -6,9 +6,22 @@ import { isCorrectState } from "../states/atoms";
 import { isShowHintState } from "../../hint";
 import { colors } from "@/assets/styles";
 import { fetchRoomInfoFn } from "../../room";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRoomInfoQueryKey } from '../../room/api/fetchRoomInfo/fetchRoomInfoQueryKey';
+
+const popUpScore= keyframes`
+  0% {
+    transform: translateY(40px) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1.0);
+  }
+  80%, 100% {
+    opacity: 1;
+  }
+`;
 
 const _ScoreHistory= styled.div<{status: string}>`
   height: 8rem;
@@ -17,6 +30,7 @@ const _ScoreHistory= styled.div<{status: string}>`
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: ${popUpScore} .3s
   
   &::before,
   &::after {
@@ -69,7 +83,9 @@ export const ScoreHistory=() => {
   const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
   const challengeQuery= useQuery( ChallengeQueryKey, fetchChallengeFn );
 
-  const myUserStatus= roomInfoQuery?.data?.host ? 'HOST': 'GUEST';
+  if( !roomInfoQuery?.data ) return null;
+
+  const myUserStatus= roomInfoQuery.data?.host ? 'HOST': 'GUEST';
 
   const point= isCorrect
     ? `+${ addScore }pt`
@@ -81,7 +97,7 @@ export const ScoreHistory=() => {
     <>
       <_ScoreHistory status={ myUserStatus } >
             <span >
-              { 20 }
+              { point }pt
             </span>
       </_ScoreHistory>
     </>
