@@ -27,7 +27,7 @@ type InputFieldProps = FieldWrapperPassThroughProps & {
 	id     : string;
 	type  ?: 'text' | 'password';
 	value ?: string | number;
-	size  ?: InputSizeProps;
+	size  ?: InputSizeProps | undefined;
 	styles?: string;
 	placeholder ?: string;
 	onChange    ?: (event: React.ChangeEvent<HTMLInputElement>) => void;
