@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { settingTimeState } from '../states/atom/settingTimeState';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/Elements';
 import { Form, InputField } from '@/components/Form';
 import { fetchRoomInfoFn } from '@/features/games/room';
@@ -73,6 +73,12 @@ export const GameRuleEditForm= ({ phase, limitTime }: GameRuleEditFormProps ) =>
   const [ isEdit, setIsEdit ]= useState( false );
 
   const { data, isLoading }= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
+
+  useEffect(() => {
+    setPhaseSetting(( prev ) => {
+      return { ...prev,  [ phase ]: limitTime } 
+    });
+  }, [ limitTime ]);
 
   if( isLoading ) {
     return <Loading />

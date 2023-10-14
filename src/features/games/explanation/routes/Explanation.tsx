@@ -66,14 +66,20 @@ export const Explanation= () => {
   ); 
 
   useEffect(() => {
-    if( !roomInfoQuery?.data ) return ;
+    const timer= setTimeout(() => {
+      if( !roomInfoQuery?.data ) return ;
 
-    if( roomInfoQuery?.data?.started ) {
-      navigate('../phase/attack-phase');
-    } else if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
-      exitRoomMutation.mutateAsync();
-    } else {
-      return ; 
+      if( roomInfoQuery?.data?.started ) {
+        navigate('../phase/attack-phase');
+      } else if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
+        exitRoomMutation.mutateAsync();
+      } else {
+        return ; 
+      };      
+    }, 3000)
+
+    return () => {
+      clearTimeout(timer);
     };
   }, [ navigate, roomInfoQuery?.data ]);
 
