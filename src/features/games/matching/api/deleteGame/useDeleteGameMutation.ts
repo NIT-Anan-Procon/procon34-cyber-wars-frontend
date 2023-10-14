@@ -32,6 +32,7 @@ export const useDeleteGameMutation= () => {
           navigate('../standby');
         } else {
           alert('課題が存在しません。');
+          await exitRoomMutation.mutateAsync()
         }
       } else {
         await exitRoomMutation.mutateAsync()
