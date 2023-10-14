@@ -43,7 +43,7 @@ export const GameRulesDescriptions= () => {
   const updateTimeLimitMutation= useUpdateTimeLimitMutation();
   const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
 
-  if( roomInfoQuery .isLoading ) {
+  if( roomInfoQuery.isLoading ) {
     return <Loading />
   };
 
@@ -60,13 +60,13 @@ export const GameRulesDescriptions= () => {
       />
       <_GameRuleSettings>
         <GameRuleSettingWrapper phase={ PHASE.ATTACK_PHASE } >
-          <GameRuleEditForm phase={ PHASE.ATTACK_PHASE } />
+          <GameRuleEditForm phase={ PHASE.ATTACK_PHASE } limitTime={ roomInfoQuery.data?.timeLimit?.attackPhase } />
         </GameRuleSettingWrapper>
         <GameRuleSettingWrapper phase={ PHASE.DEFENCE_PHASE } >
-          <GameRuleEditForm phase={ PHASE.DEFENCE_PHASE } />
+          <GameRuleEditForm phase={ PHASE.DEFENCE_PHASE } limitTime={ roomInfoQuery.data?.timeLimit?.defencePhase } />
         </GameRuleSettingWrapper>
         <GameRuleSettingWrapper phase={ PHASE.BATTLE_PHASE } >
-          <GameRuleEditForm phase={ PHASE.BATTLE_PHASE } />
+          <GameRuleEditForm phase={ PHASE.BATTLE_PHASE } limitTime={ roomInfoQuery.data?.timeLimit?.battlePhase } />
         </GameRuleSettingWrapper>        
       </_GameRuleSettings>
       { roomInfoQuery.data?.host
