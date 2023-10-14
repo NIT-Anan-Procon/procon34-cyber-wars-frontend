@@ -12,6 +12,7 @@ const queryConfig: DefaultOptions= {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     retry: false,
+    cacheTime: 0
   },
 };
 
