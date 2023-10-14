@@ -109,11 +109,13 @@ const $OpponentLoader= styled(Spinner)`
 export const StandBy= () => {
   const navigate= useNavigate();
   const inviteId= useRecoilValue( inviteIdState );
-  
-  const authUserQuery    = useQuery( AuthenticatedUserQueryKey, fetchAuthenticatedUserFn );
   const startGameMutation= usePatchStartGameMutation();
   const exitRoomMutation = useExitRoomMutation();
-
+  const authUserQuery    = useQuery( AuthenticatedUserQueryKey, fetchAuthenticatedUserFn,
+    {
+      refetchOnMount: true
+    }  
+  );
   const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn, 
     {
       refetchInterval: 1000
