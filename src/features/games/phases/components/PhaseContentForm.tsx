@@ -46,7 +46,6 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
       <InputField
         id   = { id } 
         type = { 'text' }
-        size = { 'small' }
         styles={ $InputKeyFeild }
         value= { flagValue }
         placeholder= { 'キーを入力してください' } 

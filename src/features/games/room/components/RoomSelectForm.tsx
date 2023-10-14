@@ -119,7 +119,6 @@ export const RoomSelectForm = ({ onSuccess }: RoomSelectFormProps) => {
                     <InputField
                       id='inviteId'
                       type='text'
-                      size='medium'
                       error= { errors.inviteId }
                       placeholder='ルームIDを入力してください。'
                       registration= { register('inviteId') }
