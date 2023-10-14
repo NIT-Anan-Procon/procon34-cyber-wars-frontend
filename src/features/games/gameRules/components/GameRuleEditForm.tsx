@@ -76,7 +76,7 @@ export const GameRuleEditForm= ({ phase, limitTime }: GameRuleEditFormProps ) =>
 
   useEffect(() => {
     setPhaseSetting(( prev ) => {
-      return { ...prev,  [ phase ]: limitTime * 60 } 
+      return { ...prev,  [ phase ]: limitTime } 
     });
   }, [ limitTime ]);
 
