@@ -10,8 +10,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Loading } from '@/components/Animation';
 import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
 import { fetchRoomInfoFn, fetchRoomInfoQueryKey, useExitRoomMutation } from '../../room';
-// import { useEffect } from 'react';
-// import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 const _ExplanationContents= styled.div`
   height: 80vh;
@@ -54,27 +54,28 @@ const $ReturnToModeButton= styled(Button)`
 `;
 
 export const Explanation= () => {
-  // const navigate= useNavigate();
+  const navigate= useNavigate();
   const endGameMutation = useDeleteGameMutation();
   const exitRoomMutation= useExitRoomMutation();
   const challengeQuery  = useQuery( ChallengeQueryKey, fetchChallengeFn );
   const roomInfoQuery   = useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn, 
     {
+      refetchOnMount : true,
       refetchInterval: (data) => data?.host ? false : 1000 
     }
   ); 
 
-  // useEffect(() => {
-  //   if( !roomInfoQuery?.data ) return;
+  useEffect(() => {
+    if( !roomInfoQuery?.data ) return ;
 
-  //   if( roomInfoQuery?.data?.started ) {
-  //     navigate('../phase/attack-phase');
-  //   } else if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
-  //     exitRoomMutation.mutateAsync();
-  //   } else {
-  //     return; 
-  //   };
-  // }, [ navigate, roomInfoQuery ]);
+    if( roomInfoQuery?.data?.started ) {
+      navigate('../phase/attack-phase');
+    } else if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
+      exitRoomMutation.mutateAsync();
+    } else {
+      return ; 
+    };
+  }, [ navigate, roomInfoQuery?.data ]);
 
   if( challengeQuery.isLoading && roomInfoQuery.isLoading ) {
     return <Loading />
@@ -113,8 +114,7 @@ export const Explanation= () => {
             <$ReturnToModeButton
               type='button'
               onClick={ async() => {
-                await endGameMutation.mutateAsync( false ).then()
-                exitRoomMutation.mutateAsync()
+                await endGameMutation.mutateAsync( false )
               }}
             >
               モード選択へ戻る
