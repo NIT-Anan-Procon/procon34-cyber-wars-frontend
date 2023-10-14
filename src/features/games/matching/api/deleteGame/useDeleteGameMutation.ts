@@ -25,9 +25,9 @@ export const useDeleteGameMutation= () => {
       }
     },
     onSuccess: async( data: REMATCH_SUCCESSFUL ) => {
+      queryClient.clear()
       if( isRematchAtom ) {
         if( data.success ) {
-          queryClient.clear()
           setIsHint( false )
           navigate('../standby');
         } else {
