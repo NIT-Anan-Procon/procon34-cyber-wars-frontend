@@ -61,23 +61,24 @@ const SettingRuleInputStyle=`
 
 type GameRuleEditFormProps= {
   phase: string;
+  limitTime: number;
 };
 
 type SettingTimeFormType= {
   settingTime: number;
 };
 
-export const GameRuleEditForm= ({ phase }: GameRuleEditFormProps ) => {
+export const GameRuleEditForm= ({ phase, limitTime }: GameRuleEditFormProps ) => {
   const [ phaseSetting, setPhaseSetting ]= useRecoilState( settingTimeState );
   const [ isEdit, setIsEdit ]= useState( false );
 
-  const roomInfoQuery= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
+  const { data, isLoading }= useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn );
 
-  if( roomInfoQuery.isLoading ) {
+  if( isLoading ) {
     return <Loading />
   };
 
-  if( !roomInfoQuery?.data ) return null;
+  if( !data ) return null;
 
   const handleEdit= () => {
     setIsEdit( !isEdit );
@@ -121,11 +122,17 @@ export const GameRuleEditForm= ({ phase }: GameRuleEditFormProps ) => {
               </Form>
           </_GameRuleEditFormWrapper>
         : <_GameRuleEditFormWrapper>
-            <h1>{ phaseSetting[phase] / 60 }</h1>
-            <_UnitLabel>分</_UnitLabel> 
-            { roomInfoQuery?.data.host
-              ? <$EditButton type='button' onClick={ handleEdit } >Edit</$EditButton>
-              : undefined
+
+            { data.host
+              ? <>
+                  <h1>{ phaseSetting[phase] / 60 }</h1>
+                  <_UnitLabel>分</_UnitLabel>
+                  <$EditButton type='button' onClick={ handleEdit } >Edit</$EditButton>
+                </>            
+              : <>
+                  <h1>{ limitTime / 60 }</h1>
+                  <_UnitLabel>分</_UnitLabel>
+                </>
             }
           </_GameRuleEditFormWrapper>
       }
