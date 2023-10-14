@@ -47,7 +47,6 @@ export const LoginForm = () => {
               <InputField
                 id   = { 'userName' }        
                 type = { 'text' }
-                size = { 'medium' }
                 label= { 'ユーザ名' }
                 error= { errors.name }
                 registration= { register('name') }      
@@ -55,7 +54,6 @@ export const LoginForm = () => {
               <InputField
                 id   = { 'password' }
                 type = { 'password' }
-                size = { 'medium' }
                 label= { 'パスワード' }
                 error= { errors.password }
                 registration= { register('password') }

@@ -51,7 +51,7 @@ export const PhaseStatusContents= (
 
       <TimerWrapper phase={ phase } >
         <Timer 
-          targetTime = { targetTime[ phase ] * 60 }
+          targetTime = { targetTime[ phase ] }
           redirectUrl= { redirectUrl }
         />
       </TimerWrapper>

@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-
 import { ContentLayout }      from '@/components/Layout';
 import { Button }             from '@/components/Elements';
 import { EditArea, EditorWrapper } from '@/features/games/codeController';
@@ -11,6 +9,9 @@ import { ExplanationMarkdown } from '../components/ExplanationMarkdown';
 import { useQuery } from '@tanstack/react-query';
 import { Loading } from '@/components/Animation';
 import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
+import { fetchRoomInfoFn, fetchRoomInfoQueryKey, useExitRoomMutation } from '../../room';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 const _ExplanationContents= styled.div`
   height: 80vh;
@@ -54,15 +55,33 @@ const $ReturnToModeButton= styled(Button)`
 
 export const Explanation= () => {
   const navigate= useNavigate();
+  const endGameMutation = useDeleteGameMutation();
+  const exitRoomMutation= useExitRoomMutation();
+  const challengeQuery  = useQuery( ChallengeQueryKey, fetchChallengeFn );
+  const roomInfoQuery   = useQuery( fetchRoomInfoQueryKey, fetchRoomInfoFn, 
+    {
+      refetchOnMount : true,
+      refetchInterval: (data) => data?.host ? false : 1000 
+    }
+  ); 
 
-  const endGameMutation= useDeleteGameMutation();
-  const challengeQuery= useQuery(ChallengeQueryKey, fetchChallengeFn);
+  useEffect(() => {
+    if( !roomInfoQuery?.data ) return ;
 
-  if( challengeQuery.isLoading ) {
+    if( roomInfoQuery?.data?.started ) {
+      navigate('../phase/attack-phase');
+    } else if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
+      exitRoomMutation.mutateAsync();
+    } else {
+      return ; 
+    };
+  }, [ navigate, roomInfoQuery?.data ]);
+
+  if( challengeQuery.isLoading && roomInfoQuery.isLoading ) {
     return <Loading />
   };
 
-  if( !challengeQuery?.data ) return null;
+  if( !challengeQuery?.data || !roomInfoQuery?.data ) return null;
 
   return (
     <ContentLayout
@@ -80,26 +99,30 @@ export const Explanation= () => {
           <ExplanationMarkdown />
         </_ExplanationsWrapper>
       </_ExplanationContents>
-      <_RedirectButtons>
-        <$ReturnToModeButton 
-          type='button'
-          onClick={() => {
-            endGameMutation.mutateAsync( true )
-            navigate('../standby')
-          }}
-        >
-          対戦を続ける
-        </$ReturnToModeButton>
-        <$ReturnToModeButton
-          type='button'
-          onClick={() => {
-            endGameMutation.mutateAsync( false )
-            navigate('../../')  
-          }}
-        >
-          モード選択へ戻る
-        </$ReturnToModeButton>      
-      </_RedirectButtons>
+      {
+        roomInfoQuery.data?.host
+        ?
+          <_RedirectButtons>
+            <$ReturnToModeButton 
+              type='button'
+              onClick={ async() => {
+                await endGameMutation.mutateAsync( true )
+              }}
+            >
+              対戦を続ける
+            </$ReturnToModeButton>
+            <$ReturnToModeButton
+              type='button'
+              onClick={ async() => {
+                await endGameMutation.mutateAsync( false )
+              }}
+            >
+              モード選択へ戻る
+            </$ReturnToModeButton>      
+          </_RedirectButtons>
+        : undefined
+      }
+      
     </ContentLayout>
   );
 };
