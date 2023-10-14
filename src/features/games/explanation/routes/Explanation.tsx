@@ -10,8 +10,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Loading } from '@/components/Animation';
 import { ChallengeQueryKey, fetchChallengeFn } from '../../challenge';
 import { fetchRoomInfoFn, fetchRoomInfoQueryKey, useExitRoomMutation } from '../../room';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
+// import { useEffect } from 'react';
+// import { useNavigate } from 'react-router';
 
 const _ExplanationContents= styled.div`
   height: 80vh;
@@ -54,7 +54,7 @@ const $ReturnToModeButton= styled(Button)`
 `;
 
 export const Explanation= () => {
-  const navigate= useNavigate();
+  // const navigate= useNavigate();
   const endGameMutation = useDeleteGameMutation();
   const exitRoomMutation= useExitRoomMutation();
   const challengeQuery  = useQuery( ChallengeQueryKey, fetchChallengeFn );
@@ -64,15 +64,17 @@ export const Explanation= () => {
     }
   ); 
 
-  useEffect(() => {
-    if( !roomInfoQuery?.data ) return;
+  // useEffect(() => {
+  //   if( !roomInfoQuery?.data ) return;
 
-    if( roomInfoQuery?.data?.started ) {
-      navigate('../phase/attack-phase');
-    } else if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
-      exitRoomMutation.mutateAsync();
-    };
-  }, [ navigate, roomInfoQuery?.data ]);
+  //   if( roomInfoQuery?.data?.started ) {
+  //     navigate('../phase/attack-phase');
+  //   } else if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
+  //     exitRoomMutation.mutateAsync();
+  //   } else {
+  //     return; 
+  //   };
+  // }, [ navigate, roomInfoQuery ]);
 
   if( challengeQuery.isLoading && roomInfoQuery.isLoading ) {
     return <Loading />
