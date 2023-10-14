@@ -7,7 +7,7 @@ export const useTransChoicesData= () => {
   const randomSelectDummyList= selectDummyData( DUMMY_DATA_NUM );
 
   function transChoicesData( defaultChoices: Array<string> ): choicesType {
-    const addedDummyData= [...defaultChoices, ...randomSelectDummyList ];
+    const addedDummyData= ['key',...defaultChoices, ...randomSelectDummyList ];
 
     const shuffledChoiceList= shuffleArray( addedDummyData );
 
