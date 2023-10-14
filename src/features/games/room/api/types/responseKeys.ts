@@ -1,3 +1,5 @@
+import { TimeLimitRequestType } from ".";
+
 export type CreateRoomResponseType= {
   inviteId: number;
 };
@@ -9,5 +11,6 @@ export type JoinRoomResponseType= {
 export type RoomInfoResponseType= {
   host: boolean;
   opponentName: string;
+  timeLimit: TimeLimitRequestType;
   started: boolean;
 };

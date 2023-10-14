@@ -80,12 +80,12 @@ export const GameRuleEditForm= ({ phase }: GameRuleEditFormProps ) => {
   if( !roomInfoQuery?.data ) return null;
 
   const handleEdit= () => {
-    setIsEdit( !isEdit );console.log('value')
+    setIsEdit( !isEdit );
   };
 
   const handleSetting= (settingTime: number) => {
     setPhaseSetting(( prev ) => {
-      return { ...prev, [ phase ]: settingTime } 
+      return { ...prev,  [ phase ]: settingTime * 60 } 
     });
     setIsEdit( !isEdit );
   };
@@ -108,21 +108,20 @@ export const GameRuleEditForm= ({ phase }: GameRuleEditFormProps ) => {
                     <InputField
                       id='settingTime'
                       type='text'
-                      size='medium'
                       error= {errors.settingTime}
-                      defaultValue={ phaseSetting[ phase ] }
+                      defaultValue={ phaseSetting[phase] / 60 }
                       placeholder='制限時間を入力してください'
                       registration= {register('settingTime',{ valueAsNumber: true }) }
                       styles={ SettingRuleInputStyle } 
                     />
                     <_UnitLabel>分</_UnitLabel>    
-                    <$EditButton type='submit'>Save</$EditButton>
+                    <$EditButton type='submit' >Save</$EditButton>
                   </>
                 )}
               </Form>
           </_GameRuleEditFormWrapper>
         : <_GameRuleEditFormWrapper>
-            <h1>{ phaseSetting[ phase ] }</h1>
+            <h1>{ phaseSetting[phase] / 60 }</h1>
             <_UnitLabel>分</_UnitLabel> 
             { roomInfoQuery?.data.host
               ? <$EditButton type='button' onClick={ handleEdit } >Edit</$EditButton>

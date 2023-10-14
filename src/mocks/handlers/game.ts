@@ -101,6 +101,7 @@ export const gameHandlers= [
     try {
       return res(
         ctx.status(200),
+        ctx.json({ success: true }),
         ctx.delay(1000)
       )
 
