@@ -3,24 +3,39 @@ import { useNavigate } from 'react-router-dom';
 
 import { deleteGameFn } from '.';
 import { queryClient } from '@/lib/react-query';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { isShowHintState } from '@/features/games/hint';
 import { useExitRoomMutation } from '@/features/games/room';
+import { REMATCH_SUCCESSFUL } from '../types';
+import { isRematchState } from '../../states/atom';
 
 export const useDeleteGameMutation= () => {
   const navigate= useNavigate();
+  const [ isRematchAtom, setIsRematchAtom ]= useRecoilState<boolean>( isRematchState );
   const setIsHint= useSetRecoilState( isShowHintState );
   const exitRoomMutation= useExitRoomMutation();
+
 
   return useMutation({
     onMutate: async( isRematch: boolean ) => {
       if( isRematch ) {
-        queryClient.clear()
-        setIsHint( false )
-        navigate('../standby');
+        setIsRematchAtom( true );
+      } else {
+        setIsRematchAtom( false );
+      }
+    },
+    onSuccess: async( data: REMATCH_SUCCESSFUL ) => {
+      if( isRematchAtom ) {
+        if( data.success ) {
+          queryClient.clear()
+          setIsHint( false )
+          navigate('../standby');
+        } else {
+          alert('課題が存在しません。');
+        }
       } else {
         await exitRoomMutation.mutateAsync()
-      };
+      }
     },
     mutationFn: deleteGameFn
   });
