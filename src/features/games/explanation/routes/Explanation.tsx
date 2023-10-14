@@ -69,6 +69,7 @@ export const Explanation= () => {
     if( !roomInfoQuery?.data ) return ;
 
     if( roomInfoQuery?.data?.started ) {
+      console.log(roomInfoQuery?.data?.started)
       navigate('../phase/attack-phase');
     } else if( !roomInfoQuery?.data?.host && roomInfoQuery?.data?.opponentName === null ) {
       exitRoomMutation.mutateAsync();
