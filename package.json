@@ -24,7 +24,7 @@
     "@types/jest": "^29.5.5",
     "@uiw/codemirror-extensions-color": "^4.21.19",
     "@uiw/codemirror-theme-vscode": "^4.21.19",
-    "@uiw/react-codemirror": "^4.21.19",
+    "@uiw/react-codemirror": "^4.21.20",
     "axios": "^1.5.1",
     "framer-motion": "^10.16.4",
     "prettier": "^3.0.3",
