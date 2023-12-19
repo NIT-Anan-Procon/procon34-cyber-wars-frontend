@@ -24,10 +24,11 @@ const _Button= styled.button<{ active?: boolean }>`
   ${(props) => props.active
     ? css`
         background: ${ colors.primary };
-        color     : ${colors.bgLighter}; 
+        color     : ${ colors.bgLighter };
+        transform: scale(0.9) translateX(-5%) translateY(-5%);
       `
     : css`
-        background: ${colors.secondary};
+        background: ${ colors.secondary };
         color     : black; 
       `
   };
