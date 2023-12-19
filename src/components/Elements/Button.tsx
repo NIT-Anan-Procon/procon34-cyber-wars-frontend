@@ -25,7 +25,6 @@ const _Button= styled.button<{ active?: boolean }>`
     ? css`
         background: ${ colors.primary };
         color     : ${ colors.bgLighter };
-        transform: scale(0.9) translateX(-5%) translateY(-5%);
       `
     : css`
         background: ${ colors.secondary };
