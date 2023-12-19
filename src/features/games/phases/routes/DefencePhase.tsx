@@ -59,7 +59,6 @@ export const DefencePhase= () => {
               onClick={ async() => {
                 await sendCodeMutation.mutateAsync( codeValue );
                 setSended(true);
-
                 const id = setTimeout(() => setSended(false), 3000);
                 clearTimeout(id);
               }}
