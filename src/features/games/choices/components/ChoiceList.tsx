@@ -41,16 +41,19 @@ export const ChoiceList= ({ item }: any ) => {
 
     const checkedItem = updatedChoices.find((item) => item.id === id);
 
-    const lastIndex = checkedList.lastIndexOf(checkedItem!.value);
-
-    console.log("test1")
-    if (lastIndex !== -1) {
-      console.log("test2")
-      const updatedList = [
-        ...checkedList.slice(0, lastIndex),
-        ...checkedList.slice(lastIndex + 1),
-      ];
-      setCheckedList(updatedList);
+    if (checkedItem?.checked) {
+      setCheckedList([...checkedList, checkedItem?.value]);
+    } else {
+      const lastIndex = checkedList.lastIndexOf(checkedItem!.value);
+      console.log("test1")
+      if (lastIndex !== -1) {
+        console.log("test2")
+        const updatedList = [
+          ...checkedList.slice(0, lastIndex),
+          ...checkedList.slice(lastIndex + 1),
+        ];
+        setCheckedList(updatedList);
+      }
     }
 
     // if (checkedItem?.checked) {
