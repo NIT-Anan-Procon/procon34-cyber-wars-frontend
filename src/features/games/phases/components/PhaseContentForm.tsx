@@ -44,7 +44,7 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
 
   return (
     <_PhaseContentForm >
-      { sended ? <div style={{ color: 'red'; }}>送信しました</div> : <div></div> }
+      { sended ? <div>送信しました</div> : <div></div> }
       <InputField
         id   = { id } 
         type = { 'text' }
