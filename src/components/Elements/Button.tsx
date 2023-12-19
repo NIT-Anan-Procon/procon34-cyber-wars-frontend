@@ -21,6 +21,10 @@ const _Button= styled.button<{ active?: boolean }>`
     transition: 0.5s;
   }
 
+  &:active {
+    transform: scale(1.2) translateY(-50%);
+  }
+
   ${(props) => props.active
     ? css`
         background: ${ colors.primary };
