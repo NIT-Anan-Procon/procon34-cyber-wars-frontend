@@ -54,7 +54,7 @@ export const DefencePhase= () => {
         foot={
           <>
             {sended ? <div style="color: red;">送信しました</div> : <div></div>}
-            <$SendCodeButton 
+            <$SendCodeButton
               type={'button'}
               onClick={ async() => {
                 await sendCodeMutation.mutateAsync( codeValue );
