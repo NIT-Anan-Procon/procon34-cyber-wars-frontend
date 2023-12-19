@@ -46,11 +46,11 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
     <_PhaseContentForm >
       { sended ? <div>送信しました</div> : <div></div> }
       <InputField
-        id   = { id } 
+        id   = { id }
         type = { 'text' }
         styles={ $InputKeyFeild }
         value= { flagValue }
-        placeholder= { 'キーを入力してください' } 
+        placeholder= { 'キーを入力してください' }
         onChange= { handleChange }
       />
       <$SendKeyButton 
