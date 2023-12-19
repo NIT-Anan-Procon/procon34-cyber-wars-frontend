@@ -15,6 +15,7 @@ import { PHP_URL } from '@/features/config';
 import { fetchMyRevisionPathFn, myRevisionPathQueryKey, useSendCodeMutation } from '../../codeController/api';
 import { useRecoilValue } from 'recoil';
 import { codeState } from '../../codeController/states';
+import { useState } from 'react';
 
 const $SendCodeButton= styled(Button)`
   position: absolute;
