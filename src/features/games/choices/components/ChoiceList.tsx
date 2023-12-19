@@ -41,7 +41,7 @@ export const ChoiceList= ({ item }: any ) => {
 
     const checkedItem = updatedChoices.find((item) => item.id === id);
 
-    const lastIndex = checkedList.lastIndexOf(checkedItem?.value);
+    const lastIndex = checkedList.lastIndexOf(checkedItem!.value);
 
     console.log("test1")
     if (lastIndex !== -1) {
