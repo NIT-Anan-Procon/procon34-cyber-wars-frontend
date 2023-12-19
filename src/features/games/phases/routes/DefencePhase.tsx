@@ -53,7 +53,7 @@ export const DefencePhase= () => {
         body={ <EditorWrapper><EditArea fetchedCode={challengeQuery?.data?.code} /></EditorWrapper> }
         foot={
           <>
-            { sended ? <div style={{ color: 'red'; }}>送信しました</div> : <div></div> }
+            { sended ? <div>送信しました</div> : <div></div> }
             <$SendCodeButton
               type={'button'}
               onClick={ async() => {
