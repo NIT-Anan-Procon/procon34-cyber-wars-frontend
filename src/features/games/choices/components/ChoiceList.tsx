@@ -45,9 +45,7 @@ export const ChoiceList= ({ item }: any ) => {
       setCheckedList([...checkedList, checkedItem?.value]);
     } else {
       const lastIndex = checkedList.lastIndexOf(checkedItem!.value);
-      console.log("test1")
       if (lastIndex !== -1) {
-        console.log("test2")
         const updatedList = [
           ...checkedList.slice(0, lastIndex),
           ...checkedList.slice(lastIndex + 1),
@@ -55,12 +53,6 @@ export const ChoiceList= ({ item }: any ) => {
         setCheckedList(updatedList);
       }
     }
-
-    // if (checkedItem?.checked) {
-    //   setCheckedList([...checkedList, checkedItem?.value]);
-    // } else {
-    //   setCheckedList(checkedList.filter((value) => value !== checkedItem?.value));
-    // }
   };
   
   return (
