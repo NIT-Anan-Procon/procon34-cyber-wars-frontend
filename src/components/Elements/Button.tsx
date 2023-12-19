@@ -22,7 +22,7 @@ const _Button= styled.button<{ active?: boolean }>`
   }
 
   &:active {
-    transform: scale(1.2) translateY(-50%);
+    transform: scale(1.1) translateX(-5%) translateY(-5%);
   }
 
   ${(props) => props.active
