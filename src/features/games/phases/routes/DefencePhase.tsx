@@ -61,6 +61,7 @@ export const DefencePhase= () => {
                 setSended(true);
 
                 const id = setTimeout(() => setSended(false), 3000);
+                clearTimeout(id);
               }}
             >
               Send
