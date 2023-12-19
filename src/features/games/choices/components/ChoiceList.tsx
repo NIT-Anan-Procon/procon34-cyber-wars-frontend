@@ -41,11 +41,21 @@ export const ChoiceList= ({ item }: any ) => {
 
     const checkedItem = updatedChoices.find((item) => item.id === id);
 
-    if (checkedItem?.checked) {
-      setCheckedList([...checkedList, checkedItem?.value]);
-    } else {
-      setCheckedList(checkedList.filter((value) => value !== checkedItem?.value));
+    const lastIndex = checkedList.lastIndexOf(checkedItem?.value);
+
+    if (lastIndex !== -1) {
+      const updatedList = [
+        ...checkedList.slice(0, lastIndex),
+        ...checkedList.slice(lastIndex + 1),
+      ];
+      setCheckedList(updatedList);
     }
+
+    // if (checkedItem?.checked) {
+    //   setCheckedList([...checkedList, checkedItem?.value]);
+    // } else {
+    //   setCheckedList(checkedList.filter((value) => value !== checkedItem?.value));
+    // }
   };
   
   return (
