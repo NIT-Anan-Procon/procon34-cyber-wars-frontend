@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Button } from '@/components/Elements';
 import { InputField } from '@/components/Form';
 import { useSendFlagMutation } from '@/features/games/sendFlag';
+import { useState } from 'react';
 
 const _PhaseContentForm= styled.div`
   height    : 100%;
@@ -35,7 +36,7 @@ type PhaseContentFormProps= {
 export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps) => {
   const [ flagValue, setFlagValue ]= React.useState<string>('');
   const sendFlagMutation= useSendFlagMutation();
-  
+  const [sended, setSended] = useState(false);
 
   const handleChange= ( e: React.ChangeEvent<HTMLInputElement> ) => {
     setFlagValue( e.target.value );
@@ -43,6 +44,7 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
 
   return (
     <_PhaseContentForm >
+      { sended ? <div style={{ color: 'red'; }}>送信しました</div> : <div></div> }
       <InputField
         id   = { id } 
         type = { 'text' }
@@ -55,6 +57,9 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
         type={'button'}
         onClick={ async() => {
           await sendFlagMutation.mutateAsync({ endpoint: submitFnEndpoint, flag: flagValue })
+          setSended(true);
+          const id = setTimeout(() => setSended(false), 3000);
+          clearTimeout(id);
         }}
       >
         Send
