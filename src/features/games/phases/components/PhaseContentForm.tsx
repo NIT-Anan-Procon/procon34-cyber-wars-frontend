@@ -36,7 +36,6 @@ type PhaseContentFormProps= {
 export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps) => {
   const [ flagValue, setFlagValue ]= React.useState<string>('');
   const sendFlagMutation= useSendFlagMutation();
-  const [sended, setSended] = useState(false);
 
   const handleChange= ( e: React.ChangeEvent<HTMLInputElement> ) => {
     setFlagValue( e.target.value );
@@ -44,7 +43,6 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
 
   return (
     <_PhaseContentForm >
-      { sended ? <div>送信しました</div> : <div></div> }
       <InputField
         id   = { id }
         type = { 'text' }
@@ -57,9 +55,6 @@ export const PhaseContentForm= ({ id, submitFnEndpoint }: PhaseContentFormProps)
         type={'button'}
         onClick={ async() => {
           await sendFlagMutation.mutateAsync({ endpoint: submitFnEndpoint, flag: flagValue })
-          setSended(true);
-          const id = setTimeout(() => setSended(false), 3000);
-          clearTimeout(id);
         }}
       >
         Send
