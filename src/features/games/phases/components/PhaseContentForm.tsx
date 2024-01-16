@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Button } from '@/components/Elements';
 import { InputField } from '@/components/Form';
 import { useSendFlagMutation } from '@/features/games/sendFlag';
-import { useState } from 'react';
 
 const _PhaseContentForm= styled.div`
   height    : 100%;
