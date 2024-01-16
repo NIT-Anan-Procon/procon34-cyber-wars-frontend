@@ -31,7 +31,6 @@ export const DefencePhase= () => {
   const myRevisionQuery= useQuery( myRevisionPathQueryKey, fetchMyRevisionPathFn );
   const sendCodeMutation= useSendCodeMutation();
   const codeValue= useRecoilValue( codeState );
-  const [sended, setSended] = useState(false);
 
   if( challengeQuery.isLoading && myRevisionQuery.isLoading ) {
     return <Loading />
@@ -53,14 +52,10 @@ export const DefencePhase= () => {
         body={ <EditorWrapper><EditArea fetchedCode={challengeQuery?.data?.code} /></EditorWrapper> }
         foot={
           <>
-            { sended ? <div>送信しました</div> : <div></div> }
             <$SendCodeButton
               type={'button'}
               onClick={ async() => {
                 await sendCodeMutation.mutateAsync( codeValue );
-                setSended(true);
-                const id = setTimeout(() => setSended(false), 3000);
-                clearTimeout(id);
               }}
             >
               Send
